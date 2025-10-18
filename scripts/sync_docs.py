@@ -155,6 +155,9 @@ def write_pages_metadata(doc_dir: Path, slug: str, title: str) -> None:
     placeholder_path = downloads_dir / "index.md"
     if not downloads_dir.exists():
         downloads_dir.mkdir(parents=True, exist_ok=True)
+    downloads_meta = downloads_dir / ".pages"
+    if not downloads_meta.exists():
+        downloads_meta.write_text("collapse_single_pages: true\n", encoding="utf-8")
     if not placeholder_path.exists():
         placeholder_path.write_text(
             "---\n"
