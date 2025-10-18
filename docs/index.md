@@ -1,3 +1,7 @@
+---
+title: Home
+---
+
 # AngryScan Documentation Hub
 
 Welcome to the aggregated documentation site for the AngryScan ecosystem. This site is
