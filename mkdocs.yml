@@ -1,0 +1,31 @@
+site_name: AngryScan Docs
+site_description: Aggregated documentation for the AngryScan platform.
+site_url: https://angryscan.github.io/angryscan.org/
+repo_url: https://github.com/angryscan/angryscan.org
+
+theme:
+  name: material
+  features:
+    - navigation.expand
+default_language: en
+
+markdown_extensions:
+  - admonition
+  - codehilite
+  - footnotes
+  - md_in_html
+  - pymdownx.details
+  - pymdownx.superfences
+  - toc:
+      permalink: true
+
+plugins:
+  - search
+  - awesome-pages
+  - minify:
+      minify_html: true
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/angryscan

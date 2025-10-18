@@ -1,0 +1,17 @@
+# Build artifacts
+site/
+
+# Temporary sources pulled during builds
+sources/
+
+# Aggregated documentation from upstream repositories
+.docs-cache/
+docs/angrydata-app/
+docs/angrydata-core/
+
+# Python
+__pycache__/
+*.pyc
+
+# MacOS
+.DS_Store
