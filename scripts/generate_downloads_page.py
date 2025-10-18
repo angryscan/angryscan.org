@@ -29,32 +29,46 @@ title: Downloads
 Use the links below to download pre-built packages for Angry Data Scanner.
 """
 
-CATEGORY_DEFINITIONS: Tuple[Tuple[str, str, Tuple[str, ...]], ...] = (
+CATEGORY_DEFINITIONS: Tuple[
+    Tuple[str, str, str, Tuple[str, ...], str],
+    ...
+] = (
     (
         "linux_portable",
-        ":material-linux: Linux (portable)",
+        "Linux",
+        "Portable tarball",
         ("-linux-amd64.tar.gz",),
+        "https://img.shields.io/badge/Linux-111111?logo=linux&logoColor=white",
     ),
     (
         "windows_installer",
-        ":material-microsoft-windows: Windows (installer)",
+        "Windows",
+        "Installer",
         (".exe", ".msix", ".appinstaller"),
+        "https://img.shields.io/badge/Windows%20Installer-0067b8?logo=windows&logoColor=white",
     ),
     (
         "debian",
-        ":material-debian: Debian package",
+        "Linux",
+        "Debian package",
         (".deb",),
+        "https://img.shields.io/badge/Debian%20Package-a80030?logo=debian&logoColor=white",
     ),
     (
         "windows_portable",
-        ":material-microsoft-windows-classic: Windows (portable)",
+        "Windows",
+        "Portable zip",
         ("-windows-amd64.zip",),
+        "https://img.shields.io/badge/Windows%20Portable-444?logo=windows&logoColor=white",
     ),
 )
 
 CATEGORY_ORDER = [definition[0] for definition in CATEGORY_DEFINITIONS] + ["other"]
-CATEGORY_LABELS = {key: label for key, label, _ in CATEGORY_DEFINITIONS}
-CATEGORY_LABELS["other"] = ":material-package: Other assets"
+
+CATEGORY_METADATA = {
+    key: {"os": os_label, "installer": installer, "badge": badge_url}
+    for key, os_label, installer, _, badge_url in CATEGORY_DEFINITIONS
+}
 
 
 def fetch_releases(limit: int) -> List[dict]:
@@ -81,7 +95,7 @@ def categorize_assets(assets: Iterable[dict]) -> Dict[str, List[dict]]:
     for asset in assets:
         name = asset.get("name", "")
         target_category = "other"
-        for key, _, suffixes in CATEGORY_DEFINITIONS:
+        for key, _, _, suffixes, _ in CATEGORY_DEFINITIONS:
             if any(name.endswith(suffix) for suffix in suffixes):
                 target_category = key
                 break
@@ -89,14 +103,24 @@ def categorize_assets(assets: Iterable[dict]) -> Dict[str, List[dict]]:
     return {key: items for key, items in categorized.items() if items}
 
 
-def render_category_table(assets: List[dict]) -> List[str]:
-    lines = ["| File | Size | |", "| --- | ---: | --- |"]
+def render_category_table(category: str, assets: List[dict]) -> List[str]:
+    meta = CATEGORY_METADATA.get(
+        category,
+        {
+            "os": "Other",
+            "installer": "Artifacts",
+            "badge": "https://img.shields.io/badge/Download-555555?style=flat",
+        },
+    )
+    lines = ["| OS | Installer | Size | |", "| --- | --- | ---: | --- |"]
     for asset in assets:
         asset_name = asset.get("name", "artifact")
         size = human_size(asset.get("size", 0))
         download_url = asset.get("browser_download_url", asset.get("html_url", "#"))
+        badge = meta["badge"]
         lines.append(
-            f"| `{asset_name}` | {size} | [:material-download: Download]({download_url}) |"
+            f'| ![]({badge}) | {meta["installer"]} (`{asset_name}`) | {size} | '
+            f'[![Download](https://img.shields.io/badge/Download-4c1?logo=github&style=flat)]({download_url}) |'
         )
     return lines
 
@@ -126,8 +150,11 @@ def format_release(release: dict) -> str:
         if key not in categorized_assets:
             continue
         body_lines.append("")
-        body_lines.append(f"### {CATEGORY_LABELS.get(key, key.title())}")
-        body_lines.extend(render_category_table(categorized_assets[key]))
+        meta = CATEGORY_METADATA.get(key, {"os": "Other", "installer": "Artifacts", "badge": ""})
+        body_lines.append(
+            f'### {meta.get("os", "Other")} · {meta.get("installer", "Artifacts")}'
+        )
+        body_lines.extend(render_category_table(key, categorized_assets[key]))
 
     body_lines.append("")
     body_lines.append(
