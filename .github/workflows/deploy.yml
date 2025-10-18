@@ -50,6 +50,9 @@ jobs:
       - name: Aggregate documentation
         run: python scripts/sync_docs.py
 
+      - name: Translate documentation
+        run: python scripts/translate_docs.py
+
       - name: Build site
         run: mkdocs build --strict
 

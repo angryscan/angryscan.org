@@ -29,6 +29,7 @@ The aggregation happens automatically in CI and whenever you run the helper scri
 
    ```bash
    python scripts/sync_docs.py
+   python scripts/translate_docs.py
    mkdocs serve
    ```
 
@@ -40,5 +41,5 @@ App documentation (as the default entry point), and the navigation exposes each 
 
 GitHub Actions builds and deploys the site to GitHub Pages on every push to the default
 branch. The workflow fetches the latest documentation from the two upstream repositories,
-runs `scripts/sync_docs.py`, builds the MkDocs site, and publishes the resulting static
-files.
+runs `scripts/sync_docs.py` followed by `scripts/translate_docs.py`, builds the MkDocs site,
+and publishes the resulting static files.

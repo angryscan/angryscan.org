@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import re
 import shutil
 from pathlib import Path
 from typing import Iterable, Tuple
@@ -36,7 +37,8 @@ def reset_docs_root() -> None:
 def copytree(src: Path, dest: Path) -> None:
     if dest.exists():
         shutil.rmtree(dest)
-    shutil.copytree(src, dest)
+    ignore = shutil.ignore_patterns("*.ru.md", "*.ru.markdown", "*.es.md", "*.es.markdown")
+    shutil.copytree(src, dest, ignore=ignore)
 
 
 def ensure_index(doc_dir: Path) -> None:
@@ -100,9 +102,25 @@ def sync_repo(repo_slug: str, title: str) -> None:
             " Provide a docs/ directory or README.md."
         )
 
+    has_inline_index = any((doc_root / f"index.{ext}").exists() for ext in ("md", "markdown"))
+    has_inline_readme = any((doc_root / f"README.{ext}").exists() for ext in ("md", "markdown"))
+    repo_readme = repo_dir / "README.md"
+    should_inject_repo_readme = not has_inline_index and not has_inline_readme and repo_readme.exists()
+
     destination = DOCS_ROOT / repo_slug
     copytree(doc_root, destination)
-    ensure_index(destination)
+
+    if should_inject_repo_readme:
+        content = repo_readme.read_text(encoding="utf-8")
+        doc_prefix = f"{doc_root.name}/"
+        link_prefix_pattern = re.compile(rf"(\[[^\]]+\]\()({re.escape(doc_prefix)})([^)]+)\)")
+        content = content.replace("(README.ru.md", "(index.ru.md")
+        content = content.replace("(README.md", "(index.md")
+        content = link_prefix_pattern.sub(r"\1\3)", content)
+        destination.joinpath("index.md").write_text(content, encoding="utf-8")
+    else:
+        ensure_index(destination)
+
     write_pages_metadata(destination, title)
 
     temp_dir = repo_dir / ".aggregated-docs"
