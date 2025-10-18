@@ -49,6 +49,9 @@ def is_translation_filename(name: str) -> bool:
     return any(lowered.endswith(suffix) for suffix in TRANSLATION_SUFFIXES)
 
 
+ASSET_PRESERVE = {"assets"}
+
+
 def reset_docs_root() -> None:
     """Remove any previously generated documentation from this repository."""
     if not DOCS_ROOT.exists():
@@ -56,7 +59,7 @@ def reset_docs_root() -> None:
         return
 
     for path in DOCS_ROOT.iterdir():
-        if path.name == ".gitignore":
+        if path.name in {".gitignore", *ASSET_PRESERVE}:
             continue
         if path.is_dir():
             shutil.rmtree(path)
