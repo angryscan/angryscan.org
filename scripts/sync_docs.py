@@ -165,24 +165,8 @@ def write_pages_metadata(doc_dir: Path, slug: str, title: str) -> None:
             encoding="utf-8",
         )
 
-    nav_lines: list[str] = []
-
-    markdown_pages = sorted(
-        (
-            md_file.name
-            for md_file in doc_dir.glob("*.md")
-            if md_file.name.lower() not in {"index.md"}
-            and not is_translation_filename(md_file.name)
-        ),
-        key=str.lower,
-    )
-    for filename in markdown_pages:
-        nav_lines.append(f"  - {filename}")
-
-    nav_lines.append("  - downloads")
-
     pages_file.write_text(
-        title_line + "nav:\n" + "\n".join(nav_lines) + "\n",
+        title_line + "arrange:\n  - ...\n  - downloads\n",
         encoding="utf-8",
     )
 
