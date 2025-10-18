@@ -21,12 +21,13 @@ markdown_extensions:
 
 plugins:
   - i18n:
-      default_language: en
       docs_structure: suffix
       languages:
-        en: English
-        ru: Русский
-      on_missing_translation: warn
+        - locale: en
+          name: English
+          default: true
+        - locale: ru
+          name: Русский
       reconfigure_material: true
   - search
   - awesome-pages
