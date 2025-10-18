@@ -3,8 +3,12 @@ site_description: Aggregated documentation for the AngryScan platform.
 site_url: https://angryscan.github.io/angryscan.org/
 repo_url: https://github.com/angryscan/angryscan.org
 
+hooks:
+  - hooks.py
+
 theme:
   name: material
+  language: en
   features:
     - navigation.expand
 
@@ -19,12 +23,33 @@ markdown_extensions:
       permalink: true
 
 plugins:
+  - i18n:
+      docs_structure: suffix
+      languages:
+        - locale: en
+          name: English
+          default: true
+        - locale: ru
+          name: Русский
+        - locale: es
+          name: Español
+      reconfigure_material: true
   - search
   - awesome-pages
   - minify:
       minify_html: true
 
 extra:
+  alternate:
+    - name: English
+      lang: en
+      link: /
+    - name: Русский
+      lang: ru
+      link: /ru/
+    - name: Español
+      lang: es
+      link: /es/
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/angryscan

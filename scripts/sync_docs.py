@@ -114,8 +114,11 @@ def sync_repo(repo_slug: str, title: str) -> None:
         content = repo_readme.read_text(encoding="utf-8")
         doc_prefix = f"{doc_root.name}/"
         link_prefix_pattern = re.compile(rf"(\[[^\]]+\]\()({re.escape(doc_prefix)})([^)]+)\)")
-        content = content.replace("(README.ru.md", "(index.ru.md")
+        content = content.replace("(README.ru.md", f"(/ru/{repo_slug}/)")
+        content = content.replace("(README.es.md", f"(/es/{repo_slug}/)")
         content = content.replace("(README.md", "(index.md")
+        content = content.replace("(index.ru.md", f"(/ru/{repo_slug}/)")
+        content = content.replace("(index.es.md", f"(/es/{repo_slug}/)")
         content = link_prefix_pattern.sub(r"\1\3)", content)
         destination.joinpath("index.md").write_text(content, encoding="utf-8")
     else:
@@ -145,7 +148,7 @@ def sync(repos: Iterable[Tuple[str, str]]) -> None:
     redirect.write_text(
         (
             "---\n"
-            "title: Redirecting...\n"
+            "title: Home\n"
             "hide:\n"
             "  - navigation\n"
             "  - toc\n"

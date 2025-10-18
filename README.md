@@ -36,6 +36,8 @@ The aggregation happens automatically in CI and whenever you run the helper scri
 The documentation from each project is copied verbatim into the built site. No pages authored in this
 repository are published—when the site loads, visitors are automatically redirected into the AngryData
 App documentation (as the default entry point), and the navigation exposes each upstream project.
+Language switching happens through the Material UI selector (Russian and Spanish are generated from the
+English originals); the translated markdown files themselves are hidden from the navigation.
 
 ## Continuous deployment
 
