@@ -32,18 +32,9 @@ The aggregation happens automatically in CI and whenever you run the helper scri
    mkdocs serve
    ```
 
-The documentation from each project will appear in its own section in the navigation.
-
-## Localization
-
-The site uses [`mkdocs-static-i18n`](https://github.com/ultrabug/mkdocs-static-i18n) to provide
-localized builds. English is the default language and a Russian translation is included for the
-landing page. To translate any additional page, create a sibling file with the appropriate language
-suffix—for example, add `page.ru.md` next to `page.md`. Missing translations automatically fall back
-to the English source.
-
-Visitors are redirected to the best-matching language based on their browser settings. Their manual
-language choice is remembered locally so returning visitors keep their preference.
+The documentation from each project is copied verbatim into the built site. No pages authored in this
+repository are published—when the site loads, visitors are automatically redirected into the AngryData
+App documentation (as the default entry point), and the navigation exposes each upstream project.
 
 ## Continuous deployment
 

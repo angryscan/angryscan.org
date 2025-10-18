@@ -18,6 +18,21 @@ REPOSITORIES: Tuple[Tuple[str, str], ...] = (
 )
 
 
+def reset_docs_root() -> None:
+    """Remove any previously generated documentation from this repository."""
+    if not DOCS_ROOT.exists():
+        DOCS_ROOT.mkdir(parents=True)
+        return
+
+    for path in DOCS_ROOT.iterdir():
+        if path.name == ".gitignore":
+            continue
+        if path.is_dir():
+            shutil.rmtree(path)
+        else:
+            path.unlink()
+
+
 def copytree(src: Path, dest: Path) -> None:
     if dest.exists():
         shutil.rmtree(dest)
@@ -96,9 +111,35 @@ def sync_repo(repo_slug: str, title: str) -> None:
 
 
 def sync(repos: Iterable[Tuple[str, str]]) -> None:
-    DOCS_ROOT.mkdir(exist_ok=True)
+    reset_docs_root()
     for slug, title in repos:
         sync_repo(slug, title)
+
+    root_pages = DOCS_ROOT / ".pages"
+    nav_items = "\n".join(f"  - {slug}" for slug, _ in repos)
+    root_pages.write_text(
+        f"title: AngryScan\nnav:\n{nav_items}\n",
+        encoding="utf-8",
+    )
+
+    default_slug, default_title = repos[0]
+    redirect = DOCS_ROOT / "index.md"
+    redirect.write_text(
+        (
+            "---\n"
+            "title: Redirecting...\n"
+            "hide:\n"
+            "  - navigation\n"
+            "  - toc\n"
+            "---\n\n"
+            f'<meta http-equiv="refresh" content="0; url={default_slug}/" />\n'
+            "<script>"
+            f'window.location.replace("{default_slug}/");'
+            "</script>\n\n"
+            f"If you are not redirected automatically, open [{default_title}]({default_slug}/index.md).\n"
+        ),
+        encoding="utf-8",
+    )
 
 
 def main() -> None:

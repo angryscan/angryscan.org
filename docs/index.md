@@ -1,18 +1,11 @@
 ---
-title: Home
+title: Redirecting...
+hide:
+  - navigation
+  - toc
 ---
 
-# AngryScan Documentation Hub
+<meta http-equiv="refresh" content="0; url=angrydata-app/" />
+<script>window.location.replace("angrydata-app/");</script>
 
-Welcome to the aggregated documentation site for the AngryScan ecosystem. This site is
-automatically built from the documentation that lives in two source repositories:
-
-- [`angrydata-app`](https://github.com/angryscan/angrydata-app)
-- [`angrydata-core`](https://github.com/angryscan/angrydata-core)
-
-On every update, the latest documentation from those projects is synced into this site so
-you always have a single reference for the entire platform. Use the navigation sidebar to
-jump directly into the detailed guides for each project.
-
-> **Tip:** If you are building the site locally, run `python scripts/sync_docs.py` first to
-> pull in the latest documentation from the upstream repositories.
+If you are not redirected automatically, open [AngryData App](angrydata-app/index.md).
