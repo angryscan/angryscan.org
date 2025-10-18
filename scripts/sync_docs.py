@@ -151,6 +151,20 @@ def write_pages_metadata(doc_dir: Path, slug: str, title: str) -> None:
         pages_file.write_text(title_line, encoding="utf-8")
         return
 
+    downloads_dir = doc_dir / "downloads"
+    placeholder_path = downloads_dir / "index.md"
+    if not downloads_dir.exists():
+        downloads_dir.mkdir(parents=True, exist_ok=True)
+    if not placeholder_path.exists():
+        placeholder_path.write_text(
+            "---\n"
+            "title: Downloads\n"
+            "---\n\n"
+            "Downloads will be generated automatically. "
+            "Run `python scripts/generate_downloads_page.py` to populate this section.\n",
+            encoding="utf-8",
+        )
+
     nav_lines: list[str] = []
     if (doc_dir / "index.md").exists():
         nav_lines.append("  - index.md")
