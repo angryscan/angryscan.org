@@ -10,13 +10,15 @@ from typing import Iterable, Iterator, List
 
 from deep_translator import GoogleTranslator
 
+from config_utils import get_i18n_languages, get_translation_locales
+
 ROOT = Path(__file__).resolve().parents[1]
 DOCS_ROOT = ROOT / "docs"
 
-TRANSLATION_SUFFIXES = {
-    "ru": ".ru.md",
-    "es": ".es.md",
-}
+LANGUAGE_METADATA = get_i18n_languages()
+TRANSLATION_LOCALES = get_translation_locales()
+
+TRANSLATION_SUFFIXES = {locale: f".{locale}.md" for locale in TRANSLATION_LOCALES}
 
 IGNORED_NAMES = {".gitignore", ".pages"}
 IGNORED_DIRS = {".git", "__pycache__", "assets"}
@@ -84,6 +86,7 @@ def translate_file(path: Path, targets: Iterable[str]) -> None:
     front_matter, body = split_front_matter(content)
 
     for lang in targets:
+        suffix = TRANSLATION_SUFFIXES.get(lang, f".{lang}.md")
         translator = GoogleTranslator(source="auto", target=lang)
         translated_body = translate_blocks(body, translator)
         pieces = []
@@ -91,12 +94,25 @@ def translate_file(path: Path, targets: Iterable[str]) -> None:
             pieces.append(front_matter)
             pieces.append("")
         pieces.append(translated_body)
-        output_path = path.with_suffix("")
-        output_path = Path(str(output_path) + TRANSLATION_SUFFIXES[lang])
+        output_path = build_translation_path(path, suffix)
         output_path.write_text("\n".join(pieces).strip() + "\n", encoding="utf-8")
 
 
+def build_translation_path(path: Path, suffix: str) -> Path:
+    base_name = path.name
+    if base_name.endswith(".markdown"):
+        core = base_name[: -len(".markdown")]
+        return path.with_name(f"{core}{suffix[:-3]}.markdown")
+    if base_name.endswith(".md"):
+        core = base_name[: -len(".md")]
+        return path.with_name(f"{core}{suffix}")
+    return path.with_name(f"{base_name}{suffix}")
+
+
 def run(targets: Iterable[str]) -> None:
+    targets = list(targets)
+    if not targets:
+        return
     DOCS_ROOT.mkdir(exist_ok=True)
     for md_file in iter_markdown_files(DOCS_ROOT):
         translate_file(md_file, targets)
@@ -107,7 +123,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--targets",
         nargs="+",
-        default=list(TRANSLATION_SUFFIXES.keys()),
+        default=TRANSLATION_LOCALES,
         help="Language codes to translate into (default: %(default)s).",
     )
     return parser.parse_args()

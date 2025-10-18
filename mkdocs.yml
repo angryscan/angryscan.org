@@ -1,7 +1,7 @@
-site_name: AngryScan Docs
-site_description: Aggregated documentation for the AngryScan platform.
+site_name: Angry Data Scanner
+site_description: Aggregated documentation for the Angry Data Scanner platform.
 site_url: https://angryscan.github.io/angryscan.org/
-repo_url: https://github.com/angryscan/angryscan.org
+repo_url: https://github.com/angryscan/angrydata-app
 
 hooks:
   - hooks.py
@@ -33,6 +33,8 @@ plugins:
           name: Русский
         - locale: es
           name: Español
+        - locale: de
+          name: Deutsch
       reconfigure_material: true
   - search
   - awesome-pages
@@ -50,6 +52,9 @@ extra:
     - name: Español
       lang: es
       link: /es/
+    - name: Deutsch
+      lang: de
+      link: /de/
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/angryscan
+      link: https://github.com/angryscan/angrydata-app

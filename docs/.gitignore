@@ -2,5 +2,7 @@ angrydata-app/
 angrydata-core/
 index.md
 .pages
+downloads/
 *.ru.md
 *.es.md
+*.de.md

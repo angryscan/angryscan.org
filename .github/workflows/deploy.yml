@@ -50,6 +50,9 @@ jobs:
       - name: Aggregate documentation
         run: python scripts/sync_docs.py
 
+      - name: Generate downloads page
+        run: python scripts/generate_downloads_page.py
+
       - name: Translate documentation
         run: python scripts/translate_docs.py
 
