@@ -55,12 +55,8 @@ plugins:
   - minify:
       minify_html: true
 
-extra_css:
-  - assets/styles/theme-toggle.css
 
-extra_javascript:
-  - assets/javascripts/theme-toggle.js
-  - assets/javascripts/github-stats.js
+extra_javascript: []
 
 extra:
   alternate:
