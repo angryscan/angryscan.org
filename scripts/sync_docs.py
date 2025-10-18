@@ -166,8 +166,6 @@ def write_pages_metadata(doc_dir: Path, slug: str, title: str) -> None:
         )
 
     nav_lines: list[str] = []
-    if (doc_dir / "index.md").exists():
-        nav_lines.append("  - index.md")
 
     markdown_pages = sorted(
         (
