@@ -189,12 +189,12 @@ def render_additional_assets(assets: Iterable[dict]) -> List[str]:
     items = list(assets)
     if not items:
         return []
-    lines = ["", "**Additional assets**"]
+    lines = ["", "**Additional assets**", ""]
     for asset in items:
         name = asset.get("name", "artifact")
         url = asset.get("browser_download_url", asset.get("html_url", "#"))
         size = human_size(asset.get("size", 0))
-        lines.append(f"- [`{name}`]({url}) ({size})")
+        lines.append(f"[`{name}`]({url}) ({size})  ")
     return lines
 
 
