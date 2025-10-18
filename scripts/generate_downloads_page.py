@@ -6,13 +6,14 @@ from __future__ import annotations
 import argparse
 import datetime as dt
 from pathlib import Path
+from dataclasses import dataclass
 from typing import Dict, Iterable, List, Tuple
 
 import requests
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCS_ROOT = ROOT / "docs"
-OUTPUT_DIR = DOCS_ROOT / "downloads"
+OUTPUT_DIR = DOCS_ROOT / "angrydata-app" / "downloads"
 OUTPUT_PATH = OUTPUT_DIR / "index.md"
 
 REPO_OWNER = "angryscan"
@@ -29,45 +30,68 @@ title: Downloads
 Use the links below to download pre-built packages for Angry Data Scanner.
 """
 
-CATEGORY_DEFINITIONS: Tuple[
-    Tuple[str, str, str, Tuple[str, ...], str],
-    ...
-] = (
-    (
-        "linux_portable",
-        "Linux",
-        "Portable tarball",
-        ("-linux-amd64.tar.gz",),
-        "https://img.shields.io/badge/Linux-111111?logo=linux&logoColor=white",
+@dataclass(frozen=True)
+class AssetRule:
+    """Configuration describing how to surface a release asset on the downloads page."""
+
+    os_name: str
+    badge_url: str
+    alt_text: str
+    suffixes: Tuple[str, ...]
+    preferred_substrings: Tuple[str, ...] = ()
+
+    def matches(self, asset_name: str) -> bool:
+        return any(asset_name.endswith(suffix) for suffix in self.suffixes)
+
+
+ASSET_RULES: Tuple[AssetRule, ...] = (
+    AssetRule(
+        os_name="Windows",
+        badge_url="https://img.shields.io/badge/Setup-x64-0078D6?style=for-the-badge&logo=windows",
+        alt_text="Windows setup (x64)",
+        suffixes=(".exe",),
+        preferred_substrings=("amd64", "x64"),
     ),
-    (
-        "windows_installer",
-        "Windows",
-        "Installer",
-        (".exe", ".msix", ".appinstaller"),
-        "https://img.shields.io/badge/Windows%20Installer-0067b8?logo=windows&logoColor=white",
+    AssetRule(
+        os_name="Windows",
+        badge_url="https://img.shields.io/badge/Portable-x64-0078D6?style=for-the-badge&logo=windows",
+        alt_text="Windows portable .zip",
+        suffixes=("-windows-amd64.zip",),
+        preferred_substrings=("amd64", "x64"),
     ),
-    (
-        "debian",
-        "Linux",
-        "Debian package",
-        (".deb",),
-        "https://img.shields.io/badge/Debian%20Package-a80030?logo=debian&logoColor=white",
+    AssetRule(
+        os_name="Linux",
+        badge_url="https://img.shields.io/badge/DEB-x64-A81D33?style=for-the-badge&logo=debian",
+        alt_text="Linux .deb (amd64)",
+        suffixes=(".deb",),
+        preferred_substrings=("amd64", "x86_64"),
     ),
-    (
-        "windows_portable",
-        "Windows",
-        "Portable zip",
-        ("-windows-amd64.zip",),
-        "https://img.shields.io/badge/Windows%20Portable-444?logo=windows&logoColor=white",
+    AssetRule(
+        os_name="Linux",
+        badge_url="https://img.shields.io/badge/Portable-x64-333333?style=for-the-badge&logo=linux",
+        alt_text="Linux portable tarball",
+        suffixes=("-linux-amd64.tar.gz",),
+        preferred_substrings=("amd64", "x86_64"),
+    ),
+    AssetRule(
+        os_name="macOS",
+        badge_url="https://img.shields.io/badge/macOS-x64-000000?style=for-the-badge&logo=apple",
+        alt_text="macOS build",
+        suffixes=(".dmg", ".pkg", "-macos.zip"),
+        preferred_substrings=("universal", "arm64", "x86_64"),
     ),
 )
 
-CATEGORY_ORDER = [definition[0] for definition in CATEGORY_DEFINITIONS] + ["other"]
-
-CATEGORY_METADATA = {
-    key: {"os": os_label, "installer": installer, "badge": badge_url}
-    for key, os_label, installer, _, badge_url in CATEGORY_DEFINITIONS
+OS_ORDER = ("Windows", "Linux", "macOS")
+OS_LABELS = {
+    "Windows": "**Windows**",
+    "Linux": "**Linux**",
+    "macOS": "**macOS**",
+}
+OS_PLACEHOLDER = {
+    "Windows": "N/A",
+    "Linux": "N/A",
+    "macOS": '<img src="https://img.shields.io/badge/macOS-in%20progress-000000?style=for-the-badge&logo=apple" alt="macOS build in progress">',
 }
 
 
@@ -90,38 +114,87 @@ def human_size(num_bytes: int) -> str:
     return f"{num_bytes:.1f} GB"
 
 
-def categorize_assets(assets: Iterable[dict]) -> Dict[str, List[dict]]:
-    categorized: Dict[str, List[dict]] = {key: [] for key in CATEGORY_ORDER}
+def select_preferred_asset(
+    current_asset: dict, candidate_asset: dict, preferred_substrings: Tuple[str, ...]
+) -> dict:
+    """Choose the most appropriate asset when multiple match the same rule."""
+
+    if not current_asset:
+        return candidate_asset
+    if not preferred_substrings:
+        return current_asset
+
+    def score(asset: dict) -> Tuple[int, int]:
+        name = asset.get("name", "").lower()
+        for idx, token in enumerate(preferred_substrings):
+            if token and token.lower() in name:
+                return idx, -asset.get("size", 0)
+        return len(preferred_substrings), -asset.get("size", 0)
+
+    return candidate_asset if score(candidate_asset) < score(current_asset) else current_asset
+
+
+def build_os_downloads(assets: Iterable[dict]) -> Tuple[Dict[str, List[str]], List[dict]]:
+    """
+    Group release assets by operating system and prepare HTML button markup.
+
+    Returns a mapping of OS name to button HTML snippets and a list of assets that
+    were not matched by any rule so they can be surfaced as additional downloads.
+    """
+
+    selected: Dict[AssetRule, dict] = {}
+    extras: List[dict] = []
+
     for asset in assets:
         name = asset.get("name", "")
-        target_category = "other"
-        for key, _, _, suffixes, _ in CATEGORY_DEFINITIONS:
-            if any(name.endswith(suffix) for suffix in suffixes):
-                target_category = key
-                break
-        categorized.setdefault(target_category, []).append(asset)
-    return {key: items for key, items in categorized.items() if items}
+        matched_rule = next((rule for rule in ASSET_RULES if rule.matches(name)), None)
+        if matched_rule is None:
+            extras.append(asset)
+            continue
 
-
-def render_category_table(category: str, assets: List[dict]) -> List[str]:
-    meta = CATEGORY_METADATA.get(
-        category,
-        {
-            "os": "Other",
-            "installer": "Artifacts",
-            "badge": "https://img.shields.io/badge/Download-555555?style=flat",
-        },
-    )
-    lines = ["| OS | Installer | Size | |", "| --- | --- | ---: | --- |"]
-    for asset in assets:
-        asset_name = asset.get("name", "artifact")
-        size = human_size(asset.get("size", 0))
-        download_url = asset.get("browser_download_url", asset.get("html_url", "#"))
-        badge = meta["badge"]
-        lines.append(
-            f'| ![]({badge}) | {meta["installer"]} (`{asset_name}`) | {size} | '
-            f'[![Download](https://img.shields.io/badge/Download-4c1?logo=github&style=flat)]({download_url}) |'
+        existing_asset = selected.get(matched_rule)
+        preferred_asset = select_preferred_asset(
+            existing_asset, asset, matched_rule.preferred_substrings
         )
+        if preferred_asset is asset and existing_asset is not None:
+            extras.append(existing_asset)
+        elif preferred_asset is existing_asset:
+            extras.append(asset)
+            continue
+        selected[matched_rule] = preferred_asset
+
+    rows: Dict[str, List[str]] = {os_name: [] for os_name in OS_ORDER}
+    for rule in ASSET_RULES:
+        asset = selected.get(rule)
+        if not asset:
+            continue
+        url = asset.get("browser_download_url", asset.get("html_url", "#"))
+        rows[rule.os_name].append(
+            f'<a href="{url}"><img src="{rule.badge_url}" alt="{rule.alt_text}"></a>'
+        )
+
+    return rows, extras
+
+
+def render_os_table(os_buttons: Dict[str, List[str]]) -> List[str]:
+    lines = ["| Operating system | Download |", "| --- | --- |"]
+    for os_name in OS_ORDER:
+        buttons = os_buttons.get(os_name) or []
+        content = "<br/>".join(buttons) if buttons else OS_PLACEHOLDER.get(os_name, "—")
+        lines.append(f"| {OS_LABELS.get(os_name, os_name)} | {content} |")
+    return lines
+
+
+def render_additional_assets(assets: Iterable[dict]) -> List[str]:
+    items = list(assets)
+    if not items:
+        return []
+    lines = ["", "**Additional assets**"]
+    for asset in items:
+        name = asset.get("name", "artifact")
+        url = asset.get("browser_download_url", asset.get("html_url", "#"))
+        size = human_size(asset.get("size", 0))
+        lines.append(f"- [`{name}`]({url}) ({size})")
     return lines
 
 
@@ -138,23 +211,19 @@ def format_release(release: dict) -> str:
         body_lines.append(f"*Published on {published_str}*")
 
     assets: Iterable[dict] = release.get("assets") or []
-    if not assets:
+    os_buttons, unmatched_assets = build_os_downloads(assets)
+    has_any_button = any(os_buttons.get(os_name) for os_name in OS_ORDER)
+    if not has_any_button and not unmatched_assets:
         body_lines.append(
             "No binary assets were published for this release. Visit the "
             f"[GitHub release page]({release.get('html_url')}) for more details."
         )
         return "\n".join(body_lines)
 
-    categorized_assets = categorize_assets(assets)
-    for key in CATEGORY_ORDER:
-        if key not in categorized_assets:
-            continue
-        body_lines.append("")
-        meta = CATEGORY_METADATA.get(key, {"os": "Other", "installer": "Artifacts", "badge": ""})
-        body_lines.append(
-            f'### {meta.get("os", "Other")} · {meta.get("installer", "Artifacts")}'
-        )
-        body_lines.extend(render_category_table(key, categorized_assets[key]))
+    body_lines.append("")
+    body_lines.extend(render_os_table(os_buttons))
+
+    body_lines.extend(render_additional_assets(unmatched_assets))
 
     body_lines.append("")
     body_lines.append(
