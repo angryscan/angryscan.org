@@ -6,7 +6,7 @@ from __future__ import annotations
 import argparse
 import datetime as dt
 from pathlib import Path
-from typing import Iterable, List
+from typing import Dict, Iterable, List, Tuple
 
 import requests
 
@@ -29,6 +29,33 @@ title: Downloads
 Use the links below to download pre-built packages for Angry Data Scanner.
 """
 
+CATEGORY_DEFINITIONS: Tuple[Tuple[str, str, Tuple[str, ...]], ...] = (
+    (
+        "linux_portable",
+        ":material-linux: Linux (portable)",
+        ("-linux-amd64.tar.gz",),
+    ),
+    (
+        "windows_installer",
+        ":material-microsoft-windows: Windows (installer)",
+        (".exe", ".msix", ".appinstaller"),
+    ),
+    (
+        "debian",
+        ":material-debian: Debian package",
+        (".deb",),
+    ),
+    (
+        "windows_portable",
+        ":material-microsoft-windows-classic: Windows (portable)",
+        ("-windows-amd64.zip",),
+    ),
+)
+
+CATEGORY_ORDER = [definition[0] for definition in CATEGORY_DEFINITIONS] + ["other"]
+CATEGORY_LABELS = {key: label for key, label, _ in CATEGORY_DEFINITIONS}
+CATEGORY_LABELS["other"] = ":material-package: Other assets"
+
 
 def fetch_releases(limit: int) -> List[dict]:
     response = requests.get(
@@ -47,6 +74,31 @@ def human_size(num_bytes: int) -> str:
             return f"{num_bytes:.1f} {unit}"
         num_bytes /= 1024.0
     return f"{num_bytes:.1f} GB"
+
+
+def categorize_assets(assets: Iterable[dict]) -> Dict[str, List[dict]]:
+    categorized: Dict[str, List[dict]] = {key: [] for key in CATEGORY_ORDER}
+    for asset in assets:
+        name = asset.get("name", "")
+        target_category = "other"
+        for key, _, suffixes in CATEGORY_DEFINITIONS:
+            if any(name.endswith(suffix) for suffix in suffixes):
+                target_category = key
+                break
+        categorized.setdefault(target_category, []).append(asset)
+    return {key: items for key, items in categorized.items() if items}
+
+
+def render_category_table(assets: List[dict]) -> List[str]:
+    lines = ["| File | Size | |", "| --- | ---: | --- |"]
+    for asset in assets:
+        asset_name = asset.get("name", "artifact")
+        size = human_size(asset.get("size", 0))
+        download_url = asset.get("browser_download_url", asset.get("html_url", "#"))
+        lines.append(
+            f"| `{asset_name}` | {size} | [:material-download: Download]({download_url}) |"
+        )
+    return lines
 
 
 def format_release(release: dict) -> str:
@@ -69,14 +121,13 @@ def format_release(release: dict) -> str:
         )
         return "\n".join(body_lines)
 
-    body_lines.append("")
-    body_lines.append("| File | Size | Download |")
-    body_lines.append("| --- | ---: | --- |")
-    for asset in assets:
-        asset_name = asset.get("name", "artifact")
-        size = human_size(asset.get("size", 0))
-        download_url = asset.get("browser_download_url", release.get("html_url", "#"))
-        body_lines.append(f"| `{asset_name}` | {size} | [Download]({download_url}) |")
+    categorized_assets = categorize_assets(assets)
+    for key in CATEGORY_ORDER:
+        if key not in categorized_assets:
+            continue
+        body_lines.append("")
+        body_lines.append(f"### {CATEGORY_LABELS.get(key, key.title())}")
+        body_lines.extend(render_category_table(categorized_assets[key]))
 
     body_lines.append("")
     body_lines.append(
