@@ -6,6 +6,9 @@ on:
       - main
   pull_request:
   workflow_dispatch:
+  repository_dispatch:
+    types:
+      - docs-updated
 
 permissions:
   contents: read
@@ -19,6 +22,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      should_deploy: ${{ steps.check_docs.outputs.changed }}
     steps:
       - name: Checkout site
         uses: actions/checkout@v4
@@ -53,19 +58,41 @@ jobs:
       - name: Generate downloads page
         run: python scripts/generate_downloads_page.py
 
+      - name: Check documentation changes
+        id: check_docs
+        shell: bash
+        run: |
+          if [[ "${{ github.event_name }}" != "repository_dispatch" ]]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          if git status --porcelain docs downloads | grep .; then
+            echo "Documentation changes detected:"
+            git status --short docs downloads
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "No documentation changes detected; skipping build."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Translate documentation
+        if: steps.check_docs.outputs.changed == 'true'
         run: python scripts/translate_docs.py
 
       - name: Build site
+        if: steps.check_docs.outputs.changed == 'true'
         run: mkdocs build --strict
 
       - name: Upload artifact
+        if: steps.check_docs.outputs.changed == 'true'
         uses: actions/upload-pages-artifact@v3
         with:
           path: site
 
   deploy:
     needs: build
+    if: needs.build.outputs.should_deploy == 'true'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
