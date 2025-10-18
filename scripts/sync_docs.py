@@ -146,9 +146,14 @@ def sanitize_translation_links(doc_dir: Path) -> None:
 
 def write_pages_metadata(doc_dir: Path, title: str) -> None:
     pages_file = doc_dir / ".pages"
-    if pages_file.exists():
-        return
+    pages_file.write_text(f"title: {title}\n", encoding="utf-8")
 
+
+def get_repository_title(slug: str, title: str) -> str:
+    normalized = title.strip()
+    if slug == "angrydata-app":
+        normalized = "Angry Data Scanner"
+    return normalized
     pages_file.write_text(f"title: {title}\n", encoding="utf-8")
 
 
@@ -204,7 +209,7 @@ def sync_repo(repo_slug: str, title: str) -> None:
 
     sanitize_translation_links(destination)
 
-    write_pages_metadata(destination, title)
+    write_pages_metadata(destination, get_repository_title(repo_slug, title))
 
     temp_dir = repo_dir / ".aggregated-docs"
     if temp_dir.exists():
@@ -213,14 +218,17 @@ def sync_repo(repo_slug: str, title: str) -> None:
 
 def sync(repos: Iterable[Tuple[str, str]]) -> None:
     reset_docs_root()
+    repo_entries: list[tuple[str, str]] = []
     for slug, title in repos:
         sync_repo(slug, title)
+        repo_entries.append((slug, get_repository_title(slug, title)))
 
     root_pages = DOCS_ROOT / ".pages"
-    nav_entries = ["  - downloads"] + [f"  - {slug}" for slug, _ in repos]
-    nav_items = "\n".join(nav_entries)
+    nav_lines = ["  - downloads"]
+    for slug, title in repo_entries:
+        nav_lines.append(f"  - {title}: {slug}")
     root_pages.write_text(
-        f"title: Angry Data Scanner\nnav:\n{nav_items}\n",
+        "title: Angry Data Scanner\nnav:\n" + "\n".join(nav_lines) + "\n",
         encoding="utf-8",
     )
 
