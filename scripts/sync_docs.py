@@ -144,9 +144,35 @@ def sanitize_translation_links(doc_dir: Path) -> None:
         md_file.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
 
 
-def write_pages_metadata(doc_dir: Path, title: str) -> None:
+def write_pages_metadata(doc_dir: Path, slug: str, title: str) -> None:
     pages_file = doc_dir / ".pages"
-    pages_file.write_text(f"title: {title}\n", encoding="utf-8")
+    title_line = f"title: {title}\n"
+    if slug != "angrydata-app":
+        pages_file.write_text(title_line, encoding="utf-8")
+        return
+
+    nav_lines: list[str] = []
+    if (doc_dir / "index.md").exists():
+        nav_lines.append("  - index.md")
+
+    markdown_pages = sorted(
+        (
+            md_file.name
+            for md_file in doc_dir.glob("*.md")
+            if md_file.name.lower() not in {"index.md"}
+            and not is_translation_filename(md_file.name)
+        ),
+        key=str.lower,
+    )
+    for filename in markdown_pages:
+        nav_lines.append(f"  - {filename}")
+
+    nav_lines.append("  - downloads")
+
+    pages_file.write_text(
+        title_line + "nav:\n" + "\n".join(nav_lines) + "\n",
+        encoding="utf-8",
+    )
 
 
 def get_repository_title(slug: str, title: str) -> str:
@@ -209,7 +235,7 @@ def sync_repo(repo_slug: str, title: str) -> None:
 
     sanitize_translation_links(destination)
 
-    write_pages_metadata(destination, get_repository_title(repo_slug, title))
+    write_pages_metadata(destination, repo_slug, get_repository_title(repo_slug, title))
 
     temp_dir = repo_dir / ".aggregated-docs"
     if temp_dir.exists():
@@ -224,7 +250,7 @@ def sync(repos: Iterable[Tuple[str, str]]) -> None:
         repo_entries.append((slug, get_repository_title(slug, title)))
 
     root_pages = DOCS_ROOT / ".pages"
-    nav_lines = ["  - downloads"]
+    nav_lines: list[str] = []
     for slug, title in repo_entries:
         nav_lines.append(f"  - {title}: {slug}")
     root_pages.write_text(
