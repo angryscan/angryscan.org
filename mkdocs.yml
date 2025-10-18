@@ -60,6 +60,7 @@ extra_css:
 
 extra_javascript:
   - assets/javascripts/theme-toggle.js
+  - assets/javascripts/github-stats.js
 
 extra:
   alternate:
