@@ -1,5 +1,20 @@
 // Добавление пунктов навигации в основную навигацию
-// Version: 2.0 - Fixed translation logic
+// Version: 2.4 - Optimized translation loading without hiding
+
+// Предзагружаем переводы сразу при загрузке скрипта
+const preloadTranslations = fetch('/assets/menu-translations.json')
+    .then(response => response.json())
+    .catch(error => {
+        console.warn('Failed to load menu translations, using fallback:', error);
+        return {
+            en: {
+                main: 'Main',
+                library: 'Angry Data Core',
+                download: 'Download'
+            }
+        };
+    });
+
 document.addEventListener('DOMContentLoaded', function() {
     let translations = null;
     let tabsTranslated = false;
@@ -9,22 +24,8 @@ document.addEventListener('DOMContentLoaded', function() {
     async function loadTranslations() {
         if (translations) return translations;
         
-        try {
-            const response = await fetch('/assets/menu-translations.json');
-            translations = await response.json();
-            return translations;
-        } catch (error) {
-            console.warn('Failed to load menu translations, using fallback:', error);
-            // Fallback переводы
-            translations = {
-                en: {
-                    main: 'Main',
-                    library: 'Angry Data Core',
-                    download: 'Download'
-                }
-            };
-            return translations;
-        }
+        translations = await preloadTranslations;
+        return translations;
     }
     
     // Функция для перевода навигационных табов
@@ -72,6 +73,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Отмечаем, что табы переведены
         tabsTranslated = true;
+        
+        // Добавляем класс для плавного появления
+        tabsList.classList.add('loaded');
     }
     
     // Функция для добавления пунктов
@@ -132,6 +136,14 @@ document.addEventListener('DOMContentLoaded', function() {
         // Добавляем пункты непосредственно в nav элемент
         primaryNav.insertAdjacentHTML('beforeend', newItems);
         
+        // Добавляем класс loaded для плавного появления новых пунктов
+        const newNavItems = primaryNav.querySelectorAll('.md-nav__item:not([data-original])');
+        newNavItems.forEach((item, index) => {
+            setTimeout(() => {
+                item.classList.add('loaded');
+            }, index * 100); // Задержка для каждого пункта
+        });
+        
         // Отмечаем, что навигация добавлена
         navigationAdded = true;
     }
@@ -140,24 +152,20 @@ document.addEventListener('DOMContentLoaded', function() {
     addNavigationItems();
     translateNavigationTabs();
     
-    // // Дополнительная проверка для табов, если они загрузились позже
-    // setTimeout(() => {
-    //     if (!tabsTranslated) translateNavigationTabs();
-    // }, 100);
-    // setTimeout(() => {
-    //     if (!tabsTranslated) translateNavigationTabs();
-    // }, 200);
+    // Дополнительные попытки с небольшими интервалами для быстрого применения
+    const retryTranslation = () => {
+        if (!tabsTranslated) {
+            translateNavigationTabs();
+        }
+        if (!navigationAdded) {
+            addNavigationItems();
+        }
+    };
     
-    // // Пробуем несколько раз с разными задержками для навигации
-    // setTimeout(() => {
-    //     if (!navigationAdded) addNavigationItems();
-    // }, 500);
-    // setTimeout(() => {
-    //     if (!navigationAdded) addNavigationItems();
-    // }, 1000);
-    // setTimeout(() => {
-    //     if (!navigationAdded) addNavigationItems();
-    // }, 2000);
+    // Быстрые повторные попытки
+    setTimeout(retryTranslation, 10);
+    setTimeout(retryTranslation, 50);
+    setTimeout(retryTranslation, 100);
     
     // Также пробуем при изменении DOM (только если еще не выполнено)
     const observer = new MutationObserver(function(mutations) {
@@ -169,7 +177,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 // Добавляем навигацию только если еще не добавлена
                 if (!navigationAdded) {
-                    setTimeout(addNavigationItems, 100);
+                    addNavigationItems();
                 }
             }
         });

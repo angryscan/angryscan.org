@@ -29,3 +29,36 @@
 .md-nav__item .md-nav__link:hover {
     background-color: var(--md-default-fg-color--lightest);
 }
+
+/* Плавное появление навигационных табов */
+.md-tabs__list {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+}
+
+/* Показываем табы после загрузки */
+.md-tabs__list.loaded {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Плавное появление навигационных пунктов */
+.md-nav__item {
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+
+/* Показываем пункты навигации с задержкой */
+.md-nav__item.loaded {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Задержка для каждого пункта */
+.md-nav__item:nth-child(1).loaded { transition-delay: 0.1s; }
+.md-nav__item:nth-child(2).loaded { transition-delay: 0.2s; }
+.md-nav__item:nth-child(3).loaded { transition-delay: 0.3s; }
+.md-nav__item:nth-child(4).loaded { transition-delay: 0.4s; }
+.md-nav__item:nth-child(5).loaded { transition-delay: 0.5s; }
