@@ -6,6 +6,8 @@ from __future__ import annotations
 import argparse
 import re
 import shutil
+import subprocess
+import sys
 from pathlib import Path
 from typing import Iterable, Tuple
 
@@ -15,9 +17,9 @@ ROOT = Path(__file__).resolve().parents[1]
 DOCS_ROOT = ROOT / "docs"
 SOURCES_ROOT = ROOT / "sources"
 
-REPOSITORIES: Tuple[Tuple[str, str], ...] = (
-    ("angrydata-app", "AngryData App"),
-    ("angrydata-core", "AngryData Core"),
+REPOSITORIES: Tuple[Tuple[str, str, str], ...] = (
+    ("angrydata-app", "AngryData App", "https://github.com/angryscan/angrydata-app.git"),
+    ("angrydata-core", "AngryData Core", "https://github.com/angryscan/angrydata-core.git"),
 )
 
 ALL_LOCALES = [locale for locale in get_all_locales() if locale]
@@ -50,6 +52,99 @@ def is_translation_filename(name: str) -> bool:
 
 
 ASSET_PRESERVE = {"assets"}
+
+
+def clone_repository(repo_url: str, repo_dir: Path) -> bool:
+    """Clone repository from URL."""
+    if repo_dir.exists():
+        print(f"Repository {repo_dir.name} already exists, skipping clone", file=sys.stderr)
+        return True
+    
+    try:
+        print(f"Cloning repository: {repo_url}")
+        result = subprocess.run(
+            ["git", "clone", repo_url, str(repo_dir)],
+            capture_output=True,
+            text=True,
+            check=True
+        )
+        print(f"Repository {repo_dir.name} cloned successfully")
+        return True
+    except subprocess.CalledProcessError as e:
+        print(f"Error cloning repository {repo_dir.name}: {e}", file=sys.stderr)
+        if e.stderr:
+            print(f"Git error: {e.stderr}", file=sys.stderr)
+        return False
+    except FileNotFoundError:
+        print(f"Git not found in system. Make sure git is installed.", file=sys.stderr)
+        return False
+
+
+def clone_repositories(repos: Iterable[Tuple[str, str, str]]) -> None:
+    """Clone all repositories."""
+    SOURCES_ROOT.mkdir(exist_ok=True)
+    
+    success_count = 0
+    total_count = 0
+    
+    for slug, title, repo_url in repos:
+        total_count += 1
+        repo_dir = SOURCES_ROOT / slug
+        if clone_repository(repo_url, repo_dir):
+            success_count += 1
+    
+    print(f"\nCloning completed: {success_count}/{total_count} repositories cloned successfully")
+
+
+def update_repository(repo_dir: Path) -> bool:
+    """Update repository using git pull."""
+    if not repo_dir.exists():
+        print(f"Repository {repo_dir} does not exist, skipping update", file=sys.stderr)
+        return False
+    
+    if not (repo_dir / ".git").exists():
+        print(f"Directory {repo_dir} is not a git repository, skipping update", file=sys.stderr)
+        return False
+    
+    try:
+        print(f"Updating repository: {repo_dir.name}")
+        result = subprocess.run(
+            ["git", "pull"],
+            cwd=repo_dir,
+            capture_output=True,
+            text=True,
+            check=True
+        )
+        print(f"Repository {repo_dir.name} updated successfully")
+        if result.stdout.strip():
+            print(f"Git pull output: {result.stdout.strip()}")
+        return True
+    except subprocess.CalledProcessError as e:
+        print(f"Error updating repository {repo_dir.name}: {e}", file=sys.stderr)
+        if e.stderr:
+            print(f"Git error: {e.stderr}", file=sys.stderr)
+        return False
+    except FileNotFoundError:
+        print(f"Git not found in system. Make sure git is installed.", file=sys.stderr)
+        return False
+
+
+def update_repositories(repos: Iterable[Tuple[str, str, str]]) -> None:
+    """Update all repositories."""
+    if not SOURCES_ROOT.exists():
+        print(f"Directory {SOURCES_ROOT} does not exist. Create it and clone repositories.", file=sys.stderr)
+        return
+    
+    success_count = 0
+    total_count = 0
+    
+    for slug, title, repo_url in repos:
+        total_count += 1
+        repo_dir = SOURCES_ROOT / slug
+        if update_repository(repo_dir):
+            success_count += 1
+    
+    print(f"\nUpdate completed: {success_count}/{total_count} repositories updated successfully")
 
 
 def reset_docs_root() -> None:
@@ -237,12 +332,15 @@ def find_doc_root(repo_dir: Path) -> Path | None:
     return None
 
 
-def sync_repo(repo_slug: str, title: str) -> None:
+def sync_repo(repo_slug: str, title: str, repo_url: str) -> None:
     repo_dir = SOURCES_ROOT / repo_slug
     if not repo_dir.exists():
-        raise FileNotFoundError(
-            f"Expected repository at {repo_dir}. Make sure it has been checked out first."
-        )
+        print(f"Repository {repo_slug} not found, attempting to clone...")
+        SOURCES_ROOT.mkdir(exist_ok=True)
+        if not clone_repository(repo_url, repo_dir):
+            raise FileNotFoundError(
+                f"Failed to clone repository {repo_slug} from {repo_url}."
+            )
 
     doc_root = find_doc_root(repo_dir)
     if doc_root is None:
@@ -278,11 +376,11 @@ def sync_repo(repo_slug: str, title: str) -> None:
         shutil.rmtree(temp_dir)
 
 
-def sync(repos: Iterable[Tuple[str, str]]) -> None:
+def sync(repos: Iterable[Tuple[str, str, str]]) -> None:
     reset_docs_root()
     repo_entries: list[tuple[str, str]] = []
-    for slug, title in repos:
-        sync_repo(slug, title)
+    for slug, title, repo_url in repos:
+        sync_repo(slug, title, repo_url)
         repo_entries.append((slug, get_repository_title(slug, title)))
 
     root_pages = DOCS_ROOT / ".pages"
@@ -295,7 +393,7 @@ nav:
 """
     root_pages.write_text(nav_content, encoding="utf-8")
 
-    default_slug, default_title = repos[0]
+    default_slug, default_title, _ = repos[0]
     redirect = DOCS_ROOT / "index.md"
     redirect.write_text(
         (
@@ -316,8 +414,45 @@ nav:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.parse_args()
-    sync(REPOSITORIES)
+    parser.add_argument(
+        "--update-repos",
+        action="store_true",
+        help="Update repositories before syncing documentation"
+    )
+    parser.add_argument(
+        "--only-update",
+        action="store_true", 
+        help="Only update repositories without syncing documentation"
+    )
+    parser.add_argument(
+        "--clone-repos",
+        action="store_true",
+        help="Clone repositories before syncing documentation"
+    )
+    parser.add_argument(
+        "--only-clone",
+        action="store_true",
+        help="Only clone repositories without syncing documentation"
+    )
+    args = parser.parse_args()
+    
+    if args.only_clone:
+        print("Cloning repositories...")
+        clone_repositories(REPOSITORIES)
+    elif args.only_update:
+        print("Updating repositories...")
+        update_repositories(REPOSITORIES)
+    elif args.clone_repos:
+        print("Cloning repositories and syncing documentation...")
+        clone_repositories(REPOSITORIES)
+        sync(REPOSITORIES)
+    elif args.update_repos:
+        print("Updating repositories and syncing documentation...")
+        update_repositories(REPOSITORIES)
+        sync(REPOSITORIES)
+    else:
+        print("Syncing documentation...")
+        sync(REPOSITORIES)
 
 
 if __name__ == "__main__":
