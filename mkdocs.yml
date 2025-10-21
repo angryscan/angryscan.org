@@ -14,10 +14,8 @@ theme:
   logo: assets/images/logo.png
   favicon: assets/images/favicon.ico
   features:
-    - navigation.expand
     - navigation.tabs
-    - navigation.sections
-    - navigation.top
+    - navigation.tabs.sticky
   navigation:
     - sections
   palette:
@@ -62,7 +60,8 @@ plugins:
       minify_html: true
 
 
-extra_javascript: []
+extra_javascript:
+  - assets/javascripts/custom-menu.js
 extra_css:
   - assets/stylesheets/extra.css
 

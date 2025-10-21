@@ -1,5 +1,31 @@
 :root {
     --md-primary-fg-color:        #121212;
-    --md-primary-fg-color--light: #121212;
-    --md-primary-fg-color--dark:  #121212;
+}
+
+/* Скрытие стандартной навигации, но оставляем drawer */
+@media screen and (max-width: 76.1875em) {
+    /* Скрываем основную навигацию, но не drawer */
+    .md-nav--primary:not(.md-nav--drawer) .md-nav__list {
+        display: none !important;
+    }
+}
+
+/* Стилизация иконок в стандартном меню */
+.md-nav__icon {
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+    width: 20px;
+    text-align: center;
+    display: inline-block;
+}
+
+/* Улучшение стилей для кастомных пунктов меню */
+.md-nav__item .md-nav__link {
+    display: flex;
+    align-items: center;
+    padding: 0.6rem 1rem;
+}
+
+.md-nav__item .md-nav__link:hover {
+    background-color: var(--md-default-fg-color--lightest);
 }
