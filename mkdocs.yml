@@ -2,6 +2,7 @@ site_name: Angry Data Scanner
 site_description: Aggregated documentation for the Angry Data Scanner platform.
 site_url: https://angryscan.github.io/
 repo_url: https://github.com/angryscan/angrydata-app
+repo_name: View on GitHub
 use_directory_urls: false
 
 hooks:
@@ -57,7 +58,6 @@ plugins:
           name: Deutsch
       reconfigure_material: true
       fallback_to_default: true
-  - search
   - minify:
       minify_html: true
 
