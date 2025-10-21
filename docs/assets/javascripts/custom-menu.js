@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </a>
             </li>
             <li class="md-nav__item">
-                <a href="/angrydata-app/downloads/" class="md-nav__link">
+                <a href="/angrydata-app/download/" class="md-nav__link">
                     <span class="md-nav__text">${t.download}</span>
                 </a>
             </li>
@@ -140,24 +140,24 @@ document.addEventListener('DOMContentLoaded', function() {
     addNavigationItems();
     translateNavigationTabs();
     
-    // Дополнительная проверка для табов, если они загрузились позже
-    setTimeout(() => {
-        if (!tabsTranslated) translateNavigationTabs();
-    }, 100);
-    setTimeout(() => {
-        if (!tabsTranslated) translateNavigationTabs();
-    }, 200);
+    // // Дополнительная проверка для табов, если они загрузились позже
+    // setTimeout(() => {
+    //     if (!tabsTranslated) translateNavigationTabs();
+    // }, 100);
+    // setTimeout(() => {
+    //     if (!tabsTranslated) translateNavigationTabs();
+    // }, 200);
     
-    // Пробуем несколько раз с разными задержками для навигации
-    setTimeout(() => {
-        if (!navigationAdded) addNavigationItems();
-    }, 500);
-    setTimeout(() => {
-        if (!navigationAdded) addNavigationItems();
-    }, 1000);
-    setTimeout(() => {
-        if (!navigationAdded) addNavigationItems();
-    }, 2000);
+    // // Пробуем несколько раз с разными задержками для навигации
+    // setTimeout(() => {
+    //     if (!navigationAdded) addNavigationItems();
+    // }, 500);
+    // setTimeout(() => {
+    //     if (!navigationAdded) addNavigationItems();
+    // }, 1000);
+    // setTimeout(() => {
+    //     if (!navigationAdded) addNavigationItems();
+    // }, 2000);
     
     // Также пробуем при изменении DOM (только если еще не выполнено)
     const observer = new MutationObserver(function(mutations) {
