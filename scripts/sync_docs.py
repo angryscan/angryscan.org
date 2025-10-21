@@ -452,7 +452,7 @@ def sync(repos: Iterable[Tuple[str, str, str]]) -> None:
 nav:
   - Main: angrydata-app
   - Angry Data Core: angrydata-core
-  - Download: angrydata-app/downloads
+  - Download: angrydata-app/download
 """
     root_pages.write_text(nav_content, encoding="utf-8")
 

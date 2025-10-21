@@ -8,6 +8,7 @@ sources/
 .docs-cache/
 docs/angrydata-app/
 docs/angrydata-core/
+docs/index.md
 
 # Python
 __pycache__/

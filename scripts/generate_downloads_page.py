@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the download page from angrydata-app GitHub releases."""
+"""Generate the download page from the latest angrydata-app GitHub release."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ import argparse
 import datetime as dt
 from pathlib import Path
 from dataclasses import dataclass
-from typing import Dict, Iterable, List, Tuple
+from typing import Dict, Iterable, Tuple
 
 import requests
 
@@ -98,15 +98,16 @@ OS_PLACEHOLDER = {
 }
 
 
-def fetch_releases(limit: int) -> List[dict]:
+def fetch_latest_release() -> dict:
     response = requests.get(
         RELEASES_API,
-        params={"per_page": limit},
+        params={"per_page": 1},
         headers={"Accept": "application/vnd.github+json"},
         timeout=30,
     )
     response.raise_for_status()
-    return response.json()
+    releases = response.json()
+    return releases[0] if releases else {}
 
 
 def human_size(num_bytes: int) -> str:
@@ -137,7 +138,7 @@ def select_preferred_asset(
     return candidate_asset if score(candidate_asset) < score(current_asset) else current_asset
 
 
-def build_os_download(assets: Iterable[dict]) -> Tuple[Dict[str, List[str]], List[dict]]:
+def build_os_download(assets: Iterable[dict]) -> Tuple[Dict[str, list[str]], list[dict]]:
     """
     Group release assets by operating system and prepare HTML button markup.
 
@@ -146,7 +147,7 @@ def build_os_download(assets: Iterable[dict]) -> Tuple[Dict[str, List[str]], Lis
     """
 
     selected: Dict[AssetRule, dict] = {}
-    extras: List[dict] = []
+    extras: list[dict] = []
 
     for asset in assets:
         name = asset.get("name", "")
@@ -166,7 +167,7 @@ def build_os_download(assets: Iterable[dict]) -> Tuple[Dict[str, List[str]], Lis
             continue
         selected[matched_rule] = preferred_asset
 
-    rows: Dict[str, List[str]] = {os_name: [] for os_name in OS_ORDER}
+    rows: Dict[str, list[str]] = {os_name: [] for os_name in OS_ORDER}
     for rule in ASSET_RULES:
         asset = selected.get(rule)
         if not asset:
@@ -179,7 +180,7 @@ def build_os_download(assets: Iterable[dict]) -> Tuple[Dict[str, List[str]], Lis
     return rows, extras
 
 
-def render_os_table(os_buttons: Dict[str, List[str]]) -> List[str]:
+def render_os_table(os_buttons: Dict[str, list[str]]) -> list[str]:
     lines = ["| Operating system | Download |", "| --- | --- |"]
     for os_name in OS_ORDER:
         buttons = os_buttons.get(os_name) or []
@@ -188,12 +189,11 @@ def render_os_table(os_buttons: Dict[str, List[str]]) -> List[str]:
     return lines
 
 
-def render_additional_assets(assets: Iterable[dict]) -> List[str]:
-    items = list(assets)
-    if not items:
+def render_additional_assets(assets: list) -> list[str]:
+    if not assets:
         return []
     lines = ["", "**Additional assets**", ""]
-    for asset in items:
+    for asset in assets:
         name = asset.get("name", "artifact")
         url = asset.get("browser_download_url", asset.get("html_url", "#"))
         size = human_size(asset.get("size", 0))
@@ -235,15 +235,17 @@ def format_release(release: dict) -> str:
     return "\n".join(body_lines)
 
 
-def render_content(releases: Iterable[dict]) -> str:
+def render_content(release: dict) -> str:
     sections = [FRONT_MATTER.rstrip()]
-    for release in releases:
-        sections.append(format_release(release))
-    if len(sections) == 1:
+    
+    if not release:
         sections.append(
             "No releases are currently available. Please check the "
             f"[{REPO_NAME} releases]({RELEASES_HTML}) page for updates."
         )
+    else:
+        sections.append(format_release(release))
+    
     sections.append(
         "\n> **Tip:** Builds are fetched automatically. Regenerate this page by running "
         "`python scripts/generate_download_page.py`."
@@ -253,18 +255,12 @@ def render_content(releases: Iterable[dict]) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument(
-        "--limit",
-        type=int,
-        default=5,
-        help="Number of recent releases to include (default: %(default)s).",
-    )
     args = parser.parse_args()
 
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
     try:
-        releases = fetch_releases(limit=args.limit)
+        release = fetch_latest_release()
     except Exception as exc:  # pylint: disable=broad-except
         fallback = (
             FRONT_MATTER
@@ -276,7 +272,7 @@ def main() -> None:
         OUTPUT_PATH.write_text(fallback.strip() + "\n", encoding="utf-8")
         return
 
-    OUTPUT_PATH.write_text(render_content(releases[: args.limit]), encoding="utf-8")
+    OUTPUT_PATH.write_text(render_content(release), encoding="utf-8")
 
 
 if __name__ == "__main__":
