@@ -13,5 +13,8 @@ docs/angrydata-core/
 __pycache__/
 *.pyc
 
+# Generated files
+docs/assets/menu-translations.json
+
 # MacOS
 .DS_Store

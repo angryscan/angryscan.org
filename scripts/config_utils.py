@@ -114,7 +114,7 @@ def generate_js_language_mappings(config: Dict[str, Any] | None = None) -> Dict[
     # Menu text translations
     menu_translations = {
         'en': {'main': 'Main', 'library': 'Angry Data Core', 'download': 'Download'},
-        'ru': {'main': 'Главная', 'library': 'Angry Data Core', 'download': 'Загрузки'},
+        'ru': {'main': 'Главная', 'library': 'Angry Data Core', 'download': 'Скачать'},
         'es': {'main': 'Principal', 'library': 'Angry Data Core', 'download': 'Descargas'},
         'de': {'main': 'Hauptseite', 'library': 'Angry Data Core', 'download': 'Downloads'},
         'fr': {'main': 'Principal', 'library': 'Angry Data Core', 'download': 'Téléchargements'}
@@ -131,7 +131,7 @@ def generate_js_language_mappings(config: Dict[str, Any] | None = None) -> Dict[
 def update_menu_translations_json(config: Dict[str, Any] | None = None, json_path: Path | None = None) -> None:
     """Update menu-translations.json with auto-generated language mappings."""
     if json_path is None:
-        json_path = ROOT / "docs" / "assets" / "data" / "menu-translations.json"
+        json_path = ROOT / "docs" / "assets" / "menu-translations.json"
     
     # Generate language mappings
     js_mappings = generate_js_language_mappings(config)
