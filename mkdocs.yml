@@ -20,15 +20,6 @@ theme:
   - scheme: slate
     primary: custom
     accent: cyan
-    toggle:
-      icon: material/weather-sunny
-      name: Switch to light mode
-  - scheme: default
-    primary: custom
-    accent: cyan
-    toggle:
-      icon: material/weather-night
-      name: Switch to dark mode
 markdown_extensions:
 - admonition
 - codehilite
