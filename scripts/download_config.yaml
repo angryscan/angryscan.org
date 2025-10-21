@@ -69,7 +69,7 @@ os_order:
 # Operating systems configuration
 operating_systems:
   Windows:
-    label: "🪟 **Windows**"
+    label: "Windows"
     placeholder: "N/A"
     icon: "windows"
     color_scheme:
@@ -77,20 +77,20 @@ operating_systems:
       secondary: "#00bcf2"
   
   Linux:
-    label: "🐧 **Linux**"
+    label: "Linux"
     placeholder: "N/A"
     icon: "linux"
     color_scheme:
-      primary: "#a81d33"
-      secondary: "#ff6b35"
+      primary: "#ff6b35"
+      secondary: "#ff8c42"
   
   MacOS:
-    label: "🍎 **macOS**"
+    label: "MacOS"
     placeholder: '<img src="https://img.shields.io/badge/macOS-in%20progress-000000?style=for-the-badge&logo=apple" alt="macOS build in progress">'
     icon: "apple"
     color_scheme:
-      primary: "#000000"
-      secondary: "#666666"
+      primary: "#ffffff"
+      secondary: "#cccccc"
 
 # Asset processing rules
 asset_rules:
@@ -132,7 +132,7 @@ asset_rules:
   - os_name: "Linux"
     display_name: "Linux Portable"
     description: "Portable version for Linux"
-    badge_url: "https://img.shields.io/badge/Portable-x64-333333?style=for-the-badge&logo=linux"
+    badge_url: "https://img.shields.io/badge/Portable-x64-A81D33?style=for-the-badge&logo=linux"
     alt_text: "Linux portable tarball"
     suffixes:
       - "-linux-amd64.tar.gz"

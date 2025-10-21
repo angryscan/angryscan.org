@@ -252,11 +252,11 @@ def render_css_styles() -> str:
 }
 
 .download-card {
-    border: 2px solid #e1e5e9;
+    border: 2px solid #3a3a3a;
     border-radius: 16px;
     padding: 2rem;
-    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    background: #2a2a2a;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
@@ -264,7 +264,7 @@ def render_css_styles() -> str:
 
 .download-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
     border-color: #0078d6;
 }
 
@@ -287,14 +287,14 @@ def render_css_styles() -> str:
 }
 
 .download-card.apple::before {
-    background: linear-gradient(90deg, #000000, #666666);
+    background: linear-gradient(90deg, #ffffff, #cccccc);
 }
 
 .os-header h3 {
     margin: 0 0 1.5rem 0;
     font-size: 1.5rem;
     font-weight: 600;
-    color: #2c3e50;
+    color: #ffffff;
 }
 
 .download-content {
@@ -309,9 +309,9 @@ def render_css_styles() -> str:
     align-items: center;
     gap: 0.5rem;
     padding: 1rem;
-    border: 1px solid #e1e5e9;
+    border: 1px solid #4a4a4a;
     border-radius: 12px;
-    background: #ffffff;
+    background: #2a2a2a;
     transition: all 0.2s ease;
     text-decoration: none;
     color: inherit;
@@ -320,9 +320,9 @@ def render_css_styles() -> str:
 
 .download-button:hover {
     border-color: #0078d6;
-    background: #f8f9ff;
+    background: #1a2332;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 120, 214, 0.15);
+    box-shadow: 0 4px 12px rgba(0, 120, 214, 0.3);
 }
 
 .download-badge {
@@ -344,29 +344,30 @@ def render_css_styles() -> str:
 
 .download-name {
     font-weight: 500;
-    color: #2c3e50;
+    color: #ffffff;
     font-size: 0.9rem;
 }
 
 .download-size {
     font-size: 0.8rem;
-    color: #6c757d;
+    color: #a0a0a0;
 }
 
 .no-downloads {
     text-align: center;
-    color: #6c757d;
+    color: #a0a0a0;
     font-style: italic;
     margin: 1rem 0;
 }
 
 .release-info {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
     color: white;
     padding: 2rem;
     border-radius: 16px;
     margin: 2rem 0;
     text-align: center;
+    border: 1px solid #3a3a3a;
 }
 
 .release-info h2 {
@@ -392,6 +393,28 @@ def render_css_styles() -> str:
     
     .release-info h2 {
         font-size: 1.5rem;
+    }
+}
+
+/* Dark theme specific adjustments */
+@media (prefers-color-scheme: dark) {
+    .download-card {
+        border-color: #4a4a4a;
+        background: #2a2a2a;
+    }
+    
+    .download-button {
+        border-color: #5a5a5a;
+        background: #333333;
+    }
+    
+    .download-button:hover {
+        background: #2a3a4a;
+    }
+    
+    .release-info {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        border-color: #4a4a4a;
     }
 }
 </style>"""
