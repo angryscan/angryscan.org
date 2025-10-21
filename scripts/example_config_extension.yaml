@@ -1,0 +1,47 @@
+# Example configuration extension for adding Android support
+# This file shows how easy it is to add a new operating system
+
+# Add to os_order:
+os_order:
+  - "Windows"
+  - "Linux"
+  - "MacOS"
+  - "Android"  # New OS
+
+# Add to operating_systems:
+operating_systems:
+  Android:
+    label: "🤖 **Android**"
+    placeholder: "N/A"
+    icon: "android"
+    color_scheme:
+      primary: "#3DDC84"  # Android green
+      secondary: "#2E7D32"
+
+# Add new rules to asset_rules:
+asset_rules:
+  # Existing rules...
+  
+  # New rules for Android
+  - os_name: "Android"
+    display_name: "Android APK"
+    description: "Download APK for Android"
+    badge_url: "https://img.shields.io/badge/APK-Android-3DDC84?style=for-the-badge&logo=android"
+    alt_text: "Android APK"
+    suffixes:
+      - ".apk"
+    preferred_substrings:
+      - "universal"
+      - "arm64"
+      - "x86_64"
+  
+  - os_name: "Android"
+    display_name: "Android AAB"
+    description: "Download AAB for Android"
+    badge_url: "https://img.shields.io/badge/AAB-Android-3DDC84?style=for-the-badge&logo=android"
+    alt_text: "Android AAB"
+    suffixes:
+      - ".aab"
+    preferred_substrings:
+      - "universal"
+      - "bundle"

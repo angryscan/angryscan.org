@@ -1,0 +1,106 @@
+# Конфигурация для генерации страницы загрузок
+
+# Page settings
+page:
+  title: "Download"
+  description: "Download Angry Data Scanner for your operating system"
+  
+# Repository settings
+repository:
+  owner: "angryscan"
+  name: "angrydata-app"
+
+# Operating systems display order
+os_order:
+  - "Windows"
+  - "Linux"
+  - "MacOS"
+
+# Operating systems configuration
+operating_systems:
+  Windows:
+    label: "🪟 **Windows**"
+    placeholder: "N/A"
+    icon: "windows"
+    color_scheme:
+      primary: "#0078d6"
+      secondary: "#00bcf2"
+  
+  Linux:
+    label: "🐧 **Linux**"
+    placeholder: "N/A"
+    icon: "linux"
+    color_scheme:
+      primary: "#a81d33"
+      secondary: "#ff6b35"
+  
+  MacOS:
+    label: "🍎 **macOS**"
+    placeholder: '<img src="https://img.shields.io/badge/macOS-in%20progress-000000?style=for-the-badge&logo=apple" alt="macOS build in progress">'
+    icon: "apple"
+    color_scheme:
+      primary: "#000000"
+      secondary: "#666666"
+
+# Asset processing rules
+asset_rules:
+  # Windows assets
+  - os_name: "Windows"
+    display_name: "Windows"
+    description: "Download for Windows"
+    badge_url: "https://img.shields.io/badge/Setup-x64-0078D6?style=for-the-badge&logo=windows"
+    alt_text: "Windows setup (x64)"
+    suffixes:
+      - ".exe"
+    preferred_substrings:
+      - "amd64"
+      - "x64"
+  
+  - os_name: "Windows"
+    display_name: "Windows Portable"
+    description: "Portable version for Windows"
+    badge_url: "https://img.shields.io/badge/Portable-x64-0078D6?style=for-the-badge&logo=windows"
+    alt_text: "Windows portable .zip"
+    suffixes:
+      - "-windows-amd64.zip"
+    preferred_substrings:
+      - "amd64"
+      - "x64"
+  
+  # Linux assets
+  - os_name: "Linux"
+    display_name: "Linux DEB"
+    description: "Download .deb package for Linux"
+    badge_url: "https://img.shields.io/badge/DEB-x64-A81D33?style=for-the-badge&logo=debian"
+    alt_text: "Linux .deb (amd64)"
+    suffixes:
+      - ".deb"
+    preferred_substrings:
+      - "amd64"
+      - "x86_64"
+  
+  - os_name: "Linux"
+    display_name: "Linux Portable"
+    description: "Portable version for Linux"
+    badge_url: "https://img.shields.io/badge/Portable-x64-333333?style=for-the-badge&logo=linux"
+    alt_text: "Linux portable tarball"
+    suffixes:
+      - "-linux-amd64.tar.gz"
+    preferred_substrings:
+      - "amd64"
+      - "x86_64"
+  
+  # macOS assets
+  - os_name: "MacOS"
+    display_name: "MacOS"
+    description: "Download for macOS"
+    badge_url: "https://img.shields.io/badge/macOS-x64-000000?style=for-the-badge&logo=apple"
+    alt_text: "MacOS build"
+    suffixes:
+      - ".dmg"
+      - ".pkg"
+      - "-macos.zip"
+    preferred_substrings:
+      - "universal"
+      - "arm64"
+      - "x86_64"
