@@ -62,3 +62,23 @@
 .md-nav__item:nth-child(3).loaded { transition-delay: 0.3s; }
 .md-nav__item:nth-child(4).loaded { transition-delay: 0.4s; }
 .md-nav__item:nth-child(5).loaded { transition-delay: 0.5s; }
+
+/* Стили для ссылок на странице (не в меню) */
+.md-content a:not(.md-nav__link):not(.md-tabs__link) {
+    color: var(--md-primary-fg-color);
+    text-decoration: underline;
+}
+
+.md-content a:not(.md-nav__link):not(.md-tabs__link):hover {
+    color: var(--md-accent-fg-color);
+    text-decoration: underline;
+}
+
+/* Обеспечиваем читаемость ссылок в темной теме */
+[data-md-color-scheme="slate"] .md-content a:not(.md-nav__link):not(.md-tabs__link) {
+    color: #8cc8ff;
+}
+
+[data-md-color-scheme="slate"] .md-content a:not(.md-nav__link):not(.md-tabs__link):hover {
+    color: #b3d9ff;
+}
