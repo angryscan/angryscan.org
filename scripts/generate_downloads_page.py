@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the downloads page from angrydata-app GitHub releases."""
+"""Generate the download page from angrydata-app GitHub releases."""
 
 from __future__ import annotations
 
@@ -13,7 +13,7 @@ import requests
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCS_ROOT = ROOT / "docs"
-OUTPUT_DIR = DOCS_ROOT / "angrydata-app" / "downloads"
+OUTPUT_DIR = DOCS_ROOT / "angrydata-app" / "download"
 OUTPUT_PATH = OUTPUT_DIR / "index.md"
 
 REPO_OWNER = "angryscan"
@@ -22,20 +22,20 @@ RELEASES_API = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/releases"
 RELEASES_HTML = f"https://github.com/{REPO_OWNER}/{REPO_NAME}/releases"
 
 FRONT_MATTER = """---
-title: Downloads
+title: Download
 hide:
   - navigation
   - toc
 ---
 
-# Downloads
+# Download
 
 Use the links below to download pre-built packages for Angry Data Scanner.
 """
 
 @dataclass(frozen=True)
 class AssetRule:
-    """Configuration describing how to surface a release asset on the downloads page."""
+    """Configuration describing how to surface a release asset on the download page."""
 
     os_name: str
     badge_url: str
@@ -137,12 +137,12 @@ def select_preferred_asset(
     return candidate_asset if score(candidate_asset) < score(current_asset) else current_asset
 
 
-def build_os_downloads(assets: Iterable[dict]) -> Tuple[Dict[str, List[str]], List[dict]]:
+def build_os_download(assets: Iterable[dict]) -> Tuple[Dict[str, List[str]], List[dict]]:
     """
     Group release assets by operating system and prepare HTML button markup.
 
     Returns a mapping of OS name to button HTML snippets and a list of assets that
-    were not matched by any rule so they can be surfaced as additional downloads.
+    were not matched by any rule so they can be surfaced as additional download.
     """
 
     selected: Dict[AssetRule, dict] = {}
@@ -214,7 +214,7 @@ def format_release(release: dict) -> str:
         body_lines.append(f"*Published on {published_str}*")
 
     assets: Iterable[dict] = release.get("assets") or []
-    os_buttons, unmatched_assets = build_os_downloads(assets)
+    os_buttons, unmatched_assets = build_os_download(assets)
     has_any_button = any(os_buttons.get(os_name) for os_name in OS_ORDER)
     if not has_any_button and not unmatched_assets:
         body_lines.append(
@@ -246,7 +246,7 @@ def render_content(releases: Iterable[dict]) -> str:
         )
     sections.append(
         "\n> **Tip:** Builds are fetched automatically. Regenerate this page by running "
-        "`python scripts/generate_downloads_page.py`."
+        "`python scripts/generate_download_page.py`."
     )
     return "\n\n".join(sections).strip() + "\n"
 

@@ -282,26 +282,26 @@ def write_pages_metadata(doc_dir: Path, slug: str, title: str) -> None:
         pages_file.write_text(title_line, encoding="utf-8")
         return
 
-    downloads_dir = doc_dir / "downloads"
-    placeholder_path = downloads_dir / "index.md"
-    if not downloads_dir.exists():
-        downloads_dir.mkdir(parents=True, exist_ok=True)
-    downloads_meta = downloads_dir / ".pages"
-    if not downloads_meta.exists():
-        downloads_meta.write_text("collapse_single_pages: true\n", encoding="utf-8")
+    download_dir = doc_dir / "download"
+    placeholder_path = download_dir / "index.md"
+    if not download_dir.exists():
+        download_dir.mkdir(parents=True, exist_ok=True)
+    download_meta = download_dir / ".pages"
+    if not download_meta.exists():
+        download_meta.write_text("collapse_single_pages: true\n", encoding="utf-8")
     if not placeholder_path.exists():
         placeholder_path.write_text(
             "---\n"
-            "title: Downloads\n"
+            "title: Download\n"
             "---\n\n"
-            "Downloads will be generated automatically. "
-            "Run `python scripts/generate_downloads_page.py` to populate this section.\n",
+            "Download will be generated automatically. "
+            "Run `python scripts/generate_download_page.py` to populate this section.\n",
             encoding="utf-8",
         )
 
     # Упрощенная навигация - только основные разделы без внутренних переходов
     pages_file.write_text(
-        title_line + "arrange:\n  - ...\n  - downloads\n",
+        title_line + "arrange:\n  - ...\n  - download\n",
         encoding="utf-8",
     )
 
@@ -389,7 +389,7 @@ def sync(repos: Iterable[Tuple[str, str, str]]) -> None:
 nav:
   - Main: angrydata-app
   - Angry Data Core: angrydata-core
-  - Downloads: angrydata-app/downloads
+  - Download: angrydata-app/downloads
 """
     root_pages.write_text(nav_content, encoding="utf-8")
 
