@@ -106,45 +106,78 @@ def sanitize_translation_links(doc_dir: Path) -> None:
         original = md_file.read_text(encoding="utf-8")
         lines: list[str] = []
         modified = False
-        for line in original.splitlines():
-            line_no_bom = line.lstrip("\ufeff")
-            stripped = line_no_bom.strip()
-            if TRANSLATION_LINK_PATTERN.fullmatch(stripped):
-                modified = True
-                continue
-            skip_line = False
-            for prefix in ("- ", "* ", "+ "):
-                if stripped.startswith(prefix):
-                    candidate = stripped[len(prefix) :].strip()
-                    if TRANSLATION_LINK_PATTERN.fullmatch(candidate):
-                        skip_line = True
+        
+        # Проверяем, есть ли уже front matter
+        has_front_matter = original.startswith("---")
+        if has_front_matter:
+            # Извлекаем существующий front matter
+            parts = original.split("---", 2)
+            if len(parts) >= 3:
+                front_matter = parts[1].strip()
+                content = parts[2].lstrip("\n")
+                
+                # Добавляем hide: navigation и toc если их нет
+                if "hide:" not in front_matter:
+                    front_matter += "\nhide:\n  - navigation\n  - toc"
+                    modified = True
+                else:
+                    # Если hide уже есть, добавляем navigation и toc если их нет
+                    if "navigation" not in front_matter:
+                        front_matter = front_matter.replace("hide:", "hide:\n  - navigation")
                         modified = True
-                    break
-            if skip_line:
-                continue
-            if TRANSLATION_LINK_PATTERN.search(line_no_bom):
-                without_links = TRANSLATION_LINK_PATTERN.sub("", line_no_bom)
-                trimmed = without_links.strip()
-                trimmed = trimmed.lstrip("-*+•·—–:| ").strip()
-                if not trimmed:
-                    modified = True
-                    continue
-                if not any(char.isalnum() for char in trimmed):
-                    modified = True
-                    continue
-                replaced_line = TRANSLATION_LINK_PATTERN.sub(
-                    lambda match: match.group(1), line_no_bom
-                )
-                if replaced_line != line_no_bom:
-                    modified = True
-                lines.append(replaced_line.rstrip())
+                    if "toc" not in front_matter:
+                        front_matter = front_matter.replace("hide:", "hide:\n  - toc")
+                        modified = True
+                
+                lines = [f"---\n{front_matter}\n---{content}"]
             else:
-                lines.append(line_no_bom.rstrip())
+                lines = original.splitlines()
+        else:
+            # Добавляем front matter с hide: navigation и toc
+            lines = ["---", "hide:", "  - navigation", "  - toc", "---", ""] + original.splitlines()
+            modified = True
+        
+        # Обрабатываем остальную часть как раньше
+        if not has_front_matter or modified:
+            content_lines = lines[4:] if not has_front_matter else lines
+            processed_lines = []
+            
+            for line in content_lines:
+                line_no_bom = line.lstrip("\ufeff")
+                stripped = line_no_bom.strip()
+                if TRANSLATION_LINK_PATTERN.fullmatch(stripped):
+                    continue
+                skip_line = False
+                for prefix in ("- ", "* ", "+ "):
+                    if stripped.startswith(prefix):
+                        candidate = stripped[len(prefix) :].strip()
+                        if TRANSLATION_LINK_PATTERN.fullmatch(candidate):
+                            skip_line = True
+                            break
+                if skip_line:
+                    continue
+                if TRANSLATION_LINK_PATTERN.search(line_no_bom):
+                    without_links = TRANSLATION_LINK_PATTERN.sub("", line_no_bom)
+                    trimmed = without_links.strip()
+                    trimmed = trimmed.lstrip("-*+•·—–:| ").strip()
+                    if not trimmed:
+                        continue
+                    if not any(char.isalnum() for char in trimmed):
+                        continue
+                    replaced_line = TRANSLATION_LINK_PATTERN.sub(
+                        lambda match: match.group(1), line_no_bom
+                    )
+                    processed_lines.append(replaced_line.rstrip())
+                else:
+                    processed_lines.append(line_no_bom.rstrip())
+            
+            if not has_front_matter:
+                lines = lines[:4] + processed_lines
+            else:
+                lines = processed_lines
 
-        if not modified:
-            continue
-
-        md_file.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
+        if modified or not has_front_matter:
+            md_file.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
 
 
 def write_pages_metadata(doc_dir: Path, slug: str, title: str) -> None:
@@ -171,6 +204,7 @@ def write_pages_metadata(doc_dir: Path, slug: str, title: str) -> None:
             encoding="utf-8",
         )
 
+    # Упрощенная навигация - только основные разделы без внутренних переходов
     pages_file.write_text(
         title_line + "arrange:\n  - ...\n  - downloads\n",
         encoding="utf-8",
@@ -252,13 +286,14 @@ def sync(repos: Iterable[Tuple[str, str]]) -> None:
         repo_entries.append((slug, get_repository_title(slug, title)))
 
     root_pages = DOCS_ROOT / ".pages"
-    nav_lines: list[str] = []
-    for slug, title in repo_entries:
-        nav_lines.append(f"  - {title}: {slug}")
-    root_pages.write_text(
-        "title: Angry Data Scanner\nnav:\n" + "\n".join(nav_lines) + "\n",
-        encoding="utf-8",
-    )
+    # Упрощенная навигация - только основные разделы
+    nav_content = """title: Angry Data Scanner
+nav:
+  - Angry Data Scanner: angrydata-app
+  - Downloads: angrydata-app/downloads
+  - Angry Data Core: angrydata-core
+"""
+    root_pages.write_text(nav_content, encoding="utf-8")
 
     default_slug, default_title = repos[0]
     redirect = DOCS_ROOT / "index.md"
@@ -266,9 +301,6 @@ def sync(repos: Iterable[Tuple[str, str]]) -> None:
         (
             "---\n"
             "title: Home\n"
-            "hide:\n"
-            "  - navigation\n"
-            "  - toc\n"
             "---\n\n"
             f'<meta http-equiv="refresh" content="0; url={default_slug}/" />\n'
             "<script>"

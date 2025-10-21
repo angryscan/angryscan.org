@@ -23,6 +23,9 @@ RELEASES_HTML = f"https://github.com/{REPO_OWNER}/{REPO_NAME}/releases"
 
 FRONT_MATTER = """---
 title: Downloads
+hide:
+  - navigation
+  - toc
 ---
 
 # Downloads
