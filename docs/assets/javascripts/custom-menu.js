@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (translations) return translations;
         
         try {
-            const response = await fetch('/assets/data/menu-translations.json');
+            const response = await fetch('./assets/data/menu-translations.json');
             translations = await response.json();
             return translations;
         } catch (error) {
