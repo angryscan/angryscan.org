@@ -1,4 +1,5 @@
 // Добавление пунктов навигации в основную навигацию
+// Version: 2.0 - Fixed translation logic
 document.addEventListener('DOMContentLoaded', function() {
     let translations = null;
     let tabsTranslated = false;
@@ -54,17 +55,18 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Переводим табы
         const tabLinks = tabsList.querySelectorAll('.md-tabs__link');
+        
         tabLinks.forEach((link) => {
-            const href = link.getAttribute('href');
+            const href = link.href;
             const currentText = link.textContent.trim();
             
-            // Переводим по тексту, если href не содержит нужной информации
-            if (currentText === 'Main' || currentText === 'Главная' || (href && href.includes('angrydata-app') && !href.includes('downloads'))) {
-                link.textContent = t.main;
+            // Переводим по href в первую очередь, затем по тексту
+            if (href && href.includes('download')) {
+                link.textContent = t.download;
             } else if (href && href.includes('angrydata-core')) {
                 link.textContent = t.library;
-            } else if (href && href.includes('downloads')) {
-                link.textContent = t.download;
+            } else if (href && href.includes('angrydata-app') && !href.includes('download')) {
+                link.textContent = t.main;
             }
         });
         
