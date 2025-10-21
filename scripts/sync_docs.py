@@ -11,7 +11,7 @@ import sys
 from pathlib import Path
 from typing import Iterable, Tuple
 
-from config_utils import get_all_locales, get_translation_locales
+from config_utils import get_all_locales, get_translation_locales, get_remove_headers, should_skip_until_first_header, should_process_translation_links
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCS_ROOT = ROOT / "docs"
@@ -193,10 +193,94 @@ def ensure_index(doc_dir: Path) -> None:
     )
 
 
+def process_content_lines(content_lines: list[str]) -> list[str]:
+    """Process content lines to remove configured sections and translation links."""
+    processed_lines = []
+    
+    # Получаем конфигурацию
+    remove_headers = get_remove_headers()
+    skip_until_first_header = should_skip_until_first_header()
+    process_translation_links = should_process_translation_links()
+    
+    # Флаги для обработки контента
+    skip_until_first_header_flag = skip_until_first_header
+    in_removable_section = False
+    current_removable_header = None
+    first_header_found = False
+    
+    for line in content_lines:
+        line_no_bom = line.lstrip("\ufeff")
+        stripped = line_no_bom.strip()
+        
+        # Пропускаем пустые строки и строки с переводами до первого заголовка
+        if skip_until_first_header_flag:
+            if stripped.startswith("#"):
+                first_header_found = True
+                skip_until_first_header_flag = False
+                processed_lines.append(line_no_bom.rstrip())
+                continue
+            elif stripped == "" or (process_translation_links and TRANSLATION_LINK_PATTERN.fullmatch(stripped)):
+                continue
+            else:
+                # Если это не заголовок и не пустая строка, пропускаем до первого заголовка
+                continue
+        
+        # Проверяем начало любого из удаляемых разделов
+        if stripped in remove_headers:
+            in_removable_section = True
+            current_removable_header = stripped
+            continue
+        
+        # Если мы в удаляемом разделе, пропускаем все до следующего заголовка
+        if in_removable_section:
+            if stripped.startswith("##") and stripped not in remove_headers:
+                in_removable_section = False
+                current_removable_header = None
+                # Не добавляем эту строку, так как мы пропускаем весь удаляемый раздел
+                continue
+            else:
+                continue
+        
+        # Обрабатываем ссылки на переводы (если включено)
+        if process_translation_links:
+            if TRANSLATION_LINK_PATTERN.fullmatch(stripped):
+                continue
+            skip_line = False
+            for prefix in ("- ", "* ", "+ "):
+                if stripped.startswith(prefix):
+                    candidate = stripped[len(prefix) :].strip()
+                    if TRANSLATION_LINK_PATTERN.fullmatch(candidate):
+                        skip_line = True
+                        break
+            if skip_line:
+                continue
+            if TRANSLATION_LINK_PATTERN.search(line_no_bom):
+                without_links = TRANSLATION_LINK_PATTERN.sub("", line_no_bom)
+                trimmed = without_links.strip()
+                trimmed = trimmed.lstrip("-*+•·—–:| ").strip()
+                if not trimmed:
+                    continue
+                if not any(char.isalnum() for char in trimmed):
+                    continue
+                replaced_line = TRANSLATION_LINK_PATTERN.sub(
+                    lambda match: match.group(1), line_no_bom
+                )
+                processed_lines.append(replaced_line.rstrip())
+            else:
+                processed_lines.append(line_no_bom.rstrip())
+        else:
+            processed_lines.append(line_no_bom.rstrip())
+    
+    return processed_lines
+
+
 def sanitize_translation_links(doc_dir: Path) -> None:
-    """Strip links that point to translation markdown files."""
+    """Strip links that point to translation markdown files and remove Direct Download section."""
     for md_file in doc_dir.rglob("*.md"):
         if is_translation_filename(md_file.name):
+            continue
+        # Пропускаем корневой index.md - это файл-редирект
+        if md_file.name == "index.md" and md_file.parent == doc_dir:
             continue
         original = md_file.read_text(encoding="utf-8")
         lines: list[str] = []
@@ -224,7 +308,7 @@ def sanitize_translation_links(doc_dir: Path) -> None:
                         front_matter = front_matter.replace("hide:", "hide:\n  - toc")
                         modified = True
                 
-                lines = [f"---\n{front_matter}\n---{content}"]
+                lines = [f"---\n{front_matter}\n---\n{content}"]
             else:
                 lines = original.splitlines()
         else:
@@ -234,42 +318,21 @@ def sanitize_translation_links(doc_dir: Path) -> None:
         
         # Обрабатываем остальную часть как раньше
         if not has_front_matter or modified:
-            content_lines = lines[4:] if not has_front_matter else lines
-            processed_lines = []
+            if not has_front_matter:
+                # Если front matter добавлялся, берем контент после него
+                content_lines = lines[5:]  # Пропускаем добавленный front matter (включая пустую строку)
+            else:
+                # Если front matter уже был, берем весь контент
+                content_lines = lines
             
-            for line in content_lines:
-                line_no_bom = line.lstrip("\ufeff")
-                stripped = line_no_bom.strip()
-                if TRANSLATION_LINK_PATTERN.fullmatch(stripped):
-                    continue
-                skip_line = False
-                for prefix in ("- ", "* ", "+ "):
-                    if stripped.startswith(prefix):
-                        candidate = stripped[len(prefix) :].strip()
-                        if TRANSLATION_LINK_PATTERN.fullmatch(candidate):
-                            skip_line = True
-                            break
-                if skip_line:
-                    continue
-                if TRANSLATION_LINK_PATTERN.search(line_no_bom):
-                    without_links = TRANSLATION_LINK_PATTERN.sub("", line_no_bom)
-                    trimmed = without_links.strip()
-                    trimmed = trimmed.lstrip("-*+•·—–:| ").strip()
-                    if not trimmed:
-                        continue
-                    if not any(char.isalnum() for char in trimmed):
-                        continue
-                    replaced_line = TRANSLATION_LINK_PATTERN.sub(
-                        lambda match: match.group(1), line_no_bom
-                    )
-                    processed_lines.append(replaced_line.rstrip())
-                else:
-                    processed_lines.append(line_no_bom.rstrip())
+            processed_lines = process_content_lines(content_lines)
             
             if not has_front_matter:
-                lines = lines[:4] + processed_lines
+                # Объединяем добавленный front matter с обработанным контентом
+                lines = lines[:5] + processed_lines  # Включаем пустую строку после front matter
             else:
-                lines = processed_lines
+                # Заменяем только контент, сохраняя front matter
+                lines = lines[:4] + processed_lines
 
         if modified or not has_front_matter:
             md_file.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")

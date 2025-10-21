@@ -10,6 +10,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 MKDOCS_PATH = ROOT / "mkdocs.yml"
+SYNC_CONFIG_PATH = Path(__file__).parent / "sync_config.yaml"
 
 
 def load_mkdocs_config() -> Dict[str, Any]:
@@ -140,3 +141,33 @@ def update_menu_translations_json(config: Dict[str, Any] | None = None, json_pat
     import json
     with json_path.open("w", encoding="utf-8") as f:
         json.dump(js_mappings, f, ensure_ascii=False, indent=2)
+
+
+def load_sync_config() -> Dict[str, Any]:
+    """Load sync configuration from YAML file."""
+    if not SYNC_CONFIG_PATH.exists():
+        return {}
+    
+    with SYNC_CONFIG_PATH.open("r", encoding="utf-8") as stream:
+        return yaml.safe_load(stream) or {}
+
+
+def get_remove_headers() -> List[str]:
+    """Get list of headers to remove from documentation."""
+    config = load_sync_config()
+    sync_config = config.get("sync", {})
+    return sync_config.get("remove_headers", ["## Direct Download"])
+
+
+def should_skip_until_first_header() -> bool:
+    """Check if content should be skipped until first header."""
+    config = load_sync_config()
+    sync_config = config.get("sync", {})
+    return sync_config.get("skip_until_first_header", True)
+
+
+def should_process_translation_links() -> bool:
+    """Check if translation links should be processed."""
+    config = load_sync_config()
+    sync_config = config.get("sync", {})
+    return sync_config.get("process_translation_links", True)

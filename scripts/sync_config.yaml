@@ -1,0 +1,14 @@
+# Configuration for documentation synchronization
+sync:
+  # Headers to remove from documentation
+  remove_headers:
+    - "## Direct Download"
+    # Add more headers to remove as needed
+    # - "## Another Section"
+    # - "## [Console mode](CONSOLE.md)"  # Uncomment to remove Console mode section
+  
+  # Whether to skip content until first header
+  skip_until_first_header: true
+  
+  # Whether to process translation links
+  process_translation_links: true
