@@ -56,7 +56,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const tabLinks = tabsList.querySelectorAll('.md-tabs__link');
         tabLinks.forEach((link) => {
             const href = link.getAttribute('href');
-            if (href && href.includes('angrydata-app') && !href.includes('downloads')) {
+            const currentText = link.textContent.trim();
+            
+            // Переводим по тексту, если href не содержит нужной информации
+            if (currentText === 'Main' || currentText === 'Главная' || (href && href.includes('angrydata-app') && !href.includes('downloads'))) {
                 link.textContent = t.main;
             } else if (href && href.includes('angrydata-core')) {
                 link.textContent = t.library;
