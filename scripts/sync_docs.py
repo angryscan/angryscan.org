@@ -309,7 +309,7 @@ def write_pages_metadata(doc_dir: Path, slug: str, title: str) -> None:
 def get_repository_title(slug: str, title: str) -> str:
     normalized = title.strip()
     if slug == "angrydata-app":
-        normalized = "Angry Data Scanner"
+        normalized = "Main"
     return normalized
     pages_file.write_text(f"title: {title}\n", encoding="utf-8")
 
@@ -387,9 +387,9 @@ def sync(repos: Iterable[Tuple[str, str, str]]) -> None:
     # Упрощенная навигация - только основные разделы
     nav_content = """title: Angry Data Scanner
 nav:
-  - Angry Data Scanner: angrydata-app
-  - Downloads: angrydata-app/downloads
+  - Main: angrydata-app
   - Angry Data Core: angrydata-core
+  - Downloads: angrydata-app/downloads
 """
     root_pages.write_text(nav_content, encoding="utf-8")
 
