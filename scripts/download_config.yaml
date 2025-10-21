@@ -46,10 +46,10 @@ operating_systems:
 asset_rules:
   # Windows assets
   - os_name: "Windows"
-    display_name: "Windows"
+    display_name: "Windows Online installer"
     description: "Download for Windows"
-    badge_url: "https://img.shields.io/badge/Setup-x64-0078D6?style=for-the-badge&logo=windows"
-    alt_text: "Windows setup (x64)"
+    badge_url: "https://img.shields.io/badge/Online%20Installer-x64-0078D6?style=for-the-badge"
+    alt_text: "Windows online installer (x64)"
     suffixes:
       - ".exe"
     preferred_substrings:

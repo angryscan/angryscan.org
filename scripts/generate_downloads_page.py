@@ -149,14 +149,14 @@ def select_preferred_asset(
 def build_os_downloads(assets: list[dict]) -> Dict[str, list[dict]]:
     """
     Group release assets by operating system.
-
-    Returns a mapping of OS name to list of matching assets.
+    
+    Returns a mapping of OS name to list of matching assets in the order defined in YAML.
     """
     asset_rules = get_asset_rules()
     os_order = get_os_order()
-
+    
     selected: Dict[AssetRule, dict] = {}
-
+    
     for asset in assets:
         name = asset.get("name", "")
         matched_rule = next((rule for rule in asset_rules if rule.matches(name)), None)
@@ -169,13 +169,16 @@ def build_os_downloads(assets: list[dict]) -> Dict[str, list[dict]]:
         )
         selected[matched_rule] = preferred_asset
 
-    # Group selected assets by OS
+    # Group selected assets by OS in the order defined in YAML
     os_assets: Dict[str, list[dict]] = {os_name: [] for os_name in os_order}
-    for rule, asset in selected.items():
-        os_assets[rule.os_name].append({
-            "asset": asset,
-            "rule": rule
-        })
+    
+    # Process rules in the order they appear in YAML configuration
+    for rule in asset_rules:
+        if rule in selected:
+            os_assets[rule.os_name].append({
+                "asset": selected[rule],
+                "rule": rule
+            })
     
     return os_assets
 
