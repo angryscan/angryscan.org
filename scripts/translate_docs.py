@@ -16,9 +16,11 @@ from deep_translator import GoogleTranslator
 from tqdm.asyncio import tqdm
 
 from config_utils import get_i18n_languages, get_translation_locales, update_mkdocs_alternate_menu, update_menu_translations_json
+import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCS_ROOT = ROOT / "docs"
+CONFIG_PATH = ROOT / "scripts" / "download_config.yaml"
 
 LANGUAGE_METADATA = get_i18n_languages()
 TRANSLATION_LOCALES = get_translation_locales()
@@ -28,6 +30,23 @@ TRANSLATION_SUFFIXES = {locale: f".{locale}.md" for locale in TRANSLATION_LOCALE
 IGNORED_NAMES = {".gitignore", ".pages"}
 IGNORED_DIRS = {".git", "__pycache__", "assets"}
 FENCE_PREFIX = "```"
+
+
+def load_translation_exclusions() -> dict:
+    """Load translation exclusions from config file."""
+    try:
+        with open(CONFIG_PATH, 'r', encoding='utf-8') as f:
+            config = yaml.safe_load(f)
+        return config.get('translation_exclusions', {})
+    except (FileNotFoundError, yaml.YAMLError):
+        return {}
+
+
+def get_exclusion_config():
+    """Get cached exclusion configuration."""
+    if not hasattr(get_exclusion_config, '_config'):
+        get_exclusion_config._config = load_translation_exclusions()
+    return get_exclusion_config._config
 
 # Async configuration
 MAX_CONCURRENT_TRANSLATIONS = 10  # Increased for parallel language translation
@@ -41,6 +60,25 @@ PROTECTED_TERMS = [
     "angryscan.org",
     "packetdima",
     "datascanner"
+]
+
+# CSS classes and HTML attributes that should not be translated
+PROTECTED_CSS_CLASSES = [
+    "download-container",
+    "download-card",
+    "download-button",
+    "download-badge",
+    "download-info",
+    "download-name",
+    "download-size",
+    "no-downloads",
+    "release-info",
+    "release-date",
+    "os-header",
+    "download-content",
+    "windows",
+    "linux",
+    "apple"
 ]
 
 
@@ -69,11 +107,31 @@ def protect_terms(text: str) -> tuple[str, dict]:
     protected_mapping = {}
     protected_text = text
     
+    # Get exclusion configuration
+    exclusion_config = get_exclusion_config()
+    
+    # Protect regular terms
     for i, term in enumerate(PROTECTED_TERMS):
         placeholder = f"__PROTECTED_TERM_{i}__"
         if term in protected_text:
             protected_mapping[placeholder] = term
             protected_text = protected_text.replace(term, placeholder)
+    
+    # Protect CSS classes from config
+    css_classes = exclusion_config.get('css_classes', [])
+    for i, css_class in enumerate(css_classes):
+        placeholder = f"__PROTECTED_CSS_{i}__"
+        if css_class in protected_text:
+            protected_mapping[placeholder] = css_class
+            protected_text = protected_text.replace(css_class, placeholder)
+    
+    # Protect text patterns from config
+    text_patterns = exclusion_config.get('text_patterns', [])
+    for i, pattern in enumerate(text_patterns):
+        placeholder = f"__PROTECTED_PATTERN_{i}__"
+        if pattern in protected_text:
+            protected_mapping[placeholder] = pattern
+            protected_text = protected_text.replace(pattern, placeholder)
     
     return protected_text, protected_mapping
 
@@ -91,6 +149,8 @@ def translate_blocks(text: str, translator: GoogleTranslator) -> str:
     translated: List[str] = []
     buffer: List[str] = []
     in_code = False
+    in_html_tag = False
+    in_style_block = False
 
     def flush() -> None:
         if not buffer:
@@ -108,15 +168,70 @@ def translate_blocks(text: str, translator: GoogleTranslator) -> str:
 
     for line in lines:
         stripped = line.strip()
+        
+        # Handle code blocks
         if stripped.startswith(FENCE_PREFIX):
             flush()
             translated.append(line)
             in_code = not in_code
             continue
-        if in_code or not stripped or stripped.startswith("```"):
+            
+        # Handle HTML style blocks
+        if stripped.startswith("<style>") or stripped.startswith("<style "):
+            flush()
+            translated.append(line)
+            in_style_block = True
+            continue
+        if stripped.startswith("</style>"):
+            flush()
+            translated.append(line)
+            in_style_block = False
+            continue
+            
+        # Handle HTML tags - but translate text content inside them
+        if "<" in line and ">" in line:
+            # Get exclusion configuration
+            exclusion_config = get_exclusion_config()
+            excluded_elements = exclusion_config.get('html_elements', [])
+            
+            # Check if this is a simple HTML tag with text content that should be translated
+            should_translate = False
+            for tag in ["<p", "<h1", "<h2", "<h3", "<h4", "<h5", "<h6", "<span", "<div", "<a"]:
+                if tag in line and tag[1:] not in excluded_elements:
+                    should_translate = True
+                    break
+            
+            if should_translate:
+                # Extract text content and translate it
+                import re
+                # Find text content between HTML tags
+                text_match = re.search(r'>([^<]+)<', line)
+                if text_match:
+                    text_content = text_match.group(1).strip()
+                    if text_content and not any(term in text_content for term in PROTECTED_TERMS):
+                        # Check if text contains excluded patterns
+                        text_patterns = exclusion_config.get('text_patterns', [])
+                        if not any(pattern in text_content for pattern in text_patterns):
+                            # Protect terms before translation
+                            protected_content, protected_mapping = protect_terms(text_content)
+                            translated_content = translator.translate(protected_content)
+                            # Restore protected terms after translation
+                            translated_content = restore_terms(translated_content, protected_mapping)
+                            # Replace the text content in the line
+                            translated_line = line.replace(text_content, translated_content)
+                            translated.append(translated_line)
+                            continue
             flush()
             translated.append(line)
             continue
+            
+        # Skip code blocks, empty lines, and style blocks
+        if in_code or not stripped or in_style_block or stripped.startswith("```"):
+            flush()
+            translated.append(line)
+            continue
+            
+        # Handle blockquotes
         if stripped.startswith(">"):
             flush()
             quote_content = line.lstrip("> ").strip()
@@ -127,6 +242,7 @@ def translate_blocks(text: str, translator: GoogleTranslator) -> str:
             translated_content = restore_terms(translated_content, protected_mapping)
             translated.append("> " + translated_content)
             continue
+            
         buffer.append(line)
 
     flush()

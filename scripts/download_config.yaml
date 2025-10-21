@@ -4,6 +4,56 @@
 page:
   title: "Download"
   description: "Download Angry Data Scanner for your operating system"
+
+# Translations for UI text
+translations:
+  published_on: "Published on"
+  temporarily_unavailable: "Temporarily unavailable"
+  view_full_release_notes: "📋 View full release notes"
+  releases_temporarily_unavailable: "Releases temporarily unavailable"
+  error_loading_release_information: "Error loading release information"
+  failed_to_load_release_information: "Failed to load release information at this time."
+  visit_github_releases_page: "Visit the GitHub releases page directly"
+
+# HTML elements and classes that should be excluded from translation
+translation_exclusions:
+  # CSS classes that should not be translated
+  css_classes:
+    - "download-container"
+    - "download-card"
+    - "download-button"
+    - "download-badge"
+    - "download-info"
+    - "download-name"
+    - "download-size"
+    - "no-downloads"
+    - "release-info"
+    - "release-date"
+    - "os-header"
+    - "download-content"
+    - "windows"
+    - "linux"
+    - "apple"
+  
+  # HTML elements that should not be translated
+  html_elements:
+    - "img"
+    - "a"
+    - "div"
+    - "span"
+  
+  # Specific text patterns that should not be translated
+  text_patterns:
+    - "Assets"
+    - "Windows"
+    - "Linux"
+    - "MacOS"
+    - "Online installer"
+    - "Portable"
+    - "DEB"
+    - "x64"
+    - "amd64"
+    - "x86_64"
   
 # Repository settings
 repository:

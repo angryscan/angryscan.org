@@ -104,6 +104,11 @@ def get_os_order() -> List[str]:
     return get_config()['os_order']
 
 
+def get_translations() -> dict:
+    """Get translations from configuration."""
+    return get_config()['translations']
+
+
 def fetch_latest_release() -> dict:
     """Fetch the latest release from GitHub API."""
     response = requests.get(
@@ -186,6 +191,7 @@ def render_download_card(os_name: str, assets: list[dict]) -> str:
     """Render a modern download card for an operating system."""
     os_config = get_os_config()
     os_info = os_config[os_name]
+    translations = get_translations()
     
     if not assets:
         # No assets available for this OS
@@ -195,7 +201,7 @@ def render_download_card(os_name: str, assets: list[dict]) -> str:
         <h3>{os_info['label']}</h3>
     </div>
     <div class="download-content">
-        <p class="no-downloads">Temporarily unavailable</p>
+        <p class="no-downloads">{translations['temporarily_unavailable']}</p>
         {os_info['placeholder']}
     </div>
 </div>"""
@@ -395,6 +401,7 @@ def format_release(release: dict) -> str:
     """Format a single release with modern styling."""
     name = release.get("name") or release.get("tag_name", "Unnamed release")
     published_at = release.get("published_at")
+    translations = get_translations()
     
     published_str = ""
     if published_at:
@@ -421,7 +428,7 @@ def format_release(release: dict) -> str:
         release_info = f"""
 <div class="release-info">
     <h2>{name}</h2>
-    <p class="release-date">Published on {published_str}</p>
+    <p class="release-date">{translations['published_on']} {published_str}</p>
 </div>"""
     
     return f"""
@@ -433,7 +440,7 @@ def format_release(release: dict) -> str:
 
 <div style="text-align: center; margin-top: 2rem;">
     <p><a href="{release.get('html_url')}" target="_blank" style="color: #0078d6; text-decoration: none; font-weight: 500;">
-        📋 View full release notes
+        {translations['view_full_release_notes']}
     </a></p>
 </div>"""
 
@@ -441,13 +448,14 @@ def format_release(release: dict) -> str:
 def render_content(release: dict) -> str:
     """Render the complete page content."""
     sections = [get_front_matter().rstrip()]
+    translations = get_translations()
     
     if not release:
-        sections.append("""
+        sections.append(f"""
 <div class="no-releases">
-    <h2>Releases temporarily unavailable</h2>
-    <p>Please check the <a href="{}" target="_blank">GitHub releases page</a> for updates.</p>
-</div>""".format(get_releases_html_url()))
+    <h2>{translations['releases_temporarily_unavailable']}</h2>
+    <p>Please check the <a href="{get_releases_html_url()}" target="_blank">GitHub releases page</a> for updates.</p>
+</div>""")
     else:
         sections.append(format_release(release))
     
@@ -455,6 +463,8 @@ def render_content(release: dict) -> str:
     sections.append(render_css_styles())
     
     return "\n\n".join(sections).strip() + "\n"
+
+
 
 
 def main() -> None:
@@ -467,20 +477,22 @@ def main() -> None:
     try:
         release = fetch_latest_release()
     except Exception as exc:  # pylint: disable=broad-except
+        translations = get_translations()
         fallback = (
             get_front_matter()
             + "\n"
             + f"""
 <div class="error-message" style="padding: 2rem; background: #f8d7da; border: 1px solid #f5c6cb; border-radius: 8px; color: #721c24;">
-    <h3>Error loading release information</h3>
-    <p>Failed to load release information at this time.</p>
+    <h3>{translations['error_loading_release_information']}</h3>
+    <p>{translations['failed_to_load_release_information']}</p>
     <p><strong>Error:</strong> <code>{exc}</code></p>
-    <p><a href="{get_releases_html_url()}" target="_blank" style="color: #721c24;">Visit the GitHub releases page directly</a></p>
+    <p><a href="{get_releases_html_url()}" target="_blank" style="color: #721c24;">{translations['visit_github_releases_page']}</a></p>
 </div>"""
         )
         OUTPUT_PATH.write_text(fallback.strip() + "\n", encoding="utf-8")
         return
 
+    # Generate English version
     OUTPUT_PATH.write_text(render_content(release), encoding="utf-8")
 
 
