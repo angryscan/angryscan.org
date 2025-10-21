@@ -345,7 +345,8 @@ def write_pages_metadata(doc_dir: Path, slug: str, title: str) -> None:
         pages_file.write_text(title_line, encoding="utf-8")
         return
 
-    download_dir = doc_dir / "download"
+    # Создаем директорию download в корне docs, а не внутри angrydata-app
+    download_dir = DOCS_ROOT / "download"
     placeholder_path = download_dir / "index.md"
     if not download_dir.exists():
         download_dir.mkdir(parents=True, exist_ok=True)
@@ -356,25 +357,20 @@ def write_pages_metadata(doc_dir: Path, slug: str, title: str) -> None:
         placeholder_path.write_text(
             "---\n"
             "title: Download\n"
+            "hide:\n"
+            "  - navigation\n"
+            "  - toc\n"
             "---\n\n"
             "Download will be generated automatically. "
-            "Run `python scripts/generate_download_page.py` to populate this section.\n",
+            "Run `python scripts/generate_downloads_page.py` to populate this section.\n",
             encoding="utf-8",
         )
-
-    # Упрощенная навигация - только основные разделы без внутренних переходов
-    pages_file.write_text(
-        title_line + "arrange:\n  - ...\n  - download\n",
-        encoding="utf-8",
-    )
-
 
 def get_repository_title(slug: str, title: str) -> str:
     normalized = title.strip()
     if slug == "angrydata-app":
         normalized = "Main"
     return normalized
-    pages_file.write_text(f"title: {title}\n", encoding="utf-8")
 
 
 def find_doc_root(repo_dir: Path) -> Path | None:
@@ -452,7 +448,7 @@ def sync(repos: Iterable[Tuple[str, str, str]]) -> None:
 nav:
   - Main: angrydata-app
   - Angry Data Core: angrydata-core
-  - Download: angrydata-app/download
+  - Download: download
 """
     root_pages.write_text(nav_content, encoding="utf-8")
 

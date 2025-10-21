@@ -8,13 +8,12 @@ import datetime as dt
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List, Tuple
-
 import requests
 import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCS_ROOT = ROOT / "docs"
-OUTPUT_DIR = DOCS_ROOT / "angrydata-app" / "download"
+OUTPUT_DIR = DOCS_ROOT / "download"
 OUTPUT_PATH = OUTPUT_DIR / "index.md"
 CONFIG_PATH = ROOT / "scripts" / "download_config.yaml"
 
