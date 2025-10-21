@@ -4,81 +4,79 @@ site_url: https://angryscan.github.io/
 repo_url: https://github.com/angryscan/angrydata-app
 repo_name: View on GitHub
 use_directory_urls: false
-
 hooks:
-  - hooks.py
-
+- hooks.py
 theme:
   name: material
   language: en
   logo: assets/images/logo.png
   favicon: assets/images/favicon.ico
   features:
-    - navigation.tabs
-    - navigation.tabs.sticky
+  - navigation.tabs
+  - navigation.tabs.sticky
   navigation:
-    - sections
+  - sections
   palette:
-    - scheme: slate
-      primary: custom
-      accent: cyan
-      toggle:
-        icon: material/weather-sunny
-        name: Switch to light mode
-    - scheme: default
-      primary: custom
-      accent: cyan
-      toggle:
-        icon: material/weather-night
-        name: Switch to dark mode
-
+  - scheme: slate
+    primary: custom
+    accent: cyan
+    toggle:
+      icon: material/weather-sunny
+      name: Switch to light mode
+  - scheme: default
+    primary: custom
+    accent: cyan
+    toggle:
+      icon: material/weather-night
+      name: Switch to dark mode
 markdown_extensions:
-  - admonition
-  - codehilite
-  - footnotes
-  - md_in_html
-  - pymdownx.details
-  - pymdownx.superfences
-
+- admonition
+- codehilite
+- footnotes
+- md_in_html
+- pymdownx.details
+- pymdownx.superfences
 plugins:
-  - awesome-pages
-  - i18n:
-      docs_structure: suffix
-      languages:
-        - locale: en
-          name: English
-          default: true
-        - locale: ru
-          name: Русский
-        - locale: es
-          name: Español
-        - locale: de
-          name: Deutsch
-      reconfigure_material: true
-      fallback_to_default: true
-  - minify:
-      minify_html: true
-
-
+- awesome-pages
+- i18n:
+    docs_structure: suffix
+    languages:
+    - locale: en
+      name: English
+      default: true
+    - locale: ru
+      name: Русский
+    - locale: es
+      name: Español
+    - locale: de
+      name: Deutsch
+    - locale: fr
+      name: Français
+    reconfigure_material: true
+    fallback_to_default: true
+- minify:
+    minify_html: true
 extra_javascript:
-  - assets/javascripts/custom-menu.js
+- assets/javascripts/custom-menu.js
 extra_css:
-  - assets/stylesheets/extra.css
-
+- assets/stylesheets/extra.css
 extra:
   alternate:
-    - name: English
-      lang: en
-      link: /
-    - name: Русский
-      lang: ru
-      link: /ru/
-    - name: Español
-      lang: es
-      link: /es/
-    - name: Deutsch
-      lang: de
-      link: /de/
+  - name: English
+    lang: en
+    link: /
+  - name: Русский
+    lang: ru
+    link: /ru/
+  - name: Español
+    lang: es
+    link: /es/
+  - name: Deutsch
+    lang: de
+    link: /de/
+  - name: Français
+    lang: fr
+    link: /fr/
   social:
-    - icon: fontawesome/brands/github
-      link: https://github.com/angryscan/angrydata-app
+  - icon: fontawesome/brands/github
+    link: https://github.com/angryscan/angrydata-app

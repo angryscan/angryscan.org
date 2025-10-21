@@ -1,7 +1,31 @@
 // Добавление пунктов навигации в основную навигацию
 document.addEventListener('DOMContentLoaded', function() {
+    let translations = null;
+    
+    // Загружаем переводы из внешнего файла
+    async function loadTranslations() {
+        if (translations) return translations;
+        
+        try {
+            const response = await fetch('/assets/data/menu-translations.json');
+            translations = await response.json();
+            return translations;
+        } catch (error) {
+            console.warn('Failed to load menu translations, using fallback:', error);
+            // Fallback переводы
+            translations = {
+                en: {
+                    main: 'Main',
+                    library: 'Angry Data Core',
+                    download: 'Download'
+                }
+            };
+            return translations;
+        }
+    }
+    
     // Функция для добавления пунктов
-    function addNavigationItems() {
+    async function addNavigationItems() {
         // Ищем основную навигацию
         const primaryNav = document.querySelector('.md-nav--primary');
         if (!primaryNav) {
@@ -22,31 +46,12 @@ document.addEventListener('DOMContentLoaded', function() {
         if (path.startsWith('/ru/')) lang = 'ru';
         else if (path.startsWith('/es/')) lang = 'es';
         else if (path.startsWith('/de/')) lang = 'de';
+        else if (path.startsWith('/fr/')) lang = 'fr';
         
-        // Тексты для разных языков
-        const texts = {
-            en: {
-                main: 'Main',
-                library: 'Angry Data Core',
-                download: 'Download'
-            },
-            ru: {
-                main: 'Главная',
-                library: 'Angry Data Core',
-                download: 'Загрузки'
-            },
-            es: {
-                main: 'Principal',
-                library: 'Angry Data Core',
-                download: 'Descargas'
-            },
-            de: {
-                main: 'Hauptseite',
-                library: 'Angry Data Core',
-                download: 'Downloads'
-            }
-        };
+        // Загружаем переводы
+        const texts = await loadTranslations();
         
+        // Используем переводы с fallback на английский
         const t = texts[lang] || texts.en;
         
         // Создаем новые пункты навигации

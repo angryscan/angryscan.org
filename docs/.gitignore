@@ -3,6 +3,5 @@ angrydata-core/
 index.md
 .pages
 downloads/
-*.ru.md
-*.es.md
-*.de.md
+*.??.md
+assets/data/menu-translations.json

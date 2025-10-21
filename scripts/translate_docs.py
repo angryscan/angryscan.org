@@ -15,7 +15,7 @@ import aiofiles
 from deep_translator import GoogleTranslator
 from tqdm.asyncio import tqdm
 
-from config_utils import get_i18n_languages, get_translation_locales
+from config_utils import get_i18n_languages, get_translation_locales, update_mkdocs_alternate_menu, update_menu_translations_json
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCS_ROOT = ROOT / "docs"
@@ -33,6 +33,15 @@ FENCE_PREFIX = "```"
 MAX_CONCURRENT_TRANSLATIONS = 10  # Increased for parallel language translation
 MAX_CONCURRENT_FILES = 2  # Reduced since each file now processes multiple languages in parallel
 TRANSLATION_DELAY = 0.05  # Reduced delay since we have better concurrency control
+
+# Protected terms that should not be translated
+PROTECTED_TERMS = [
+    "Angry Data Scanner",
+    "AngryScan",
+    "angryscan.org",
+    "packetdima",
+    "datascanner"
+]
 
 
 def iter_markdown_files(root: Path) -> Iterator[Path]:
@@ -55,6 +64,28 @@ def split_front_matter(content: str) -> tuple[str | None, str]:
     return None, content
 
 
+def protect_terms(text: str) -> tuple[str, dict]:
+    """Replace protected terms with placeholders and return mapping."""
+    protected_mapping = {}
+    protected_text = text
+    
+    for i, term in enumerate(PROTECTED_TERMS):
+        placeholder = f"__PROTECTED_TERM_{i}__"
+        if term in protected_text:
+            protected_mapping[placeholder] = term
+            protected_text = protected_text.replace(term, placeholder)
+    
+    return protected_text, protected_mapping
+
+
+def restore_terms(text: str, protected_mapping: dict) -> str:
+    """Restore protected terms from placeholders."""
+    restored_text = text
+    for placeholder, original_term in protected_mapping.items():
+        restored_text = restored_text.replace(placeholder, original_term)
+    return restored_text
+
+
 def translate_blocks(text: str, translator: GoogleTranslator) -> str:
     lines = text.splitlines()
     translated: List[str] = []
@@ -65,7 +96,13 @@ def translate_blocks(text: str, translator: GoogleTranslator) -> str:
         if not buffer:
             return
         chunk = "\n".join(buffer)
-        translated_chunk = translator.translate(chunk)
+        
+        # Protect terms before translation
+        protected_chunk, protected_mapping = protect_terms(chunk)
+        translated_chunk = translator.translate(protected_chunk)
+        # Restore protected terms after translation
+        translated_chunk = restore_terms(translated_chunk, protected_mapping)
+        
         translated.extend(translated_chunk.splitlines())
         buffer.clear()
 
@@ -82,8 +119,13 @@ def translate_blocks(text: str, translator: GoogleTranslator) -> str:
             continue
         if stripped.startswith(">"):
             flush()
-            translated_line = translator.translate(line.lstrip("> ").strip())
-            translated.append("> " + translated_line)
+            quote_content = line.lstrip("> ").strip()
+            # Protect terms before translation
+            protected_content, protected_mapping = protect_terms(quote_content)
+            translated_content = translator.translate(protected_content)
+            # Restore protected terms after translation
+            translated_content = restore_terms(translated_content, protected_mapping)
+            translated.append("> " + translated_content)
             continue
         buffer.append(line)
 
@@ -187,7 +229,7 @@ def run(targets: Iterable[str]) -> None:
         translate_file(md_file, targets)
 
 
-async def run_async(targets: List[str]) -> None:
+async def run_async(targets: List[str], args: argparse.Namespace) -> None:
     """Async version of run with progress tracking and concurrent processing."""
     if not targets:
         return
@@ -246,6 +288,22 @@ async def run_async(targets: List[str]) -> None:
         duration = end_time - start_time
         print(f"\nTranslation completed in {duration:.2f} seconds")
         print(f"Average time per operation: {duration/total_operations:.2f} seconds")
+        
+        # Update menu items automatically (unless disabled)
+        if not getattr(args, 'no_menu_update', False):
+            print("Updating menu items...")
+            try:
+                update_mkdocs_alternate_menu()
+                print("Menu items updated successfully!")
+            except Exception as e:
+                print(f"Warning: Failed to update menu items: {e}")
+            
+            print("Updating menu translations...")
+            try:
+                update_menu_translations_json()
+                print("Menu translations updated successfully!")
+            except Exception as e:
+                print(f"Warning: Failed to update menu translations: {e}")
 
 
 def parse_args() -> argparse.Namespace:
@@ -273,6 +331,11 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Use synchronous processing instead of async (slower but more reliable).",
     )
+    parser.add_argument(
+        "--no-menu-update",
+        action="store_true",
+        help="Skip automatic menu items update.",
+    )
     return parser.parse_args()
 
 
@@ -290,7 +353,7 @@ def main() -> None:
             run(args.targets)
         else:
             print("Using asynchronous processing...")
-            asyncio.run(run_async(args.targets))
+            asyncio.run(run_async(args.targets, args))
 
 
 if __name__ == "__main__":
