@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (tabsTranslated) {
             return;
         }
+        tabsTranslated = true;
         
         // Ищем навигационные табы
         const tabsList = document.querySelector('.md-tabs__list');
@@ -97,6 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
             navigationAdded = true;
             return;
         }
+        navigationAdded = true;
         
         // Определяем текущий язык
         const currentLang = document.documentElement.lang || 'en';
@@ -127,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </a>
             </li>
             <li class="md-nav__item">
-                <a href="/angrydata-app/download/" class="md-nav__link">
+                <a href="/download/" class="md-nav__link">
                     <span class="md-nav__text">${t.download}</span>
                 </a>
             </li>
@@ -151,21 +153,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Выполняем сразу при загрузке
     addNavigationItems();
     translateNavigationTabs();
-    
-    // Дополнительные попытки с небольшими интервалами для быстрого применения
-    const retryTranslation = () => {
-        if (!tabsTranslated) {
-            translateNavigationTabs();
-        }
-        if (!navigationAdded) {
-            addNavigationItems();
-        }
-    };
-    
-    // Быстрые повторные попытки
-    setTimeout(retryTranslation, 10);
-    setTimeout(retryTranslation, 50);
-    setTimeout(retryTranslation, 100);
     
     // Также пробуем при изменении DOM (только если еще не выполнено)
     const observer = new MutationObserver(function(mutations) {
