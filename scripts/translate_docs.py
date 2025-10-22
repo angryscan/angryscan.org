@@ -56,6 +56,7 @@ TRANSLATION_DELAY = 0.05  # Reduced delay since we have better concurrency contr
 # Protected terms that should not be translated
 PROTECTED_TERMS = [
     "Angry Data Scanner",
+    "Angry Data Core",
     "AngryScan",
     "angryscan.org",
     "packetdima",
@@ -102,6 +103,26 @@ def split_front_matter(content: str) -> tuple[str | None, str]:
     return None, content
 
 
+def protect_backticks(text: str) -> tuple[str, dict]:
+    """Replace content in backticks with placeholders and return mapping."""
+    import re
+    protected_mapping = {}
+    protected_text = text
+    
+    # Find all content in backticks (but not code blocks)
+    pattern = r'`([^`]*)`'
+    matches = re.finditer(pattern, protected_text)
+    
+    for i, match in enumerate(matches):
+        backtick_content = match.group(1)
+        if backtick_content.strip():  # Only protect non-empty content
+            placeholder = f"__PROTECTED_BACKTICK_{i}__"
+            protected_mapping[placeholder] = f"`{backtick_content}`"
+            protected_text = protected_text.replace(f"`{backtick_content}`", placeholder)
+    
+    return protected_text, protected_mapping
+
+
 def protect_terms(text: str) -> tuple[str, dict]:
     """Replace protected terms with placeholders and return mapping."""
     protected_mapping = {}
@@ -109,6 +130,10 @@ def protect_terms(text: str) -> tuple[str, dict]:
     
     # Get exclusion configuration
     exclusion_config = get_exclusion_config()
+    
+    # Protect content in backticks first
+    protected_text, backtick_mapping = protect_backticks(protected_text)
+    protected_mapping.update(backtick_mapping)
     
     # Protect regular terms
     for i, term in enumerate(PROTECTED_TERMS):

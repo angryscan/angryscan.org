@@ -44,6 +44,11 @@ translation_exclusions:
   
   # Specific text patterns that should not be translated
   text_patterns:
+    - "Angry Data Core"
+    - "value"
+    - "before"
+    - "after"
+    - "matcher"
     - "Assets"
     - "Windows"
     - "Linux"
