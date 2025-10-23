@@ -11,7 +11,14 @@ import sys
 from pathlib import Path
 from typing import Iterable, Tuple
 
-from config_utils import get_all_locales, get_translation_locales, get_remove_headers, should_skip_until_first_header, should_process_translation_links
+from config_utils import (
+    get_all_locales, 
+    get_translation_locales, 
+    get_remove_headers, 
+    should_skip_until_first_header, 
+    should_process_translation_links,
+    apply_metadata_to_content
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCS_ROOT = ROOT / "docs"
@@ -305,6 +312,88 @@ def process_content_lines(content_lines: list[str]) -> list[str]:
     return processed_lines
 
 
+def apply_custom_metadata(doc_dir: Path) -> None:
+    """Apply custom metadata to markdown files based on configuration."""
+    for md_file in doc_dir.rglob("*.md"):
+        if is_translation_filename(md_file.name):
+            continue
+        # Skip root index.md only if it's a redirect (contains meta refresh)
+        if md_file.name == "index.md" and md_file.parent == doc_dir:
+            content = md_file.read_text(encoding="utf-8")
+            if "meta http-equiv=\"refresh\"" in content or "window.location.replace" in content:
+                continue
+        
+        # Get relative path for metadata lookup
+        relative_path = md_file.relative_to(doc_dir)
+        file_path_str = str(relative_path).replace("\\", "/")
+        
+        # Apply custom metadata
+        original_content = md_file.read_text(encoding="utf-8")
+        updated_content = apply_metadata_to_content(original_content, file_path_str)
+        
+        if updated_content != original_content:
+            md_file.write_text(updated_content, encoding="utf-8")
+
+
+def clean_hide_duplicates(content: str) -> str:
+    """Clean up duplicate hide entries in front matter."""
+    if not content.startswith("---"):
+        return content
+    
+    parts = content.split("---", 2)
+    if len(parts) < 3:
+        return content
+    
+    front_matter = parts[1].strip()
+    content_after = parts[2].lstrip("\n")
+    
+    if "hide:" not in front_matter:
+        return content
+    
+    # Check if there are duplicates
+    nav_count = front_matter.count('- navigation')
+    toc_count = front_matter.count('- toc')
+    
+    if nav_count <= 1 and toc_count <= 1:
+        return content  # No duplicates, return as is
+    
+    # Replace the entire hide section with a clean one
+    lines = front_matter.split('\n')
+    new_lines = []
+    in_hide_section = False
+    hide_added = False
+    hide_values = set()  # Track unique hide values to avoid duplicates
+    
+    for line in lines:
+        if line.strip().startswith('hide:'):
+            in_hide_section = True
+            new_lines.append(line)
+            if not hide_added:
+                # Only add if not already present
+                if '- navigation' not in hide_values:
+                    new_lines.append('  - navigation')
+                    hide_values.add('- navigation')
+                if '- toc' not in hide_values:
+                    new_lines.append('  - toc')
+                    hide_values.add('- toc')
+                hide_added = True
+        elif in_hide_section and line.startswith('  -'):
+            # Track existing hide entries to avoid duplicates
+            hide_value = line.strip()
+            if hide_value not in hide_values:
+                hide_values.add(hide_value)
+                new_lines.append(line)
+            # Skip duplicates
+        elif in_hide_section and not line.startswith('  '):
+            in_hide_section = False
+            new_lines.append(line)
+        elif not in_hide_section:
+            new_lines.append(line)
+    
+    new_front_matter = '\n'.join(new_lines)
+    return f"---\n{new_front_matter}\n---\n{content_after}"
+
+
 def sanitize_translation_links(doc_dir: Path) -> None:
     """Strip links that point to translation markdown files and remove Direct Download section."""
     for md_file in doc_dir.rglob("*.md"):
@@ -318,6 +407,12 @@ def sanitize_translation_links(doc_dir: Path) -> None:
         original = md_file.read_text(encoding="utf-8")
         lines: list[str] = []
         modified = False
+        
+        # First, clean up any existing duplicates
+        cleaned_content = clean_hide_duplicates(original)
+        if cleaned_content != original:
+            original = cleaned_content
+            modified = True
         
         # Check if front matter already exists
         has_front_matter = original.startswith("---")
@@ -333,13 +428,46 @@ def sanitize_translation_links(doc_dir: Path) -> None:
                     front_matter += "\nhide:\n  - navigation\n  - toc"
                     modified = True
                 else:
-                    # If hide already exists, add navigation and toc if not present
-                    if "navigation" not in front_matter:
-                        front_matter = front_matter.replace("hide:", "hide:\n  - navigation")
+                    # Check if hide: exists but has no values (just "hide:" or "hide: ")
+                    hide_pattern = r'hide:\s*$'
+                    import re
+                    if re.search(hide_pattern, front_matter, re.MULTILINE):
+                        # Replace empty hide with proper values
+                        front_matter = re.sub(hide_pattern, "hide:\n  - navigation\n  - toc", front_matter, flags=re.MULTILINE)
                         modified = True
-                    if "toc" not in front_matter:
-                        front_matter = front_matter.replace("hide:", "hide:\n  - toc")
-                        modified = True
+                    else:
+                        # If hide already exists with values, check if navigation and toc are present
+                        nav_count = front_matter.count('- navigation')
+                        toc_count = front_matter.count('- toc')
+                        
+                        if nav_count == 0 or toc_count == 0:
+                            # Parse hide section and add missing values properly
+                            lines = front_matter.split('\n')
+                            new_lines = []
+                            in_hide_section = False
+                            hide_added = False
+                            
+                            for line in lines:
+                                if line.strip().startswith('hide:'):
+                                    in_hide_section = True
+                                    new_lines.append(line)
+                                    if not hide_added:
+                                        if nav_count == 0:
+                                            new_lines.append('  - navigation')
+                                        if toc_count == 0:
+                                            new_lines.append('  - toc')
+                                        hide_added = True
+                                elif in_hide_section and line.startswith('  -'):
+                                    # Skip existing hide entries to avoid duplicates
+                                    continue
+                                elif in_hide_section and not line.startswith('  '):
+                                    in_hide_section = False
+                                    new_lines.append(line)
+                                elif not in_hide_section:
+                                    new_lines.append(line)
+                            
+                            front_matter = '\n'.join(new_lines)
+                            modified = True
                 
                 lines = [f"---\n{front_matter}\n---\n{content}"]
             else:
@@ -368,7 +496,10 @@ def sanitize_translation_links(doc_dir: Path) -> None:
                 lines = lines[:4] + processed_lines
 
         if modified or not has_front_matter:
-            md_file.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
+            final_content = "\n".join(lines).rstrip() + "\n"
+            # Final cleanup to ensure no duplicates remain
+            cleaned_final = clean_hide_duplicates(final_content)
+            md_file.write_text(cleaned_final, encoding="utf-8")
 
 
 def write_pages_metadata(doc_dir: Path, slug: str, title: str) -> None:
@@ -468,6 +599,9 @@ def sync_repo(repo_slug: str, title: str, repo_url: str) -> None:
         ensure_index(destination)
 
     sanitize_translation_links(destination)
+    
+    # Apply custom metadata
+    apply_custom_metadata(destination)
 
     write_pages_metadata(destination, repo_slug, get_repository_title(repo_slug, title))
 
@@ -497,6 +631,9 @@ nav:
     # Main content of angrydata-app is already copied to root, so no need to create redirect
 
     sanitize_translation_links(DOCS_ROOT)
+    
+    # Apply custom metadata to all documentation
+    apply_custom_metadata(DOCS_ROOT)
 
 
 def main() -> None:

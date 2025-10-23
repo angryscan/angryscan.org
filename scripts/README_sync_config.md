@@ -1,3 +1,14 @@
+---
+hide:
+  - navigation
+  - toc
+  - navigation
+  - toc
+  - navigation
+  - toc
+  - navigation
+  - toc
+---
 # Конфигурация синхронизации документации
 
 Файл `sync_config.yaml` позволяет настраивать процесс синхронизации документации.
@@ -10,10 +21,10 @@ sync:
   remove_headers:
     - "## Direct Download"
     - "## Another Section"
-  
+
   # Пропускать контент до первого заголовка
   skip_until_first_header: true
-  
+
   # Обрабатывать ссылки на переводы
   process_translation_links: true
 ```

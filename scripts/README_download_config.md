@@ -1,3 +1,14 @@
+---
+hide:
+  - navigation
+  - toc
+  - navigation
+  - toc
+  - navigation
+  - toc
+  - navigation
+  - toc
+---
 # Download Page Configuration
 
 ## Overview

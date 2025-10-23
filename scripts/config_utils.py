@@ -11,6 +11,7 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 MKDOCS_PATH = ROOT / "mkdocs.yml"
 SYNC_CONFIG_PATH = Path(__file__).parent / "sync_config.yaml"
+METADATA_CONFIG_PATH = Path(__file__).parent / "metadata_config.yaml"
 
 
 def load_mkdocs_config() -> Dict[str, Any]:
@@ -171,3 +172,137 @@ def should_process_translation_links() -> bool:
     config = load_sync_config()
     sync_config = config.get("sync", {})
     return sync_config.get("process_translation_links", True)
+
+
+def load_metadata_config() -> Dict[str, Any]:
+    """Load metadata configuration from YAML file."""
+    if not METADATA_CONFIG_PATH.exists():
+        return {}
+    
+    with METADATA_CONFIG_PATH.open("r", encoding="utf-8") as stream:
+        return yaml.safe_load(stream) or {}
+
+
+def is_metadata_enabled() -> bool:
+    """Check if metadata processing is enabled."""
+    config = load_metadata_config()
+    metadata_config = config.get("metadata", {})
+    return metadata_config.get("enabled", True)
+
+
+def get_file_metadata(file_path: str) -> Dict[str, str]:
+    """Get custom metadata for a specific file."""
+    if not is_metadata_enabled():
+        return {}
+    
+    config = load_metadata_config()
+    metadata_config = config.get("metadata", {})
+    
+    # Check for exact file match
+    files_config = metadata_config.get("files", {})
+    if file_path in files_config:
+        return files_config[file_path]
+    
+    # Check for pattern matches
+    patterns_config = metadata_config.get("patterns", {})
+    for pattern, pattern_config in patterns_config.items():
+        if _match_pattern(file_path, pattern):
+            return pattern_config
+    
+    # Return defaults if no specific configuration found
+    defaults = metadata_config.get("defaults", {})
+    return defaults
+
+
+def _match_pattern(file_path: str, pattern: str) -> bool:
+    """Check if file path matches a pattern (supports wildcards)."""
+    import fnmatch
+    return fnmatch.fnmatch(file_path, pattern)
+
+
+def apply_metadata_to_content(content: str, file_path: str) -> str:
+    """Apply custom metadata to markdown content."""
+    metadata = get_file_metadata(file_path)
+    if not metadata:
+        return content
+    
+    # Check if front matter already exists
+    if content.startswith("---"):
+        # Extract existing front matter
+        parts = content.split("---", 2)
+        if len(parts) >= 3:
+            front_matter = parts[1].strip()
+            content_after = parts[2].lstrip("\n")
+            
+            # Parse existing front matter
+            existing_metadata = {}
+            lines = front_matter.split("\n")
+            i = 0
+            while i < len(lines):
+                line = lines[i].strip()
+                if ":" in line and not line.startswith("  "):
+                    key, value = line.split(":", 1)
+                    key = key.strip()
+                    value = value.strip()
+                    
+                    # Check if this is a multi-line value (like hide: with list)
+                    if i + 1 < len(lines) and lines[i + 1].startswith("  "):
+                        # Collect all indented lines
+                        multi_line_value = [value] if value else []
+                        i += 1
+                        while i < len(lines) and lines[i].startswith("  "):
+                            multi_line_value.append(lines[i].strip())
+                            i += 1
+                        existing_metadata[key] = "\n".join(multi_line_value)
+                        i -= 1  # Adjust for the loop increment
+                    else:
+                        existing_metadata[key] = value
+                i += 1
+            
+            # Apply new metadata
+            for key, value in metadata.items():
+                if key == "title":
+                    existing_metadata["title"] = value
+                elif key == "description":
+                    existing_metadata["description"] = value
+                elif key == "title_prefix":
+                    # Add prefix to existing title or use as new title
+                    if "title" in existing_metadata:
+                        existing_metadata["title"] = value + existing_metadata["title"]
+                    else:
+                        existing_metadata["title"] = value
+            
+            # Preserve existing hide values if they exist - don't override them
+            # This prevents duplication of hide entries
+            
+            # Rebuild front matter
+            new_front_matter = []
+            for key, value in existing_metadata.items():
+                if "\n" in value:
+                    # Multi-line value (like hide: with list)
+                    new_front_matter.append(f"{key}:")
+                    for line in value.split("\n"):
+                        if line.strip():
+                            new_front_matter.append(f"  {line}")
+                else:
+                    # Single-line value
+                    new_front_matter.append(f"{key}: {value}")
+            
+            return f"---\n" + "\n".join(new_front_matter) + f"\n---\n{content_after}"
+    else:
+        # Create new front matter
+        front_matter_lines = ["---"]
+        
+        # Apply metadata
+        for key, value in metadata.items():
+            if key == "title":
+                front_matter_lines.append(f"title: {value}")
+            elif key == "description":
+                front_matter_lines.append(f"description: {value}")
+            elif key == "title_prefix":
+                front_matter_lines.append(f"title: {value}")
+        
+        front_matter_lines.append("---")
+        front_matter_lines.append("")
+        
+        return "\n".join(front_matter_lines) + "\n" + content
