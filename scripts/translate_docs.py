@@ -21,6 +21,7 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 DOCS_ROOT = ROOT / "docs"
 CONFIG_PATH = ROOT / "scripts" / "download_config.yaml"
+METADATA_CONFIG_PATH = ROOT / "scripts" / "metadata_config.yaml"
 
 LANGUAGE_METADATA = get_i18n_languages()
 TRANSLATION_LOCALES = get_translation_locales()
@@ -47,6 +48,71 @@ def get_exclusion_config():
     if not hasattr(get_exclusion_config, '_config'):
         get_exclusion_config._config = load_translation_exclusions()
     return get_exclusion_config._config
+
+
+def load_metadata_config() -> dict:
+    """Load metadata configuration from metadata_config.yaml."""
+    try:
+        with open(METADATA_CONFIG_PATH, 'r', encoding='utf-8') as f:
+            config = yaml.safe_load(f)
+        return config.get('metadata', {})
+    except (FileNotFoundError, yaml.YAMLError) as e:
+        print(f"Warning: Could not load metadata config: {e}")
+        return {}
+
+
+def get_metadata_config():
+    """Get cached metadata configuration."""
+    if not hasattr(get_metadata_config, '_config'):
+        get_metadata_config._config = load_metadata_config()
+    return get_metadata_config._config
+
+
+def get_metadata_for_file(file_path: Path, language: str = None) -> dict:
+    """
+    Get metadata (title, description) for a specific file and language.
+    
+    Args:
+        file_path: Path to the markdown file
+        language: Target language code (e.g., 'ru', 'de'). If None, returns default metadata.
+    
+    Returns:
+        Dictionary with 'title' and 'description' keys, or empty dict if not configured.
+    """
+    metadata_config = get_metadata_config()
+    
+    if not metadata_config.get('enabled', False):
+        return {}
+    
+    # Get relative path from docs root
+    try:
+        rel_path = file_path.relative_to(DOCS_ROOT)
+        file_key = str(rel_path).replace('\\', '/')
+    except ValueError:
+        # File is not in docs root
+        return {}
+    
+    files_config = metadata_config.get('files', {})
+    
+    if file_key not in files_config:
+        return {}
+    
+    file_metadata = files_config[file_key]
+    
+    # If language is specified and translations exist, use them
+    if language and 'translations' in file_metadata:
+        lang_metadata = file_metadata.get('translations', {}).get(language, {})
+        if lang_metadata:
+            return {
+                'title': lang_metadata.get('title'),
+                'description': lang_metadata.get('description')
+            }
+    
+    # Return default metadata (will be auto-translated if language is specified)
+    return {
+        'title': file_metadata.get('title'),
+        'description': file_metadata.get('description')
+    }
 
 # Async configuration
 MAX_CONCURRENT_TRANSLATIONS = 10  # Increased for parallel language translation
@@ -101,6 +167,76 @@ def split_front_matter(content: str) -> tuple[str | None, str]:
             end += len("\n---")
             return content[:end], content[end:].lstrip("\n")
     return None, content
+
+
+def translate_front_matter(front_matter: str, translator: GoogleTranslator, 
+                          file_path: Path = None, target_lang: str = None) -> str:
+    """
+    Translate title and description in front matter YAML.
+    
+    Args:
+        front_matter: The front matter YAML content
+        translator: GoogleTranslator instance for translation
+        file_path: Path to the source file (for metadata override lookup)
+        target_lang: Target language code (for metadata override lookup)
+    
+    Returns:
+        Translated front matter YAML content
+    """
+    if not front_matter:
+        return front_matter
+    
+    import re
+    
+    # Get metadata overrides if available
+    metadata_overrides = {}
+    if file_path and target_lang:
+        metadata_overrides = get_metadata_for_file(file_path, target_lang)
+    
+    # Parse YAML-like content to find title and description
+    lines = front_matter.split('\n')
+    translated_lines = []
+    
+    for line in lines:
+        # Check if this line contains title or description
+        if line.strip().startswith('title:') or line.strip().startswith('description:'):
+            # Extract the key and value
+            match = re.match(r'^(\s*)(title|description):\s*(.+)$', line)
+            if match:
+                indent = match.group(1)
+                key = match.group(2)
+                value = match.group(3).strip()
+                
+                # Check if we have an override for this field
+                override_value = metadata_overrides.get(key)
+                
+                if override_value:
+                    # Use the override value directly (no translation needed)
+                    translated_value = override_value
+                else:
+                    # Remove quotes if present
+                    if (value.startswith('"') and value.endswith('"')) or (value.startswith("'") and value.endswith("'")):
+                        value = value[1:-1]
+                    
+                    # Protect terms before translation
+                    protected_value, protected_mapping = protect_terms(value)
+                    translated_value = translator.translate(protected_value)
+                    # Restore protected terms after translation
+                    translated_value = restore_terms(translated_value, protected_mapping)
+                
+                # Re-add quotes if the original had them
+                if (match.group(3).strip().startswith('"') and match.group(3).strip().endswith('"')) or \
+                   (match.group(3).strip().startswith("'") and match.group(3).strip().endswith("'")):
+                    translated_value = f'"{translated_value}"'
+                
+                translated_line = f"{indent}{key}: {translated_value}"
+                translated_lines.append(translated_line)
+            else:
+                translated_lines.append(line)
+        else:
+            translated_lines.append(line)
+    
+    return '\n'.join(translated_lines)
 
 
 def protect_backticks(text: str) -> tuple[str, dict]:
@@ -293,9 +429,17 @@ def translate_file(path: Path, targets: Iterable[str]) -> None:
         suffix = TRANSLATION_SUFFIXES.get(lang, f".{lang}.md")
         translator = GoogleTranslator(source="auto", target=lang)
         translated_body = translate_blocks(body, translator)
-        pieces = []
+        
+        # Translate front matter if present (with metadata override support)
+        translated_front_matter = front_matter
         if front_matter:
-            pieces.append(front_matter)
+            translated_front_matter = translate_front_matter(
+                front_matter, translator, file_path=path, target_lang=lang
+            )
+        
+        pieces = []
+        if translated_front_matter:
+            pieces.append(translated_front_matter)
             pieces.append("")
         pieces.append(translated_body)
         output_path = build_translation_path(path, suffix)
@@ -310,9 +454,19 @@ async def translate_single_language(path: Path, lang: str, body: str, front_matt
         translator = GoogleTranslator(source="auto", target=lang)
         translated_body = await translate_blocks_async(body, translator, semaphore)
         
-        pieces = []
+        # Translate front matter if present (with metadata override support)
+        translated_front_matter = front_matter
         if front_matter:
-            pieces.append(front_matter)
+            # Run front matter translation in thread pool for consistency
+            loop = asyncio.get_event_loop()
+            with ThreadPoolExecutor() as executor:
+                translated_front_matter = await loop.run_in_executor(
+                    executor, translate_front_matter, front_matter, translator, path, lang
+                )
+        
+        pieces = []
+        if translated_front_matter:
+            pieces.append(translated_front_matter)
             pieces.append("")
         pieces.append(translated_body)
         output_path = build_translation_path(path, suffix)

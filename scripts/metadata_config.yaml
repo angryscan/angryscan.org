@@ -10,6 +10,12 @@ metadata:
     "index.md":
       title: "Sensitive data discovery tool with friendly UI for Mac, Win, Linux"
       description: "Advanced sensitive data discovery tool combining personal data discovery, payment card discovery, and passwords finder in one solution. Comprehensive data detector for compliance and security."
+      # Language-specific overrides (optional)
+      # If not specified, the default title/description will be auto-translated
+      translations:
+        ru:
+          title: "Инструмент обнаружения конфиденциальных данных для Mac, Win, Linux"
+        
     
     "angrydata-core/index.md":
       title: "Core Library | Angry Data Scanner"
