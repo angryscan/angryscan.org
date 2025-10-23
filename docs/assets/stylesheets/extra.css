@@ -303,3 +303,22 @@ html, body {
     }
     
 }
+
+/* Add left margin to logo to match right margin of GitHub widget */
+.md-header__button.md-logo {
+    margin-left: 3rem;
+}
+
+.md-header__title {
+    flex: 0 0 8.1rem;
+}
+
+/* Center navigation tabs in remaining space */
+.md-header__tabs {
+    flex: 1;
+    display: flex;
+}
+
+.md-header__tabs .md-tabs__list {
+    justify-content: center;
+}
