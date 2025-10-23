@@ -51,6 +51,7 @@ plugins:
     minify_html: true
 extra_javascript:
 - assets/javascripts/custom-menu.js
+- assets/javascripts/language-selector.js
 extra_css:
 - assets/stylesheets/extra.css
 - assets/stylesheets/language-flags.css

@@ -81,6 +81,40 @@
     box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 }
 
+/* Styles for the language flag button */
+.language-flag-button {
+    position: relative;
+    overflow: hidden;
+}
+
+.language-flag-button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.15) 50%, transparent 70%);
+    transform: translateX(-100%);
+    transition: transform 0.6s;
+    pointer-events: none;
+}
+
+.language-flag-button:hover::after {
+    transform: translateX(100%);
+}
+
+/* Ensure the flag button is properly sized */
+.md-header__option .md-select .language-flag-button {
+    min-width: 32px;
+    min-height: 32px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    outline: none;
+}
+
 /* Mobile responsiveness */
 @media screen and (max-width: 30em) {
     /* Adapt flags for small screens */
@@ -89,4 +123,22 @@
         height: 12px;
         margin-right: 6px;
     }
+    
+    /* Smaller flag button on mobile */
+    .language-flag-button {
+        width: 28px;
+        height: 28px;
+        min-width: 28px;
+        min-height: 28px;
+    }
+}
+
+/* Dark theme adjustments */
+[data-md-color-scheme="slate"] .language-flag-button {
+    border: none;
+    box-shadow: none;
+}
+
+[data-md-color-scheme="slate"] .language-flag-button:hover {
+    box-shadow: none;
 }
