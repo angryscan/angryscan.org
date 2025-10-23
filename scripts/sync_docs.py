@@ -172,6 +172,37 @@ def copytree(src: Path, dest: Path) -> None:
         shutil.copytree(src, dest)
 
 
+def copytree_to_root(src: Path, dest: Path) -> None:
+    """Copy tree to root directory, preserving existing files like .gitignore and assets."""
+    # Copy files from src to dest without removing existing files
+    for item in src.iterdir():
+        # Check if file should be ignored
+        should_ignore = False
+        if TRANSLATION_SUFFIXES:
+            for suffix in TRANSLATION_SUFFIXES:
+                if item.name.lower().endswith(suffix):
+                    should_ignore = True
+                    break
+        
+        if should_ignore:
+            continue
+        
+        dest_item = dest / item.name
+        
+        if item.is_file():
+            # Copy file, overwriting existing
+            shutil.copy2(item, dest_item)
+        elif item.is_dir():
+            # Copy directory
+            if dest_item.exists():
+                shutil.rmtree(dest_item)
+            if TRANSLATION_SUFFIXES:
+                patterns = [f"*{suffix}" for suffix in TRANSLATION_SUFFIXES]
+                shutil.copytree(item, dest_item, ignore=shutil.ignore_patterns(*patterns))
+            else:
+                shutil.copytree(item, dest_item)
+
+
 def ensure_index(doc_dir: Path) -> None:
     """Make sure the directory contains an index file for MkDocs."""
     index_candidates = [doc_dir / f"index.{ext}" for ext in ("md", "markdown")]
@@ -197,12 +228,12 @@ def process_content_lines(content_lines: list[str]) -> list[str]:
     """Process content lines to remove configured sections and translation links."""
     processed_lines = []
     
-    # Получаем конфигурацию
+    # Get configuration
     remove_headers = get_remove_headers()
     skip_until_first_header = should_skip_until_first_header()
     process_translation_links = should_process_translation_links()
     
-    # Флаги для обработки контента
+    # Flags for content processing
     skip_until_first_header_flag = skip_until_first_header
     in_removable_section = False
     current_removable_header = None
@@ -212,7 +243,7 @@ def process_content_lines(content_lines: list[str]) -> list[str]:
         line_no_bom = line.lstrip("\ufeff")
         stripped = line_no_bom.strip()
         
-        # Пропускаем пустые строки и строки с переводами до первого заголовка
+        # Skip empty lines and translation lines until first header
         if skip_until_first_header_flag:
             if stripped.startswith("#"):
                 first_header_found = True
@@ -222,26 +253,26 @@ def process_content_lines(content_lines: list[str]) -> list[str]:
             elif stripped == "" or (process_translation_links and TRANSLATION_LINK_PATTERN.fullmatch(stripped)):
                 continue
             else:
-                # Если это не заголовок и не пустая строка, пропускаем до первого заголовка
+                # If not a header and not empty line, skip until first header
                 continue
         
-        # Проверяем начало любого из удаляемых разделов
+        # Check for start of any removable section
         if stripped in remove_headers:
             in_removable_section = True
             current_removable_header = stripped
             continue
         
-        # Если мы в удаляемом разделе, пропускаем все до следующего заголовка
+        # If in removable section, skip everything until next header
         if in_removable_section:
             if stripped.startswith("##") and stripped not in remove_headers:
                 in_removable_section = False
                 current_removable_header = None
-                # Не добавляем эту строку, так как мы пропускаем весь удаляемый раздел
+                # Don't add this line as we skip the entire removable section
                 continue
             else:
                 continue
         
-        # Обрабатываем ссылки на переводы (если включено)
+        # Process translation links (if enabled)
         if process_translation_links:
             if TRANSLATION_LINK_PATTERN.fullmatch(stripped):
                 continue
@@ -279,28 +310,30 @@ def sanitize_translation_links(doc_dir: Path) -> None:
     for md_file in doc_dir.rglob("*.md"):
         if is_translation_filename(md_file.name):
             continue
-        # Пропускаем корневой index.md - это файл-редирект
+        # Skip root index.md only if it's a redirect (contains meta refresh)
         if md_file.name == "index.md" and md_file.parent == doc_dir:
-            continue
+            content = md_file.read_text(encoding="utf-8")
+            if "meta http-equiv=\"refresh\"" in content or "window.location.replace" in content:
+                continue
         original = md_file.read_text(encoding="utf-8")
         lines: list[str] = []
         modified = False
         
-        # Проверяем, есть ли уже front matter
+        # Check if front matter already exists
         has_front_matter = original.startswith("---")
         if has_front_matter:
-            # Извлекаем существующий front matter
+            # Extract existing front matter
             parts = original.split("---", 2)
             if len(parts) >= 3:
                 front_matter = parts[1].strip()
                 content = parts[2].lstrip("\n")
                 
-                # Добавляем hide: navigation и toc если их нет
+                # Add hide: navigation and toc if not present
                 if "hide:" not in front_matter:
                     front_matter += "\nhide:\n  - navigation\n  - toc"
                     modified = True
                 else:
-                    # Если hide уже есть, добавляем navigation и toc если их нет
+                    # If hide already exists, add navigation and toc if not present
                     if "navigation" not in front_matter:
                         front_matter = front_matter.replace("hide:", "hide:\n  - navigation")
                         modified = True
@@ -312,26 +345,26 @@ def sanitize_translation_links(doc_dir: Path) -> None:
             else:
                 lines = original.splitlines()
         else:
-            # Добавляем front matter с hide: navigation и toc
+            # Add front matter with hide: navigation and toc
             lines = ["---", "hide:", "  - navigation", "  - toc", "---", ""] + original.splitlines()
             modified = True
         
-        # Обрабатываем остальную часть как раньше
+        # Process the rest as before
         if not has_front_matter or modified:
             if not has_front_matter:
-                # Если front matter добавлялся, берем контент после него
-                content_lines = lines[5:]  # Пропускаем добавленный front matter (включая пустую строку)
+                # If front matter was added, take content after it
+                content_lines = lines[5:]  # Skip added front matter (including empty line)
             else:
-                # Если front matter уже был, берем весь контент
+                # If front matter already existed, take all content
                 content_lines = lines
             
             processed_lines = process_content_lines(content_lines)
             
             if not has_front_matter:
-                # Объединяем добавленный front matter с обработанным контентом
-                lines = lines[:5] + processed_lines  # Включаем пустую строку после front matter
+                # Combine added front matter with processed content
+                lines = lines[:5] + processed_lines  # Include empty line after front matter
             else:
-                # Заменяем только контент, сохраняя front matter
+                # Replace only content, preserving front matter
                 lines = lines[:4] + processed_lines
 
         if modified or not has_front_matter:
@@ -341,30 +374,33 @@ def sanitize_translation_links(doc_dir: Path) -> None:
 def write_pages_metadata(doc_dir: Path, slug: str, title: str) -> None:
     pages_file = doc_dir / ".pages"
     title_line = f"title: {title}\n"
-    if slug != "angrydata-app":
-        pages_file.write_text(title_line, encoding="utf-8")
+    
+    # For angrydata-app in root, don't create .pages file as it's the root directory
+    if slug == "angrydata-app":
+        # Create download directory in docs root
+        download_dir = DOCS_ROOT / "download"
+        placeholder_path = download_dir / "index.md"
+        if not download_dir.exists():
+            download_dir.mkdir(parents=True, exist_ok=True)
+        download_meta = download_dir / ".pages"
+        if not download_meta.exists():
+            download_meta.write_text("collapse_single_pages: true\n", encoding="utf-8")
+        if not placeholder_path.exists():
+            placeholder_path.write_text(
+                "---\n"
+                "title: Download\n"
+                "hide:\n"
+                "  - navigation\n"
+                "  - toc\n"
+                "---\n\n"
+                "Download will be generated automatically. "
+                "Run `python scripts/generate_downloads_page.py` to populate this section.\n",
+                encoding="utf-8",
+            )
         return
-
-    # Создаем директорию download в корне docs, а не внутри angrydata-app
-    download_dir = DOCS_ROOT / "download"
-    placeholder_path = download_dir / "index.md"
-    if not download_dir.exists():
-        download_dir.mkdir(parents=True, exist_ok=True)
-    download_meta = download_dir / ".pages"
-    if not download_meta.exists():
-        download_meta.write_text("collapse_single_pages: true\n", encoding="utf-8")
-    if not placeholder_path.exists():
-        placeholder_path.write_text(
-            "---\n"
-            "title: Download\n"
-            "hide:\n"
-            "  - navigation\n"
-            "  - toc\n"
-            "---\n\n"
-            "Download will be generated automatically. "
-            "Run `python scripts/generate_downloads_page.py` to populate this section.\n",
-            encoding="utf-8",
-        )
+    
+    # For other repositories, create .pages file
+    pages_file.write_text(title_line, encoding="utf-8")
 
 def get_repository_title(slug: str, title: str) -> str:
     normalized = title.strip()
@@ -413,8 +449,13 @@ def sync_repo(repo_slug: str, title: str, repo_url: str) -> None:
     repo_readme = repo_dir / "README.md"
     should_inject_repo_readme = not has_inline_index and not has_inline_readme and repo_readme.exists()
 
-    destination = DOCS_ROOT / repo_slug
-    copytree(doc_root, destination)
+    # For angrydata-app copy content to docs root, for others - to subdirectories
+    if repo_slug == "angrydata-app":
+        destination = DOCS_ROOT
+        copytree_to_root(doc_root, destination)
+    else:
+        destination = DOCS_ROOT / repo_slug
+        copytree(doc_root, destination)
 
     if should_inject_repo_readme:
         content = repo_readme.read_text(encoding="utf-8")
@@ -443,30 +484,17 @@ def sync(repos: Iterable[Tuple[str, str, str]]) -> None:
         repo_entries.append((slug, get_repository_title(slug, title)))
 
     root_pages = DOCS_ROOT / ".pages"
-    # Упрощенная навигация - только основные разделы
+    # Simplified navigation - only main sections
     nav_content = """title: Angry Data Scanner
 nav:
-  - Main: angrydata-app
+  - Main: .
   - Angry Data Core: angrydata-core
   - Download: download
 """
     root_pages.write_text(nav_content, encoding="utf-8")
 
-    default_slug, default_title, _ = repos[0]
-    redirect = DOCS_ROOT / "index.md"
-    redirect.write_text(
-        (
-            "---\n"
-            "title: Home\n"
-            "---\n\n"
-            f'<meta http-equiv="refresh" content="0; url={default_slug}/" />\n'
-            "<script>"
-            f'window.location.replace("{default_slug}/");'
-            "</script>\n\n"
-            f"If you are not redirected automatically, open [{default_title}]({default_slug}/index.md).\n"
-        ),
-        encoding="utf-8",
-    )
+    # For angrydata-app in root, don't create redirect as content is already in root
+    # Main content of angrydata-app is already copied to root, so no need to create redirect
 
     sanitize_translation_links(DOCS_ROOT)
 

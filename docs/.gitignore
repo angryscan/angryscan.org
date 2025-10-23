@@ -1,7 +1,5 @@
-angrydata-app/
 angrydata-core/
-index.md
+*.md
 .pages
 download/
-*.??.md
 assets/data/menu-translations.json
