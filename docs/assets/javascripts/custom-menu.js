@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Создаем новые пункты навигации
         const newItems = `
             <li class="md-nav__item">
-                <a href="/angrydata-app/" class="md-nav__link">
+                <a href="/" class="md-nav__link">
                     <span class="md-nav__text">${t.main}</span>
                 </a>
             </li>

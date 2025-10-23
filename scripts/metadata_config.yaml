@@ -9,7 +9,7 @@ metadata:
     # Path is relative to docs directory
     "index.md":
       title: "Sensitive data discovery tool with friendly UI for Mac, Win, Linux"
-      description: "Sensitive data discovery tool. Personal data discovery. Payment card discovery. Passwords finder. Data detector"
+      description: "Sensitive data discovery tool. Personal data discovery. Payment card discovery. Passwords finder."
     
     "angrydata-core/index.md":
       title: "Core Library"

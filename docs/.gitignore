@@ -2,4 +2,4 @@ angrydata-core/
 *.md
 .pages
 download/
-assets/data/menu-translations.json
+assets/menu-translations.json
