@@ -9,7 +9,7 @@ metadata:
     # Path is relative to docs directory
     "index.md":
       title: "Sensitive data discovery tool with friendly UI for Mac, Win, Linux"
-      description: "Sensitive data discovery tool. Personal data discovery. Payment card discovery. Passwords finder."
+      description: "Advanced sensitive data discovery tool combining personal data discovery, payment card discovery, and passwords finder in one solution. Comprehensive data detector for compliance and security."
     
     "angrydata-core/index.md":
       title: "Core Library | Angry Data Scanner"
@@ -25,4 +25,4 @@ metadata:
   
   # Default metadata for files not explicitly configured
   defaults:
-    description: "Sensitive data discovery tool. Personal data discovery. Payment card discovery. Passwords finder. Data detector"
+    description: "Advanced sensitive data discovery tool combining personal data discovery, payment card discovery, and passwords finder in one solution. Comprehensive data detector for compliance and security."
