@@ -146,17 +146,18 @@ html, body {
 .md-typeset table {
     width: 100%;
     max-width: 100%;
-    table-layout: fixed;
-    overflow-x: auto;
-    display: block;
-    white-space: nowrap;
+    table-layout: auto;
+    overflow-x: visible;
+    display: table;
+    white-space: normal;
 }
 
 .md-typeset table th,
 .md-typeset table td {
     word-wrap: break-word;
     overflow-wrap: break-word;
-    max-width: 200px;
+    max-width: none;
+    white-space: normal;
 }
 
 /* Fix for code */
@@ -208,6 +209,15 @@ html, body {
     }
     
     /* Additional styles for tablet content */
+    .md-typeset table {
+        font-size: 0.9rem;
+    }
+    
+    .md-typeset table th,
+    .md-typeset table td {
+        padding: 0.5rem 0.3rem;
+        font-size: 0.85rem;
+    }
 }
 
 /* Additional responsive styles for mobile devices */
@@ -220,6 +230,15 @@ html, body {
     /* Improve table display on mobile */
     .md-typeset table {
         font-size: 0.8rem;
+        table-layout: fixed;
+        width: 100%;
+    }
+    
+    .md-typeset table th,
+    .md-typeset table td {
+        padding: 0.3rem 0.2rem;
+        font-size: 0.75rem;
+        word-break: break-word;
     }
     
     /* Improve code display on mobile */
