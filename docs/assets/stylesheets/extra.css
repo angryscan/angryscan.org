@@ -82,3 +82,202 @@
 [data-md-color-scheme="slate"] .md-content a:not(.md-nav__link):not(.md-tabs__link):hover {
     color: #b3d9ff;
 }
+
+/* Исправление горизонтальной прокрутки на мобильных устройствах */
+html, body {
+    overflow-x: hidden;
+    max-width: 100%;
+}
+
+/* Оптимизированные стили для header на мобильных устройствах */
+/* Используем встроенные возможности Material theme с минимальными переопределениями */
+@media screen and (max-width: 76.1875em) {
+    .md-header {
+        width: 100%;
+        left: 0;
+        right: 0;
+    }
+    
+    .md-header__inner {
+        width: 100%;
+        max-width: none;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    /* Обеспечиваем правильное отображение элементов header */
+    .md-header__title {
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+    }
+    
+    .md-header__button {
+        flex-shrink: 0;
+    }
+}
+
+/* Дополнительная оптимизация для использования navigation.top */
+@media screen and (min-width: 76.25em) {
+    .md-header__inner {
+        max-width: 100%;
+    }
+}
+
+/* Предотвращение переполнения контента */
+.md-container {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.md-main {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.md-content {
+    max-width: 100%;
+    overflow-x: hidden;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Исправление для таблиц */
+.md-typeset table {
+    width: 100%;
+    max-width: 100%;
+    table-layout: fixed;
+    overflow-x: auto;
+    display: block;
+    white-space: nowrap;
+}
+
+.md-typeset table th,
+.md-typeset table td {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 200px;
+}
+
+/* Исправление для кода */
+.md-typeset pre {
+    max-width: 100%;
+    overflow-x: auto;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+.md-typeset code {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+}
+
+/* Исправление для изображений */
+.md-typeset img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Исправление для навигации */
+.md-nav {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.md-nav__list {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+/* Дополнительные исправления для мобильных устройств */
+@media screen and (max-width: 76.1875em) {
+    .md-container {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    
+    .md-main__inner {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+    
+    .md-content__inner {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+    
+    /* Дополнительные стили для контента на планшетах */
+}
+
+/* Дополнительные responsive стили для мобильных устройств */
+@media screen and (max-width: 59.9375em) {
+    /* Уменьшаем отступы на очень маленьких экранах */
+    .md-content {
+        padding: 1rem 0.5rem;
+    }
+    
+    /* Улучшаем отображение таблиц на мобильных */
+    .md-typeset table {
+        font-size: 0.8rem;
+    }
+    
+    /* Улучшаем отображение кода на мобильных */
+    .md-typeset pre {
+        font-size: 0.8rem;
+        padding: 0.5rem;
+    }
+    
+    /* Улучшаем отображение навигации */
+    .md-nav__item {
+        padding: 0.2rem 0;
+    }
+    
+    .md-nav__link {
+        padding: 0.4rem 0.8rem;
+    }
+}
+
+/* Стили для очень маленьких экранов (до 480px) */
+@media screen and (max-width: 30em) {
+    .md-content {
+        padding: 0.5rem 0.25rem;
+    }
+    
+    .md-typeset h1 {
+        font-size: 1.5rem;
+    }
+    
+    .md-typeset h2 {
+        font-size: 1.3rem;
+    }
+    
+    .md-typeset h3 {
+        font-size: 1.1rem;
+    }
+    
+    /* Улучшаем отображение кнопок и ссылок */
+    .md-typeset a {
+        word-break: break-word;
+    }
+    
+    /* Улучшаем отображение списков */
+    .md-typeset ul, .md-typeset ol {
+        padding-left: 1rem;
+    }
+    
+    /* Оптимизация header для очень маленьких экранов */
+    .md-header__inner {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+    
+    .md-header__title {
+        font-size: 0.9rem;
+    }
+    
+    .md-header__button {
+        padding: 0.4rem;
+        min-width: 2.4rem;
+    }
+}

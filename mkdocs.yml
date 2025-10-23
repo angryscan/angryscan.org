@@ -12,14 +12,16 @@ theme:
   logo: assets/images/logo.png
   favicon: assets/images/favicon.ico
   features:
+  - header.autohide
   - navigation.tabs
   - navigation.tabs.sticky
-  navigation:
-  - sections
   palette:
   - scheme: slate
     primary: custom
     accent: cyan
+  font:
+    text: Roboto
+    code: Roboto Mono
 markdown_extensions:
 - admonition
 - codehilite
