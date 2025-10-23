@@ -53,6 +53,7 @@ extra_javascript:
 - assets/javascripts/custom-menu.js
 extra_css:
 - assets/stylesheets/extra.css
+- assets/stylesheets/language-flags.css
 extra:
   alternate:
   - name: English

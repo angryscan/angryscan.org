@@ -1,0 +1,92 @@
+/* Language flags for MkDocs Material theme */
+
+/* Base styles for language selector links */
+.md-select__link {
+    position: relative;
+}
+
+/* Add flags to language codes using hreflang attribute */
+.md-select__link[hreflang="en"]::before {
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 15px;
+    margin-right: 8px;
+    vertical-align: middle;
+    background-image: url("https://flagcdn.com/w20/us.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 2px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.md-select__link[hreflang="ru"]::before {
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 15px;
+    margin-right: 8px;
+    vertical-align: middle;
+    background-image: url("https://flagcdn.com/w20/ru.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 2px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.md-select__link[hreflang="es"]::before {
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 15px;
+    margin-right: 8px;
+    vertical-align: middle;
+    background-image: url("https://flagcdn.com/w20/es.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 2px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.md-select__link[hreflang="de"]::before {
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 15px;
+    margin-right: 8px;
+    vertical-align: middle;
+    background-image: url("https://flagcdn.com/w20/de.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 2px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.md-select__link[hreflang="fr"]::before {
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 15px;
+    margin-right: 8px;
+    vertical-align: middle;
+    background-image: url("https://flagcdn.com/w20/fr.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 2px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+/* Mobile responsiveness */
+@media screen and (max-width: 30em) {
+    /* Adapt flags for small screens */
+    .md-select__link[hreflang]::before {
+        width: 16px;
+        height: 12px;
+        margin-right: 6px;
+    }
+}

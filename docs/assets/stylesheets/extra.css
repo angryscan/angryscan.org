@@ -2,15 +2,15 @@
     --md-primary-fg-color:        #121212;
 }
 
-/* Скрытие стандартной навигации, но оставляем drawer */
+/* Hide standard navigation but keep drawer */
 @media screen and (max-width: 76.1875em) {
-    /* Скрываем основную навигацию, но не drawer */
+    /* Hide main navigation but not drawer */
     .md-nav--primary:not(.md-nav--drawer) .md-nav__list {
         display: none !important;
     }
 }
 
-/* Стилизация иконок в стандартном меню */
+/* Icon styling in standard menu */
 .md-nav__icon {
     font-size: 1.2rem;
     margin-right: 0.5rem;
@@ -19,7 +19,7 @@
     display: inline-block;
 }
 
-/* Улучшение стилей для кастомных пунктов меню */
+/* Improve styles for custom menu items */
 .md-nav__item .md-nav__link {
     display: flex;
     align-items: center;
@@ -30,40 +30,40 @@
     background-color: var(--md-default-fg-color--lightest);
 }
 
-/* Плавное появление навигационных табов */
+/* Smooth appearance of navigation tabs */
 .md-tabs__list {
     opacity: 0;
     transform: translateY(-10px);
     transition: opacity 0.4s ease-out, transform 0.4s ease-out;
 }
 
-/* Показываем табы после загрузки */
+/* Show tabs after loading */
 .md-tabs__list.loaded {
     opacity: 1;
     transform: translateY(0);
 }
 
-/* Плавное появление навигационных пунктов */
+/* Smooth appearance of navigation items */
 .md-nav__item {
     opacity: 0;
     transform: translateX(-20px);
     transition: opacity 0.3s ease-out, transform 0.3s ease-out;
 }
 
-/* Показываем пункты навигации с задержкой */
+/* Show navigation items with delay */
 .md-nav__item.loaded {
     opacity: 1;
     transform: translateX(0);
 }
 
-/* Задержка для каждого пункта */
+/* Delay for each item */
 .md-nav__item:nth-child(1).loaded { transition-delay: 0.1s; }
 .md-nav__item:nth-child(2).loaded { transition-delay: 0.2s; }
 .md-nav__item:nth-child(3).loaded { transition-delay: 0.3s; }
 .md-nav__item:nth-child(4).loaded { transition-delay: 0.4s; }
 .md-nav__item:nth-child(5).loaded { transition-delay: 0.5s; }
 
-/* Стили для ссылок на странице (не в меню) */
+/* Styles for page links (not in menu) */
 .md-content a:not(.md-nav__link):not(.md-tabs__link) {
     color: var(--md-primary-fg-color);
     text-decoration: underline;
@@ -74,7 +74,7 @@
     text-decoration: underline;
 }
 
-/* Обеспечиваем читаемость ссылок в темной теме */
+/* Ensure link readability in dark theme */
 [data-md-color-scheme="slate"] .md-content a:not(.md-nav__link):not(.md-tabs__link) {
     color: #8cc8ff;
 }
@@ -83,14 +83,14 @@
     color: #b3d9ff;
 }
 
-/* Исправление горизонтальной прокрутки на мобильных устройствах */
+/* Fix horizontal scrolling on mobile devices */
 html, body {
     overflow-x: hidden;
     max-width: 100%;
 }
 
-/* Оптимизированные стили для header на мобильных устройствах */
-/* Используем встроенные возможности Material theme с минимальными переопределениями */
+/* Optimized styles for header on mobile devices */
+/* Use built-in Material theme capabilities with minimal overrides */
 @media screen and (max-width: 76.1875em) {
     .md-header {
         width: 100%;
@@ -105,7 +105,7 @@ html, body {
         padding-right: 1rem;
     }
     
-    /* Обеспечиваем правильное отображение элементов header */
+    /* Ensure proper header element display */
     .md-header__title {
         flex: 1;
         min-width: 0;
@@ -117,14 +117,14 @@ html, body {
     }
 }
 
-/* Дополнительная оптимизация для использования navigation.top */
+/* Additional optimization for navigation.top usage */
 @media screen and (min-width: 76.25em) {
     .md-header__inner {
         max-width: 100%;
     }
 }
 
-/* Предотвращение переполнения контента */
+/* Prevent content overflow */
 .md-container {
     max-width: 100%;
     overflow-x: hidden;
@@ -142,7 +142,7 @@ html, body {
     overflow-wrap: break-word;
 }
 
-/* Исправление для таблиц */
+/* Fix for tables */
 .md-typeset table {
     width: 100%;
     max-width: 100%;
@@ -159,7 +159,7 @@ html, body {
     max-width: 200px;
 }
 
-/* Исправление для кода */
+/* Fix for code */
 .md-typeset pre {
     max-width: 100%;
     overflow-x: auto;
@@ -173,13 +173,13 @@ html, body {
     max-width: 100%;
 }
 
-/* Исправление для изображений */
+/* Fix for images */
 .md-typeset img {
     max-width: 100%;
     height: auto;
 }
 
-/* Исправление для навигации */
+/* Fix for navigation */
 .md-nav {
     max-width: 100%;
     overflow-x: hidden;
@@ -190,7 +190,7 @@ html, body {
     overflow-x: hidden;
 }
 
-/* Дополнительные исправления для мобильных устройств */
+/* Additional fixes for mobile devices */
 @media screen and (max-width: 76.1875em) {
     .md-container {
         padding-left: 0;
@@ -207,28 +207,28 @@ html, body {
         overflow-x: hidden;
     }
     
-    /* Дополнительные стили для контента на планшетах */
+    /* Additional styles for tablet content */
 }
 
-/* Дополнительные responsive стили для мобильных устройств */
+/* Additional responsive styles for mobile devices */
 @media screen and (max-width: 59.9375em) {
-    /* Уменьшаем отступы на очень маленьких экранах */
+    /* Reduce padding on very small screens */
     .md-content {
         padding: 1rem 0.5rem;
     }
     
-    /* Улучшаем отображение таблиц на мобильных */
+    /* Improve table display on mobile */
     .md-typeset table {
         font-size: 0.8rem;
     }
     
-    /* Улучшаем отображение кода на мобильных */
+    /* Improve code display on mobile */
     .md-typeset pre {
         font-size: 0.8rem;
         padding: 0.5rem;
     }
     
-    /* Улучшаем отображение навигации */
+    /* Improve navigation display */
     .md-nav__item {
         padding: 0.2rem 0;
     }
@@ -238,7 +238,9 @@ html, body {
     }
 }
 
-/* Стили для очень маленьких экранов (до 480px) */
+/* Language flag styles moved to separate file language-flags.css */
+
+/* Styles for very small screens (up to 480px) */
 @media screen and (max-width: 30em) {
     .md-content {
         padding: 0.5rem 0.25rem;
@@ -256,17 +258,17 @@ html, body {
         font-size: 1.1rem;
     }
     
-    /* Улучшаем отображение кнопок и ссылок */
+    /* Improve button and link display */
     .md-typeset a {
         word-break: break-word;
     }
     
-    /* Улучшаем отображение списков */
+    /* Improve list display */
     .md-typeset ul, .md-typeset ol {
         padding-left: 1rem;
     }
     
-    /* Оптимизация header для очень маленьких экранов */
+    /* Header optimization for very small screens */
     .md-header__inner {
         padding-left: 0.5rem;
         padding-right: 0.5rem;
@@ -280,4 +282,5 @@ html, body {
         padding: 0.4rem;
         min-width: 2.4rem;
     }
+    
 }
