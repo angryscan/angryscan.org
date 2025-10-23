@@ -73,27 +73,28 @@
             align-items: center;
             justify-content: center;
             width: 32px;
-            height: 32px;
+            height: 21px;
             border-radius: 4px;
-            background-size: contain;
+            background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
             background-image: url('${currentLangData.flag}');
-            border: none;
-            box-shadow: none;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             transition: all 0.2s ease;
             cursor: pointer;
+            aspect-ratio: 3/2;
         `;
         
         // Добавляем hover эффект
         flagElement.addEventListener('mouseenter', function() {
-            this.style.transform = 'scale(1.1)';
-            this.style.filter = 'brightness(1.1)';
+            this.style.transform = 'scale(1.05)';
+            this.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.15)';
         });
         
         flagElement.addEventListener('mouseleave', function() {
             this.style.transform = 'scale(1)';
-            this.style.filter = 'brightness(1)';
+            this.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.1)';
         });
         
         // Сохраняем функциональность выпадающего меню
