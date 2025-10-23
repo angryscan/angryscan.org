@@ -1,0 +1,28 @@
+# Configuration for custom metadata (title and description) for .md files
+metadata:
+  # Global settings
+  enabled: true
+  
+  # File-specific metadata configuration
+  files:
+    # Example configurations for different files
+    # Path is relative to docs directory
+    "index.md":
+      title: "Sensitive data discovery tool with friendly UI for Mac, Win, Linux"
+      description: "Sensitive data discovery tool. Personal data discovery. Payment card discovery. Passwords finder. Data detector"
+    
+    "angrydata-core/index.md":
+      title: "Core Library"
+      description: "Library for sensitive data processing"
+    
+    "download/index.md":
+      title: "Download"
+      description: "Download the latest version of Angry Data Scanner"
+    
+    "CONSOLE.md":
+      title: "Console Mode"
+      description: "Using Angry Data Scanner in console mode"
+  
+  # Default metadata for files not explicitly configured
+  defaults:
+    description: "Sensitive data discovery tool. Personal data discovery. Payment card discovery. Passwords finder. Data detector"
