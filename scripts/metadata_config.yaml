@@ -12,15 +12,15 @@ metadata:
       description: "Sensitive data discovery tool. Personal data discovery. Payment card discovery. Passwords finder."
     
     "angrydata-core/index.md":
-      title: "Core Library"
+      title: "Core Library | Angry Data Scanner"
       description: "Library for sensitive data processing"
     
     "download/index.md":
-      title: "Download"
+      title: "Download | Angry Data Scanner"
       description: "Download the latest version of Angry Data Scanner"
     
     "CONSOLE.md":
-      title: "Console Mode"
+      title: "Console Mode | Angry Data Scanner"
       description: "Using Angry Data Scanner in console mode"
   
   # Default metadata for files not explicitly configured
