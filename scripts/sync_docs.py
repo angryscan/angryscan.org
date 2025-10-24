@@ -26,7 +26,7 @@ SOURCES_ROOT = ROOT / "sources"
 
 REPOSITORIES: Tuple[Tuple[str, str, str], ...] = (
     ("angrydata-app", "AngryData App", "https://github.com/angryscan/angrydata-app.git"),
-    ("angrydata-core", "AngryData Core", "https://github.com/angryscan/angrydata-core.git"),
+    # ("angrydata-core", "AngryData Core", "https://github.com/angryscan/angrydata-core.git"),
 )
 
 ALL_LOCALES = [locale for locale in get_all_locales() if locale]
@@ -622,7 +622,6 @@ def sync(repos: Iterable[Tuple[str, str, str]]) -> None:
     nav_content = """title: Angry Data Scanner
 nav:
   - Main: .
-  - Angry Data Core: angrydata-core
   - Download: download
 """
     root_pages.write_text(nav_content, encoding="utf-8")
