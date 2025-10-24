@@ -1,14 +1,3 @@
----
-hide:
-  - navigation
-  - toc
-  - navigation
-  - toc
-  - navigation
-  - toc
-  - navigation
-  - toc
----
 # Angry Data Scanner Docs
 
 This repository powers the public documentation site for the Angry Data Scanner project. The site
