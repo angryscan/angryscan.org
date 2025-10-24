@@ -2,11 +2,38 @@
     --md-primary-fg-color:        #121212;
 }
 
-/* Hide standard navigation but keep drawer */
+/* Hide navigation and drawer on mobile devices */
 @media screen and (max-width: 76.1875em) {
-    /* Hide main navigation but not drawer */
-    .md-nav--primary:not(.md-nav--drawer) .md-nav__list {
+    /* Hide burger menu button */
+    .md-header__button[for="__drawer"] {
         display: none !important;
+    }
+    
+    /* Hide drawer (slide-out menu) */
+    .md-overlay {
+        display: none !important;
+    }
+    
+    #__drawer {
+        display: none !important;
+    }
+    
+    /* Hide both sidebars */
+    .md-sidebar--primary,
+    .md-sidebar--secondary {
+        display: none !important;
+    }
+    
+    /* Make content full-width */
+    .md-content {
+        max-width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    .md-main__inner {
+        margin-left: 0;
+        margin-right: 0;
     }
 }
 
@@ -92,19 +119,7 @@ html, body {
 /* Optimized styles for header on mobile devices */
 /* Use built-in Material theme capabilities with minimal overrides */
 @media screen and (max-width: 76.1875em) {
-    .md-header {
-        width: 100%;
-        left: 0;
-        right: 0;
-    }
-    
-    .md-header__inner {
-        width: 100%;
-        max-width: none;
-        padding-left: 1rem;
-        padding-right: 1rem;
-    }
-    
+       
     /* Ensure proper header element display */
     .md-header__title {
         flex: 1;
@@ -116,12 +131,22 @@ html, body {
         flex-shrink: 0;
     }
 }
+.md-header__inner {
+    width: 100%;
+    max-width: none;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
 
 /* Additional optimization for navigation.top usage */
 @media screen and (min-width: 76.25em) {
     .md-header__inner {
         max-width: 100%;
     }
+}
+
+.md-header__button.md-logo {
+    display: contents;
 }
 
 /* Prevent content overflow */
@@ -307,18 +332,4 @@ html, body {
 /* Add left margin to logo to match right margin of GitHub widget */
 .md-header__button.md-logo {
     margin-left: 3rem;
-}
-
-.md-header__title {
-    flex: 0 0 8.1rem;
-}
-
-/* Center navigation tabs in remaining space */
-.md-header__tabs {
-    flex: 1;
-    display: flex;
-}
-
-.md-header__tabs .md-tabs__list {
-    justify-content: center;
 }

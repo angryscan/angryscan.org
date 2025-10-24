@@ -1,8 +1,8 @@
 # Configuration for documentation synchronization
 sync:
   # Headers to remove from documentation
-  remove_headers:
-    - "## Direct Download"
+  remove_headers: []
+    # - "## Direct Download"  # Uncomment to remove Direct Download section
     # Add more headers to remove as needed
     # - "## Another Section"
     # - "## [Console mode](CONSOLE.md)"  # Uncomment to remove Console mode section

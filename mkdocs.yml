@@ -12,10 +12,6 @@ theme:
   language: en
   logo: assets/images/logo.png
   favicon: assets/images/favicon.ico
-  features:
-  - header.autohide
-  - navigation.tabs
-  - navigation.tabs.sticky
   palette:
   - scheme: slate
     primary: custom
@@ -52,7 +48,7 @@ plugins:
 - minify:
     minify_html: true
 extra_javascript:
-- assets/javascripts/custom-menu.js
+# - assets/javascripts/custom-menu.js
 - assets/javascripts/language-selector.js
 extra_css:
 - assets/stylesheets/extra.css
