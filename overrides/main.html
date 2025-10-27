@@ -2,7 +2,6 @@
 
 {% block htmltitle %}
     {% include "partials/integrations/analytics/custom.html" %}
-    
     {% if page and page.meta and page.meta.title %}
         <title>{{ page.meta.title }}</title>
     {% elif page and page.title %}
@@ -10,13 +9,4 @@
     {% else %}
         <title>{{ config.site_name }}</title>
     {% endif %}
-{% endblock %}
-
-{% block container %}
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WSLS4F4G"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
-    
-    {{ super() }}
 {% endblock %}
