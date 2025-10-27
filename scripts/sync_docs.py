@@ -570,6 +570,17 @@ def sync_repo(repo_slug: str, title: str, repo_url: str) -> None:
         shutil.rmtree(temp_dir)
 
 
+def create_bing_auth_file() -> None:
+    """Create BingSiteAuth.xml file for Bing Webmaster Tools verification."""
+    bing_auth_file = DOCS_ROOT / "BingSiteAuth.xml"
+    content = """<?xml version="1.0"?>
+<users>
+	<user>2EF28BCEF4D8F18C669E8DB8C238B4C8</user>
+</users>"""
+    bing_auth_file.write_text(content, encoding="utf-8")
+    print(f"Created {bing_auth_file.name} for Bing verification")
+
+
 def sync(repos: Iterable[Tuple[str, str, str]]) -> None:
     reset_docs_root()
     for slug, title, repo_url in repos:
@@ -582,6 +593,9 @@ def sync(repos: Iterable[Tuple[str, str, str]]) -> None:
     
     # Apply custom metadata to all documentation
     apply_custom_metadata(DOCS_ROOT)
+    
+    # Create Bing verification file
+    create_bing_auth_file()
 
 
 def main() -> None:
