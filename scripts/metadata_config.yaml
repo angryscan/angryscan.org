@@ -21,10 +21,6 @@ metadata:
       title: "Core Library | Angry Data Scanner"
       description: "Library for sensitive data processing"
     
-    "download/index.md":
-      title: "Download | Angry Data Scanner"
-      description: "Download the latest version of Angry Data Scanner"
-    
     "CONSOLE.md":
       title: "Console Mode | Angry Data Scanner"
       description: "Using Angry Data Scanner in console mode"

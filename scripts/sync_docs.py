@@ -502,44 +502,6 @@ def sanitize_translation_links(doc_dir: Path) -> None:
             md_file.write_text(cleaned_final, encoding="utf-8")
 
 
-def write_pages_metadata(doc_dir: Path, slug: str, title: str) -> None:
-    pages_file = doc_dir / ".pages"
-    title_line = f"title: {title}\n"
-    
-    # For angrydata-app in root, don't create .pages file as it's the root directory
-    if slug == "angrydata-app":
-        # Create download directory in docs root
-        download_dir = DOCS_ROOT / "download"
-        placeholder_path = download_dir / "index.md"
-        if not download_dir.exists():
-            download_dir.mkdir(parents=True, exist_ok=True)
-        download_meta = download_dir / ".pages"
-        if not download_meta.exists():
-            download_meta.write_text("collapse_single_pages: true\n", encoding="utf-8")
-        if not placeholder_path.exists():
-            placeholder_path.write_text(
-                "---\n"
-                "title: Download\n"
-                "hide:\n"
-                "  - navigation\n"
-                "  - toc\n"
-                "---\n\n"
-                "Download will be generated automatically. "
-                "Run `python scripts/generate_downloads_page.py` to populate this section.\n",
-                encoding="utf-8",
-            )
-        return
-    
-    # For other repositories, create .pages file
-    pages_file.write_text(title_line, encoding="utf-8")
-
-def get_repository_title(slug: str, title: str) -> str:
-    normalized = title.strip()
-    if slug == "angrydata-app":
-        normalized = "Main"
-    return normalized
-
-
 def find_doc_root(repo_dir: Path) -> Path | None:
     candidates = [
         repo_dir / "docs",
@@ -603,8 +565,6 @@ def sync_repo(repo_slug: str, title: str, repo_url: str) -> None:
     # Apply custom metadata
     apply_custom_metadata(destination)
 
-    write_pages_metadata(destination, repo_slug, get_repository_title(repo_slug, title))
-
     temp_dir = repo_dir / ".aggregated-docs"
     if temp_dir.exists():
         shutil.rmtree(temp_dir)
@@ -612,19 +572,8 @@ def sync_repo(repo_slug: str, title: str, repo_url: str) -> None:
 
 def sync(repos: Iterable[Tuple[str, str, str]]) -> None:
     reset_docs_root()
-    repo_entries: list[tuple[str, str]] = []
     for slug, title, repo_url in repos:
         sync_repo(slug, title, repo_url)
-        repo_entries.append((slug, get_repository_title(slug, title)))
-
-    root_pages = DOCS_ROOT / ".pages"
-    # Simplified navigation - only main sections
-    nav_content = """title: Angry Data Scanner
-nav:
-  - Main: .
-  - Download: download
-"""
-    root_pages.write_text(nav_content, encoding="utf-8")
 
     # For angrydata-app in root, don't create redirect as content is already in root
     # Main content of angrydata-app is already copied to root, so no need to create redirect

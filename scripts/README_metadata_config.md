@@ -52,14 +52,6 @@ metadata:
           title: "Основная библиотека | Angry Data Scanner"
           description: "Библиотека для обработки конфиденциальных данных"
 
-    "download/index.md":
-      title: "Download | Angry Data Scanner"
-      description: "Download the latest version of Angry Data Scanner"
-      translations:
-        ru:
-          title: "Скачать | Angry Data Scanner"
-          description: "Скачайте последнюю версию Angry Data Scanner"
-
     "CONSOLE.md":
       title: "Console Mode | Angry Data Scanner"
       description: "Using Angry Data Scanner in console mode"
@@ -135,7 +127,6 @@ The following wildcard patterns are supported:
 Examples:
 - `"angrydata-core/*.md"` - all .md files in angrydata-core folder
 - `"**/README.md"` - all README.md files in any subfolders
-- `"download/*.md"` - all .md files in download folder
 
 ## Metadata Application Priority
 
@@ -193,24 +184,7 @@ metadata:
           description: "Willkommen bei Angry Data Scanner"
 ```
 
-### Example 2: Partial Language Override
-
-```yaml
-metadata:
-  files:
-    "download/index.md":
-      title: "Download | Angry Data Scanner"
-      description: "Download the latest version"
-      translations:
-        ru:
-          # Only override title, description will be auto-translated
-          title: "Скачать | Angry Data Scanner"
-        de:
-          # Only override description, title will be auto-translated
-          description: "Laden Sie die neueste Version herunter"
-```
-
-### Example 3: Auto-Translation (No Overrides)
+### Example 2: Auto-Translation (No Overrides)
 
 ```yaml
 metadata:
@@ -221,7 +195,7 @@ metadata:
       # No translations section - all languages will be auto-translated
 ```
 
-### Example 4: Default Configuration
+### Example 3: Default Configuration
 
 ```yaml
 metadata:

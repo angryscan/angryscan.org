@@ -115,11 +115,11 @@ def generate_js_language_mappings(config: Dict[str, Any] | None = None) -> Dict[
     
     # Menu text translations
     menu_translations = {
-        'en': {'main': 'Main', 'library': 'Angry Data Core', 'download': 'Download'},
-        'ru': {'main': 'Главная', 'library': 'Angry Data Core', 'download': 'Скачать'},
-        'es': {'main': 'Principal', 'library': 'Angry Data Core', 'download': 'Descargas'},
-        'de': {'main': 'Hauptseite', 'library': 'Angry Data Core', 'download': 'Downloads'},
-        'fr': {'main': 'Principal', 'library': 'Angry Data Core', 'download': 'Téléchargements'}
+        'en': {'main': 'Main', 'library': 'Angry Data Core'},
+        'ru': {'main': 'Главная', 'library': 'Angry Data Core'},
+        'es': {'main': 'Principal', 'library': 'Angry Data Core'},
+        'de': {'main': 'Hauptseite', 'library': 'Angry Data Core'},
+        'fr': {'main': 'Principal', 'library': 'Angry Data Core'}
     }
     
     for lang in languages:

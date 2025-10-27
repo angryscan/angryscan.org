@@ -20,7 +20,6 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCS_ROOT = ROOT / "docs"
-CONFIG_PATH = ROOT / "scripts" / "download_config.yaml"
 METADATA_CONFIG_PATH = ROOT / "scripts" / "metadata_config.yaml"
 
 LANGUAGE_METADATA = get_i18n_languages()
@@ -35,12 +34,8 @@ FENCE_PREFIX = "```"
 
 def load_translation_exclusions() -> dict:
     """Load translation exclusions from config file."""
-    try:
-        with open(CONFIG_PATH, 'r', encoding='utf-8') as f:
-            config = yaml.safe_load(f)
-        return config.get('translation_exclusions', {})
-    except (FileNotFoundError, yaml.YAMLError):
-        return {}
+    # No translation exclusions config file available
+    return {}
 
 
 def get_exclusion_config():
@@ -131,18 +126,9 @@ PROTECTED_TERMS = [
 
 # CSS classes and HTML attributes that should not be translated
 PROTECTED_CSS_CLASSES = [
-    "download-container",
-    "download-card",
-    "download-button",
-    "download-badge",
-    "download-info",
-    "download-name",
-    "download-size",
-    "no-downloads",
     "release-info",
     "release-date",
     "os-header",
-    "download-content",
     "windows",
     "linux",
     "apple"
