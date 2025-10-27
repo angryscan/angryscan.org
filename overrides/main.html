@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 
+{% block site_meta %}
+    {{ super() }}
+    {% include "partials/alternate-links.html" %}
+{% endblock %}
+
 {% block htmltitle %}
     {% include "partials/integrations/analytics/custom.html" %}
     {% if page and page.meta and page.meta.title %}

@@ -172,11 +172,10 @@ def reset_docs_root() -> None:
 def copytree(src: Path, dest: Path) -> None:
     if dest.exists():
         shutil.rmtree(dest)
+    patterns = ["CONSOLE.md", "CONSOLE.*.md"]
     if TRANSLATION_SUFFIXES:
-        patterns = [f"*{suffix}" for suffix in TRANSLATION_SUFFIXES]
-        shutil.copytree(src, dest, ignore=shutil.ignore_patterns(*patterns))
-    else:
-        shutil.copytree(src, dest)
+        patterns.extend([f"*{suffix}" for suffix in TRANSLATION_SUFFIXES])
+    shutil.copytree(src, dest, ignore=shutil.ignore_patterns(*patterns))
 
 
 def copytree_to_root(src: Path, dest: Path) -> None:
@@ -185,7 +184,12 @@ def copytree_to_root(src: Path, dest: Path) -> None:
     for item in src.iterdir():
         # Check if file should be ignored
         should_ignore = False
-        if TRANSLATION_SUFFIXES:
+        
+        # Ignore CONSOLE.md and its translations
+        if item.name == "CONSOLE.md" or (item.name.startswith("CONSOLE.") and item.name.endswith(".md")):
+            should_ignore = True
+        
+        if not should_ignore and TRANSLATION_SUFFIXES:
             for suffix in TRANSLATION_SUFFIXES:
                 if item.name.lower().endswith(suffix):
                     should_ignore = True
@@ -203,11 +207,10 @@ def copytree_to_root(src: Path, dest: Path) -> None:
             # Copy directory
             if dest_item.exists():
                 shutil.rmtree(dest_item)
+            patterns = ["CONSOLE.md", "CONSOLE.*.md"]
             if TRANSLATION_SUFFIXES:
-                patterns = [f"*{suffix}" for suffix in TRANSLATION_SUFFIXES]
-                shutil.copytree(item, dest_item, ignore=shutil.ignore_patterns(*patterns))
-            else:
-                shutil.copytree(item, dest_item)
+                patterns.extend([f"*{suffix}" for suffix in TRANSLATION_SUFFIXES])
+            shutil.copytree(item, dest_item, ignore=shutil.ignore_patterns(*patterns))
 
 
 def ensure_index(doc_dir: Path) -> None:

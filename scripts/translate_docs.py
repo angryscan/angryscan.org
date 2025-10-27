@@ -25,10 +25,12 @@ METADATA_CONFIG_PATH = ROOT / "scripts" / "metadata_config.yaml"
 LANGUAGE_METADATA = get_i18n_languages()
 TRANSLATION_LOCALES = get_translation_locales()
 
+# For folder structure, we don't use suffixes
 TRANSLATION_SUFFIXES = {locale: f".{locale}.md" for locale in TRANSLATION_LOCALES}
 
 IGNORED_NAMES = {".gitignore", ".pages"}
-IGNORED_DIRS = {".git", "__pycache__", "assets"}
+# Add language folders to ignored directories
+IGNORED_DIRS = {".git", "__pycache__", "assets"} | set(TRANSLATION_LOCALES)
 FENCE_PREFIX = "```"
 
 
@@ -136,12 +138,23 @@ PROTECTED_CSS_CLASSES = [
 
 
 def iter_markdown_files(root: Path) -> Iterator[Path]:
+    """Iterate over markdown files in the root directory, excluding translations."""
     for path in root.rglob("*.md"):
+        # Skip files with translation suffixes (legacy)
         if any(path.name.endswith(suffix) for suffix in TRANSLATION_SUFFIXES.values()):
             continue
         if path.name in IGNORED_NAMES:
             continue
+        # Skip files in ignored directories (including language folders)
         if any(part in IGNORED_DIRS for part in path.parts):
+            continue
+        # Only process files directly in docs root or its subdirectories (not in language folders)
+        try:
+            rel_path = path.relative_to(root)
+            # Check if the first directory component is a language code
+            if len(rel_path.parts) > 1 and rel_path.parts[0] in TRANSLATION_LOCALES:
+                continue
+        except ValueError:
             continue
         yield path
 
@@ -491,14 +504,30 @@ async def translate_file_async(path: Path, targets: List[str], semaphore: asynci
 
 
 def build_translation_path(path: Path, suffix: str) -> Path:
-    base_name = path.name
-    if base_name.endswith(".markdown"):
-        core = base_name[: -len(".markdown")]
-        return path.with_name(f"{core}{suffix[:-3]}.markdown")
-    if base_name.endswith(".md"):
-        core = base_name[: -len(".md")]
-        return path.with_name(f"{core}{suffix}")
-    return path.with_name(f"{base_name}{suffix}")
+    """
+    Build path for translated file using folder structure.
+    
+    For folder structure:
+    docs/index.md -> docs/ru/index.md
+    docs/subdir/page.md -> docs/ru/subdir/page.md
+    """
+    # Extract language code from suffix (e.g., ".ru.md" -> "ru")
+    lang_code = suffix.split('.')[1] if '.' in suffix else suffix
+    
+    # Get relative path from docs root
+    try:
+        rel_path = path.relative_to(DOCS_ROOT)
+    except ValueError:
+        # If path is not relative to docs root, fall back to old behavior
+        return path.with_name(f"{path.stem}{suffix}")
+    
+    # Build new path: docs/lang_code/original_relative_path
+    translated_path = DOCS_ROOT / lang_code / rel_path
+    
+    # Create parent directory if it doesn't exist
+    translated_path.parent.mkdir(parents=True, exist_ok=True)
+    
+    return translated_path
 
 
 def run(targets: Iterable[str]) -> None:
