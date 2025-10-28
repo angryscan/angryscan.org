@@ -8,6 +8,7 @@ import re
 import shutil
 import subprocess
 import sys
+import urllib.parse
 from pathlib import Path
 from typing import Iterable, Tuple
 
@@ -397,6 +398,113 @@ def clean_hide_duplicates(content: str) -> str:
     return f"---\n{new_front_matter}\n---\n{content_after}"
 
 
+def parse_badge_url(badge_url: str) -> tuple[str, str] | None:
+    """
+    Parse shields.io badge URL to extract left and right text.
+    
+    Example: https://img.shields.io/badge/x64-Portable-0078D6?style=for-the-badge
+    Returns: ("x64", "Portable")
+    
+    Example: https://img.shields.io/badge/Online%20Installer-x64-0078D6
+    Returns: ("Online Installer", "x64")
+    """
+    # Extract the badge path (everything between /badge/ and the color or query params)
+    badge_match = re.search(r'/badge/([^?]+)', badge_url)
+    if not badge_match:
+        return None
+    
+    badge_text = badge_match.group(1)
+    
+    # Split by hyphen, but only the last occurrence before the color code
+    # Badge format: text1-text2-color where color is hex or color name
+    parts = badge_text.split('-')
+    
+    if len(parts) < 2:
+        return None
+    
+    # The last part is typically the color (hex code or color name)
+    # Check if last part looks like a color code (3 or 6 hex chars)
+    last_part_is_hex = (
+        (len(parts[-1]) == 6 or len(parts[-1]) == 3) and 
+        all(c in '0123456789ABCDEFabcdef' for c in parts[-1])
+    )
+    
+    if last_part_is_hex:
+        # Last part is color, take the one before as right text
+        if len(parts) < 3:
+            return None
+        right_text = parts[-2]
+        left_text = '-'.join(parts[:-2])
+    else:
+        # No color in URL, split into two parts
+        right_text = parts[-1]
+        left_text = '-'.join(parts[:-1])
+    
+    # Decode URL encoding
+    left_text = urllib.parse.unquote_plus(left_text.replace('%20', ' '))
+    right_text = urllib.parse.unquote_plus(right_text.replace('%20', ' '))
+    
+    return (left_text, right_text)
+
+
+def replace_badge_with_divs(content: str) -> str:
+    """
+    Replace <img> badge elements with div elements containing parsed text.
+    
+    Converts:
+        <img src="https://img.shields.io/badge/x64-Portable-..." alt="...">
+    To:
+        <div class="badge-left">x64</div><div class="badge-right">Portable</div>
+    
+    Special case for "in progress":
+        <img src="https://img.shields.io/badge/macOS-in%20progress-..." alt="...">
+    To:
+        <div class="badge-only">in progress</div>
+    """
+    # Pattern to match img tags with shields.io badge URLs (flexible attribute order)
+    # Matches both: src before alt and alt before src
+    img_pattern = r'<img\s+(?:src="(https?://img\.shields\.io/badge/[^"]+)"\s+alt="[^"]*"|alt="[^"]*"\s+src="(https?://img\.shields\.io/badge/[^"]+)")\s*/?>'
+    
+    def replace_img(match):
+        # Get URL from either group 1 or group 2
+        img_url = match.group(1) if match.group(1) else match.group(2)
+        parsed = parse_badge_url(img_url)
+        
+        if parsed:
+            left_text, right_text = parsed
+            
+            # Special case: if right text is "in progress", show only that
+            if right_text.lower() in ['in progress', 'in_progress', 'coming soon', 'coming_soon']:
+                return f'<div class="badge-only">{right_text}</div>'
+            
+            return f'<div class="badge-left">{left_text}</div><div class="badge-right">{right_text}</div>'
+        
+        # If parsing failed, return original
+        return match.group(0)
+    
+    return re.sub(img_pattern, replace_img, content)
+
+
+def process_badge_images(doc_dir: Path) -> None:
+    """Process all markdown files to replace badge images with div elements."""
+    for md_file in doc_dir.rglob("*.md"):
+        if is_translation_filename(md_file.name):
+            continue
+        
+        # Skip root index.md only if it's a redirect (contains meta refresh)
+        if md_file.name == "index.md" and md_file.parent == doc_dir:
+            content = md_file.read_text(encoding="utf-8")
+            if "meta http-equiv=\"refresh\"" in content or "window.location.replace" in content:
+                continue
+        
+        original_content = md_file.read_text(encoding="utf-8")
+        updated_content = replace_badge_with_divs(original_content)
+        
+        if updated_content != original_content:
+            md_file.write_text(updated_content, encoding="utf-8")
+            print(f"Processed badges in: {md_file.relative_to(doc_dir)}")
+
+
 def sanitize_translation_links(doc_dir: Path) -> None:
     """Strip links that point to translation markdown files and remove Direct Download section."""
     for md_file in doc_dir.rglob("*.md"):
@@ -567,6 +675,9 @@ def sync_repo(repo_slug: str, title: str, repo_url: str) -> None:
     
     # Apply custom metadata
     apply_custom_metadata(destination)
+    
+    # Process badge images
+    process_badge_images(destination)
 
     temp_dir = repo_dir / ".aggregated-docs"
     if temp_dir.exists():
@@ -599,6 +710,9 @@ def sync(repos: Iterable[Tuple[str, str, str]]) -> None:
     
     # Apply custom metadata to all documentation
     apply_custom_metadata(DOCS_ROOT)
+    
+    # Process badge images in all documentation
+    process_badge_images(DOCS_ROOT)
     
     # Copy static files (robots.txt, BingSiteAuth.xml, etc.)
     copy_static_files()

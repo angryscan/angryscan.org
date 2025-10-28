@@ -51,6 +51,7 @@ extra_javascript:
 - assets/javascripts/language-selector.js
 extra_css:
 - assets/stylesheets/extra.css
+- assets/stylesheets/badge.css
 - assets/stylesheets/language-flags.css
 - assets/stylesheets/language-selector.css
 extra:
