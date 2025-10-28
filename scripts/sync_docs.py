@@ -461,13 +461,13 @@ def replace_badge_with_divs(content: str) -> str:
     To:
         <div class="badge-only">in progress</div>
     """
-    # Pattern to match img tags with shields.io badge URLs (flexible attribute order)
-    # Matches both: src before alt and alt before src
-    img_pattern = r'<img\s+(?:src="(https?://img\.shields\.io/badge/[^"]+)"\s+alt="[^"]*"|alt="[^"]*"\s+src="(https?://img\.shields\.io/badge/[^"]+)")\s*/?>'
+    # Pattern to match img tags with shields.io badge URLs (more flexible)
+    # Matches any img tag that contains a shields.io badge URL in src attribute
+    img_pattern = r'<img\s+[^>]*src="(https?://img\.shields\.io/badge/[^"]+)"[^>]*/?>'
     
     def replace_img(match):
-        # Get URL from either group 1 or group 2
-        img_url = match.group(1) if match.group(1) else match.group(2)
+        # Get URL from group 1
+        img_url = match.group(1)
         parsed = parse_badge_url(img_url)
         
         if parsed:
