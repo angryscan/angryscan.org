@@ -220,7 +220,8 @@ html, body {
     align-content: center;
 }
 
-.md-typeset table:not([class]) td {
+.md-typeset table:not([class]) td,
+.md-typeset table:not([class]) th {
     padding: 0.5em 0.7em;
 }
 
@@ -266,18 +267,13 @@ thead:not(:has(th:not(:empty))) {
         overflow-x: hidden;
     }
     
-    /* Additional styles for tablet content */
-    .md-typeset table {
-        font-size: 0.9rem;
-    }
-    
     .md-typeset table th,
     .md-typeset table td {
         padding: 0.5rem 0.3rem;
-        font-size: 0.85rem;
     }
 
-    .md-typeset table:not([class]) td {
+    .md-typeset table:not([class]) td,
+    .md-typeset table:not([class]) th {
         padding: 0.5em 0.5em;
     }
 }
@@ -299,10 +295,10 @@ thead:not(:has(th:not(:empty))) {
     .md-typeset table th,
     .md-typeset table td {
         padding: 0.3rem 0.2rem;
-        font-size: 0.75rem;
         word-break: break-word;
     }
-    .md-typeset table:not([class]) td {
+    .md-typeset table:not([class]) td,
+    .md-typeset table:not([class]) th {
         padding: 0.3em 0.5em;
     }
     
@@ -356,10 +352,6 @@ thead:not(:has(th:not(:empty))) {
     .md-header__inner {
         padding-left: 0.5rem;
         padding-right: 0.5rem;
-    }
-    
-    .md-header__title {
-        font-size: 0.9rem;
     }
     
     .md-header__button {
