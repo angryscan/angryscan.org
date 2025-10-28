@@ -245,6 +245,10 @@ html, body {
     margin-top: 1em;
 }
 
+thead:not(:has(th:not(:empty))) { 
+    display: none; 
+}
+
 /* Additional fixes for mobile devices */
 @media screen and (max-width: 76.1875em) {
     .md-container {
