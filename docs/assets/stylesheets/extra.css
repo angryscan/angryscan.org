@@ -333,3 +333,11 @@ html, body {
 .md-header__button.md-logo {
     margin-left: 3rem;
 }
+
+.md-typeset table td {
+    align-content: center;
+}
+
+.md-typeset table:not([class]) td {
+    padding: 0.5em 1em;
+}
