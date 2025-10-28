@@ -215,6 +215,35 @@ html, body {
     max-width: 100%;
     overflow-x: hidden;
 }
+/* Fix for table alignment */
+.md-typeset table td {
+    align-content: center;
+}
+
+.md-typeset table:not([class]) td {
+    padding: 0.5em 0.7em;
+}
+
+.md-typeset table:not([class]) {
+    font-size: 0.9em;
+}
+
+.md-typeset ol li, .md-typeset ul li {
+    margin-bottom: 0;
+}
+
+
+/* Fix for h1 margin */
+.md-typeset h1 {
+    margin-bottom: 1em;
+}
+
+.md-typeset h2 {
+    margin-top: 1em;
+}
+.md-typeset h3 {
+    margin-top: 1em;
+}
 
 /* Additional fixes for mobile devices */
 @media screen and (max-width: 76.1875em) {
@@ -243,6 +272,10 @@ html, body {
         padding: 0.5rem 0.3rem;
         font-size: 0.85rem;
     }
+
+    .md-typeset table:not([class]) td {
+        padding: 0.5em 0.5em;
+    }
 }
 
 /* Additional responsive styles for mobile devices */
@@ -264,6 +297,9 @@ html, body {
         padding: 0.3rem 0.2rem;
         font-size: 0.75rem;
         word-break: break-word;
+    }
+    .md-typeset table:not([class]) td {
+        padding: 0.3em 0.5em;
     }
     
     /* Improve code display on mobile */
@@ -287,7 +323,7 @@ html, body {
 /* Styles for very small screens (up to 480px) */
 @media screen and (max-width: 30em) {
     .md-content {
-        padding: 0.5rem 0.25rem;
+        padding: 0.5rem 0.3rem;
     }
     
     .md-typeset h1 {
@@ -334,10 +370,3 @@ html, body {
     margin-left: 3rem;
 }
 
-.md-typeset table td {
-    align-content: center;
-}
-
-.md-typeset table:not([class]) td {
-    padding: 0.5em 1em;
-}
