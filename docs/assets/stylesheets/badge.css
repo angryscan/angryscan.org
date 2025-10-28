@@ -11,8 +11,8 @@ table a:has(.badge-only) {
 .badge-right,
 .badge-only {
     display: inline-block;
-    padding: 6px 12px;
-    line-height: 1.4;
+    padding: 4px 12px;
+    line-height: 1.2;
     text-align: center;
     white-space: nowrap;
     vertical-align: middle;
