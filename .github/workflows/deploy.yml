@@ -68,7 +68,6 @@ jobs:
 
   deploy:
     needs: build
-    if: needs.build.outputs.should_deploy == 'true'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
