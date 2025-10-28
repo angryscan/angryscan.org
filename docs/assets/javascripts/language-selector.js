@@ -81,9 +81,11 @@
             background-image: url('${currentLangData.flag}');
             border: 1px solid rgba(0, 0, 0, 0.1);
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            transition: all 0.2s ease;
+            transition: opacity 0.4s ease, transform 0.2s ease, box-shadow 0.2s ease;
             cursor: pointer;
             aspect-ratio: 3/2;
+            visibility: visible !important;
+            opacity: 0;
         `;
         
         // Добавляем hover эффект
@@ -123,6 +125,11 @@
         // Заменяем кнопку
         languageButton.parentNode.replaceChild(flagElement, languageButton);
         isReplaced = true;
+        
+        // Плавное появление флага
+        setTimeout(function() {
+            flagElement.style.opacity = '1';
+        }, 10);
         
         console.log('Language button replaced with flag for:', currentLang);
     }
