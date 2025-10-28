@@ -685,17 +685,28 @@ def sync_repo(repo_slug: str, title: str, repo_url: str) -> None:
 
 
 def copy_static_files() -> None:
-    """Copy static files from scripts/static to docs root."""
+    """Copy static files from scripts/static and scripts/static_html to docs root."""
+    # Copy from scripts/static
     static_dir = ROOT / "scripts" / "static"
-    if not static_dir.exists():
+    if static_dir.exists():
+        for static_file in static_dir.iterdir():
+            if static_file.is_file():
+                dest_file = DOCS_ROOT / static_file.name
+                shutil.copy2(static_file, dest_file)
+                print(f"Copied {static_file.name} to docs root")
+    else:
         print(f"Warning: Static directory {static_dir} does not exist", file=sys.stderr)
-        return
     
-    for static_file in static_dir.iterdir():
-        if static_file.is_file():
-            dest_file = DOCS_ROOT / static_file.name
-            shutil.copy2(static_file, dest_file)
-            print(f"Copied {static_file.name} to docs root")
+    # Copy from scripts/static_html
+    static_html_dir = ROOT / "scripts" / "static_html"
+    if static_html_dir.exists():
+        for static_file in static_html_dir.iterdir():
+            if static_file.is_file():
+                dest_file = DOCS_ROOT / static_file.name
+                shutil.copy2(static_file, dest_file)
+                print(f"Copied {static_file.name} to docs root")
+    else:
+        print(f"Warning: Static HTML directory {static_html_dir} does not exist", file=sys.stderr)
 
 
 def sync(repos: Iterable[Tuple[str, str, str]]) -> None:
