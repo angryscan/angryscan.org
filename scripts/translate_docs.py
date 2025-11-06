@@ -820,6 +820,9 @@ def translate_blocks(text: str, translator: GoogleTranslator, file_path: Path = 
     # Store original lines for excluded tables
     original_lines = lines.copy()
     
+    # Dictionary to store table header info: {line_index: (is_header, should_translate, exclude_columns)}
+    table_header_info = {}
+    
     # Process tables - apply exclusions
     for table_num, (start, end, preceding_header) in table_info.items():
         # Find matching config
@@ -829,47 +832,47 @@ def translate_blocks(text: str, translator: GoogleTranslator, file_path: Path = 
         if not table_config:
             table_config = get_table_config_by_number(table_configs, table_num)
         
+        # Default values for tables without config (translate headers by default)
+        exclude_columns = []
+        exclude_header = False
+        
         if table_config:
             # Check if entire table should be excluded
             if table_config.get('exclude_table'):
-                # Replace table with placeholders that include original line index
+                # Mark all table lines as excluded
                 for i in range(start, end):
                     processed_lines[i] = f"__EXCLUDE_TABLE_LINE_{i}__"
+                continue
             else:
-                # Process columns
+                # Get config values
                 exclude_columns = table_config.get('exclude_columns')
                 if exclude_columns is None:
                     exclude_columns = []
                 exclude_header = table_config.get('exclude_header', False)
-                
-                if exclude_columns:
-                    # Process table lines
-                    for i in range(start, end):
-                        line = processed_lines[i]
-                        # Check if this is separator row (second row, typically contains dashes)
-                        is_separator = (i == start + 1 and 
-                                       ('---' in line or all(c in '-:| ' for c in line.strip())))
-                        is_header_row = i == start
-                        
-                        if is_separator:
-                            # Don't modify separator row
-                            continue
-                        elif is_header_row:
-                            # If exclude_header is False, header should be translated
-                            # But excluded columns should NOT be translated
-                            if not exclude_header:
-                                # Mark this as a header that should be translated (even if all columns are excluded)
-                                # We'll use a special marker to identify header rows during translation
-                                processed_line = process_table_line(line, exclude_columns, exclude_header, True)
-                                # Mark as header that should be translated (but not excluded)
-                                processed_line = f"__TRANSLATE_HEADER__{processed_line}__TRANSLATE_HEADER__"
-                            else:
-                                # exclude_header is True, just process normally and mark to skip translation
-                                processed_line = process_table_line(line, exclude_columns, exclude_header, True)
-                                processed_line = f"__EXCLUDE_HEADER__{processed_line}__EXCLUDE_HEADER__"
-                            processed_lines[i] = processed_line
-                        else:
-                            processed_lines[i] = process_table_line(line, exclude_columns, exclude_header, False)
+        
+        # Process all table lines (including headers) - for both configured and unconfigured tables
+        for i in range(start, end):
+            line = processed_lines[i]
+            # Check if this is separator row (second row, typically contains dashes)
+            is_separator = (i == start + 1 and 
+                           ('---' in line or all(c in '-:| ' for c in line.strip())))
+            is_header_row = i == start
+            
+            if is_separator:
+                # Don't modify separator row
+                continue
+            elif is_header_row:
+                # Store header info: (is_header=True, should_translate=not exclude_header, exclude_columns)
+                table_header_info[i] = (True, not exclude_header, exclude_columns)
+                # For header: if exclude_header=False, translate full header (don't apply column exclusions)
+                # If exclude_header=True, don't translate header at all (no processing needed)
+                # In both cases, keep header as-is (column exclusions don't apply to headers)
+                processed_lines[i] = line
+            else:
+                # Store data row info: (is_header=False, should_translate=True, exclude_columns)
+                table_header_info[i] = (False, True, exclude_columns)
+                # Process data rows: apply column exclusions
+                processed_lines[i] = process_table_line(line, exclude_columns, exclude_header, False)
     
     # Now translate the processed lines
     # Store original lines for excluded table restoration
@@ -1004,85 +1007,40 @@ def translate_blocks(text: str, translator: GoogleTranslator, file_path: Path = 
             continue
         
         # Handle table lines (with column exclusions)
-        # Note: Table lines are processed individually to preserve structure
-        # but we still use buffer for efficiency when possible
-        if is_table_line(line) or (line.startswith("__EXCLUDE_HEADER__") and line.endswith("__EXCLUDE_HEADER__")) or \
-           (line.startswith("__TRANSLATE_HEADER__") and line.endswith("__TRANSLATE_HEADER__")):
+        # Process table lines individually to preserve structure and handle exclusions
+        if is_table_line(line):
             flush()
-            # Check if this is a header that should be excluded from translation
-            if line.startswith("__EXCLUDE_HEADER__") and line.endswith("__EXCLUDE_HEADER__"):
-                # Remove the markers and restore excluded columns without translation
-                line_without_markers = line.replace("__EXCLUDE_HEADER__", "")
-                translated_line = restore_table_line(line_without_markers)
-                translated.append(translated_line)
-                continue
             
-            # Check if this is a header that should be translated (even if all columns are excluded)
-            is_translate_header = line.startswith("__TRANSLATE_HEADER__") and line.endswith("__TRANSLATE_HEADER__")
-            if is_translate_header:
-                # Remove the markers first
-                line_without_markers = line.replace("__TRANSLATE_HEADER__", "")
-                # Now process as normal table line with excluded columns
-                # This will translate non-excluded columns and preserve excluded ones
-                line = line_without_markers
+            # Check if this line is a table header and if it should be translated
+            header_info = table_header_info.get(line_idx)
+            is_header = False
+            should_translate = True
             
-            # Check if this line has excluded columns (has placeholders)
-            if "__EXCLUDE_COL_" in line:
-                # First, extract content from placeholders to check if we need to translate it
-                # This is needed for header rows when exclude_header is not set
-                import re
-                exclude_col_pattern = r'__EXCLUDE_COL_(\d+)__(.*?)__EXCLUDE_COL_\1__'
-                placeholder_matches = list(re.finditer(exclude_col_pattern, line))
+            if header_info:
+                is_header, should_translate, exclude_columns = header_info
                 
-                # If line contains only placeholders (all columns excluded), we need special handling
-                # Check if there's any non-placeholder content
-                line_without_placeholders = line
-                for match in placeholder_matches:
-                    line_without_placeholders = line_without_placeholders.replace(match.group(0), "")
-                # Remove table separators and whitespace
-                line_without_placeholders = line_without_placeholders.replace("|", "").strip()
-                
-                # If line is only placeholders and separators, we need special handling
-                # This can happen when all columns are excluded
-                # For headers that should be translated (is_translate_header), we need to translate
-                # But excluded columns should NOT be translated, so we just restore them
-                if not line_without_placeholders and placeholder_matches:
-                    # This is a line with only excluded columns (placeholders)
-                    # For headers that should be translated, we still need to go through translation
-                    # to ensure the structure is preserved, but excluded columns will remain unchanged
-                    if is_translate_header:
-                        # For headers that should be translated, we still translate the line
-                        # (even though it only has placeholders) to ensure structure is preserved
-                        # The excluded columns will be restored unchanged
-                        protected_line, protected_mapping = protect_terms(line)
-                        try:
-                            translated_line = translator.translate(protected_line)
-                        except Exception as e:
-                            translated_line = protected_line
-                        if translated_line is None:
-                            translated_line = protected_line
-                        translated_line = restore_terms(translated_line, protected_mapping)
-                        translated_line = restore_table_line(translated_line)
-                        translated.append(translated_line)
-                        continue
-                    else:
-                        # For non-header lines or headers with exclude_header=True, just restore
-                        restored_line = restore_table_line(line)
-                        translated.append(restored_line)
-                        continue
-                
-                # Normal case: line has both placeholders and translatable content
-                # Translate the line, then restore excluded columns
-                # First protect the excluded column placeholders
+                # If this is a header and should not be translated, skip translation
+                if is_header and not should_translate:
+                    # Header should not be translated - restore without translation
+                    translated_line = restore_table_line(line)
+                    translated.append(translated_line)
+                    continue
+            
+            # For headers with exclude_header: false, translate full header (no column exclusions)
+            # For data rows, apply column exclusions if any
+            # Check if line has excluded columns (placeholders) - only for data rows
+            has_excluded_columns = "__EXCLUDE_COL_" in line
+            
+            if has_excluded_columns:
+                # Line has excluded columns - need to translate while preserving placeholders
+                # This should only happen for data rows, not headers
+                # Protect excluded column placeholders and other terms
                 protected_line, protected_mapping = protect_terms(line)
                 
-                # Check if there's any translatable content left (not just placeholders)
-                # If the line is only placeholders and separators, we still need to translate it
-                # to ensure the structure is preserved, but the placeholders will be restored
+                # Translate the line (placeholders will be preserved)
                 try:
                     translated_line = translator.translate(protected_line)
                 except Exception as e:
-                    # If translation fails, use original line
                     print(f"Warning: Translation failed for table line: {e}")
                     translated_line = protected_line
                 
@@ -1095,18 +1053,14 @@ def translate_blocks(text: str, translator: GoogleTranslator, file_path: Path = 
                 # Restore excluded columns (extract content from placeholders)
                 translated_line = restore_table_line(translated_line)
                 
-                # Ensure final line is not None
-                if translated_line is not None:
-                    translated.append(translated_line)
-                else:
-                    translated.append(line)
+                translated.append(translated_line)
             else:
-                # Normal table line - translate it
+                # Normal table line without excluded columns - translate normally
+                # This includes headers with exclude_header: false (they have no placeholders)
                 protected_line, protected_mapping = protect_terms(line)
                 try:
                     translated_line = translator.translate(protected_line)
                 except Exception as e:
-                    # If translation fails, use original line
                     print(f"Warning: Translation failed for table line: {e}")
                     translated_line = protected_line
                 
@@ -1115,12 +1069,8 @@ def translate_blocks(text: str, translator: GoogleTranslator, file_path: Path = 
                     translated_line = protected_line
                 
                 translated_line = restore_terms(translated_line, protected_mapping)
-                
-                # Ensure final line is not None
-                if translated_line is not None:
-                    translated.append(translated_line)
-                else:
-                    translated.append(line)
+                translated.append(translated_line)
+            
             continue
             
         # Skip code blocks, empty lines, and style blocks
