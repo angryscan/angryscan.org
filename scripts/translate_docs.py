@@ -1104,6 +1104,15 @@ def translate_blocks(text: str, translator: GoogleTranslator, file_path: Path = 
             else:
                 translated.append(line)
             continue
+        
+        # Handle headers - flush buffer before adding header to ensure proper translation
+        # Headers that were statically replaced should be added directly without translation
+        if stripped.startswith("#"):
+            flush()
+            # Header is already in processed_lines (may be statically replaced)
+            # Add it directly to translated without further processing
+            translated.append(line)
+            continue
             
         buffer.append(line)
 
