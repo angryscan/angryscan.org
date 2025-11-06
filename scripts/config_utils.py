@@ -11,7 +11,7 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 MKDOCS_PATH = ROOT / "mkdocs.yml"
 SYNC_CONFIG_PATH = Path(__file__).parent / "sync_config.yaml"
-METADATA_CONFIG_PATH = Path(__file__).parent / "metadata_config.yaml"
+TRANSLATION_CONFIG_PATH = Path(__file__).parent / "translation_config.yaml"
 
 
 def load_mkdocs_config() -> Dict[str, Any]:
@@ -174,19 +174,25 @@ def should_process_translation_links() -> bool:
     return sync_config.get("process_translation_links", True)
 
 
-def load_metadata_config() -> Dict[str, Any]:
-    """Load metadata configuration from YAML file."""
-    if not METADATA_CONFIG_PATH.exists():
+def load_translation_config() -> Dict[str, Any]:
+    """Load translation configuration from YAML file."""
+    if not TRANSLATION_CONFIG_PATH.exists():
         return {}
     
-    with METADATA_CONFIG_PATH.open("r", encoding="utf-8") as stream:
+    with TRANSLATION_CONFIG_PATH.open("r", encoding="utf-8") as stream:
         return yaml.safe_load(stream) or {}
+
+
+def load_metadata_config() -> Dict[str, Any]:
+    """Load metadata configuration from YAML file."""
+    config = load_translation_config()
+    return config.get("metadata", {})
 
 
 def is_metadata_enabled() -> bool:
     """Check if metadata processing is enabled."""
-    config = load_metadata_config()
-    metadata_config = config.get("metadata", {})
+    metadata_config = load_metadata_config()
+    # metadata_config already contains the metadata section
     return metadata_config.get("enabled", True)
 
 
@@ -195,8 +201,8 @@ def get_file_metadata(file_path: str) -> Dict[str, str]:
     if not is_metadata_enabled():
         return {}
     
-    config = load_metadata_config()
-    metadata_config = config.get("metadata", {})
+    metadata_config = load_metadata_config()
+    # metadata_config already contains the metadata section
     
     # Check for exact file match
     files_config = metadata_config.get("files", {})
@@ -259,8 +265,10 @@ def apply_metadata_to_content(content: str, file_path: str) -> str:
                         existing_metadata[key] = value
                 i += 1
             
-            # Apply new metadata
+            # Apply new metadata (skip 'translations' key)
             for key, value in metadata.items():
+                if key == "translations":
+                    continue  # Skip translations, they are language-specific
                 if key == "title":
                     existing_metadata["title"] = value
                 elif key == "description":
@@ -293,8 +301,10 @@ def apply_metadata_to_content(content: str, file_path: str) -> str:
         # Create new front matter
         front_matter_lines = ["---"]
         
-        # Apply metadata
+        # Apply metadata (skip 'translations' key)
         for key, value in metadata.items():
+            if key == "translations":
+                continue  # Skip translations, they are language-specific
             if key == "title":
                 front_matter_lines.append(f"title: {value}")
             elif key == "description":

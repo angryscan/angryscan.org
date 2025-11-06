@@ -2,12 +2,6 @@
 hide:
   - navigation
   - toc
-  - navigation
-  - toc
-  - navigation
-  - toc
-  - navigation
-  - toc
 ---
 # Конфигурация синхронизации документации
 

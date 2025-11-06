@@ -1,0 +1,100 @@
+# Configuration for custom metadata (title and description) for .md files
+# And translation settings (tables, headers)
+metadata:
+  # Global settings
+  enabled: true
+  
+  # File-specific metadata configuration
+  files:
+    # Example configurations for different files
+    # Path is relative to docs directory
+    "index.md":
+      title: "Sensitive data discovery tool with friendly UI for Mac, Win, Linux"
+      description: "Advanced sensitive data discovery tool combining personal data discovery, payment card discovery, and passwords finder in one solution. Comprehensive data detector for compliance and security."
+      # Language-specific overrides (optional)
+      # If not specified, the default title/description will be auto-translated
+      translations:
+        ru:
+          title: "Программа поиска данных (сканер данных)"
+          description: "Инструмент поиска данных. С его помощью можно найти персональные данные, данные банковских карт и другие конфиденциальные данные в папках, S3, базах данных, веб-страницах."
+        
+    
+    "angrydata-core/index.md":
+      title: "Core Library | Angry Data Scanner"
+      description: "Library for sensitive data processing"
+    
+    "CONSOLE.md":
+      title: "Console Mode | Angry Data Scanner"
+      description: "Using Angry Data Scanner in console mode"
+  
+  # Default metadata for files not explicitly configured
+  defaults:
+    description: "Advanced sensitive data discovery tool combining personal data discovery, payment card discovery, and passwords finder in one solution. Comprehensive data detector for compliance and security."
+
+# Translation settings for tables and headers
+translation:
+  # Table translation settings
+  # Tables can be identified by file + header (e.g., "## Personal Data (numbers)") OR by table number
+  tables:
+    files:
+      "index.md":
+        - match_by_header: "### Personal Data (numbers)"
+          exclude_columns: [2, 3]
+        - match_by_header: "### Personal Data (text)"
+          exclude_columns: [2, 3]
+        - match_by_header: "### Banking Secrecy"
+          exclude_columns: [2]
+        - match_by_header: "### Network & Infrastructure"
+          exclude_columns: [2]
+        - match_by_header: "## Supported file types"
+          exclude_columns: [1, 2]
+        - match_by_header: "## Supported data sources"
+          exclude_columns: [1, 2]
+        - match_by_header: "## Download"
+          exclude_table: true
+      # Example: "index.md":
+      #   - match_by_header: "## Personal Data (numbers)"
+      #     exclude_columns: [2]  # Exclude column 2 (Country) from translation
+      #     exclude_header: true  # Also exclude table header
+      #   - match_by_header: "## Personal Data (text)"
+      #     exclude_table: true  # Exclude entire table from translation
+      #   - table_number: 3  # Identify by table number in file
+      #     exclude_columns: [1, 3]  # Exclude columns 1 and 3
+  
+  # Header translation settings
+  # H1 can be identified by text OR by number
+  # H2 can be identified by text OR by number within parent H1
+  headers:
+    files:
+      "index.md":
+        - level: 1
+          number: 1
+          translations:
+            ru: "# Бесплатная программа для быстрого поиска конфиденциальных данных."
+        - level: 2
+          parent_h1_number: 1
+          number: 1
+          translations:
+            ru: "## Поиск конфиденциальных данных"
+      # Example: "index.md":
+      #   # H1 headers
+      #   - level: 1
+      #     text: "# A tool with friendly UI"  # Identify by text
+      #     translations:
+      #       ru: "# Инструмент с дружелюбным интерфейсом"
+      #       de: "# Ein Tool mit benutzerfreundlicher Oberfläche"
+      #   - level: 1
+      #     number: 2  # Identify by H1 number in file
+      #     translations:
+      #       ru: "# Второй заголовок"
+      #   # H2 headers
+      #   - level: 2
+      #     text: "## Discovered sensitive data"  # Identify by text
+      #     translations:
+      #       ru: "## Обнаруженные конфиденциальные данные"
+      #   - level: 2
+      #     parent_h1_number: 1  # Parent H1 number
+      #     number: 2  # H2 number within that H1
+      #     translations:
+      #       ru: "## Второй подзаголовок"
+
