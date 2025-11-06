@@ -183,6 +183,54 @@ def get_header_config_for_file(file_path: Path) -> List[dict]:
         return []
     return [cfg for cfg in result if cfg is not None]
 
+
+def get_retry_config() -> dict:
+    """Get retry configuration from translation config."""
+    config = load_translation_config()
+    translation_config = config.get('translation', {})
+    retry_config = translation_config.get('retry', {})
+    return {
+        'max_attempts': retry_config.get('max_attempts', 3),
+        'delay_seconds': retry_config.get('delay_seconds', 2)
+    }
+
+
+def retry_translate(translator: GoogleTranslator, text: str, context: str = "") -> str:
+    """
+    Translate text with retry logic on failure.
+    
+    Args:
+        translator: GoogleTranslator instance
+        text: Text to translate
+        context: Optional context string for error messages
+    
+    Returns:
+        Translated text, or original text if all attempts fail
+    """
+    retry_config = get_retry_config()
+    max_attempts = retry_config['max_attempts']
+    delay_seconds = retry_config['delay_seconds']
+    
+    last_exception = None
+    for attempt in range(1, max_attempts + 1):
+        try:
+            result = translator.translate(text)
+            if result is not None:
+                return result
+        except Exception as e:
+            last_exception = e
+            if attempt < max_attempts:
+                context_msg = f" ({context})" if context else ""
+                print(f"Warning: Translation attempt {attempt}/{max_attempts} failed{context_msg}: {e}")
+                print(f"Retrying in {delay_seconds} seconds...")
+                time.sleep(delay_seconds)
+            else:
+                context_msg = f" ({context})" if context else ""
+                print(f"Warning: Translation failed after {max_attempts} attempts{context_msg}: {e}")
+    
+    # If all attempts failed, return original text
+    return text
+
 # Async configuration
 MAX_CONCURRENT_TRANSLATIONS = 10  # Increased for parallel language translation
 MAX_CONCURRENT_FILES = 2  # Reduced since each file now processes multiple languages in parallel
@@ -299,10 +347,7 @@ def add_metadata_to_front_matter(front_matter: str, metadata: dict, lang: str = 
                 title = metadata['title']
                 # Translate if no language-specific version
                 if translator and (not lang_metadata or not lang_metadata.get('title')):
-                    try:
-                        title = translator.translate(title)
-                    except Exception:
-                        pass
+                    title = retry_translate(translator, title, "metadata title")
             
             if title:
                 new_lines.append(f"title: {title}")
@@ -317,10 +362,7 @@ def add_metadata_to_front_matter(front_matter: str, metadata: dict, lang: str = 
                 description = metadata['description']
                 # Translate if no language-specific version
                 if translator and (not lang_metadata or not lang_metadata.get('description')):
-                    try:
-                        description = translator.translate(description)
-                    except Exception:
-                        pass
+                    description = retry_translate(translator, description, "metadata description")
             
             if description:
                 # Insert after current line (title) or after first ---
@@ -336,10 +378,7 @@ def add_metadata_to_front_matter(front_matter: str, metadata: dict, lang: str = 
         elif metadata.get('title'):
             title = metadata['title']
             if translator and (not lang_metadata or not lang_metadata.get('title')):
-                try:
-                    title = translator.translate(title)
-                except Exception:
-                    pass
+                title = retry_translate(translator, title, "metadata title")
         
         if title and last_dash_idx >= 0:
             new_lines.insert(last_dash_idx, f"title: {title}")
@@ -352,10 +391,7 @@ def add_metadata_to_front_matter(front_matter: str, metadata: dict, lang: str = 
         elif metadata.get('description'):
             description = metadata['description']
             if translator and (not lang_metadata or not lang_metadata.get('description')):
-                try:
-                    description = translator.translate(description)
-                except Exception:
-                    pass
+                description = retry_translate(translator, description, "metadata description")
         
         if description and last_dash_idx >= 0:
             # Find title to insert after it, or insert before last ---
@@ -424,7 +460,7 @@ def translate_front_matter(front_matter: str, translator: GoogleTranslator,
                     
                     # Protect terms before translation
                     protected_value, protected_mapping = protect_terms(value)
-                    translated_value = translator.translate(protected_value)
+                    translated_value = retry_translate(translator, protected_value, f"front matter {key}")
                     # Restore protected terms after translation
                     translated_value = restore_terms(translated_value, protected_mapping)
                 
@@ -772,6 +808,8 @@ def translate_blocks(text: str, translator: GoogleTranslator, file_path: Path = 
     
     # Process headers - replace with manual translations
     processed_lines = lines.copy()
+    # Track which header lines were statically replaced (don't need translation)
+    statically_replaced_headers = set()
     
     # Process h1 headers
     for h1_num, (idx, h1_text) in h1_dict.items():
@@ -793,6 +831,7 @@ def translate_blocks(text: str, translator: GoogleTranslator, file_path: Path = 
         
         if manual_trans:
             processed_lines[idx] = manual_trans
+            statically_replaced_headers.add(idx)
     
     # Process h2 headers
     for h1_num, h2_dict_inner in h2_dict.items():
@@ -816,6 +855,7 @@ def translate_blocks(text: str, translator: GoogleTranslator, file_path: Path = 
             
             if manual_trans:
                 processed_lines[idx] = manual_trans
+                statically_replaced_headers.add(idx)
     
     # Store original lines for excluded tables
     original_lines = lines.copy()
@@ -891,12 +931,7 @@ def translate_blocks(text: str, translator: GoogleTranslator, file_path: Path = 
         
         # Protect terms before translation
         protected_chunk, protected_mapping = protect_terms(chunk)
-        try:
-            translated_chunk = translator.translate(protected_chunk)
-        except Exception as e:
-            # If translation fails, use original chunk
-            print(f"Warning: Translation failed: {e}")
-            translated_chunk = protected_chunk
+        translated_chunk = retry_translate(translator, protected_chunk, "text block")
         
         # Ensure translated_chunk is not None
         if translated_chunk is None:
@@ -981,11 +1016,7 @@ def translate_blocks(text: str, translator: GoogleTranslator, file_path: Path = 
                         if not text_patterns or not any(pattern in text_content for pattern in text_patterns):
                             # Protect terms before translation
                             protected_content, protected_mapping = protect_terms(text_content)
-                            try:
-                                translated_content = translator.translate(protected_content)
-                            except Exception as e:
-                                print(f"Warning: Translation failed for HTML content: {e}")
-                                translated_content = protected_content
+                            translated_content = retry_translate(translator, protected_content, "HTML content")
                             
                             # Ensure translated_content is not None
                             if translated_content is None:
@@ -1038,11 +1069,7 @@ def translate_blocks(text: str, translator: GoogleTranslator, file_path: Path = 
                 protected_line, protected_mapping = protect_terms(line)
                 
                 # Translate the line (placeholders will be preserved)
-                try:
-                    translated_line = translator.translate(protected_line)
-                except Exception as e:
-                    print(f"Warning: Translation failed for table line: {e}")
-                    translated_line = protected_line
+                translated_line = retry_translate(translator, protected_line, "table line with excluded columns")
                 
                 # Ensure translated_line is not None
                 if translated_line is None:
@@ -1058,11 +1085,7 @@ def translate_blocks(text: str, translator: GoogleTranslator, file_path: Path = 
                 # Normal table line without excluded columns - translate normally
                 # This includes headers with exclude_header: false (they have no placeholders)
                 protected_line, protected_mapping = protect_terms(line)
-                try:
-                    translated_line = translator.translate(protected_line)
-                except Exception as e:
-                    print(f"Warning: Translation failed for table line: {e}")
-                    translated_line = protected_line
+                translated_line = retry_translate(translator, protected_line, "table line")
                 
                 # Ensure translated_line is not None
                 if translated_line is None:
@@ -1085,11 +1108,7 @@ def translate_blocks(text: str, translator: GoogleTranslator, file_path: Path = 
             quote_content = line.lstrip("> ").strip()
             # Protect terms before translation
             protected_content, protected_mapping = protect_terms(quote_content)
-            try:
-                translated_content = translator.translate(protected_content)
-            except Exception as e:
-                print(f"Warning: Translation failed for blockquote: {e}")
-                translated_content = protected_content
+            translated_content = retry_translate(translator, protected_content, "blockquote")
             
             # Ensure translated_content is not None
             if translated_content is None:
@@ -1107,11 +1126,25 @@ def translate_blocks(text: str, translator: GoogleTranslator, file_path: Path = 
         
         # Handle headers - flush buffer before adding header to ensure proper translation
         # Headers that were statically replaced should be added directly without translation
+        # Headers without static replacement should be translated separately
         if stripped.startswith("#"):
             flush()
-            # Header is already in processed_lines (may be statically replaced)
-            # Add it directly to translated without further processing
-            translated.append(line)
+            # Check if this header was statically replaced
+            if line_idx in statically_replaced_headers:
+                # Header was statically replaced - add it directly without translation
+                translated.append(line)
+            else:
+                # Header was not statically replaced - translate it separately
+                protected_line, protected_mapping = protect_terms(line)
+                translated_line = retry_translate(translator, protected_line, "header")
+                
+                # Ensure translated_line is not None
+                if translated_line is None:
+                    translated_line = protected_line
+                
+                # Restore protected terms after translation
+                translated_line = restore_terms(translated_line, protected_mapping)
+                translated.append(translated_line)
             continue
             
         buffer.append(line)
@@ -1182,11 +1215,8 @@ def translate_file(path: Path, targets: Iterable[str]) -> None:
                 elif metadata.get('title'):
                     # Translate default title if no language-specific version
                     if not lang_metadata or not lang_metadata.get('title'):
-                        try:
-                            translated_title = translator.translate(metadata['title'])
-                            front_matter_lines.append(f"title: {translated_title}")
-                        except Exception:
-                            front_matter_lines.append(f"title: {metadata['title']}")
+                        translated_title = retry_translate(translator, metadata['title'], "metadata title")
+                        front_matter_lines.append(f"title: {translated_title}")
                     else:
                         front_matter_lines.append(f"title: {metadata['title']}")
                 
@@ -1195,11 +1225,8 @@ def translate_file(path: Path, targets: Iterable[str]) -> None:
                 elif metadata.get('description'):
                     # Translate default description if no language-specific version
                     if not lang_metadata or not lang_metadata.get('description'):
-                        try:
-                            translated_description = translator.translate(metadata['description'])
-                            front_matter_lines.append(f"description: {translated_description}")
-                        except Exception:
-                            front_matter_lines.append(f"description: {metadata['description']}")
+                        translated_description = retry_translate(translator, metadata['description'], "metadata description")
+                        front_matter_lines.append(f"description: {translated_description}")
                     else:
                         front_matter_lines.append(f"description: {metadata['description']}")
                 
@@ -1268,11 +1295,8 @@ async def translate_single_language(path: Path, lang: str, body: str, front_matt
                 elif metadata.get('title'):
                     # Translate default title if no language-specific version
                     if not lang_metadata or not lang_metadata.get('title'):
-                        try:
-                            translated_title = translator.translate(metadata['title'])
-                            front_matter_lines.append(f"title: {translated_title}")
-                        except Exception:
-                            front_matter_lines.append(f"title: {metadata['title']}")
+                        translated_title = retry_translate(translator, metadata['title'], "metadata title")
+                        front_matter_lines.append(f"title: {translated_title}")
                     else:
                         front_matter_lines.append(f"title: {metadata['title']}")
                 
@@ -1281,11 +1305,8 @@ async def translate_single_language(path: Path, lang: str, body: str, front_matt
                 elif metadata.get('description'):
                     # Translate default description if no language-specific version
                     if not lang_metadata or not lang_metadata.get('description'):
-                        try:
-                            translated_description = translator.translate(metadata['description'])
-                            front_matter_lines.append(f"description: {translated_description}")
-                        except Exception:
-                            front_matter_lines.append(f"description: {metadata['description']}")
+                        translated_description = retry_translate(translator, metadata['description'], "metadata description")
+                        front_matter_lines.append(f"description: {translated_description}")
                     else:
                         front_matter_lines.append(f"description: {metadata['description']}")
                 

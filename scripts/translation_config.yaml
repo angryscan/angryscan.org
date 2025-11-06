@@ -33,6 +33,11 @@ metadata:
 
 # Translation settings for tables and headers
 translation:
+  # Retry settings for failed translations
+  retry:
+    max_attempts: 3  # Number of retry attempts for failed translations
+    delay_seconds: 2  # Delay between retry attempts in seconds
+  
   # Table translation settings
   # Tables can be identified by file + header (e.g., "## Personal Data (numbers)") OR by table number
   tables:
