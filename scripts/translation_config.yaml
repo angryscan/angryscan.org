@@ -9,13 +9,13 @@ metadata:
     # Example configurations for different files
     # Path is relative to docs directory
     "index.md":
-      title: "Sensitive Data Scanner"
+      title: "Sensitive Data Scanner App for Mac, Win, Linux"
       description: "Advanced sensitive data discovery tool combining personal data discovery, payment card discovery, and passwords finder in one solution. Comprehensive data detector for compliance and security."
       # Language-specific overrides (optional)
       # If not specified, the default title/description will be auto-translated
       translations:
         ru:
-          title: "Программа поиска данных (сканер данных)"
+          title: "Программа поиска данных (сканер данных) для Mac, Win, Linux"
           description: "Инструмент поиска данных. С его помощью можно найти персональные данные, данные банковских карт и другие конфиденциальные данные в папках, S3, базах данных, веб-страницах."
         
     
