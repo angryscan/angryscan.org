@@ -15,8 +15,6 @@ The aggregation happens automatically in CI and whenever you run the helper scri
 
    ```bash
    git clone https://github.com/angryscan/angryscan.org.git
-   git clone https://github.com/angryscan/angrydata-app.git sources/angrydata-app
-   git clone https://github.com/angryscan/angrydata-core.git sources/angrydata-core
    ```
 
 2. Install the documentation dependencies:
@@ -28,7 +26,7 @@ The aggregation happens automatically in CI and whenever you run the helper scri
 3. Sync the external documentation and start the local development server:
 
    ```bash
-   python scripts/sync_docs.py
+   python scripts/sync_docs.py --clone-repos 
    python scripts/translate_docs.py
    mkdocs serve
    ```
