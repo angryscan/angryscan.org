@@ -9,7 +9,7 @@ metadata:
     # Example configurations for different files
     # Path is relative to docs directory
     "index.md":
-      title: "Sensitive data discovery tool with friendly UI for Mac, Win, Linux"
+      title: "Sensitive Data Scanner"
       description: "Advanced sensitive data discovery tool combining personal data discovery, payment card discovery, and passwords finder in one solution. Comprehensive data detector for compliance and security."
       # Language-specific overrides (optional)
       # If not specified, the default title/description will be auto-translated
