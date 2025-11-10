@@ -243,7 +243,9 @@ PROTECTED_TERMS = [
     "AngryScan",
     "angryscan.org",
     "packetdima",
-    "datascanner"
+    "datascanner",
+    "Login",
+    "Connector"
 ]
 
 # CSS classes and HTML attributes that should not be translated
