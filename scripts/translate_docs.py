@@ -7,9 +7,10 @@ import argparse
 import asyncio
 import contextlib
 import time
+from collections import defaultdict
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Iterable, Iterator, List, Tuple
-from concurrent.futures import ThreadPoolExecutor
 import aiofiles
 
 from deep_translator import GoogleTranslator
@@ -179,6 +180,31 @@ def get_header_config_for_file(file_path: Path) -> List[dict]:
     
     result = files_config[file_key]
     # Ensure result is a list and filter out None values
+    if not isinstance(result, list):
+        return []
+    return [cfg for cfg in result if cfg is not None]
+
+
+def get_text_config_for_file(file_path: Path) -> List[dict]:
+    """Get static text translation configuration for a specific file."""
+    config = load_translation_config()
+    if not config:
+        return []
+    translation_config = config.get('translation', {})
+    if not translation_config:
+        return []
+    texts_config = translation_config.get('texts', {})
+    if not texts_config:
+        return []
+    files_config = texts_config.get('files', {})
+    if not files_config:
+        return []
+
+    file_key = get_file_key(file_path)
+    if not file_key or file_key not in files_config:
+        return []
+
+    result = files_config[file_key]
     if not isinstance(result, list):
         return []
     return [cfg for cfg in result if cfg is not None]
@@ -612,17 +638,22 @@ def find_table_ranges(lines: List[str]) -> List[Tuple[int, int]]:
     return table_ranges
 
 
-def find_headers_with_numbers(lines: List[str]) -> Tuple[dict, dict]:
+def find_headers_with_numbers(lines: List[str]) -> Tuple[dict, dict, dict]:
     """
-    Find all h1 and h2 headers and assign numbers.
-    Returns (h1_dict, h2_dict) where:
+    Find all h1, h2, and h3 headers and assign numbers.
+    Returns (h1_dict, h2_dict, h3_dict) where:
     - h1_dict: {number: (index, text)}
     - h2_dict: {h1_number: {h2_number: (index, text)}}
+    - h3_dict: {h1_number: {h2_number: {h3_number: (index, text)}}}
     """
     h1_dict = {}
     h2_dict = {}
+    h3_dict = {}
     h1_counter = 0
     h2_counters = {}  # Track h2 counters per h1
+    h3_counters = {}  # Track h3 counters per (h1, h2)
+    current_h1 = 0
+    current_h2_map = {}  # Track current h2 number per h1
     
     for i, line in enumerate(lines):
         stripped = line.strip()
@@ -630,17 +661,39 @@ def find_headers_with_numbers(lines: List[str]) -> Tuple[dict, dict]:
             h1_counter += 1
             h1_dict[h1_counter] = (i, stripped)
             h2_counters[h1_counter] = 0
+            h3_counters[h1_counter] = {}
+            current_h1 = h1_counter
+            current_h2_map[current_h1] = 0
         elif stripped.startswith('## '):
             # Find which h1 this h2 belongs to
-            current_h1 = h1_counter
             if current_h1 > 0:
-                if current_h1 not in h2_dict:
-                    h2_dict[current_h1] = {}
                 h2_counters[current_h1] += 1
                 h2_number = h2_counters[current_h1]
+                if current_h1 not in h2_dict:
+                    h2_dict[current_h1] = {}
                 h2_dict[current_h1][h2_number] = (i, stripped)
+                if current_h1 not in h3_dict:
+                    h3_dict[current_h1] = {}
+                h3_dict[current_h1][h2_number] = {}
+                h3_counters[current_h1][h2_number] = 0
+                current_h2_map[current_h1] = h2_number
+        elif stripped.startswith('### '):
+            if current_h1 > 0:
+                current_h2 = current_h2_map.get(current_h1, 0)
+                if current_h2 > 0:
+                    if current_h1 not in h3_counters:
+                        h3_counters[current_h1] = {}
+                    if current_h2 not in h3_counters[current_h1]:
+                        h3_counters[current_h1][current_h2] = 0
+                    h3_counters[current_h1][current_h2] += 1
+                    h3_number = h3_counters[current_h1][current_h2]
+                    if current_h1 not in h3_dict:
+                        h3_dict[current_h1] = {}
+                    if current_h2 not in h3_dict[current_h1]:
+                        h3_dict[current_h1][current_h2] = {}
+                    h3_dict[current_h1][current_h2][h3_number] = (i, stripped)
     
-    return h1_dict, h2_dict
+    return h1_dict, h2_dict, h3_dict
 
 
 def get_table_config_by_header(table_configs: List[dict], header_text: str) -> dict | None:
@@ -661,6 +714,7 @@ def get_table_config_by_number(table_configs: List[dict], table_number: int) -> 
 
 def get_header_translation(header_configs: List[dict], header_text: str, header_level: int,
                           h1_number: int | None = None, h2_number: int | None = None,
+                          h3_number: int | None = None,
                           language: str = None) -> str | None:
     """
     Get manual translation for a header.
@@ -668,9 +722,10 @@ def get_header_translation(header_configs: List[dict], header_text: str, header_
     Args:
         header_configs: List of header configs from file
         header_text: The header text to match
-        header_level: 1 for h1, 2 for h2
-        h1_number: H1 number (for h2 identification)
-        h2_number: H2 number within parent h1 (for h2 identification)
+        header_level: 1 for h1, 2 for h2, 3 for h3
+        h1_number: H1 number (for h2/h3 identification)
+        h2_number: H2 number within parent h1 (for h3 identification)
+        h3_number: H3 number within parent h2 (for identification)
         language: Target language code
     
     Returns:
@@ -700,6 +755,18 @@ def get_header_translation(header_configs: List[dict], header_text: str, header_
             elif h1_number and h2_number:
                 if config.get('parent_h1_number') == h1_number and config.get('number') == h2_number:
                     matched = True
+        elif header_level == 3:
+            if 'text' in config and config['text'] == header_text:
+                matched = True
+            else:
+                number = config.get('number')
+                if number is not None:
+                    parent_h1 = config.get('parent_h1_number')
+                    parent_h2 = config.get('parent_h2_number')
+                    if ((parent_h1 is None or parent_h1 == h1_number) and
+                            (parent_h2 is None or parent_h2 == h2_number) and
+                            number == h3_number):
+                        matched = True
         
         if matched and 'translations' in config:
             return config['translations'].get(language)
@@ -774,13 +841,15 @@ def translate_blocks(text: str, translator: GoogleTranslator, file_path: Path = 
         language: Target language code (for header translations)
     """
     lines = text.splitlines()
+    original_lines = lines.copy()
     
-    # Get configurations for tables and headers
+    # Get configurations for tables, headers, and static texts
     table_configs = get_table_config_for_file(file_path) if file_path else []
     header_configs = get_header_config_for_file(file_path) if file_path else []
+    text_configs = get_text_config_for_file(file_path) if file_path else []
     
     # Find headers with numbers for identification
-    h1_dict, h2_dict = find_headers_with_numbers(lines)
+    h1_dict, h2_dict, h3_dict = find_headers_with_numbers(lines)
     
     # Find table ranges
     table_ranges = find_table_ranges(lines)
@@ -808,59 +877,103 @@ def translate_blocks(text: str, translator: GoogleTranslator, file_path: Path = 
         
         table_info[table_counter] = (start, end, preceding_header)
     
-    # Process headers - replace with manual translations
+    # Process headers and static texts - replace with manual translations
     processed_lines = lines.copy()
-    # Track which header lines were statically replaced (don't need translation)
-    statically_replaced_headers = set()
+    manual_line_replacements: dict[int, str] = {}
     
-    # Process h1 headers
+    # Process headers using configuration overrides
     for h1_num, (idx, h1_text) in h1_dict.items():
-        manual_trans = None
-        # First check for manual translation by text
-        for config in header_configs:
-            if config and config.get('level') == 1:
-                translations = config.get('translations')
-                if translations is None:
-                    translations = {}
-                if config.get('text') == h1_text:
-                    manual_trans = translations.get(language) if isinstance(translations, dict) else None
-                    if manual_trans:
-                        break
-                elif config.get('number') == h1_num:
-                    manual_trans = translations.get(language) if isinstance(translations, dict) else None
-                    if manual_trans:
-                        break
-        
+        manual_trans = get_header_translation(header_configs, h1_text, header_level=1, h1_number=h1_num, language=language)
         if manual_trans:
             processed_lines[idx] = manual_trans
-            statically_replaced_headers.add(idx)
+            manual_line_replacements[idx] = manual_trans
     
-    # Process h2 headers
     for h1_num, h2_dict_inner in h2_dict.items():
         for h2_num, (idx, h2_text) in h2_dict_inner.items():
-            manual_trans = None
-            # First check for manual translation by text
-            for config in header_configs:
-                if config and config.get('level') == 2:
-                    translations = config.get('translations')
-                    if translations is None:
-                        translations = {}
-                    if config.get('text') == h2_text:
-                        manual_trans = translations.get(language) if isinstance(translations, dict) else None
-                        if manual_trans:
-                            break
-                    elif (config.get('parent_h1_number') == h1_num and 
-                          config.get('number') == h2_num):
-                        manual_trans = translations.get(language) if isinstance(translations, dict) else None
-                        if manual_trans:
-                            break
-            
+            manual_trans = get_header_translation(
+                header_configs,
+                h2_text,
+                header_level=2,
+                h1_number=h1_num,
+                h2_number=h2_num,
+                language=language
+            )
             if manual_trans:
                 processed_lines[idx] = manual_trans
-                statically_replaced_headers.add(idx)
+                manual_line_replacements[idx] = manual_trans
     
-    # Store original lines for excluded tables
-    original_lines = lines.copy()
+    for h1_num, h2_map in h3_dict.items():
+        for h2_num, h3_map in h2_map.items():
+            for h3_num, (idx, h3_text) in h3_map.items():
+                manual_trans = get_header_translation(
+                    header_configs,
+                    h3_text,
+                    header_level=3,
+                    h1_number=h1_num,
+                    h2_number=h2_num,
+                    h3_number=h3_num,
+                    language=language
+                )
+                if manual_trans:
+                    processed_lines[idx] = manual_trans
+                    manual_line_replacements[idx] = manual_trans
+    
+    # Process static text replacements
+    if text_configs and language:
+        match_counters = defaultdict(int)
+        for idx, original_line in enumerate(original_lines):
+            # Skip if line already has manual replacement (e.g., headers)
+            if idx in manual_line_replacements:
+                continue
+            for config_index, config in enumerate(text_configs):
+                if not isinstance(config, dict):
+                    continue
+                source_text = config.get('text')
+                translations = config.get('translations') or {}
+                if not source_text or not translations:
+                    continue
+                manual_trans = translations.get(language)
+                if not manual_trans:
+                    continue
+                match_mode = config.get('match', 'exact')
+                strip_match = config.get('strip', False)
+                preserve_indent = config.get('preserve_indent', True)
+                occurrence = config.get('occurrence')
+                
+                line_to_compare = original_line.strip() if strip_match else original_line
+                source_to_compare = source_text.strip() if strip_match else source_text
+                
+                matched = False
+                if match_mode == 'exact':
+                    matched = line_to_compare == source_to_compare
+                elif match_mode == 'startswith':
+                    matched = line_to_compare.startswith(source_to_compare)
+                elif match_mode == 'endswith':
+                    matched = line_to_compare.endswith(source_to_compare)
+                elif match_mode == 'contains':
+                    matched = source_to_compare in line_to_compare
+                
+                if not matched:
+                    continue
+                
+                match_key = (config_index, source_to_compare)
+                match_counters[match_key] += 1
+                if occurrence is not None and match_counters[match_key] != occurrence:
+                    continue
+                
+                output_text = manual_trans
+                if preserve_indent:
+                    # Preserve leading whitespace from original line
+                    leading_whitespace = original_line[:len(original_line) - len(original_line.lstrip(' \t'))]
+                    if leading_whitespace and not output_text.startswith(leading_whitespace):
+                        output_text = f"{leading_whitespace}{output_text.lstrip(' \t')}"
+                
+                processed_lines[idx] = output_text
+                manual_line_replacements[idx] = output_text
+                break
+    
+    # Store original lines for excluded tables restoration
+    original_lines_for_translation = original_lines.copy()
     
     # Dictionary to store table header info: {line_index: (is_header, should_translate, exclude_columns)}
     table_header_info = {}
@@ -917,8 +1030,6 @@ def translate_blocks(text: str, translator: GoogleTranslator, file_path: Path = 
                 processed_lines[i] = process_table_line(line, exclude_columns, exclude_header, False)
     
     # Now translate the processed lines
-    # Store original lines for excluded table restoration
-    original_lines_for_translation = lines.copy()
     lines = processed_lines
     translated: List[str] = []
     buffer: List[str] = []
@@ -953,6 +1064,12 @@ def translate_blocks(text: str, translator: GoogleTranslator, file_path: Path = 
 
     for line_idx, line in enumerate(lines):
         stripped = line.strip()
+        
+        # Handle manual replacements for headers and texts
+        if line_idx in manual_line_replacements:
+            flush()
+            translated.append(manual_line_replacements[line_idx])
+            continue
         
         # Handle excluded table lines (entire table excluded)
         if stripped.startswith("__EXCLUDE_TABLE_LINE_"):
@@ -1131,22 +1248,17 @@ def translate_blocks(text: str, translator: GoogleTranslator, file_path: Path = 
         # Headers without static replacement should be translated separately
         if stripped.startswith("#"):
             flush()
-            # Check if this header was statically replaced
-            if line_idx in statically_replaced_headers:
-                # Header was statically replaced - add it directly without translation
-                translated.append(line)
-            else:
-                # Header was not statically replaced - translate it separately
-                protected_line, protected_mapping = protect_terms(line)
-                translated_line = retry_translate(translator, protected_line, "header")
-                
-                # Ensure translated_line is not None
-                if translated_line is None:
-                    translated_line = protected_line
-                
-                # Restore protected terms after translation
-                translated_line = restore_terms(translated_line, protected_mapping)
-                translated.append(translated_line)
+            # Header was not statically replaced - translate it separately
+            protected_line, protected_mapping = protect_terms(line)
+            translated_line = retry_translate(translator, protected_line, "header")
+            
+            # Ensure translated_line is not None
+            if translated_line is None:
+                translated_line = protected_line
+            
+            # Restore protected terms after translation
+            translated_line = restore_terms(translated_line, protected_mapping)
+            translated.append(translated_line)
             continue
             
         buffer.append(line)

@@ -87,6 +87,65 @@ translation:
           number: 1
           translations:
             ru: "## Поиск конфиденциальных данных"
+        - level: 3
+          parent_h1_number: 1
+          parent_h2_number: 1
+          text: "### Personal Data (numbers)"
+          translations:
+            ru: "### Поиск числовых персональных данных: ИНН, телефон, паспортные данные, СНИЛС, ОМС"
+        - level: 3
+          parent_h1_number: 1
+          parent_h2_number: 1
+          text: "### Personal Data (text)"
+          translations:
+            ru: "### Поиск текстовых персональных данных: ФИО, адрес, e-mail, логин/пароль"
+        - level: 3
+          parent_h1_number: 1
+          parent_h2_number: 1
+          text: "### Banking Secrecy"
+          translations:
+            ru: "### Обнаружение банковской тайны: номер счета, номер карты, CVV, номер криптовалютного кошелька"
+        - level: 3
+          parent_h1_number: 1
+          parent_h2_number: 1
+          text: "### IT Assets"
+          translations:
+            ru: "### Поиск ИТ-Активов: файлы с исходным кодом, файлы с паролями, TLS-сертификаты, AI-модели"
+        - level: 3
+          parent_h1_number: 1
+          parent_h2_number: 1
+          text: "### Network & Infrastructure"
+          translations:
+            ru: "### Поиск данных сети и инфраструктуры: IPV4, IPV6, заблокированные домены"
+        - level: 3
+          parent_h1_number: 1
+          parent_h2_number: 1
+          text: "### Custom Signatures"
+          translations:
+            ru: "### Поиск пользовательских сигнатур"
+        
+  # Static text (non-header) translation settings
+  # Each entry specifies the original text and its manual translations.
+  # Supported match modes: exact (default), startswith, endswith, contains.
+  # Set occurrence to match only the N-th occurrence (1-based) if needed.
+  texts:
+    files:
+      - text: "**Angry Data Scanner** is a data security and privacy tool that uses pattern matching to automatically discover sensitive data stored in folders, web pages, S3, database."
+        translations:
+          ru: "Angry Data Scanner — это инструмент с простым UI для поиска конфиденциальных данных, который использует сопоставление шаблонов для автоматического обнаружения конфиденциальных данных, хранящихся в папках, веб-страницах, S3, базе данных."
+      - text: "It helps organizations by identifying where sensitive data such as personally identifiable information (PII) and intellectual property is stored."
+        translations:
+          ru: "Он помогает организациям определять, где хранятся конфиденциальные данные, такие как личная информация (PII) и интеллектуальная собственность."
+      - text: "The tool provides visibility where your sensitive data is stored."
+        translations:
+          ru: "Инструмент обеспечивает видимость того, где хранятся ваши конфиденциальные данные."
+      # Example: "index.md":
+      #   - text: "Download Angry Data Scanner"
+      #     match: exact  # optional, default is exact
+      #     strip: true   # optional, compare stripped text
+      #     preserve_indent: true  # optional, keep original leading spaces
+      #     translations:
+      #       ru: "Скачать Angry Data Scanner"
       # Example: "index.md":
       #   # H1 headers
       #   - level: 1
