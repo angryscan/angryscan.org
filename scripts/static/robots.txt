@@ -3,7 +3,6 @@
 
 User-agent: *
 Allow: /
-Disallow: /assets/
 Disallow: /.well-known/
 
 # Sitemap

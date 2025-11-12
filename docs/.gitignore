@@ -5,4 +5,5 @@ download/
 assets/menu-translations.json
 BingSiteAuth.xml
 robots.txt
+favicon.ico
 *.html
