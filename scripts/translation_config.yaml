@@ -15,7 +15,7 @@ metadata:
       # If not specified, the default title/description will be auto-translated
       translations:
         ru:
-          title: "Angry Data Scanner - Программа поиска персональных данных для Mac, Windows и Linux"
+          title: "Angry Data Scanner - Программа поиска конфиденциальных данных для Mac, Windows и Linux"
           description: "Инструмент поиска данных. С его помощью можно найти персональные данные, данные банковских карт и другие конфиденциальные данные в папках, S3, базах данных, веб-страницах."
         
     
@@ -81,7 +81,7 @@ translation:
         - level: 1
           number: 1
           translations:
-            ru: "# Бесплатная программа с открытым исходным кодом для быстрого поиска конфиденциальных и персональных данных"
+            ru: "# Бесплатная программа для быстрого поиска конфиденциальных данных"
         - level: 2
           parent_h1_number: 1
           number: 1
