@@ -745,9 +745,9 @@ def get_header_translation(header_configs: List[dict], header_text: str, header_
             # H1: match by text or number
             if 'text' in config and config['text'] == header_text:
                 matched = True
-            elif 'number' in config:
-                # Need to find h1 number from context - this will be handled by caller
-                pass
+            elif 'number' in config and h1_number:
+                if config.get('number') == h1_number:
+                    matched = True
         elif header_level == 2:
             # H2: match by text or by parent_h1_number + number
             if 'text' in config and config['text'] == header_text:
@@ -1248,17 +1248,21 @@ def translate_blocks(text: str, translator: GoogleTranslator, file_path: Path = 
         # Headers without static replacement should be translated separately
         if stripped.startswith("#"):
             flush()
-            # Header was not statically replaced - translate it separately
-            protected_line, protected_mapping = protect_terms(line)
-            translated_line = retry_translate(translator, protected_line, "header")
-            
-            # Ensure translated_line is not None
-            if translated_line is None:
-                translated_line = protected_line
-            
-            # Restore protected terms after translation
-            translated_line = restore_terms(translated_line, protected_mapping)
-            translated.append(translated_line)
+            # Check if header has manual replacement (static translation)
+            if line_idx in manual_line_replacements:
+                translated.append(manual_line_replacements[line_idx])
+            else:
+                # Header was not statically replaced - translate it separately
+                protected_line, protected_mapping = protect_terms(line)
+                translated_line = retry_translate(translator, protected_line, "header")
+                
+                # Ensure translated_line is not None
+                if translated_line is None:
+                    translated_line = protected_line
+                
+                # Restore protected terms after translation
+                translated_line = restore_terms(translated_line, protected_mapping)
+                translated.append(translated_line)
             continue
             
         buffer.append(line)
