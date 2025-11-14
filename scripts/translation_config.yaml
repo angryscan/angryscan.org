@@ -9,13 +9,13 @@ metadata:
     # Example configurations for different files
     # Path is relative to docs directory
     "index.md":
-      title: "Sensitive Data Scanner for Mac, Win, Linux"
+      title: "Angry Data Scanner - Sensitive Data Scanner for Mac, Windows and Linux"
       description: "Advanced sensitive data discovery tool combining personal data discovery, payment card discovery, and passwords finder in one solution. Comprehensive data detector for compliance and security."
       # Language-specific overrides (optional)
       # If not specified, the default title/description will be auto-translated
       translations:
         ru:
-          title: "Программа поиска данных (сканер данных) для Mac, Win, Linux"
+          title: "Angry Data Scanner - Программа поиска персональных данных для Mac, Windows и Linux"
           description: "Инструмент поиска данных. С его помощью можно найти персональные данные, данные банковских карт и другие конфиденциальные данные в папках, S3, базах данных, веб-страницах."
         
     
@@ -81,7 +81,7 @@ translation:
         - level: 1
           number: 1
           translations:
-            ru: "# Бесплатная программа для быстрого поиска конфиденциальных данных."
+            ru: "# Бесплатная программа с открытым исходным кодом для быстрого поиска конфиденциальных и персональных данных"
         - level: 2
           parent_h1_number: 1
           number: 1
