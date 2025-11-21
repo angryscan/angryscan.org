@@ -1,0 +1,135 @@
+/* Country table filter styles */
+
+/* Container for country filter */
+.country-filter-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+}
+
+/* Label text */
+.country-filter-label-text {
+    color: var(--md-default-fg-color, #000);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Compact spacing */
+.country-filter-container + table {
+    margin-top: 0;
+}
+
+/* Wrapper for button and dropdown */
+.country-filter-button-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+/* Button with flag */
+.country-filter-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 21px;
+    border-radius: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: opacity 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+    background-color: var(--md-default-bg-color, #fff);
+    padding: 0;
+    font-size: 16px;
+    aspect-ratio: 3/2;
+}
+
+.country-filter-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Button with flag (no text) */
+.country-filter-button.has-flag {
+    font-size: 0;
+}
+
+/* Dropdown menu - styled like Material theme select */
+.country-filter-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 0.2rem;
+    background-color: var(--md-default-bg-color, #fff);
+    border: none;
+    border-radius: 0;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    display: none;
+    flex-direction: column;
+    min-width: auto;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+    padding: 0.2rem 0;
+    width: auto;
+}
+
+.country-filter-button-wrapper:hover .country-filter-dropdown,
+.country-filter-dropdown.show {
+    display: flex;
+}
+
+/* Divider in dropdown */
+.country-filter-divider {
+    height: 1px;
+    background-color: var(--md-default-fg-color--lighter, rgba(0, 0, 0, 0.12));
+    margin: 0.2rem 0;
+}
+
+/* Option in dropdown - styled like md-select__link */
+.country-filter-option {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0.3rem 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    width: 100%;
+    min-height: 28px;
+    gap: 0.5rem;
+}
+
+.country-filter-option:hover {
+    background-color: var(--md-default-fg-color--lightest, rgba(0, 0, 0, 0.05));
+}
+
+/* Flag element in option - only flag, no text */
+.country-filter-flag {
+    width: 20px;
+    height: 15px;
+    border-radius: 2px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.country-filter-flag.has-flag {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+}
+
+/* Label text in option */
+.country-filter-label {
+    color: var(--md-default-fg-color, #000);
+    font-size: 0.9rem;
+    display: block;
+}
+

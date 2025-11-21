@@ -49,11 +49,13 @@ plugins:
     minify_html: true
 extra_javascript:
 - assets/javascripts/language-selector.js
+- assets/javascripts/country-table-filter.js
 extra_css:
 - assets/stylesheets/extra.css
 - assets/stylesheets/badge.css
 - assets/stylesheets/language-flags.css
 - assets/stylesheets/language-selector.css
+- assets/stylesheets/country-table-filter.css
 extra:
   alternate:
   - name: English
