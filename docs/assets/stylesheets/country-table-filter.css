@@ -129,7 +129,7 @@
 /* Label text in option */
 .country-filter-label {
     color: var(--md-default-fg-color, #000);
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     display: block;
 }
 
