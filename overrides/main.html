@@ -113,7 +113,6 @@
 {% endblock %}
 
 {% block htmltitle %}
-    {% include "partials/integrations/analytics/custom.html" %}
     {% if page and page.meta and page.meta.title %}
         <title>{{ page.meta.title }}</title>
     {% elif page and page.title %}
@@ -121,4 +120,7 @@
     {% else %}
         <title>{{ config.site_name }}</title>
     {% endif %}
+    
+    {% include "partials/integrations/analytics/custom.html" %}
+    
 {% endblock %}
