@@ -371,12 +371,3 @@ thead:not(:has(th:not(:empty))) {
     opacity: 0;
     transition: opacity 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
-
-/* Hide footer */
-/* .md-footer {
-    display: none !important;
-}
-
-.md-footer-meta {
-    display: none !important;
-} */

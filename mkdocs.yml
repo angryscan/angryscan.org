@@ -75,6 +75,3 @@ extra:
   - name: Français
     lang: fr
     link: /fr/
-  social:
-  - icon: fontawesome/brands/github
-    link: https://angryscan.org/
