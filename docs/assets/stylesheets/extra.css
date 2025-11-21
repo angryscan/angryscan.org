@@ -373,10 +373,10 @@ thead:not(:has(th:not(:empty))) {
 }
 
 /* Hide footer */
-.md-footer {
+/* .md-footer {
     display: none !important;
 }
 
 .md-footer-meta {
     display: none !important;
-}
+} */
