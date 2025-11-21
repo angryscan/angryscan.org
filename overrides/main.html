@@ -65,6 +65,7 @@
     {% else %}
         <meta property="og:title" content="{{ config.site_name }}" />
     {% endif %}
+    <meta property="og:site_name" content="{{ config.site_name }}" />
 
     {% if page and page.meta and page.meta.description %}
         <meta property="og:description" content="{{ page.meta.description }}" />
@@ -85,6 +86,28 @@
     name="generator"
     content="mkdocs-{{ mkdocs_version }}, $md-name$-$md-version$"
     />
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "{{ config.site_name }}",
+      "url": "{{ config.site_url }}",
+      "description": "{{ page.meta.description if page and page.meta and page.meta.description else (page.description if page and page.description else config.site_description) }}",
+      {% if page and page.meta and page.meta.title %}
+      "headline": "{{ page.meta.title }}",
+      {% elif page and page.title %}
+      "headline": "{{ page.title }}",
+      {% else %}
+      "headline": "{{ config.site_name }}",
+      {% endif %}
+      "publisher": {
+        "@type": "LLC DETECTICUM",
+        "name": "{{ config.site_name }}"
+      }
+    }
+    </script>
 
     {% include "partials/alternate-links.html" %}
 {% endblock %}
