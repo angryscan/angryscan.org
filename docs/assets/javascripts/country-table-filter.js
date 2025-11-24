@@ -137,12 +137,6 @@
         const container = document.createElement('div');
         container.className = 'country-filter-container';
         
-        // Текст "Country: "
-        const labelText = translations[currentLang]?.countryLabel || 'Country:';
-        const label = document.createElement('span');
-        label.className = 'country-filter-label-text';
-        label.textContent = labelText + ' ';
-        
         // Обертка для кнопки и выпадающего меню
         const buttonWrapper = document.createElement('div');
         buttonWrapper.className = 'country-filter-button-wrapper';
@@ -152,17 +146,28 @@
         button.className = 'country-filter-button';
         button.setAttribute('aria-label', 'Select country');
         
+        // Контейнер для флага внутри кнопки
+        const flagContainer = document.createElement('span');
+        flagContainer.className = 'country-filter-button-flag';
+        
+        // Текст для отображения выбранной страны внутри кнопки
+        const selectedText = document.createElement('span');
+        selectedText.className = 'country-filter-selected-text';
+        const allCountriesText = translations[currentLang]?.allCountries || 'All';
+        
         // Иконка глобуса для "Все страны" (используем Unicode символ)
         const globeIcon = '🌐';
-        button.textContent = globeIcon;
-        button.style.backgroundImage = 'none';
+        flagContainer.textContent = globeIcon;
+        selectedText.textContent = allCountriesText;
+        
+        button.appendChild(flagContainer);
+        button.appendChild(selectedText);
         
         // Выпадающее меню
         const dropdown = document.createElement('div');
         dropdown.className = 'country-filter-dropdown';
         
         // Опция "Все страны"
-        const allCountriesText = translations[currentLang]?.allCountries || 'All Countries';
         const allOption = createCountryOption('', globeIcon, allCountriesText, true);
         dropdown.appendChild(allOption);
         
@@ -182,23 +187,46 @@
         buttonWrapper.appendChild(button);
         buttonWrapper.appendChild(dropdown);
         
-        container.appendChild(label);
         container.appendChild(buttonWrapper);
         
-        // Обработчик наведения на кнопку и меню
+        // Переменная для хранения таймаута закрытия
         let hoverTimeout;
-        buttonWrapper.addEventListener('mouseenter', function() {
+        let isClosing = false;
+        
+        // Обработчик клика на кнопку для переключения списка
+        button.addEventListener('click', function(e) {
+            e.stopPropagation();
             clearTimeout(hoverTimeout);
-            dropdown.classList.add('show');
+            isClosing = false;
+            dropdown.classList.toggle('show');
+        });
+        
+        // Обработчик наведения на кнопку и меню (для удобства)
+        buttonWrapper.addEventListener('mouseenter', function() {
+            if (!isClosing) {
+                clearTimeout(hoverTimeout);
+                dropdown.classList.add('show');
+            }
         });
         
         buttonWrapper.addEventListener('mouseleave', function() {
-            hoverTimeout = setTimeout(function() {
-                dropdown.classList.remove('show');
-            }, 100);
+            // Закрываем список только если он открыт и не закрывается программно
+            if (dropdown.classList.contains('show') && !isClosing) {
+                hoverTimeout = setTimeout(function() {
+                    dropdown.classList.remove('show');
+                }, 100);
+            }
         });
         
-        return { container, button, dropdown };
+        // Закрываем список при клике вне области
+        document.addEventListener('click', function(e) {
+            if (!buttonWrapper.contains(e.target)) {
+                clearTimeout(hoverTimeout);
+                dropdown.classList.remove('show');
+            }
+        });
+        
+        return { container, button, dropdown, selectedText, flagContainer, hoverTimeout, setClosing: function(value) { isClosing = value; } };
     }
     
     // Создает опцию в выпадающем меню
@@ -275,6 +303,18 @@
         });
     }
     
+    // Находит заголовок (h1-h6) перед таблицей
+    function findPreviousHeader(table) {
+        let element = table.previousElementSibling;
+        while (element) {
+            if (element.tagName && /^H[1-6]$/.test(element.tagName)) {
+                return element;
+            }
+            element = element.previousElementSibling;
+        }
+        return null;
+    }
+    
     // Обрабатывает одну таблицу
     function processTable(table) {
         const countryColumnIndex = findCountryColumnIndex(table);
@@ -290,33 +330,66 @@
         
         // Создаем селектор
         const currentLang = getCurrentLanguage();
-        const { container, button, dropdown } = createCountrySelector(countries, currentLang);
+        const { container, button, dropdown, selectedText, flagContainer, hoverTimeout, setClosing } = createCountrySelector(countries, currentLang);
         
-        // Добавляем селектор перед таблицей
-        table.parentNode.insertBefore(container, table);
+        // Ищем заголовок перед таблицей
+        const header = findPreviousHeader(table);
+        if (header) {
+            // Проверяем, находится ли заголовок уже внутри обертки
+            let wrapper = header.closest('.table-header-with-filter');
+            if (!wrapper) {
+                // Если обертки нет, создаем ее
+                wrapper = document.createElement('div');
+                wrapper.className = 'table-header-with-filter';
+                header.parentNode.insertBefore(wrapper, header);
+                wrapper.appendChild(header);
+            }
+            // Добавляем селектор в обертку после заголовка
+            wrapper.appendChild(container);
+        } else {
+            // Если заголовок не найден, добавляем селектор перед таблицей (как раньше)
+            table.parentNode.insertBefore(container, table);
+        }
         
         // Скрываем колонку Country
         hideCountryColumn(table, countryColumnIndex);
         
         // Обработчик выбора страны
         let selectedCountry = '';
+        const allCountriesText = translations[currentLang]?.allCountries || 'All';
         dropdown.querySelectorAll('.country-filter-option').forEach(option => {
-            option.addEventListener('click', function() {
+            option.addEventListener('click', function(e) {
+                e.stopPropagation();
+                e.preventDefault();
+                
                 selectedCountry = this.dataset.country || '';
+                
+                // Устанавливаем флаг закрытия и сразу закрываем список
+                setClosing(true);
+                clearTimeout(hoverTimeout);
                 dropdown.classList.remove('show');
+                
+                // Сбрасываем флаг через небольшую задержку
+                setTimeout(function() {
+                    setClosing(false);
+                }, 150);
                 
                 // Обновляем кнопку
                 const flagCode = selectedCountry ? getCountryFlagCode(selectedCountry) : null;
                 const flagUrl = getFlagUrl(flagCode);
                 
                 if (selectedCountry && flagUrl) {
-                    button.style.backgroundImage = `url('${flagUrl}')`;
-                    button.textContent = '';
-                    button.classList.add('has-flag');
+                    flagContainer.style.backgroundImage = `url('${flagUrl}')`;
+                    flagContainer.textContent = '';
+                    flagContainer.classList.add('has-flag');
+                    // Обновляем текст выбранной страны
+                    selectedText.textContent = selectedCountry;
                 } else {
-                    button.style.backgroundImage = 'none';
-                    button.textContent = '🌐';
-                    button.classList.remove('has-flag');
+                    flagContainer.style.backgroundImage = 'none';
+                    flagContainer.textContent = '🌐';
+                    flagContainer.classList.remove('has-flag');
+                    // Обновляем текст на "Все"
+                    selectedText.textContent = allCountriesText;
                 }
                 
                 // Фильтруем таблицу

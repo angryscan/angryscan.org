@@ -8,16 +8,42 @@
     position: relative;
 }
 
-/* Label text */
-.country-filter-label-text {
+/* Wrapper for header and filter */
+.table-header-with-filter {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+    width: auto;
+    margin-bottom: 0;
+}
+
+/* Ensure header stays on the left */
+.table-header-with-filter > h1,
+.table-header-with-filter > h2,
+.table-header-with-filter > h3,
+.table-header-with-filter > h4,
+.table-header-with-filter > h5,
+.table-header-with-filter > h6 {
+    margin: 0;
+}
+
+/* Text showing selected country inside button */
+.country-filter-selected-text {
     color: var(--md-default-fg-color, #000);
     font-size: 0.9rem;
     font-weight: 500;
+    white-space: nowrap;
 }
 
 /* Compact spacing */
 .country-filter-container + table {
     margin-top: 0;
+}
+
+/* Spacing when filter is next to header */
+.table-header-with-filter + table {
+    margin-top: 1rem;
 }
 
 /* Wrapper for button and dropdown */
@@ -26,25 +52,22 @@
     display: inline-block;
 }
 
-/* Button with flag */
+/* Button with flag and text */
 .country-filter-button {
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 21px;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    min-width: auto;
+    height: auto;
     border-radius: 0;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
     border: none;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     transition: opacity 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
     cursor: pointer;
     background-color: var(--md-default-bg-color, #fff);
-    padding: 0;
-    font-size: 16px;
-    aspect-ratio: 3/2;
+    padding: 0.4rem 0.6rem;
+    font-size: 0.9rem;
 }
 
 .country-filter-button:hover {
@@ -52,8 +75,21 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
-/* Button with flag (no text) */
-.country-filter-button.has-flag {
+/* Flag container inside button */
+.country-filter-button-flag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 15px;
+    flex-shrink: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    font-size: 16px;
+}
+
+.country-filter-button-flag.has-flag {
     font-size: 0;
 }
 
@@ -131,5 +167,32 @@
     color: var(--md-default-fg-color, #000);
     font-size: 0.8rem;
     display: block;
+}
+
+/* Responsive styles for mobile devices */
+@media screen and (max-width: 59.9375em) {
+    /* На мобильных устройствах селектор может переноситься на новую строку */
+    .table-header-with-filter {
+        flex-wrap: wrap;
+    }
+    
+    .country-filter-container {
+        margin-left: 0;
+        margin-top: 0.5rem;
+    }
+}
+
+/* Для очень маленьких экранов селектор всегда под заголовком */
+@media screen and (max-width: 30em) {
+    .table-header-with-filter {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .country-filter-container {
+        margin-left: 0;
+        margin-top: 0.5rem;
+        width: 100%;
+    }
 }
 
