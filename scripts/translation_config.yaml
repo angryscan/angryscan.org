@@ -44,16 +44,19 @@ translation:
     files:
       "index.md":
         - match_by_header: "### Personal Data (numbers)"
-          exclude_columns: [3, 4]
+          exclude_columns: [2, 3, 4]
           exclude_header: false
         - match_by_header: "### Personal Data (text)"
-          exclude_columns: [3, 4]
+          exclude_columns: [2, 3, 4]
+          exclude_header: false
+        - match_by_header: "### PCI DSS"
+          exclude_columns: [4]
           exclude_header: false
         - match_by_header: "### Banking Secrecy"
           exclude_columns: [3, 4]
           exclude_header: false
         - match_by_header: "### IT Assets"
-          exclude_columns: [3, 4]
+          exclude_columns: [3]
           exclude_header: false
         - match_by_header: "### Custom Signatures"
           exclude_columns: [3, 4]
