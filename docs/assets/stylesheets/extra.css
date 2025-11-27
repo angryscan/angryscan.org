@@ -241,9 +241,18 @@ html, body {
 
 .md-typeset h2 {
     margin-top: 1em;
+    margin-block-end: 0;
+    margin-bottom: 0;
 }
 .md-typeset h3 {
     margin-top: 1em;
+    margin-block-end: 0;
+    margin-bottom: 0;
+}
+
+.md-typeset p {
+    margin-block-start: 0;
+    margin-block-end: 0;
 }
 
 thead:not(:has(th:not(:empty))) { 
