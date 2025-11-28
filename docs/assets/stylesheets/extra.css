@@ -237,17 +237,20 @@ html, body {
 /* Fix for h1 margin */
 .md-typeset h1 {
     margin-bottom: 1em;
+    font-weight: 500;
 }
 
 .md-typeset h2 {
     margin-top: 1em;
     margin-block-end: 0;
     margin-bottom: 0;
+    font-weight: 400;
 }
 .md-typeset h3 {
     margin-top: 1em;
     margin-block-end: 0;
     margin-bottom: 0;
+    font-weight: 300;
 }
 
 .md-typeset p {
