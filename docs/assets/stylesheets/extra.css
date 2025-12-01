@@ -235,6 +235,10 @@ html, body {
 
 
 /* Fix for h1 margin */
+.md-typeset ul {
+    margin-block-end: 0;
+    margin-block-start: 0;
+}
 .md-typeset h1 {
     margin-bottom: 1em;
     font-weight: 500;

@@ -138,7 +138,7 @@ translation:
     files:
       - text: "**Angry Data Scanner** is a data security and privacy tool that uses pattern matching to automatically discover sensitive data stored in folders, web pages, S3, database."
         translations:
-          ru: "Angry Data Scanner — это инструмент с простым UI для поиска конфиденциальных данных, который использует сопоставление шаблонов для автоматического обнаружения конфиденциальных данных, хранящихся в папках, веб-страницах, S3, базе данных."
+          ru: "Angry Data Scanner — это инструмент с простым UI для поиска конфиденциальных данных, хранящихся в папках, веб-страницах, S3, базе данных."
       - text: "It helps organizations by identifying where sensitive data such as personally identifiable information (PII) and intellectual property is stored."
         translations:
           ru: "Он помогает организациям определять, где хранятся конфиденциальные данные, такие как личная информация (PII) и интеллектуальная собственность."
