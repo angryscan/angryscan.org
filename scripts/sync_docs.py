@@ -505,6 +505,119 @@ def process_badge_images(doc_dir: Path) -> None:
             print(f"Processed badges in: {md_file.relative_to(doc_dir)}")
 
 
+def add_screenshots_gallery(doc_dir: Path) -> None:
+    """Add screenshots gallery to index.md after first h1, before first h2."""
+    index_file = doc_dir / "index.md"
+    
+    if not index_file.exists():
+        return
+    
+    content = index_file.read_text(encoding="utf-8")
+    
+    # Skip if it's a redirect
+    if "meta http-equiv=\"refresh\"" in content or "window.location.replace" in content:
+        return
+    
+    # Check if gallery already exists
+    if 'class="screenshots-gallery"' in content:
+        return
+    
+    # Find the position after first h1, before first h2
+    lines = content.split('\n')
+    insert_position = None
+    h1_found = False
+    
+    for i, line in enumerate(lines):
+        stripped = line.strip()
+        if stripped.startswith('# ') and not stripped.startswith('##'):
+            h1_found = True
+        elif h1_found and stripped.startswith('##'):
+            # Found first h2 after h1, insert before it
+            insert_position = i
+            break
+    
+    if insert_position is None:
+        # If no h2 found, append at the end
+        insert_position = len(lines)
+    
+    # Check which thumbnails exist, use full images as fallback
+    images_dir = doc_dir / "assets" / "images"
+    screenshots = [
+        (
+            "screenshot.png", 
+            "screenshot_thumb.png", 
+            "Angry Data Scanner - Main interface showing sensitive data discovery tool",
+            "View main interface screenshot of Angry Data Scanner sensitive data discovery tool"
+        ),
+        (
+            "screenshot_2.png", 
+            "screenshot_2_thumb.png", 
+            "Angry Data Scanner - Scanning results and data detection interface",
+            "View scanning results screenshot showing detected sensitive data"
+        ),
+        (
+            "screenshot_3.png", 
+            "screenshot_3_thumb.png", 
+            "Angry Data Scanner - File scanning and PII detection view",
+            "View file scanning interface with PII detection capabilities"
+        ),
+        (
+            "screenshot_4.png", 
+            "screenshot_4_thumb.png", 
+            "Angry Data Scanner - Advanced scanning features and configuration",
+            "View advanced scanning features and configuration options"
+        ),
+    ]
+    
+    gallery_items = []
+    for full_img, thumb_img, alt_text, title_text in screenshots:
+        full_path = images_dir / full_img
+        thumb_path = images_dir / thumb_img
+        
+        # Use absolute paths starting with / to work on all language versions
+        # Use thumbnail if exists, otherwise use full image
+        if thumb_path.exists():
+            img_src = f"/assets/images/{thumb_img}"
+        elif full_path.exists():
+            img_src = f"/assets/images/{full_img}"
+        else:
+            continue  # Skip if neither exists
+        
+        full_img_path = f"/assets/images/{full_img}"
+        gallery_items.append(f'''  <div class="screenshot-item">
+    <a href="{full_img_path}" class="screenshot-link" data-full="{full_img_path}" title="{title_text}" aria-label="{title_text}">
+      <img src="{img_src}" alt="{alt_text}" title="{title_text}" class="screenshot-thumb" loading="lazy" width="300" height="200">
+    </a>
+  </div>''')
+    
+    if not gallery_items:
+        return  # No screenshots found, skip gallery
+    
+    # Create gallery HTML
+    gallery_html = f'''<div class="screenshots-gallery">
+{chr(10).join(gallery_items)}
+</div>
+
+<!-- Lightbox overlay -->
+<div id="screenshot-lightbox" class="lightbox-overlay">
+  <span class="lightbox-close">&times;</span>
+  <span class="lightbox-prev">&#10094;</span>
+  <span class="lightbox-next">&#10095;</span>
+  <div class="lightbox-content">
+    <img id="lightbox-image" src="" alt="Angry Data Scanner screenshot - Sensitive data discovery tool interface" title="Angry Data Scanner screenshot">
+  </div>
+</div>
+
+'''
+    
+    # Insert gallery before the h2
+    lines.insert(insert_position, gallery_html)
+    
+    updated_content = '\n'.join(lines)
+    index_file.write_text(updated_content, encoding="utf-8")
+    print(f"Added screenshots gallery to index.md")
+
+
 def sanitize_translation_links(doc_dir: Path) -> None:
     """Strip links that point to translation markdown files and remove Direct Download section."""
     for md_file in doc_dir.rglob("*.md"):
@@ -724,6 +837,9 @@ def sync(repos: Iterable[Tuple[str, str, str]]) -> None:
     
     # Process badge images in all documentation
     process_badge_images(DOCS_ROOT)
+    
+    # Add screenshots gallery to index.md
+    add_screenshots_gallery(DOCS_ROOT)
     
     # Copy static files (robots.txt, BingSiteAuth.xml, etc.)
     copy_static_files()

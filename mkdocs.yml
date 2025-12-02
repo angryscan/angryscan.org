@@ -4,7 +4,7 @@ site_url: https://angryscan.org/
 repo_url: https://github.com/angryscan/angrydata-app
 repo_name: View on GitHub
 use_directory_urls: true
-copyright: "© 2025, by admin@angryscan.org"
+copyright: © 2025, by admin@angryscan.org
 hooks:
 - hooks.py
 theme:
@@ -51,12 +51,16 @@ plugins:
 extra_javascript:
 - assets/javascripts/language-selector.js
 - assets/javascripts/country-table-filter.js
+- assets/javascripts/screenshots.js
+- assets/javascripts/download-button.js
 extra_css:
 - assets/stylesheets/extra.css
 - assets/stylesheets/badge.css
 - assets/stylesheets/language-flags.css
 - assets/stylesheets/language-selector.css
 - assets/stylesheets/country-table-filter.css
+- assets/stylesheets/screenshots.css
+- assets/stylesheets/download-button.css
 extra:
   generator: false
   alternate:

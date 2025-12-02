@@ -6,5 +6,5 @@ assets/menu-translations.json
 BingSiteAuth.xml
 robots.txt
 favicon.ico
-*.png
-*.html
+/*.png
+/*.html

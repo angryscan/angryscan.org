@@ -1,0 +1,288 @@
+/* Screenshots Gallery Styles */
+.screenshots-gallery {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 1rem;
+    margin: 0.1rem 0;
+    padding: 0.35rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    scroll-behavior: smooth;
+    border: 1px solid var(--md-default-fg-color--lighter);
+    border-radius: 8px;
+    background-color: var(--md-default-bg-color--lightest);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+/* Gradient fade indicators for scrollable content */
+.screenshots-gallery::before,
+.screenshots-gallery::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 40px;
+    pointer-events: none;
+    z-index: 1;
+    transition: opacity 0.3s ease;
+}
+
+.screenshots-gallery::before {
+    left: 0;
+    background: linear-gradient(to right, var(--md-default-bg-color--lightest), transparent);
+}
+
+.screenshots-gallery::after {
+    right: 0;
+    background: linear-gradient(to left, var(--md-default-bg-color--lightest), transparent);
+}
+
+/* Hide gradients when scrolled to edges */
+.screenshots-gallery.scrolled-start::before {
+    opacity: 0;
+}
+
+.screenshots-gallery.scrolled-end::after {
+    opacity: 0;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.screenshots-gallery::-webkit-scrollbar {
+    display: none;
+}
+
+.screenshot-item {
+    flex: 0 0 auto;
+    min-width: 300px;
+    max-width: 300px;
+    width: 300px;
+    position: relative;
+    z-index: 2;
+}
+
+.screenshot-link {
+    display: block;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: var(--md-default-bg-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.screenshot-link:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.screenshot-thumb {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* Lightbox Overlay */
+.lightbox-overlay {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    overflow: auto;
+    animation: fadeIn 0.3s ease;
+}
+
+.lightbox-overlay.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.lightbox-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#lightbox-image {
+    max-width: 100%;
+    max-height: 90vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    animation: zoomIn 0.3s ease;
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10000;
+    transition: color 0.2s ease;
+    line-height: 1;
+    user-select: none;
+}
+
+.lightbox-close:hover,
+.lightbox-close:focus {
+    color: #fff;
+    text-decoration: none;
+}
+
+.lightbox-prev,
+.lightbox-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10000;
+    transition: color 0.2s ease, background-color 0.2s ease;
+    user-select: none;
+    padding: 16px;
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.lightbox-prev {
+    left: 20px;
+}
+
+.lightbox-next {
+    right: 20px;
+}
+
+.lightbox-prev:hover,
+.lightbox-prev:focus,
+.lightbox-next:hover,
+.lightbox-next:focus {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.6);
+    text-decoration: none;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 76.1875em) {
+    .screenshots-gallery {
+        gap: 0.75rem;
+    }
+    
+    .screenshot-item {
+        min-width: 250px;
+        max-width: 250px;
+        width: 250px;
+    }
+    
+    .lightbox-close {
+        top: 15px;
+        right: 25px;
+        font-size: 35px;
+    }
+    
+    .lightbox-prev,
+    .lightbox-next {
+        font-size: 30px;
+        padding: 12px;
+    }
+    
+    .lightbox-prev {
+        left: 10px;
+    }
+    
+    .lightbox-next {
+        right: 10px;
+    }
+}
+
+@media screen and (max-width: 59.9375em) {
+    .screenshots-gallery {
+        gap: 0.5rem;
+    }
+    
+    .screenshot-item {
+        min-width: 200px;
+        max-width: 200px;
+        width: 200px;
+    }
+    
+    .lightbox-content {
+        max-width: 95%;
+        max-height: 95%;
+    }
+    
+    #lightbox-image {
+        max-height: 85vh;
+    }
+}
+
+@media screen and (max-width: 30em) {
+    .screenshots-gallery {
+        gap: 0.5rem;
+    }
+    
+    .screenshot-item {
+        min-width: 180px;
+        max-width: 180px;
+        width: 180px;
+    }
+    
+    .lightbox-close {
+        top: 10px;
+        right: 15px;
+        font-size: 30px;
+    }
+    
+    .lightbox-prev,
+    .lightbox-next {
+        font-size: 24px;
+        padding: 8px;
+    }
+    
+    .lightbox-prev {
+        left: 5px;
+    }
+    
+    .lightbox-next {
+        right: 5px;
+    }
+}
+
