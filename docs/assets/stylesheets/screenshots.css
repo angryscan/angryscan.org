@@ -10,10 +10,9 @@
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE and Edge */
     scroll-behavior: smooth;
-    border: 1px solid var(--md-default-fg-color--lighter);
     border-radius: 8px;
     background-color: var(--md-default-bg-color--lightest);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.08);
     position: relative;
 }
 
