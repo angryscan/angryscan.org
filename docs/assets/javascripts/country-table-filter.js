@@ -394,6 +394,13 @@
                 
                 // Фильтруем таблицу
                 filterTableRows(table, countryColumnIndex, selectedCountry);
+                
+                // Dispatch custom event to notify collapse script
+                const filterChangeEvent = new CustomEvent('tableFilterChanged', {
+                    detail: { table: table },
+                    bubbles: true
+                });
+                table.dispatchEvent(filterChangeEvent);
             });
         });
         

@@ -53,6 +53,7 @@ extra_javascript:
 - assets/javascripts/country-table-filter.js
 - assets/javascripts/screenshots.js
 - assets/javascripts/download-button.js
+- assets/javascripts/table-collapse.js
 extra_css:
 - assets/stylesheets/extra.css
 - assets/stylesheets/badge.css
@@ -61,6 +62,7 @@ extra_css:
 - assets/stylesheets/country-table-filter.css
 - assets/stylesheets/screenshots.css
 - assets/stylesheets/download-button.css
+- assets/stylesheets/table-collapse.css
 extra:
   generator: false
   alternate:
