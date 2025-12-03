@@ -50,10 +50,9 @@ plugins:
     minify_html: true
 extra_javascript:
 - assets/javascripts/language-selector.js
-- assets/javascripts/country-table-filter.js
+- assets/javascripts/table-enhanced.js
 - assets/javascripts/screenshots.js
 - assets/javascripts/download-button.js
-- assets/javascripts/table-collapse.js
 extra_css:
 - assets/stylesheets/extra.css
 - assets/stylesheets/badge.css
