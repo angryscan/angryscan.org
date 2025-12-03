@@ -337,7 +337,7 @@
             return;
         }
         
-        // Save current collapse state before updating
+        // Save current collapse state before updating - this preserves user's choice
         const wasExpanded = !collapseData.isCollapsed;
         
         // First, show all rows that were hidden by collapse
@@ -373,7 +373,8 @@
             }
             // Mark that collapse is not needed right now, but keep data structure
             collapseData.hiddenRows = [];
-            collapseData.isCollapsed = false;
+            // Preserve expanded state - if it was expanded, keep it expanded
+            collapseData.isCollapsed = !wasExpanded;
             // Don't delete collapseData - we'll need it if rows become > 5 again
             table._collapseUpdating = false;
             return;
@@ -429,10 +430,10 @@
         // Update hidden rows reference
         collapseData.hiddenRows = newHiddenRows;
         
-        // Restore previous collapse state (expanded or collapsed)
+        // Restore previous collapse state (expanded or collapsed) - preserve user's choice
         collapseData.isCollapsed = !wasExpanded;
         
-        // If table was expanded, show all hidden rows
+        // If table was expanded before filter change, show all hidden rows to maintain expanded state
         if (wasExpanded) {
             collapseData.hiddenRows.forEach(row => {
                 // Check if row is hidden by filter
@@ -454,6 +455,8 @@
                     delete row.dataset.collapseHidden;
                 }
             });
+            // Update state to reflect that table is now expanded
+            collapseData.isCollapsed = false;
         }
         
         // Ensure button exists - create if it was removed
