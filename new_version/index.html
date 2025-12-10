@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Angry Data Scanner - Sensitive Data Discovery Tool</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/favicon.ico">
+    <link rel="apple-touch-icon" href="assets/favicon.ico">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 
+        Site Structure:
+        1. Navigation
+        2. Hero Section
+        3. Data Discovery Section
+        4. File Types Section
+        5. Data Sources Section
+        6. Features Section
+        7. Use Cases Section
+        8. Download Section
+        9. Footer
+    -->
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <img src="assets/favicon.ico" alt="Angry Data Scanner" class="logo-icon">
+                <span class="brand-text">Angry Data Scanner</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#discovery" class="nav-link">Data Discovery</a>
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#download" class="nav-link">Download</a>
+                <a href="https://github.com/angryscan/angrydata-app" class="nav-link" target="_blank">GitHub</a>
+            </div>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <svg class="theme-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+                        <path d="M12 2V4M12 20V22M4.93 4.93L6.34 6.34M17.66 17.66L19.07 19.07M2 12H4M20 12H22M4.93 19.07L6.34 17.66M17.66 6.34L19.07 4.93" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="badge">Free Open Source</div>
+                <h1 class="hero-title">Sensitive Data Discovery Tool</h1>
+                <p class="hero-description">
+                    Angry Data Scanner uses pattern matching to automatically discover sensitive data stored in folders, web pages, S3, and databases. It helps organizations identify where sensitive data such as personally identifiable information (PII) and intellectual property is stored.
+                </p>
+                <div class="hero-features">
+                    <div class="feature-item">
+                        <svg class="check-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Simple user interface</span>
+                    </div>
+                    <div class="feature-item">
+                        <svg class="check-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Sensitive data discovered with 2 clicks</span>
+                    </div>
+                    <div class="feature-item">
+                        <svg class="check-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>No admin rights required</span>
+                    </div>
+                    <div class="feature-item">
+                        <svg class="check-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Works on Linux, Mac, and Windows</span>
+                    </div>
+                </div>
+                <div class="hero-actions">
+                    <a href="#download" class="btn btn-primary">Download Now</a>
+                    <a href="https://github.com/angryscan/angrydata-app" class="btn btn-secondary" target="_blank">View on GitHub</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="screenshot-wrapper">
+                    <div class="screenshot-decoration screenshot-decoration-1"></div>
+                    <div class="screenshot-decoration screenshot-decoration-2"></div>
+                    <div class="screenshot-decoration screenshot-decoration-3"></div>
+                    <div class="screenshot-container" id="screenshotContainer">
+                        <img 
+                            src="assets/screenshot_light.png" 
+                            alt="Angry Data Scanner Interface" 
+                            class="screenshot-image"
+                            id="heroScreenshot"
+                            data-light="assets/screenshot_light.png"
+                            data-dark="assets/screenshot_dark.png"
+                        >
+                        <div class="screenshot-overlay">
+                            <svg class="expand-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8 3H5C4.46957 3 3.96086 3.21071 3.58579 3.58579C3.21071 3.96086 3 4.46957 3 5V8M21 8V5C21 4.46957 20.7893 3.96086 20.4142 3.58579C20.0391 3.21071 19.5304 3 19 3H16M16 21H19C19.5304 21 20.0391 20.7893 20.4142 20.4142C20.7893 20.0391 21 19.5304 21 19V16M3 16V19C3 19.5304 3.21071 20.0391 3.58579 20.4142C3.96086 20.7893 4.46957 21 5 21H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sensitive Data Discovery Section -->
+    <section id="discovery" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Sensitive data discovery</h2>
+                <p class="section-description">Angry Data Scanner can detect various types of sensitive data across multiple categories</p>
+            </div>
+
+            <!-- Personal Data (numbers) -->
+            <div class="data-category">
+                <h3 class="category-title">Personal Data (numbers)</h3>
+                <div class="table-container">
+                    <table class="data-table" data-table="personal-data-numbers">
+                        <thead>
+                            <tr>
+                                <th>Data type</th>
+                                <th>Local name</th>
+                                <th>Country</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data will be loaded from config.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Personal Data (text) -->
+            <div class="data-category">
+                <h3 class="category-title">Personal Data (text)</h3>
+                <div class="table-container">
+                    <table class="data-table" data-table="personal-data-text">
+                        <thead>
+                            <tr>
+                                <th>Data type</th>
+                                <th>Local name</th>
+                                <th>Country</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data will be loaded from config.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- PCI DSS -->
+            <div class="data-category">
+                <h3 class="category-title">PCI DSS</h3>
+                <div class="table-container">
+                    <table class="data-table" data-table="pci-dss">
+                        <thead>
+                            <tr>
+                                <th>Data type</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data will be loaded from config.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Banking Secrecy -->
+            <div class="data-category">
+                <h3 class="category-title">Banking Secrecy</h3>
+                <div class="table-container">
+                    <table class="data-table" data-table="banking-secrecy">
+                        <thead>
+                            <tr>
+                                <th>Data type</th>
+                                <th>Country</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data will be loaded from config.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- IT Assets -->
+            <div class="data-category">
+                <h3 class="category-title">IT Assets</h3>
+                <div class="table-container">
+                    <table class="data-table" data-table="it-assets">
+                        <thead>
+                            <tr>
+                                <th>Data type</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data will be loaded from config.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Custom Signatures -->
+            <div class="data-category" data-section="custom-signatures">
+                <h3 class="category-title">Custom Signatures</h3>
+                <p class="category-description">It is possible to add custom data search signatures using plain text: <code>Secret</code>, <code>Password</code>, <code>Central bank</code> or any other.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Supported File Types -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Supported file types</h2>
+            </div>
+            <div class="table-container">
+                <table class="data-table" data-table="file-types">
+                    <thead>
+                        <tr>
+                            <th>File Type</th>
+                            <th>File Format</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Data will be loaded from config.js -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Supported Data Sources -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Supported data sources</h2>
+            </div>
+            <div class="table-container">
+                <table class="data-table" data-table="data-sources">
+                    <thead>
+                        <tr>
+                            <th>Connector</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Data will be loaded from config.js -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Features -->
+    <section id="features" class="section features-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Key features</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 11L12 14L22 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M21 12V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Ranking</h3>
+                    <p class="feature-description">Scanner shows high-value files first</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3 3H21V21H3V3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M9 9H15V15H9V9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">View scanning history</h3>
+                    <p class="feature-description">Track all your previous scans</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 3V15M12 15L8 11M12 15L16 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Export results</h3>
+                    <p class="feature-description">Download results in a CSV file</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 8V12L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Schedule scans</h3>
+                    <p class="feature-description">Automate your scanning process</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 17L7 19L5 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M7 19V11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M15 7L17 5L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M17 5V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Configurable matchers</h3>
+                    <p class="feature-description">Configure PII, PCI DSS and other matchers</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M14 2V8H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Multiple file formats</h3>
+                    <p class="feature-description">Configure file formats (pdf, excel, etc.)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases -->
+    <section class="section" data-section="use-cases">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Real life use cases</h2>
+            </div>
+            <div class="use-cases">
+                <!-- Data will be loaded from config.js -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section id="download" class="section download-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Download</h2>
+                <p class="section-description" data-info="system-requirements">System Requirements: Windows, Linux, MacOS | 400MB HDD | 4GB RAM | 1.3Ghz CPU</p>
+            </div>
+            <div class="download-grid">
+                <div class="download-card" data-platform="windows">
+                    <div class="download-platform">
+                        <svg class="platform-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 7H20M4 12H20M4 17H20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <h3 class="platform-name">Windows</h3>
+                    </div>
+                    <div class="download-links">
+                        <!-- Data will be loaded from config.js -->
+                    </div>
+                </div>
+                <div class="download-card" data-platform="linux">
+                    <div class="download-platform">
+                        <svg class="platform-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <h3 class="platform-name">Linux</h3>
+                    </div>
+                    <div class="download-links">
+                        <!-- Data will be loaded from config.js -->
+                    </div>
+                </div>
+                <div class="download-card" data-platform="macos">
+                    <div class="download-platform">
+                        <svg class="platform-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97C14.32 22 13.89 21.18 12.37 21.18C10.84 21.18 10.37 21.95 9.1 22C7.79 22.05 6.8 20.68 5.96 19.47C4.25 17 2.94 12.45 4.7 9.39C5.57 7.87 7.13 6.91 8.82 6.88C10.1 6.86 11.32 7.75 12.11 7.75C12.89 7.75 14.37 6.68 15.92 6.84C16.57 6.87 18.39 7.1 19.56 8.82C19.47 9.08 17.39 10.1 17.41 12.63C17.44 15.65 20.06 16.66 20.09 16.67C20.06 16.74 19.67 18.11 18.71 19.5ZM13 3.5C13.73 2.67 14.94 2.04 15.94 2C16.07 3.17 15.6 4.35 14.9 5.19C14.21 6.04 13.07 6.7 11.95 6.61C11.8 5.46 12.36 4.26 13 3.5Z" fill="currentColor"/>
+                        </svg>
+                        <h3 class="platform-name">macOS</h3>
+                    </div>
+                    <div class="download-links">
+                        <!-- Data will be loaded from config.js -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025, by admin@angryscan.org</p>
+                <div class="footer-links">
+                    <a href="https://github.com/angryscan/angrydata-app" target="_blank">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose" aria-label="Close lightbox">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+        <div class="lightbox-content">
+            <img 
+                src="assets/screenshot_light.png" 
+                alt="Angry Data Scanner Interface" 
+                class="lightbox-image"
+                id="lightboxScreenshot"
+                data-light="assets/screenshot_light.png"
+                data-dark="assets/screenshot_dark.png"
+            >
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
+
