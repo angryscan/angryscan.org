@@ -539,7 +539,10 @@ const CountryFilter = {
         if (show && !message) {
             message = document.createElement('div');
             message.className = 'table-empty-message';
-            message.textContent = 'No data available for selected country';
+            const currentLang = LanguageManager.getCurrentLanguage();
+            const translations = typeof I18N !== 'undefined' && I18N[currentLang] ? I18N[currentLang] : I18N.en;
+            message.textContent = translations.emptyMessage || 'No data available for selected country';
+            message.setAttribute('data-i18n', 'emptyMessage');
             table.parentElement.appendChild(message);
         } else if (!show && message) {
             message.remove();
@@ -571,6 +574,23 @@ const DataRenderer = {
         this.renderDataSources();
         this.renderUseCases();
         this.renderDownloads();
+    },
+
+    /**
+     * Get translation for a key
+     * @param {string} key - Translation key
+     * @returns {string} Translated text
+     */
+    getTranslation(key) {
+        const lang = LanguageManager.getCurrentLanguage();
+        const translations = typeof I18N !== 'undefined' && I18N[lang] ? I18N[lang] : I18N.en;
+        
+        const keys = key.split('.');
+        let value = translations;
+        for (const k of keys) {
+            value = value && value[k];
+        }
+        return value !== undefined ? value : key;
     },
 
     /**
@@ -682,10 +702,20 @@ const DataRenderer = {
         const tbody = document.querySelector('[data-table="it-assets"] tbody');
         if (!tbody) return;
 
+        // Get current language
+        const currentLang = LanguageManager.getCurrentLanguage();
+        const translations = typeof I18N !== 'undefined' && I18N[currentLang] ? I18N[currentLang] : I18N.en;
+        
+        // Use translated IT assets if available, otherwise fall back to CONFIG
+        const itAssets = translations.itAssets && Array.isArray(translations.itAssets)
+            ? translations.itAssets
+            : CONFIG.itAssets;
+
         tbody.innerHTML = '';
-        CONFIG.itAssets.forEach(item => {
+        itAssets.forEach(item => {
             // Check if example should be wrapped in code tags
             const shouldWrapInCode = !item.example.startsWith('Finds') && 
+                                     !item.example.startsWith('Находит') &&
                                      !item.example.includes('SHA-256');
             const exampleCell = shouldWrapInCode 
                 ? `<code>${item.example}</code>`
@@ -705,13 +735,28 @@ const DataRenderer = {
         const container = document.querySelector('[data-section="custom-signatures"]');
         if (!container) return;
 
-        const examples = CONFIG.customSignatures.examples
+        // Get current language
+        const currentLang = LanguageManager.getCurrentLanguage();
+        const translations = typeof I18N !== 'undefined' && I18N[currentLang] ? I18N[currentLang] : I18N.en;
+        
+        // Use translated examples if available, otherwise fall back to CONFIG
+        const examples = translations.categories && translations.categories.customSignaturesExamples
+            ? translations.categories.customSignaturesExamples
+            : CONFIG.customSignatures.examples;
+        
+        const examplesHTML = examples
             .map(ex => `<code>${ex}</code>`)
             .join(', ');
         
         const description = container.querySelector('.category-description');
         if (description) {
-            description.innerHTML = `${CONFIG.customSignatures.description} ${examples} or any other.`;
+            const descText = translations.categories && translations.categories.customSignaturesDesc
+                ? translations.categories.customSignaturesDesc
+                : CONFIG.customSignatures.description;
+            const orText = translations.categories && translations.categories.customSignaturesOr
+                ? translations.categories.customSignaturesOr
+                : 'or any other.';
+            description.innerHTML = `${descText} ${examplesHTML} ${orText}`;
         }
     },
 
@@ -738,8 +783,17 @@ const DataRenderer = {
         const tbody = document.querySelector('[data-table="data-sources"] tbody');
         if (!tbody) return;
 
+        // Get current language
+        const currentLang = LanguageManager.getCurrentLanguage();
+        const translations = typeof I18N !== 'undefined' && I18N[currentLang] ? I18N[currentLang] : I18N.en;
+        
+        // Use translated data sources if available, otherwise fall back to CONFIG
+        const dataSources = translations.sections && translations.sections.dataSources && translations.sections.dataSources.sources
+            ? translations.sections.dataSources.sources
+            : CONFIG.dataSources;
+
         tbody.innerHTML = '';
-        CONFIG.dataSources.forEach(item => {
+        dataSources.forEach(item => {
             this.renderTableRow(tbody, [
                 item.connector,
                 item.description
@@ -756,6 +810,15 @@ const DataRenderer = {
 
         const useCasesContainer = container.querySelector('.use-cases');
         if (!useCasesContainer) return;
+
+        // Get current language
+        const currentLang = LanguageManager.getCurrentLanguage();
+        const translations = typeof I18N !== 'undefined' && I18N[currentLang] ? I18N[currentLang] : I18N.en;
+        
+        // Use translated use cases if available, otherwise fall back to CONFIG
+        const useCases = translations.sections && translations.sections.useCases && translations.sections.useCases.cases
+            ? translations.sections.useCases.cases
+            : CONFIG.useCases;
 
         // Icons for each use case - standard icons
         const useCaseIcons = [
@@ -793,7 +856,7 @@ const DataRenderer = {
         ];
 
         useCasesContainer.innerHTML = '';
-        CONFIG.useCases.forEach((useCase, index) => {
+        useCases.forEach((useCase, index) => {
             const item = document.createElement('div');
             item.className = 'use-case-item';
             item.innerHTML = `
@@ -902,6 +965,297 @@ const Utils = {
 };
 
 // ============================================================================
+// Language Manager Module
+// ============================================================================
+
+const LanguageManager = {
+    currentLanguage: 'en',
+    googleTranslateWidget: null,
+
+    /**
+     * Initialize language system
+     */
+    init() {
+        // Get saved language or detect from browser
+        const savedLanguage = localStorage.getItem('language') || this.detectLanguage();
+        this.setLanguage(savedLanguage);
+        
+        // Initialize language selector
+        const languageSelector = document.getElementById('languageSelector');
+        if (languageSelector) {
+            languageSelector.value = this.currentLanguage;
+            languageSelector.addEventListener('change', (e) => {
+                this.setLanguage(e.target.value);
+            });
+        }
+    },
+
+    /**
+     * Detect language from browser or URL
+     */
+    detectLanguage() {
+        // Check URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const langParam = urlParams.get('lang');
+        if (langParam && (langParam === 'en' || langParam === 'ru' || langParam === 'es' || langParam === 'de' || langParam === 'fr')) {
+            return langParam;
+        }
+
+        // Check browser language
+        const browserLang = navigator.language || navigator.userLanguage;
+        if (browserLang.startsWith('ru')) return 'ru';
+        if (browserLang.startsWith('es')) return 'es';
+        if (browserLang.startsWith('de')) return 'de';
+        if (browserLang.startsWith('fr')) return 'fr';
+        
+        return 'en'; // Default to English
+    },
+
+    /**
+     * Set language
+     * @param {string} lang - Language code
+     */
+    setLanguage(lang) {
+        this.currentLanguage = lang;
+        localStorage.setItem('language', lang);
+        
+        // Update HTML lang attribute
+        document.documentElement.setAttribute('lang', lang === 'ru' ? 'ru' : 'en');
+        
+        // Update page title
+        if (typeof I18N !== 'undefined' && I18N[lang]) {
+            document.title = I18N[lang].site.title;
+        }
+
+        // Handle different languages
+        if (lang === 'en' || lang === 'ru') {
+            // Use custom translations
+            // First ensure Google Translate is completely removed
+            this.removeGoogleTranslate();
+            // Small delay to ensure Google Translate cleanup is complete
+            setTimeout(() => {
+                this.updateTranslations(lang);
+                // Re-render use cases, data sources, custom signatures and IT assets with new translations
+                if (typeof DataRenderer !== 'undefined') {
+                    DataRenderer.renderUseCases();
+                    DataRenderer.renderDataSources();
+                    DataRenderer.renderCustomSignatures();
+                    DataRenderer.renderItAssets();
+                }
+            }, 50);
+        } else {
+            // Use Google Translate
+            this.updateTranslations('en'); // First set English text
+            setTimeout(() => {
+                this.initGoogleTranslate(lang);
+            }, 100);
+        }
+
+        // Update language selector
+        const languageSelector = document.getElementById('languageSelector');
+        if (languageSelector) {
+            languageSelector.value = lang;
+        }
+    },
+
+    /**
+     * Update translations for custom languages (en, ru)
+     * @param {string} lang - Language code
+     */
+    updateTranslations(lang) {
+        if (typeof I18N === 'undefined' || !I18N[lang]) {
+            console.warn(`Translations for language ${lang} not found`);
+            return;
+        }
+
+        const translations = I18N[lang];
+        const elements = document.querySelectorAll('[data-i18n]');
+
+        elements.forEach(element => {
+            const key = element.getAttribute('data-i18n');
+            if (!key) return;
+            
+            // Skip if element has child elements with data-i18n (they will be processed separately)
+            if (element.querySelector('[data-i18n]')) {
+                return;
+            }
+            
+            const value = this.getNestedValue(translations, key);
+            
+            if (value !== undefined && value !== null) {
+                try {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        element.value = value;
+                    } else if (element.hasAttribute('placeholder')) {
+                        element.setAttribute('placeholder', value);
+                    } else {
+                        // Simple text replacement - innerHTML will be handled by child elements
+                        element.textContent = value;
+                    }
+                } catch (error) {
+                    console.warn(`Error updating translation for key "${key}":`, error);
+                }
+            }
+        });
+    },
+
+
+    /**
+     * Get nested value from object using dot notation
+     * @param {Object} obj - Object to search
+     * @param {string} path - Dot notation path
+     * @returns {*} Value or undefined
+     */
+    getNestedValue(obj, path) {
+        return path.split('.').reduce((current, key) => {
+            return current && current[key] !== undefined ? current[key] : undefined;
+        }, obj);
+    },
+
+    /**
+     * Initialize Google Translate widget
+     * @param {string} targetLang - Target language code
+     */
+    initGoogleTranslate(targetLang) {
+        // Remove existing widget if any
+        this.removeGoogleTranslate();
+
+        // Wait for Google Translate script to load
+        const initWidget = () => {
+            if (typeof google !== 'undefined' && google.translate) {
+                const container = document.getElementById('google_translate_element');
+                if (!container) return;
+
+                // Create Google Translate widget
+                new google.translate.TranslateElement({
+                    pageLanguage: 'en',
+                    includedLanguages: targetLang,
+                    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                    autoDisplay: false,
+                    multilanguagePage: false
+                }, 'google_translate_element');
+
+                // Wait for widget to initialize, then trigger translation
+                setTimeout(() => {
+                    const select = document.querySelector('.goog-te-combo');
+                    if (select) {
+                        select.value = targetLang;
+                        select.dispatchEvent(new Event('change'));
+                    }
+                }, 1000);
+            } else {
+                // Retry after a short delay
+                setTimeout(initWidget, 100);
+            }
+        };
+
+        initWidget();
+    },
+
+    /**
+     * Translate page using Google Translate API (fallback)
+     * @param {string} targetLang - Target language code
+     */
+    translatePage(targetLang) {
+        // This is a simplified approach - in production you'd use Google Translate API
+        // For now, we'll use the browser's built-in translation
+        const elements = document.querySelectorAll('[data-i18n]');
+        
+        // Note: This is a placeholder. In a real implementation, you'd call Google Translate API
+        // or use a service like Google Cloud Translation API
+        console.log(`Translating to ${targetLang} using Google Translate`);
+    },
+
+    /**
+     * Remove Google Translate widget
+     */
+    removeGoogleTranslate() {
+        const widget = document.getElementById('google_translate_element');
+        if (widget) {
+            widget.innerHTML = '';
+        }
+        
+        // Remove Google Translate iframe and styles
+        const iframes = document.querySelectorAll('iframe[src*="translate.google"], iframe[src*="translate.googleapis"]');
+        iframes.forEach(iframe => {
+            try {
+                iframe.remove();
+            } catch (e) {
+                console.warn('Error removing iframe:', e);
+            }
+        });
+        
+        // Remove Google Translate elements
+        const translateElements = document.querySelectorAll('.goog-te-banner-frame, .goog-te-menu-frame, .goog-te-combo, .skiptranslate, .goog-te-banner, .goog-te-menu-value');
+        translateElements.forEach(el => {
+            try {
+                el.remove();
+            } catch (e) {
+                console.warn('Error removing translate element:', e);
+            }
+        });
+        
+        // Remove Google Translate classes and restore original content
+        document.body.classList.remove('translated-ltr', 'translated-rtl', 'notranslate');
+        document.documentElement.classList.remove('translated-ltr', 'translated-rtl', 'notranslate');
+        
+        // Remove notranslate class from all elements
+        const notranslateElements = document.querySelectorAll('.notranslate');
+        notranslateElements.forEach(el => {
+            el.classList.remove('notranslate');
+        });
+        
+        // Remove Google Translate script injected styles (be more careful)
+        const allStyles = document.querySelectorAll('style');
+        allStyles.forEach(style => {
+            const content = style.textContent || '';
+            if ((content.includes('goog-te') || content.includes('.skiptranslate')) && 
+                !style.hasAttribute('data-custom') &&
+                !style.id) {
+                try {
+                    style.remove();
+                } catch (e) {
+                    console.warn('Error removing style:', e);
+                }
+            }
+        });
+        
+        // Clear any Google Translate state
+        if (typeof google !== 'undefined' && google.translate) {
+            try {
+                // Reset translate element if it exists
+                const container = document.getElementById('google_translate_element');
+                if (container) {
+                    container.innerHTML = '';
+                }
+            } catch (e) {
+                console.warn('Error clearing Google Translate state:', e);
+            }
+        }
+    },
+
+    /**
+     * Get current language
+     * @returns {string} Current language code
+     */
+    getCurrentLanguage() {
+        return this.currentLanguage;
+    }
+};
+
+// Google Translate callback
+function googleTranslateElementInit() {
+    // This function is called by Google Translate script
+    // LanguageManager will handle the initialization when language is changed
+    if (typeof LanguageManager !== 'undefined') {
+        const currentLang = LanguageManager.getCurrentLanguage();
+        if (currentLang === 'es' || currentLang === 'de' || currentLang === 'fr') {
+            LanguageManager.initGoogleTranslate(currentLang);
+        }
+    }
+}
+
+// ============================================================================
 // Main Initialization
 // ============================================================================
 
@@ -916,6 +1270,9 @@ function init() {
     }
 
     try {
+        // Initialize language first (before rendering content)
+        LanguageManager.init();
+        
         // Initialize all modules
         DataRenderer.init(); // Must be first to populate data
         ThemeManager.init();
@@ -924,6 +1281,19 @@ function init() {
         CountryFilter.init(); // Initialize country filter (will re-render tables)
         TableEnhancement.init();
         LightboxManager.init();
+
+        // Update translations after all content is rendered
+        setTimeout(() => {
+            const currentLang = LanguageManager.getCurrentLanguage();
+            if (currentLang === 'en' || currentLang === 'ru') {
+                LanguageManager.updateTranslations(currentLang);
+                // Re-render use cases, data sources, custom signatures and IT assets with translations
+                DataRenderer.renderUseCases();
+                DataRenderer.renderDataSources();
+                DataRenderer.renderCustomSignatures();
+                DataRenderer.renderItAssets();
+            }
+        }, 100);
 
         console.log('Angry Data Scanner website initialized successfully');
     } catch (error) {

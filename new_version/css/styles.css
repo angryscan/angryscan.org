@@ -190,6 +190,68 @@ body {
     gap: var(--spacing-md);
 }
 
+.language-selector-wrapper {
+    position: relative;
+}
+
+.language-selector {
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    color: var(--color-text-primary);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding-right: 32px;
+    min-width: 140px;
+}
+
+.language-selector:hover {
+    border-color: var(--color-accent);
+    background: var(--color-bg-tertiary);
+}
+
+.language-selector:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(99, 32, 238, 0.1);
+}
+
+[data-theme="dark"] .language-selector:focus {
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+}
+
+.language-selector-wrapper::after {
+    content: '▼';
+    position: absolute;
+    right: var(--spacing-md);
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    font-size: 10px;
+    color: var(--color-text-secondary);
+}
+
+/* Hide Google Translate widget UI */
+#google_translate_element {
+    display: none !important;
+}
+
+.goog-te-banner-frame,
+.goog-te-menu-frame {
+    display: none !important;
+}
+
+body.translated-ltr,
+body.translated-rtl {
+    top: 0 !important;
+}
+
 .theme-toggle {
     background: none;
     border: none;
@@ -262,19 +324,27 @@ body {
     line-height: 1.7;
 }
 
+/* Reduce description font size on smaller screens for Russian */
+@media (max-width: 968px) {
+    .hero-description {
+        font-size: var(--font-size-base);
+    }
+}
+
 .hero-features {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--spacing-md);
     margin-top: var(--spacing-sm);
 }
 
 .feature-item {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: var(--spacing-md);
     color: var(--color-text-secondary);
-    font-size: var(--font-size-md);
+    font-size: var(--font-size-sm);
+    line-height: 1.5;
 }
 
 .check-icon {
@@ -1180,6 +1250,10 @@ code {
 
     .hero-actions {
         flex-direction: column;
+    }
+
+    .hero-features {
+        grid-template-columns: 1fr;
     }
 
     .btn {

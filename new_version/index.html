@@ -34,12 +34,21 @@
                 <span class="brand-text">Angry Data Scanner</span>
             </div>
             <div class="nav-menu">
-                <a href="#discovery" class="nav-link">Data Discovery</a>
-                <a href="#features" class="nav-link">Features</a>
-                <a href="#download" class="nav-link">Download</a>
-                <a href="https://github.com/angryscan/angrydata-app" class="nav-link" target="_blank">GitHub</a>
+                <a href="#discovery" class="nav-link" data-i18n="nav.dataDiscovery">Data Discovery</a>
+                <a href="#features" class="nav-link" data-i18n="nav.features">Features</a>
+                <a href="#download" class="nav-link" data-i18n="nav.download">Download</a>
+                <a href="https://github.com/angryscan/angrydata-app" class="nav-link" target="_blank" data-i18n="nav.github">GitHub</a>
             </div>
             <div class="nav-actions">
+                <div class="language-selector-wrapper">
+                    <select class="language-selector" id="languageSelector" aria-label="Select language">
+                        <option value="en">🇺🇸 English</option>
+                        <option value="ru">🇷🇺 Русский</option>
+                        <option value="es">🇪🇸 Español</option>
+                        <option value="de">🇩🇪 Deutsch</option>
+                        <option value="fr">🇫🇷 Français</option>
+                    </select>
+                </div>
                 <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
                     <svg class="theme-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
@@ -54,9 +63,9 @@
     <section class="hero">
         <div class="container">
             <div class="hero-content">
-                <div class="badge">Free Open Source</div>
-                <h1 class="hero-title">Sensitive Data Discovery Tool</h1>
-                <p class="hero-description">
+                <div class="badge" data-i18n="hero.badge">Free Open Source</div>
+                <h1 class="hero-title" data-i18n="hero.title">Sensitive Data Discovery Tool</h1>
+                <p class="hero-description" data-i18n="hero.description">
                     Angry Data Scanner uses pattern matching to automatically discover sensitive data stored in folders, web pages, S3, and databases. It helps organizations identify where sensitive data such as personally identifiable information (PII) and intellectual property is stored.
                 </p>
                 <div class="hero-features">
@@ -64,30 +73,36 @@
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                        <span>Simple user interface</span>
+                        <span data-i18n="hero.features.simple">Simple User Interface: Intuitive design meant for speed and ease of use.</span>
                     </div>
                     <div class="feature-item">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                        <span>Sensitive data discovered with 2 clicks</span>
+                        <span data-i18n="hero.features.twoClicks">One-Click Discovery: Detect sensitive data instantly with just 2 clicks.</span>
                     </div>
                     <div class="feature-item">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                        <span>No admin rights required</span>
+                        <span data-i18n="hero.features.noAdmin">Hassle-Free Setup: No admin rights or installation required.</span>
                     </div>
                     <div class="feature-item">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                        <span>Works on Linux, Mac, and Windows</span>
+                        <span data-i18n="hero.features.crossPlatform">Cross-Platform: Works seamlessly on Linux macOS and Windows.</span>
+                    </div>
+                    <div class="feature-item">
+                        <svg class="check-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span data-i18n="hero.features.privacy">Total Privacy: All scanning happens locally. Your data never leaves your PC</span>
                     </div>
                 </div>
                 <div class="hero-actions">
-                    <a href="#download" class="btn btn-primary">Download Now</a>
-                    <a href="https://github.com/angryscan/angrydata-app" class="btn btn-secondary" target="_blank">View on GitHub</a>
+                    <a href="#download" class="btn btn-primary" data-i18n="hero.cta.download">Download Now</a>
+                    <a href="https://github.com/angryscan/angrydata-app" class="btn btn-secondary" target="_blank" data-i18n="hero.cta.github">View on GitHub</a>
                 </div>
             </div>
             <div class="hero-image">
@@ -119,8 +134,8 @@
     <section id="discovery" class="section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Sensitive data discovery</h2>
-                <p class="section-description">Angry Data Scanner can detect various types of sensitive data across multiple categories</p>
+                <h2 class="section-title" data-i18n="sections.discovery.title">Sensitive data discovery</h2>
+                <p class="section-description" data-i18n="sections.discovery.description">Angry Data Scanner can detect various types of sensitive data across multiple categories</p>
             </div>
 
             <!-- Country Selector -->
@@ -130,35 +145,35 @@
                         <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
                         <path d="M2 12H22M12 2C15 6 15 18 12 22C9 18 9 6 12 2" stroke="currentColor" stroke-width="2"/>
                     </svg>
-                    <span class="country-selector-label">Filter by country</span>
+                    <span class="country-selector-label" data-i18n="sections.discovery.filterByCountry">Filter by country</span>
                 </div>
                 <div class="country-buttons-group">
                     <button class="country-button active" data-country="all" aria-label="All Countries">
                         <span class="country-flag-emoji">🌍</span>
-                        <span>All</span>
+                        <span data-i18n="sections.discovery.all">All</span>
                     </button>
                     <button class="country-button" data-country="international" aria-label="International">
                         <span class="country-flag-emoji">🌐</span>
-                        <span>International</span>
+                        <span data-i18n="sections.discovery.international">International</span>
                     </button>
                     <button class="country-button" data-country="RU" aria-label="Russia">
                         <span class="country-flag-emoji">🇷🇺</span>
-                        <span>Russia</span>
+                        <span data-i18n="sections.discovery.russia">Russia</span>
                     </button>
                     <button class="country-button" data-country="US" aria-label="United States">
                         <span class="country-flag-emoji">🇺🇸</span>
-                        <span>United States</span>
+                        <span data-i18n="sections.discovery.unitedStates">United States</span>
                     </button>
                     <button class="country-button" data-country="CN" aria-label="China">
                         <span class="country-flag-emoji">🇨🇳</span>
-                        <span>China</span>
+                        <span data-i18n="sections.discovery.china">China</span>
                     </button>
                 </div>
             </div>
 
             <!-- Personal Data (numbers) -->
             <div class="data-category">
-                <h3 class="category-title">Personal Data (numbers)</h3>
+                <h3 class="category-title" data-i18n="categories.personalDataNumbers">Personal Data (numbers)</h3>
                 <div class="table-container">
                     <table class="data-table" data-table="personal-data-numbers">
                         <colgroup>
@@ -169,10 +184,10 @@
                         </colgroup>
                         <thead>
                             <tr>
-                                <th>Data type</th>
-                                <th>Local name</th>
-                                <th>Country</th>
-                                <th>Example</th>
+                                <th data-i18n="tableHeaders.dataType">Data type</th>
+                                <th data-i18n="tableHeaders.localName">Local name</th>
+                                <th data-i18n="tableHeaders.country">Country</th>
+                                <th data-i18n="tableHeaders.example">Example</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -184,7 +199,7 @@
 
             <!-- Personal Data (text) -->
             <div class="data-category">
-                <h3 class="category-title">Personal Data (text)</h3>
+                <h3 class="category-title" data-i18n="categories.personalDataText">Personal Data (text)</h3>
                 <div class="table-container">
                     <table class="data-table" data-table="personal-data-text">
                         <colgroup>
@@ -195,10 +210,10 @@
                         </colgroup>
                         <thead>
                             <tr>
-                                <th>Data type</th>
-                                <th>Local name</th>
-                                <th>Country</th>
-                                <th>Example</th>
+                                <th data-i18n="tableHeaders.dataType">Data type</th>
+                                <th data-i18n="tableHeaders.localName">Local name</th>
+                                <th data-i18n="tableHeaders.country">Country</th>
+                                <th data-i18n="tableHeaders.example">Example</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -210,7 +225,7 @@
 
             <!-- PCI DSS -->
             <div class="data-category">
-                <h3 class="category-title">PCI DSS</h3>
+                <h3 class="category-title" data-i18n="categories.pciDss">PCI DSS</h3>
                 <div class="table-container">
                     <table class="data-table" data-table="pci-dss">
                         <colgroup>
@@ -219,8 +234,8 @@
                         </colgroup>
                         <thead>
                             <tr>
-                                <th>Data type</th>
-                                <th>Example</th>
+                                <th data-i18n="tableHeaders.dataType">Data type</th>
+                                <th data-i18n="tableHeaders.example">Example</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -232,7 +247,7 @@
 
             <!-- Banking Secrecy -->
             <div class="data-category">
-                <h3 class="category-title">Banking Secrecy</h3>
+                <h3 class="category-title" data-i18n="categories.bankingSecrecy">Banking Secrecy</h3>
                 <div class="table-container">
                     <table class="data-table" data-table="banking-secrecy">
                         <colgroup>
@@ -242,9 +257,9 @@
                         </colgroup>
                         <thead>
                             <tr>
-                                <th>Data type</th>
-                                <th>Country</th>
-                                <th>Example</th>
+                                <th data-i18n="tableHeaders.dataType">Data type</th>
+                                <th data-i18n="tableHeaders.country">Country</th>
+                                <th data-i18n="tableHeaders.example">Example</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -256,7 +271,7 @@
 
             <!-- IT Assets -->
             <div class="data-category">
-                <h3 class="category-title">IT Assets</h3>
+                <h3 class="category-title" data-i18n="categories.itAssets">IT Assets</h3>
                 <div class="table-container">
                     <table class="data-table" data-table="it-assets">
                         <colgroup>
@@ -265,8 +280,8 @@
                         </colgroup>
                         <thead>
                             <tr>
-                                <th>Data type</th>
-                                <th>Example</th>
+                                <th data-i18n="tableHeaders.dataType">Data type</th>
+                                <th data-i18n="tableHeaders.example">Example</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -278,8 +293,8 @@
 
             <!-- Custom Signatures -->
             <div class="data-category" data-section="custom-signatures">
-                <h3 class="category-title">Custom Signatures</h3>
-                <p class="category-description">It is possible to add custom data search signatures using plain text: <code>Secret</code>, <code>Password</code>, <code>Central bank</code> or any other.</p>
+                <h3 class="category-title" data-i18n="categories.customSignatures">Custom Signatures</h3>
+                <p class="category-description"><span data-i18n="categories.customSignaturesDesc">It is possible to add custom data search signatures using plain text:</span> <code>Secret</code>, <code>Password</code>, <code>Central bank</code> <span data-i18n="categories.customSignaturesOr">or any other.</span></p>
             </div>
         </div>
     </section>
@@ -288,7 +303,7 @@
     <section class="section section-compact">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Supported file types</h2>
+                <h2 class="section-title" data-i18n="sections.fileTypes.title">Supported file types</h2>
             </div>
             <div class="table-container">
                 <table class="data-table" data-table="file-types">
@@ -298,8 +313,8 @@
                     </colgroup>
                     <thead>
                         <tr>
-                            <th>File Type</th>
-                            <th>File Format</th>
+                            <th data-i18n="tableHeaders.fileType">File Type</th>
+                            <th data-i18n="tableHeaders.fileFormat">File Format</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -314,7 +329,7 @@
     <section class="section section-compact">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Supported data sources</h2>
+                <h2 class="section-title" data-i18n="sections.dataSources.title">Supported data sources</h2>
             </div>
             <div class="table-container">
                 <table class="data-table" data-table="data-sources">
@@ -324,8 +339,8 @@
                     </colgroup>
                     <thead>
                         <tr>
-                            <th>Connector</th>
-                            <th>Description</th>
+                            <th data-i18n="tableHeaders.connector">Connector</th>
+                            <th data-i18n="tableHeaders.description">Description</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -340,7 +355,7 @@
     <section id="features" class="section features-section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Key features</h2>
+                <h2 class="section-title" data-i18n="sections.features.title">Key features</h2>
             </div>
             <div class="features-grid">
                 <div class="feature-card">
@@ -350,8 +365,8 @@
                             <path d="M21 12V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </div>
-                    <h3 class="feature-title">Ranking</h3>
-                    <p class="feature-description">Scanner shows high-value files first</p>
+                    <h3 class="feature-title" data-i18n="features.ranking.title">Ranking</h3>
+                    <p class="feature-description" data-i18n="features.ranking.description">Scanner shows high-value files first</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
@@ -360,8 +375,8 @@
                             <path d="M9 9H15V15H9V9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </div>
-                    <h3 class="feature-title">View scanning history</h3>
-                    <p class="feature-description">Track all your previous scans</p>
+                    <h3 class="feature-title" data-i18n="features.history.title">View scanning history</h3>
+                    <p class="feature-description" data-i18n="features.history.description">Track all your previous scans</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
@@ -370,8 +385,8 @@
                             <path d="M12 3V15M12 15L8 11M12 15L16 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </div>
-                    <h3 class="feature-title">Export results</h3>
-                    <p class="feature-description">Download results in a CSV file</p>
+                    <h3 class="feature-title" data-i18n="features.export.title">Export results</h3>
+                    <p class="feature-description" data-i18n="features.export.description">Download results in a CSV file</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
@@ -380,8 +395,8 @@
                             <path d="M12 8V12L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </div>
-                    <h3 class="feature-title">Schedule scans</h3>
-                    <p class="feature-description">Automate your scanning process</p>
+                    <h3 class="feature-title" data-i18n="features.schedule.title">Schedule scans</h3>
+                    <p class="feature-description" data-i18n="features.schedule.description">Automate your scanning process</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
@@ -392,8 +407,8 @@
                             <path d="M17 5V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </div>
-                    <h3 class="feature-title">Configurable matchers</h3>
-                    <p class="feature-description">Configure PII, PCI DSS and other matchers</p>
+                    <h3 class="feature-title" data-i18n="features.matchers.title">Configurable matchers</h3>
+                    <p class="feature-description" data-i18n="features.matchers.description">Configure PII, PCI DSS and other matchers</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
@@ -402,8 +417,8 @@
                             <path d="M14 2V8H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </div>
-                    <h3 class="feature-title">Multiple file formats</h3>
-                    <p class="feature-description">Configure file formats (pdf, excel, etc.)</p>
+                    <h3 class="feature-title" data-i18n="features.formats.title">Multiple file formats</h3>
+                    <p class="feature-description" data-i18n="features.formats.description">Configure file formats (pdf, excel, etc.)</p>
                 </div>
             </div>
         </div>
@@ -413,7 +428,7 @@
     <section class="section" data-section="use-cases">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Real life use cases</h2>
+                <h2 class="section-title" data-i18n="sections.useCases.title">Real life use cases</h2>
             </div>
             <div class="use-cases">
                 <!-- Data will be loaded from config.js -->
@@ -425,8 +440,8 @@
     <section id="download" class="section download-section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Download</h2>
-                <p class="section-description" data-info="system-requirements">System Requirements: Windows, Linux, MacOS | 400MB HDD | 4GB RAM | 1.3Ghz CPU</p>
+                <h2 class="section-title" data-i18n="sections.download.title">Download</h2>
+                <p class="section-description" data-info="system-requirements" data-i18n="sections.download.systemRequirements">System Requirements: Windows, Linux, MacOS | 400MB HDD | 4GB RAM | 1.3Ghz CPU</p>
             </div>
             <div class="download-grid">
                 <div class="download-card" data-platform="windows">
@@ -483,10 +498,10 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <p>&copy; 2025, by admin@angryscan.org</p>
+                <p data-i18n="footer.copyright">&copy; 2025, by admin@angryscan.org</p>
                 <div class="footer-links">
-                    <a href="https://github.com/angryscan/angrydata-app" target="_blank">GitHub</a>
-                    <a href="mailto:admin@angryscan.org">Contact us</a>
+                    <a href="https://github.com/angryscan/angrydata-app" target="_blank" data-i18n="nav.github">GitHub</a>
+                    <a href="mailto:admin@angryscan.org" data-i18n="nav.contactUs">Contact us</a>
                 </div>
             </div>
         </div>
@@ -511,7 +526,12 @@
         </div>
     </div>
 
+    <!-- Google Translate Container (hidden) -->
+    <div id="google_translate_element" style="display: none;"></div>
+
     <!-- Scripts -->
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script src="js/i18n.js"></script>
     <script src="js/config.js"></script>
     <script src="js/script.js"></script>
 </body>
