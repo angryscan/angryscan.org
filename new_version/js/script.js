@@ -423,6 +423,131 @@ const TableEnhancement = {
 };
 
 // ============================================================================
+// Country Filter Module
+// ============================================================================
+
+const CountryFilter = {
+    /**
+     * Initialize country filter functionality
+     */
+    init() {
+        const countryButtons = document.querySelectorAll('.country-button');
+        if (countryButtons.length === 0) return;
+
+        // Wait for tables to be rendered first
+        setTimeout(() => {
+            // Mark all table rows with data attributes for filtering
+            this.markTableRows();
+
+            // Add event listeners to buttons
+            countryButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const selectedCountry = button.getAttribute('data-country');
+                    
+                    // Update active state
+                    countryButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    // Filter tables
+                    this.filterTables(selectedCountry);
+                });
+            });
+        }, 100);
+    },
+
+    /**
+     * Mark table rows with country data attributes for filtering
+     * Note: Rows are already marked during rendering, but this ensures compatibility
+     */
+    markTableRows() {
+        // Rows are already marked with data-country attribute during rendering
+        // This method is kept for backward compatibility
+    },
+
+    /**
+     * Filter tables based on selected country
+     * @param {string} selectedCountry - Selected country code or 'all' or 'international'
+     */
+    filterTables(selectedCountry) {
+        // Get all filterable tables
+        const tables = [
+            '[data-table="personal-data-numbers"]',
+            '[data-table="personal-data-text"]',
+            '[data-table="banking-secrecy"]'
+        ];
+
+        tables.forEach(tableSelector => {
+            const table = document.querySelector(tableSelector);
+            if (!table) return;
+
+            const rows = table.querySelectorAll('tbody tr');
+            let visibleCount = 0;
+            
+            rows.forEach((row, index) => {
+                const rowCountry = row.getAttribute('data-country');
+                let shouldShow = false;
+                
+                if (selectedCountry === 'all') {
+                    // Show all rows
+                    shouldShow = true;
+                } else if (selectedCountry === 'international') {
+                    // Show only international rows
+                    shouldShow = rowCountry === 'international';
+                } else {
+                    // Show rows for selected country AND international rows
+                    shouldShow = rowCountry === selectedCountry || rowCountry === 'international';
+                }
+                
+                // Add smooth transition
+                if (shouldShow) {
+                    row.style.opacity = '0';
+                    row.style.transform = 'translateY(-10px)';
+                    row.style.display = '';
+                    visibleCount++;
+                    
+                    // Animate in
+                    setTimeout(() => {
+                        row.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                        row.style.opacity = '1';
+                        row.style.transform = 'translateY(0)';
+                    }, index * 20);
+                } else {
+                    // Animate out
+                    row.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
+                    row.style.opacity = '0';
+                    row.style.transform = 'translateY(-10px)';
+                    
+                    setTimeout(() => {
+                        row.style.display = 'none';
+                    }, 200);
+                }
+            });
+            
+            // Show message if no rows visible
+            this.showEmptyMessage(table, visibleCount === 0);
+        });
+    },
+
+    /**
+     * Show or hide empty message for table
+     * @param {HTMLElement} table - Table element
+     * @param {boolean} show - Whether to show message
+     */
+    showEmptyMessage(table, show) {
+        let message = table.parentElement.querySelector('.table-empty-message');
+        
+        if (show && !message) {
+            message = document.createElement('div');
+            message.className = 'table-empty-message';
+            message.textContent = 'No data available for selected country';
+            table.parentElement.appendChild(message);
+        } else if (!show && message) {
+            message.remove();
+        }
+    }
+};
+
+// ============================================================================
 // Data Renderer Module
 // ============================================================================
 
@@ -452,9 +577,15 @@ const DataRenderer = {
      * Render table row
      * @param {HTMLElement} tbody - Table body element
      * @param {Array} cells - Array of cell content (strings or HTML strings)
+     * @param {string} country - Optional country code for filtering
      */
-    renderTableRow(tbody, cells) {
+    renderTableRow(tbody, cells, country = null) {
         const row = document.createElement('tr');
+        if (country !== null) {
+            // Normalize country: '-' becomes 'international'
+            const normalizedCountry = country === '-' ? 'international' : country;
+            row.setAttribute('data-country', normalizedCountry);
+        }
         cells.forEach(cellContent => {
             const cell = document.createElement('td');
             if (typeof cellContent === 'string') {
@@ -481,12 +612,13 @@ const DataRenderer = {
 
         tbody.innerHTML = '';
         CONFIG.personalDataNumbers.forEach(item => {
+            const countryDisplay = item.country === '-' ? '-' : item.country;
             this.renderTableRow(tbody, [
                 item.type,
                 item.localName,
-                item.country,
+                countryDisplay,
                 `<code>${item.example}</code>`
-            ]);
+            ], item.country);
         });
     },
 
@@ -499,12 +631,13 @@ const DataRenderer = {
 
         tbody.innerHTML = '';
         CONFIG.personalDataText.forEach(item => {
+            const countryDisplay = item.country === '-' ? '-' : item.country;
             this.renderTableRow(tbody, [
                 item.type,
                 item.localName,
-                item.country,
+                countryDisplay,
                 `<code>${item.example}</code>`
-            ]);
+            ], item.country);
         });
     },
 
@@ -533,11 +666,12 @@ const DataRenderer = {
 
         tbody.innerHTML = '';
         CONFIG.bankingSecrecy.forEach(item => {
+            const countryDisplay = item.country === '-' ? '-' : item.country;
             this.renderTableRow(tbody, [
                 item.type,
-                item.country,
+                countryDisplay,
                 `<code>${item.example}</code>`
-            ]);
+            ], item.country);
         });
     },
 
@@ -755,6 +889,7 @@ function init() {
         ThemeManager.init();
         ScrollManager.init();
         AnimationManager.init();
+        CountryFilter.init(); // Initialize country filter (will re-render tables)
         TableEnhancement.init();
         LightboxManager.init();
 

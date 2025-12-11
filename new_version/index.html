@@ -123,11 +123,50 @@
                 <p class="section-description">Angry Data Scanner can detect various types of sensitive data across multiple categories</p>
             </div>
 
+            <!-- Country Selector -->
+            <div class="country-selector-wrapper">
+                <div class="country-selector-header">
+                    <svg class="country-selector-globe-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                        <path d="M2 12H22M12 2C15 6 15 18 12 22C9 18 9 6 12 2" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    <span class="country-selector-label">Filter by country</span>
+                </div>
+                <div class="country-buttons-group">
+                    <button class="country-button active" data-country="all" aria-label="All Countries">
+                        <span class="country-flag-emoji">🌍</span>
+                        <span>All</span>
+                    </button>
+                    <button class="country-button" data-country="international" aria-label="International">
+                        <span class="country-flag-emoji">🌐</span>
+                        <span>International</span>
+                    </button>
+                    <button class="country-button" data-country="RU" aria-label="Russia">
+                        <span class="country-flag-emoji">🇷🇺</span>
+                        <span>Russia</span>
+                    </button>
+                    <button class="country-button" data-country="US" aria-label="United States">
+                        <span class="country-flag-emoji">🇺🇸</span>
+                        <span>United States</span>
+                    </button>
+                    <button class="country-button" data-country="CN" aria-label="China">
+                        <span class="country-flag-emoji">🇨🇳</span>
+                        <span>China</span>
+                    </button>
+                </div>
+            </div>
+
             <!-- Personal Data (numbers) -->
             <div class="data-category">
                 <h3 class="category-title">Personal Data (numbers)</h3>
                 <div class="table-container">
                     <table class="data-table" data-table="personal-data-numbers">
+                        <colgroup>
+                            <col style="width: 25%;">
+                            <col style="width: 25%;">
+                            <col style="width: 25%;">
+                            <col style="width: 25%;">
+                        </colgroup>
                         <thead>
                             <tr>
                                 <th>Data type</th>
@@ -148,6 +187,12 @@
                 <h3 class="category-title">Personal Data (text)</h3>
                 <div class="table-container">
                     <table class="data-table" data-table="personal-data-text">
+                        <colgroup>
+                            <col style="width: 25%;">
+                            <col style="width: 25%;">
+                            <col style="width: 25%;">
+                            <col style="width: 25%;">
+                        </colgroup>
                         <thead>
                             <tr>
                                 <th>Data type</th>
@@ -168,6 +213,10 @@
                 <h3 class="category-title">PCI DSS</h3>
                 <div class="table-container">
                     <table class="data-table" data-table="pci-dss">
+                        <colgroup>
+                            <col style="width: 50%;">
+                            <col style="width: 50%;">
+                        </colgroup>
                         <thead>
                             <tr>
                                 <th>Data type</th>
@@ -186,6 +235,11 @@
                 <h3 class="category-title">Banking Secrecy</h3>
                 <div class="table-container">
                     <table class="data-table" data-table="banking-secrecy">
+                        <colgroup>
+                            <col style="width: 33.33%;">
+                            <col style="width: 33.33%;">
+                            <col style="width: 33.34%;">
+                        </colgroup>
                         <thead>
                             <tr>
                                 <th>Data type</th>
@@ -205,6 +259,10 @@
                 <h3 class="category-title">IT Assets</h3>
                 <div class="table-container">
                     <table class="data-table" data-table="it-assets">
+                        <colgroup>
+                            <col style="width: 50%;">
+                            <col style="width: 50%;">
+                        </colgroup>
                         <thead>
                             <tr>
                                 <th>Data type</th>
@@ -227,13 +285,17 @@
     </section>
 
     <!-- Supported File Types -->
-    <section class="section">
+    <section class="section section-compact">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Supported file types</h2>
             </div>
             <div class="table-container">
                 <table class="data-table" data-table="file-types">
+                    <colgroup>
+                        <col style="width: 50%;">
+                        <col style="width: 50%;">
+                    </colgroup>
                     <thead>
                         <tr>
                             <th>File Type</th>
@@ -249,13 +311,17 @@
     </section>
 
     <!-- Supported Data Sources -->
-    <section class="section">
+    <section class="section section-compact">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Supported data sources</h2>
             </div>
             <div class="table-container">
                 <table class="data-table" data-table="data-sources">
+                    <colgroup>
+                        <col style="width: 50%;">
+                        <col style="width: 50%;">
+                    </colgroup>
                     <thead>
                         <tr>
                             <th>Connector</th>
