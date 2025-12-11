@@ -952,11 +952,27 @@ code {
 }
 
 .use-case-icon {
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
     color: var(--color-accent);
     flex-shrink: 0;
     margin-top: 2px;
+    transition: all var(--transition-base);
+    filter: drop-shadow(0 2px 4px rgba(99, 32, 238, 0.2));
+}
+
+[data-theme="dark"] .use-case-icon {
+    filter: drop-shadow(0 2px 4px rgba(139, 92, 246, 0.3));
+}
+
+.use-case-item:hover .use-case-icon {
+    transform: scale(1.1) translateY(-2px);
+    filter: drop-shadow(0 4px 8px rgba(99, 32, 238, 0.3));
+    color: var(--color-accent-hover);
+}
+
+[data-theme="dark"] .use-case-item:hover .use-case-icon {
+    filter: drop-shadow(0 4px 8px rgba(139, 92, 246, 0.4));
 }
 
 .use-case-item p {
