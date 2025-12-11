@@ -41,7 +41,35 @@
             </div>
             <div class="nav-actions">
                 <div class="language-selector-wrapper">
-                    <select class="language-selector" id="languageSelector" aria-label="Select language">
+                    <button class="language-selector-button" id="languageSelectorButton" aria-label="Select language" aria-expanded="false">
+                        <span class="language-selector-text" id="languageSelectorText">🇺🇸 English</span>
+                        <svg class="language-selector-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <polyline points="6 9 12 15 18 9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <div class="language-dropdown" id="languageDropdown" role="listbox">
+                        <div class="language-option" data-value="en" role="option">
+                            <span class="language-flag">🇺🇸</span>
+                            <span class="language-name">English</span>
+                        </div>
+                        <div class="language-option" data-value="ru" role="option">
+                            <span class="language-flag">🇷🇺</span>
+                            <span class="language-name">Русский</span>
+                        </div>
+                        <div class="language-option" data-value="es" role="option">
+                            <span class="language-flag">🇪🇸</span>
+                            <span class="language-name">Español</span>
+                        </div>
+                        <div class="language-option" data-value="de" role="option">
+                            <span class="language-flag">🇩🇪</span>
+                            <span class="language-name">Deutsch</span>
+                        </div>
+                        <div class="language-option" data-value="fr" role="option">
+                            <span class="language-flag">🇫🇷</span>
+                            <span class="language-name">Français</span>
+                        </div>
+                    </div>
+                    <select class="language-selector-hidden" id="languageSelector" aria-label="Select language" style="display: none;">
                         <option value="en">🇺🇸 English</option>
                         <option value="ru">🇷🇺 Русский</option>
                         <option value="es">🇪🇸 Español</option>
