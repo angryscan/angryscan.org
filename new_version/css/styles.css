@@ -628,12 +628,12 @@ body.translated-rtl {
 
 /* Reduced padding for compact sections */
 .section-compact {
-    padding: var(--spacing-2xl) 0;
+    padding: var(--spacing-md) 0;
 }
 
 /* Reduce bottom padding for discovery section when followed by compact section */
 #discovery:has(+ .section-compact) {
-    padding-bottom: var(--spacing-xl);
+    padding-bottom: var(--spacing-md);
 }
 
 /* Reduce margin-bottom for last data-category in discovery section when followed by compact section */
@@ -643,15 +643,28 @@ body.translated-rtl {
 
 /* Ensure consistent spacing between all sections - override padding-top for following sections */
 .section + .section,
-.section + .section-compact,
-.section-compact + .section,
-.section-compact + .section-compact {
+.section-compact + .section {
     padding-top: var(--spacing-4xl) !important;
+}
+
+/* Reduced spacing when compact section follows regular section */
+.section + .section-compact {
+    padding-top: var(--spacing-md) !important;
+}
+
+/* Reduced spacing between compact sections */
+.section-compact + .section-compact {
+    padding-top: var(--spacing-lg) !important;
 }
 
 .section-header {
     margin-bottom: var(--spacing-2xl);
     text-align: center;
+}
+
+/* Reduced margins for compact sections */
+.section-compact .section-header {
+    margin-bottom: var(--spacing-sm);
 }
 
 .section-title {
@@ -867,6 +880,11 @@ body.translated-rtl {
     margin-bottom: var(--spacing-xl);
     background: var(--color-bg-primary);
     -webkit-overflow-scrolling: touch;
+}
+
+/* Reduced margins for table containers in compact sections */
+.section-compact .table-container {
+    margin-bottom: 0;
 }
 
 .data-table {
