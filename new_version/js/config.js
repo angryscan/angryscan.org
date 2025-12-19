@@ -94,6 +94,12 @@ const CONFIG = {
         { type: 'Hash data', example: 'SHA-256, MD5, NTLM (NT hash), SHA-1, SHA-512' }
     ],
 
+    // Crypto data
+    crypto: [
+        { type: 'Crypto wallet', example: '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa' },
+        { type: 'Crypto seed phrase', example: 'A sequence of 12 to 24 words from the BIP39 standard wordlist, used for cryptographic wallet recovery and key derivation' }
+    ],
+
     // Custom signatures description
     customSignatures: {
         description: 'It is possible to add custom data search signatures using plain text:',

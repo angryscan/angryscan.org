@@ -625,6 +625,7 @@ const DataRenderer = {
         this.renderPersonalDataText();
         this.renderPciDss();
         this.renderBankingSecrecy();
+        this.renderCrypto();
         this.renderItAssets();
         this.renderCustomSignatures();
         this.renderFileTypes();
@@ -749,6 +750,31 @@ const DataRenderer = {
                 countryDisplay,
                 `<code>${item.example}</code>`
             ], item.country);
+        });
+    },
+
+    /**
+     * Render Crypto table
+     */
+    renderCrypto() {
+        const tbody = document.querySelector('[data-table="crypto"] tbody');
+        if (!tbody) return;
+
+        // Get current language
+        const currentLang = LanguageManager.getCurrentLanguage();
+        const translations = typeof I18N !== 'undefined' && I18N[currentLang] ? I18N[currentLang] : I18N.en;
+        
+        // Use translated crypto data if available, otherwise fall back to CONFIG
+        const crypto = translations.crypto && Array.isArray(translations.crypto)
+            ? translations.crypto
+            : CONFIG.crypto;
+
+        tbody.innerHTML = '';
+        crypto.forEach(item => {
+            this.renderTableRow(tbody, [
+                item.type,
+                `<code>${item.example}</code>`
+            ]);
         });
     },
 
@@ -1192,12 +1218,13 @@ const LanguageManager = {
             // Small delay to ensure Google Translate cleanup is complete
             setTimeout(() => {
                 this.updateTranslations(lang);
-                // Re-render use cases, data sources, custom signatures and IT assets with new translations
+                // Re-render use cases, data sources, custom signatures, IT assets and crypto with new translations
                 if (typeof DataRenderer !== 'undefined') {
                     DataRenderer.renderUseCases();
                     DataRenderer.renderDataSources();
                     DataRenderer.renderCustomSignatures();
                     DataRenderer.renderItAssets();
+                    DataRenderer.renderCrypto();
                 }
             }, 50);
         } else {
@@ -1659,11 +1686,12 @@ function init() {
             const currentLang = LanguageManager.getCurrentLanguage();
             if (currentLang === 'en' || currentLang === 'ru') {
                 LanguageManager.updateTranslations(currentLang);
-                // Re-render use cases, data sources, custom signatures and IT assets with translations
+                // Re-render use cases, data sources, custom signatures, IT assets and crypto with translations
                 DataRenderer.renderUseCases();
                 DataRenderer.renderDataSources();
                 DataRenderer.renderCustomSignatures();
                 DataRenderer.renderItAssets();
+                DataRenderer.renderCrypto();
             }
         }, 100);
 

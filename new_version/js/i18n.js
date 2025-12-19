@@ -85,6 +85,7 @@ const I18N = {
             personalDataText: 'Personal Data (text)',
             pciDss: 'PCI DSS',
             bankingSecrecy: 'Banking Secrecy',
+            crypto: 'Crypto',
             itAssets: 'IT Assets',
             customSignatures: 'Custom Signatures',
             customSignaturesDesc: 'It is possible to add custom data search signatures using plain text:',
@@ -216,6 +217,7 @@ const I18N = {
             personalDataText: 'Персональные данные (текст)',
             pciDss: 'PCI DSS',
             bankingSecrecy: 'Банковская тайна',
+            crypto: 'Криптовалюта',
             itAssets: 'IT-активы',
             customSignatures: 'Пользовательские сигнатуры',
             customSignaturesDesc: 'Можно добавить пользовательские сигнатуры поиска данных, используя обычный текст:',
@@ -229,6 +231,11 @@ const I18N = {
             { type: 'Файлы исходного кода', example: 'Находит файлы с исходным кодом. Исходный код должен быть размещен в git репозитории.' },
             { type: 'TLS сертификаты', example: 'Находит папки с наибольшим количеством TLS сертификатов' },
             { type: 'Хеш-данные', example: 'SHA-256, MD5, NTLM (NT hash), SHA-1, SHA-512' }
+        ],
+        // Crypto data
+        crypto: [
+            { type: 'Криптокошелек', example: '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa' },
+            { type: 'Seed-фраза криптокошелька', example: 'Последовательность из 12-24 слов из стандартного словаря BIP39, используемая для восстановления криптокошелька и вывода криптографических ключей' }
         ],
         // Table headers
         tableHeaders: {
