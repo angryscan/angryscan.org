@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Primary Meta Tags -->
+    <title>Angry Data Scanner - Outil gratuit de découverte de données sensibles | Windows, Linux, macOS</title>
+    <meta name="titre" content="Angry Data Scanner - Outil gratuit de découverte de données sensibles">
+    <meta name="description" content="Découvrez les informations PII, PCI DSS et les données sensibles dans les dossiers, S3 et bases de données. Outil open source gratuit pour Windows, Linux, macOS. Aucun droit d'administrateur requis.">
+    <meta name="mots-clés" content="scanner de données, découverte PII, données sensibles, PCI DSS, protection des données, scanner de données gratuit">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="site web">
+    <meta property="og:url" content="https://angryscan.org/fr/">
+    <meta property=og:title" content="Angry Data Scanner - Outil gratuit de découverte de données sensibles">
+    <meta property="og:description" content="Découvrez les informations PII, PCI DSS et les données sensibles dans les dossiers, S3 et bases de données. Outil open source gratuit.">
+    <meta property="og:image" content="https://angryscan.org/assets/screenshot_light.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="résumé_large_image">
+    <meta property="twitter:url" content="https://angryscan.org/fr/">
+    <meta property=twitter:title" content="Angry Data Scanner - Outil gratuit de découverte de données sensibles">
+    <meta property="twitter:description" content="Découvrez les informations PII, PCI DSS et les données sensibles dans les dossiers, S3 et bases de données. Outil open source gratuit.">
+    <meta property="twitter:image" content="https://angryscan.org/assets/screenshot_light.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://angryscan.org/fr/">
+    
+    <!-- Favicon -->
+    <link rel=icon" type="image/x-icon" href="../assets/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="../assets/favicon.ico">
+    <link rel="apple-touch-icon" href="../assets/favicon.ico">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=104860635', 'ym');
+
+        ym(104860635, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/104860635" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-WSLS4F4G');
+    </script>
+    <!-- End Google Tag Manager -->
+    
+    <!-- BING -->
+    <meta name="msvalidate.01" content="2EF28BCEF4D8F18C669E8DB8C238B4C8" />
+    <!-- END BING -->
+    
+    <!-- Inline script to apply theme immediately before page render to avoid flash -->
+    <script>
+        // Apply theme synchronously before page renders to avoid flash
+        (function() {
+            try {
+                const savedTheme = localStorage.getItem('theme');
+                if (savedTheme) {
+                    document.documentElement.setAttribute('data-theme', savedTheme);
+                }
+            } catch (e) {
+                // Ignore errors if localStorage is not available
+            }
+        })();
+    </script>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WSLS4F4G"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <!-- 
+        Site Structure:
+        1. Navigation
+        2. Hero Section
+        3. Data Discovery Section
+        4. File Types Section
+        5. Data Sources Section
+        6. Features Section
+        7. Use Cases Section
+        8. Download Section
+        9. Footer
+    -->
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="/fr/">
+                <img src="../assets/favicon.ico" alt="Angry Data Scanner" class="logo-icon">
+                <span class="brand-text">Scanner de données en colère</span>
+                </a>
+            </div>
+            <button class="burger-menu" id="burgerMenu" aria-label="Toggle menu" aria-expanded="false">
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+            </button>
+            <div class="nav-menu" id="navMenu">
+                <a href="/fr/" class="nav-link active" data-i18n="nav.home">Maison</a>
+                <a href="/fr/discovery" class="nav-link" data-i18n="nav.dataDiscovery">Découverte de données</a>
+                <a href="/fr/features" class="nav-link" data-i18n="nav.features">Caractéristiques</a>
+                <a href="/fr/use-cases" class="nav-link" data-i18n="nav.useCases">Cas d'utilisation</a>
+                <a href="/fr/download" class="nav-link" data-i18n="nav.download">Télécharger</a>
+                <a href="https://github.com/angryscan/angrydata-app" class="nav-link" target="_blank" data-i18n="nav.github">GitHub</a>
+            </div>
+            <div class="nav-actions">
+                <div class="language-selector-wrapper">
+                    <button class="language-selector-button" id="languageSelectorButton" aria-label="Select language" aria-expanded="false">
+                        <span class="language-selector-text" id="languageSelectorText">🇺🇸 English</span>
+                        <svg class="language-selector-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <polyline points="6 9 12 15 18 9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <div class="language-dropdown" id="languageDropdown" role="listbox">
+                        <div class="language-option" data-value="en" role="option">
+                            <span class="language-flag">🇺🇸</span>
+                            <span class="language-name">English</span>
+                        </div>
+                        <div class="language-option" data-value="ru" role="option">
+                            <span class="language-flag">🇷🇺</span>
+                            <span class="language-name">Русский</span>
+                        </div>
+                        <div class="language-option" data-value="es" role="option">
+                            <span class="language-flag">🇪🇸</span>
+                            <span class="language-name">Español</span>
+                        </div>
+                        <div class="language-option" data-value="de" role="option">
+                            <span class="language-flag">🇩🇪</span>
+                            <span class="language-name">Deutsch</span>
+                        </div>
+                        <div class="language-option" data-value="fr" role="option">
+                            <span class="language-flag">🇫🇷</span>
+                            <span class="language-name">Français</span>
+                        </div>
+                    </div>
+                    <select class="language-selector-hidden" id="languageSelector" aria-label="Select language" style="display: none;">
+                        <option value="en">🇺🇸 English</option>
+                        <option value="ru">🇷🇺 Русский</option>
+                        <option value="es">🇪🇸 Español</option>
+                        <option value="de">🇩🇪 Deutsch</option>
+                        <option value="fr">🇫🇷 Français</option>
+                    </select>
+                </div>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <svg class="theme-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+                        <path d="M12 2V4M12 20V22M4.93 4.93L6.34 6.34M17.66 17.66L19.07 19.07M2 12H4M20 12H22M4.93 19.07L6.34 17.66M17.66 6.34L19.07 4.93" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="badge" data-i18n="hero.badge">Source ouverte gratuite</div>
+                <h1 class="hero-title" data-i18n="hero.title">Outil de découverte de données sensibles</h1>
+                <p class="hero-description" data-i18n="hero.description">Angry Data Scanner utilise la correspondance de modèles pour découvrir automatiquement les données sensibles stockées dans des dossiers, des pages Web, S3 et des bases de données. Il aide les organisations à identifier où sont stockées les données sensibles telles que les informations personnelles identifiables (PII) et la propriété intellectuelle.</p>
+                <div class="hero-features">
+                    <div class="feature-item">
+                        <svg class="check-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span data-i18n="hero.features.simple">Interface utilisateur simple : conception intuitive conçue pour la rapidité et la facilité d'utilisation.</span>
+                    </div>
+                    <div class="feature-item">
+                        <svg class="check-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span data-i18n="hero.features.twoClicks">Découverte en un clic : détectez instantanément les données sensibles en seulement 2 clics.</span>
+                    </div>
+                    <div class="feature-item">
+                        <svg class="check-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span data-i18n="hero.features.noAdmin">Installation sans tracas : aucun droit d'administrateur ni installation requis.</span>
+                    </div>
+                    <div class="feature-item">
+                        <svg class="check-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span data-i18n="hero.features.crossPlatform">Multiplateforme : fonctionne de manière transparente sur Linux macOS et Windows.</span>
+                    </div>
+                    <div class="feature-item">
+                        <svg class="check-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span data-i18n="hero.features.privacy">Confidentialité totale : toutes les analyses s'effectuent localement. Vos données ne quittent jamais votre PC</span>
+                    </div>
+                </div>
+                <div class="hero-actions">
+                    <a href="/fr/download" class="btn btn-primary" data-i18n="hero.cta.download">Télécharger maintenant</a>
+                    <a href="https://github.com/angryscan/angrydata-app" class="btn btn-secondary" target="_blank" data-i18n="hero.cta.github">Voir sur GitHub</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="screenshot-wrapper">
+                    <div class="screenshot-decoration screenshot-decoration-1"></div>
+                    <div class="screenshot-decoration screenshot-decoration-2"></div>
+                    <div class="screenshot-decoration screenshot-decoration-3"></div>
+                    <div class="screenshot-container" id="screenshotContainer">
+                        <img 
+                            src="../assets/screenshot_light.png" 
+                            alt="Angry Data Scanner Interface" 
+                            class="screenshot-image"
+                            id="heroScreenshot"
+                            data-light="../assets/screenshot_light.png"
+                            data-dark="../assets/screenshot_dark.png"
+                        >
+                        <div class="screenshot-overlay">
+                            <svg class="expand-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8 3H5C4.46957 3 3.96086 3.21071 3.58579 3.58579C3.21071 3.96086 3 4.46957 3 5V8M21 8V5C21 4.46957 20.7893 3.96086 20.4142 3.58579C20.0391 3.21071 19.5304 3 19 3H16M16 21H19C19.5304 21 20.0391 20.7893 20.4142 20.4142C20.7893 20.0391 21 19.5304 21 19V16M3 16V19C3 19.5304 3.21071 20.0391 3.58579 20.4142C3.96086 20.7893 4.46957 21 5 21H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Links Section -->
+    <section class="section quick-links-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-i18n="sections.quickLinks.title">Explorer davantage</h2>
+                <p class="section-description" data-i18n="sections.quickLinks.description">Découvrez toutes les capacités et fonctionnalités d'Angry Data Scanner</p>
+            </div>
+            <div class="quick-links-grid">
+                <a href="/fr/discovery" class="quick-link-card">
+                    <div class="quick-link-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                    <h3 data-i18n="nav.dataDiscovery">Découverte de données</h3>
+                    <p data-i18n="sections.quickLinks.discovery">PII, PCI DSS, données bancaires, portefeuilles cryptographiques, etc.</p>
+                </a>
+                <a href="/fr/features" class="quick-link-card">
+                    <div class="quick-link-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 data-i18n="nav.features">Caractéristiques</h3>
+                    <p data-i18n="sections.quickLinks.features">Classement, planification, exportation et correspondances configurables</p>
+                </a>
+                <a href="/fr/use-cases" class="quick-link-card">
+                    <div class="quick-link-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17 21V19C17 17.9391 16.5786 16.9217 15.8284 16.1716C15.0783 15.4214 14.0609 15 13 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M9 11C11.2091 11 13 9.20914 13 7C13 4.79086 11.2091 3 9 3C6.79086 3 5 4.79086 5 7C5 9.20914 6.79086 11 9 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M23 21V19C22.9993 18.1137 22.7044 17.2528 22.1614 16.5523C21.6184 15.8519 20.8581 15.3516 20 15.13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M16 3.13C16.8604 3.35031 17.623 3.85071 18.1676 4.55232C18.7122 5.25392 19.0078 6.11683 19.0078 7.005C19.0078 7.89318 18.7122 8.75608 18.1676 9.45769C17.623 10.1593 16.8604 10.6597 16 10.88" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 data-i18n="nav.useCases">Cas d'utilisation</h3>
+                    <p data-i18n="sections.quickLinks.useCases">Conformité, audits de sécurité et protection des données</p>
+                </a>
+                <a href="/fr/download" class="quick-link-card">
+                    <div class="quick-link-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 3V15M12 15L8 11M12 15L16 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 data-i18n="nav.download">Télécharger</h3>
+                    <p data-i18n="sections.quickLinks.download">Windows, Linux, macOS – Commencez dès maintenant</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-top-row">
+                    <p data-i18n="footer.copyright">&copie; 2025, avant admin@angryscan.org</p>
+                    <div class="footer-links">
+                        <a href="https://github.com/angryscan/angrydata-app" target="_blank" data-i18n="nav.github">GitHub</a>
+                        <a href="mailto:admin@angryscan.org" data-i18n="nav.contactUs">Contactez-nous</a>
+                    </div>
+                </div>
+                <div class="footer-pages">
+                    <a href="/fr/" data-i18n="nav.home">Maison</a>
+                    <a href="/fr/discovery" data-i18n="nav.dataDiscovery">Découverte de données</a>
+                    <a href="/fr/features" data-i18n="nav.features">Caractéristiques</a>
+                    <a href="/fr/use-cases" data-i18n="nav.useCases">Cas d'utilisation</a>
+                    <a href="/fr/download" data-i18n="nav.download">Télécharger</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose" aria-label="Close lightbox">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+        <div class="lightbox-content">
+            <img 
+                src="../assets/screenshot_light.png" 
+                alt="Angry Data Scanner Interface" 
+                class="lightbox-image"
+                id="lightboxScreenshot"
+                data-light="../assets/screenshot_light.png"
+                data-dark="../assets/screenshot_dark.png"
+            >
+        </div>
+    </div>
+
+    <!-- Google Translate Container (hidden) -->
+    <div id="google_translate_element" style="display: none;"></div>
+
+    <!-- Inline script to apply translations immediately before page render -->
+    <script>
+        // Apply translations synchronously before page renders to avoid flicker
+        (function() {
+            // Detect language from URL or localStorage
+            const path = window.location.pathname;
+            const pathMatch = path.match(/^\/(ru|de|fr|es)\//);
+            let lang = pathMatch ? pathMatch[1] : null;
+            
+            if (!lang) {
+                const savedLang = localStorage.getItem('language');
+                if (savedLang && (savedLang === 'ru' || savedLang === 'es' || savedLang === 'de' || savedLang === 'fr')) {
+                    lang = savedLang;
+                } else {
+                    const browserLang = navigator.language || navigator.userLanguage;
+                    if (browserLang.startsWith('ru')) lang = 'ru';
+                    else if (browserLang.startsWith('es')) lang = 'es';
+                    else if (browserLang.startsWith('de')) lang = 'de';
+                    else if (browserLang.startsWith('fr')) lang = 'fr';
+                    else lang = 'en';
+                }
+            }
+            
+            // Hide body until translations are applied (for all languages to prevent flicker on mobile)
+            // This helps with mobile rendering and prevents content flash
+            document.documentElement.style.visibility = 'hidden';
+            document.documentElement.setAttribute('data-lang-loading', lang || 'en');
+        })();
+    </script>
+    
+    <!-- Scripts -->
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script src="../js/i18n.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/script.js"></script>
+</body>
+</html>

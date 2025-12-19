@@ -9,10 +9,7 @@ hooks:
 - hooks.py
 theme:
   name: material
-  custom_dir: overrides
   language: en
-  logo: assets/images/logo.png
-  favicon: assets/images/favicon.ico
   palette:
   - scheme: slate
     primary: custom
@@ -48,20 +45,8 @@ plugins:
     fallback_to_default: true
 - minify:
     minify_html: true
-extra_javascript:
-- assets/javascripts/language-selector.js
-- assets/javascripts/table-enhanced.js
-- assets/javascripts/screenshots.js
-- assets/javascripts/download-button.js
-extra_css:
-- assets/stylesheets/extra.css
-- assets/stylesheets/badge.css
-- assets/stylesheets/language-flags.css
-- assets/stylesheets/language-selector.css
-- assets/stylesheets/country-table-filter.css
-- assets/stylesheets/screenshots.css
-- assets/stylesheets/download-button.css
-- assets/stylesheets/table-collapse.css
+extra_javascript: []
+extra_css: []
 extra:
   generator: false
   alternate:

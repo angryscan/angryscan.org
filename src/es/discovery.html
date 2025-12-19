@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Primary Meta Tags -->
+    <title>Descubrimiento de tipos de datos: PII, PCI DSS, detección de datos bancarios | Escáner de datos enojado</title>
+    <meta name="título" content="Descubrimiento de tipos de datos: PII, PCI DSS, detección de datos bancarios">
+    <meta name="descripción" content="Lista completa de tipos de datos confidenciales detectados por Angry Data Scanner: PII, tarjetas de pago, datos bancarios, billeteras criptográficas y más. Filtrar por país.">
+    <meta name="palabras clave" content="Detección de PII, PCI DSS, tipos de datos confidenciales, descubrimiento de datos, datos personales, datos bancarios, detección de criptografía">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="sitio web">
+    <meta property="og:url" content="https://angryscan.org/es/discovery.html>
+    <metapropiedad="og:title" content="Descubrimiento de tipos de datos: PII, PCI DSS, detección de datos bancarios">
+    <meta property="og:description" content="Lista completa de tipos de datos confidenciales detectados por Angry Data Scanner: PII, tarjetas de pago, datos bancarios, billeteras criptográficas y más.">
+    <meta property="og:image" content="https://angryscan.org/assets/screenshot_light.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="resumen_imagen_grande">
+    <meta property="twitter:url" content="https://angryscan.org/es/discovery.html>
+    <metapropiedad="twitter:title" content="Descubrimiento de tipos de datos: PII, PCI DSS, detección de datos bancarios">
+    <meta property="twitter:description" content="Lista completa de tipos de datos confidenciales detectados por Angry Data Scanner: PII, tarjetas de pago, datos bancarios, billeteras criptográficas y más.">
+    <meta property="twitter:image" content="https://angryscan.org/assets/screenshot_light.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://angryscan.org/es/discovery>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="../assets/favicon.ico">
+    <link rel="apple-touch-icon" href="../assets/favicon.ico">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=104860635', 'ym');
+
+        ym(104860635, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/104860635" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-WSLS4F4G');
+    </script>
+    <!-- End Google Tag Manager -->
+    
+    <!-- BING -->
+    <meta name="msvalidar.01" content="2EF28BCEF4D8F18C669E8DB8C238B4C8" />
+    <!-- END BING -->
+    
+    <!-- Inline script to apply theme immediately before page render to avoid flash -->
+    <script>
+        // Apply theme synchronously before page renders to avoid flash
+        (function() {
+            try {
+                const savedTheme = localStorage.getItem('theme');
+                if (savedTheme) {
+                    document.documentElement.setAttribute('data-theme', savedTheme);
+                }
+            } catch (e) {
+                // Ignore errors if localStorage is not available
+            }
+        })();
+    </script>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WSLS4F4G"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="/es/">
+                    <img src="../assets/favicon.ico" alt="Angry Data Scanner" class="logo-icon">
+                    <span class="brand-text">Escáner de datos enojado</span>
+                </a>
+            </div>
+            <button class="burger-menu" id="burgerMenu" aria-label="Toggle menu" aria-expanded="false">
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+            </button>
+            <div class="nav-menu" id="navMenu">
+                <a href="/es/" class="nav-link" data-i18n="nav.home">Hogar</a>
+                <a href="/es/discovery" class="nav-link active" data-i18n="nav.dataDiscovery">Descubrimiento de datos</a>
+                <a href="/es/features" class="nav-link" data-i18n="nav.features">Características</a>
+                <a href="/es/use-cases" class="nav-link" data-i18n="nav.useCases">Casos de uso</a>
+                <a href="/es/download" class="nav-link" data-i18n="nav.download">Descargar</a>
+                <a href="https://github.com/angryscan/angrydata-app" class="nav-link" target="_blank" data-i18n="nav.github">GitHub</a>
+            </div>
+            <div class="nav-actions">
+                <div class="language-selector-wrapper">
+                    <button class="language-selector-button" id="languageSelectorButton" aria-label="Select language" aria-expanded="false">
+                        <span class="language-selector-text" id="languageSelectorText">🇺🇸 English</span>
+                        <svg class="language-selector-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <polyline points="6 9 12 15 18 9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <div class="language-dropdown" id="languageDropdown" role="listbox">
+                        <div class="language-option" data-value="en" role="option">
+                            <span class="language-flag">🇺🇸</span>
+                            <span class="language-name">English</span>
+                        </div>
+                        <div class="language-option" data-value="ru" role="option">
+                            <span class="language-flag">🇷🇺</span>
+                            <span class="language-name">Русский</span>
+                        </div>
+                        <div class="language-option" data-value="es" role="option">
+                            <span class="language-flag">🇪🇸</span>
+                            <span class="language-name">Español</span>
+                        </div>
+                        <div class="language-option" data-value="de" role="option">
+                            <span class="language-flag">🇩🇪</span>
+                            <span class="language-name">Deutsch</span>
+                        </div>
+                        <div class="language-option" data-value="fr" role="option">
+                            <span class="language-flag">🇫🇷</span>
+                            <span class="language-name">Français</span>
+                        </div>
+                    </div>
+                    <select class="language-selector-hidden" id="languageSelector" aria-label="Select language" style="display: none;">
+                        <option value="en">🇺🇸 English</option>
+                        <option value="ru">🇷🇺 Русский</option>
+                        <option value="es">🇪🇸 Español</option>
+                        <option value="de">🇩🇪 Deutsch</option>
+                        <option value="fr">🇫🇷 Français</option>
+                    </select>
+                </div>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <svg class="theme-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+                        <path d="M12 2V4M12 20V22M4.93 4.93L6.34 6.34M17.66 17.66L19.07 19.07M2 12H4M20 12H22M4.93 19.07L6.34 17.66M17.66 6.34L19.07 4.93" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <div class="container">
+            <ol class="breadcrumbs-list">
+                <li class="breadcrumbs-item"><a href="/es/"><span data-i18n="nav.home">Hogar</span></a></li>
+                <li class="breadcrumbs-item" aria-current="page"><span data-i18n="nav.dataDiscovery">Descubrimiento de datos</span></li>
+            </ol>
+        </div>
+    </nav>
+
+    <!-- Sensitive Data Discovery Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h1 class="section-title" data-i18n="sections.discovery.title">Descubrimiento de datos confidenciales</h1>
+                <p class="section-description" data-i18n="sections.discovery.description">Angry Data Scanner puede detectar varios tipos de datos confidenciales en múltiples categorías</p>
+            </div>
+
+            <!-- Country Selector -->
+            <div class="country-selector-wrapper">
+                <div class="country-selector-header">
+                    <svg class="country-selector-globe-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                        <path d="M2 12H22M12 2C15 6 15 18 12 22C9 18 9 6 12 2" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    <span class="country-selector-label" data-i18n="sections.discovery.filterByCountry">Filtrar por país</span>
+                </div>
+                <div class="country-buttons-group">
+                    <button class="country-button active" data-country="all" aria-label="All Countries">
+                        <span class="country-flag-emoji">🌍</span>
+                        <span data-i18n="sections.discovery.all">Todo</span>
+                    </button>
+                    <button class="country-button" data-country="international" aria-label="International">
+                        <span class="country-flag-emoji">🌐</span>
+                        <span data-i18n="sections.discovery.international">Internacional</span>
+                    </button>
+                    <button class="country-button" data-country="RU" aria-label="Russia">
+                        <span class="country-flag-emoji">🇷🇺</span>
+                        <span data-i18n="sections.discovery.russia">Rusia</span>
+                    </button>
+                    <button class="country-button" data-country="US" aria-label="United States">
+                        <span class="country-flag-emoji">🇺🇸</span>
+                        <span data-i18n="sections.discovery.unitedStates">Estados Unidos</span>
+                    </button>
+                    <button class="country-button" data-country="CN" aria-label="China">
+                        <span class="country-flag-emoji">🇨🇳</span>
+                        <span data-i18n="sections.discovery.china">Porcelana</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Personal Data (numbers) -->
+            <div class="data-category">
+                <h2 class="category-title" data-i18n="categories.personalDataNumbers">Datos personales (números)</h2>
+                <div class="table-container">
+                    <table class="data-table" data-table="personal-data-numbers">
+                        <colgroup>
+                            <col style="width: 25%;">
+                            <col style="width: 25%;">
+                            <col style="width: 25%;">
+                            <col style="width: 25%;">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th data-i18n="tableHeaders.dataType">tipo de datos</th>
+                                <th data-i18n="tableHeaders.localName">Nombre local</th>
+                                <th data-i18n="tableHeaders.country">País</th>
+                                <th data-i18n="tableHeaders.example">Ejemplo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data will be loaded from config.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Personal Data (text) -->
+            <div class="data-category">
+                <h2 class="category-title" data-i18n="categories.personalDataText">Datos personales (texto)</h2>
+                <div class="table-container">
+                    <table class="data-table" data-table="personal-data-text">
+                        <colgroup>
+                            <col style="width: 25%;">
+                            <col style="width: 25%;">
+                            <col style="width: 25%;">
+                            <col style="width: 25%;">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th data-i18n="tableHeaders.dataType">tipo de datos</th>
+                                <th data-i18n="tableHeaders.localName">Nombre local</th>
+                                <th data-i18n="tableHeaders.country">País</th>
+                                <th data-i18n="tableHeaders.example">Ejemplo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data will be loaded from config.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- PCI DSS -->
+            <div class="data-category">
+                <h2 class="category-title" data-i18n="categories.pciDss">PCI DSS</h2>
+                <div class="table-container">
+                    <table class="data-table" data-table="pci-dss">
+                        <colgroup>
+                            <col style="width: 50%;">
+                            <col style="width: 50%;">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th data-i18n="tableHeaders.dataType">tipo de datos</th>
+                                <th data-i18n="tableHeaders.example">Ejemplo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data will be loaded from config.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Banking Secrecy -->
+            <div class="data-category">
+                <h2 class="category-title" data-i18n="categories.bankingSecrecy">Secreto bancario</h2>
+                <div class="table-container">
+                    <table class="data-table" data-table="banking-secrecy">
+                        <colgroup>
+                            <col style="width: 33.33%;">
+                            <col style="width: 33.33%;">
+                            <col style="width: 33.34%;">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th data-i18n="tableHeaders.dataType">tipo de datos</th>
+                                <th data-i18n="tableHeaders.country">País</th>
+                                <th data-i18n="tableHeaders.example">Ejemplo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data will be loaded from config.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Crypto -->
+            <div class="data-category">
+                <h2 class="category-title" data-i18n="categories.crypto">Cripto</h2>
+                <div class="table-container">
+                    <table class="data-table" data-table="crypto">
+                        <colgroup>
+                            <col style="width: 50%;">
+                            <col style="width: 50%;">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th data-i18n="tableHeaders.dataType">tipo de datos</th>
+                                <th data-i18n="tableHeaders.example">Ejemplo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data will be loaded from config.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- IT Assets -->
+            <div class="data-category">
+                <h2 class="category-title" data-i18n="categories.itAssets">Activos de TI</h2>
+                <div class="table-container">
+                    <table class="data-table" data-table="it-assets">
+                        <colgroup>
+                            <col style="width: 50%;">
+                            <col style="width: 50%;">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th data-i18n="tableHeaders.dataType">tipo de datos</th>
+                                <th data-i18n="tableHeaders.example">Ejemplo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data will be loaded from config.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Custom Signatures -->
+            <div class="data-category" data-section="custom-signatures">
+                <h2 class="category-title" data-i18n="categories.customSignatures">Firmas personalizadas</h2>
+                <p class="category-description"><span data-i18n="categories.customSignaturesDesc">Es posible agregar firmas de búsqueda de datos personalizadas utilizando texto sin formato:</span> <code>Secreto</code>, <code>Contraseña</code>, <code>banco central</code> <span data-i18n="categories.customSignaturesOr">o cualquier otro.</span></p>
+            </div>
+
+            <!-- Supported File Types -->
+            <div class="data-category">
+                <h2 class="category-title" data-i18n="sections.fileTypes.title">Tipos de archivos admitidos</h2>
+                <div class="table-container">
+                    <table class="data-table" data-table="file-types">
+                        <colgroup>
+                            <col style="width: 50%;">
+                            <col style="width: 50%;">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th data-i18n="tableHeaders.fileType">Tipo de archivo</th>
+                                <th data-i18n="tableHeaders.fileFormat">Formato de archivo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data will be loaded from config.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Supported Data Sources -->
+            <div class="data-category">
+                <h2 class="category-title" data-i18n="sections.dataSources.title">Fuentes de datos admitidas</h2>
+                <div class="table-container">
+                    <table class="data-table" data-table="data-sources">
+                        <colgroup>
+                            <col style="width: 50%;">
+                            <col style="width: 50%;">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th data-i18n="tableHeaders.connector">Conector</th>
+                                <th data-i18n="tableHeaders.description">Descripción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data will be loaded from config.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-top-row">
+                    <p data-i18n="footer.copyright">&Copiar; 2025, por admin@angryscan.org</p>
+                    <div class="footer-links">
+                        <a href="https://github.com/angryscan/angrydata-app" target="_blank" data-i18n="nav.github">GitHub</a>
+                        <a href="mailto:admin@angryscan.org" data-i18n="nav.contactUs">Contáctenos</a>
+                    </div>
+                </div>
+                <div class="footer-pages">
+                    <a href="/es/" data-i18n="nav.home">Hogar</a>
+                    <a href="/es/discovery" data-i18n="nav.dataDiscovery">Descubrimiento de datos</a>
+                    <a href="/es/features" data-i18n="nav.features">Características</a>
+                    <a href="/es/use-cases" data-i18n="nav.useCases">Casos de uso</a>
+                    <a href="/es/download" data-i18n="nav.download">Descargar</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Google Translate Container (hidden) -->
+    <div id="google_translate_element" style="display: none;"></div>
+
+    <!-- Inline script to apply translations immediately before page render -->
+    <script>
+        // Apply translations synchronously before page renders to avoid flicker
+        (function() {
+            // Detect language from URL or localStorage
+            const path = window.location.pathname;
+            const pathMatch = path.match(/^\/(ru|de|fr|es)\//);
+            let lang = pathMatch ? pathMatch[1] : null;
+            
+            if (!lang) {
+                const savedLang = localStorage.getItem('language');
+                if (savedLang && (savedLang === 'ru' || savedLang === 'es' || savedLang === 'de' || savedLang === 'fr')) {
+                    lang = savedLang;
+                } else {
+                    const browserLang = navigator.language || navigator.userLanguage;
+                    if (browserLang.startsWith('ru')) lang = 'ru';
+                    else if (browserLang.startsWith('es')) lang = 'es';
+                    else if (browserLang.startsWith('de')) lang = 'de';
+                    else if (browserLang.startsWith('fr')) lang = 'fr';
+                    else lang = 'en';
+                }
+            }
+            
+            // Hide body until translations are applied (for all languages to prevent flicker on mobile)
+            // This helps with mobile rendering and prevents content flash
+            document.documentElement.style.visibility = 'hidden';
+            document.documentElement.setAttribute('data-lang-loading', lang || 'en');
+        })();
+    </script>
+    
+    <!-- Scripts -->
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script src="../js/i18n.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/script.js"></script>
+</body>
+</html>

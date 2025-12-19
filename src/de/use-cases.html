@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Primary Meta Tags -->
+    <title>Anwendungsfälle – reale Datenerkennungsszenarien | Wütender Datenscanner</title>
+    <meta name="Titel" content="Anwendungsfälle – reale Datenerkennungsszenarien">
+    <meta name="Beschreibung" content="Erfahren Sie, wie Unternehmen Angry Data Scanner für Compliance, Sicherheitsüberprüfungen, Lecksuche und Datenschutz verwenden. Beispiele und Szenarien aus der Praxis.">
+    <meta name="Schlüsselwörter" content="Anwendungsfälle für Datenscanner, Compliance, Sicherheitsaudits, Lecksuche, Datenschutz, PCI DSS-Compliance">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="Webseite">
+    <meta property="og:url" content="https://angryscan.org/de/use-cases.html>
+    <meta property="og:title" content="Anwendungsfälle – reale Datenerkennungsszenarien">
+    <meta property="og:description" content="Erfahren Sie, wie Unternehmen Angry Data Scanner für Compliance, Sicherheitsüberprüfungen, Lecksuche und Datenschutz verwenden.">
+    <meta property="og:image" content="https://angryscan.org/assets/screenshot_light.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://angryscan.org/de/use-cases.html>
+    <meta property="twitter:title" content="Anwendungsfälle – reale Datenerkennungsszenarien">
+    <meta property="twitter:description" content="Erfahren Sie, wie Unternehmen Angry Data Scanner für Compliance, Sicherheitsüberprüfungen, Lecksuche und Datenschutz verwenden.">
+    <meta property="twitter:image" content="https://angryscan.org/assets/screenshot_light.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://angryscan.org/de/use-cases>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="../assets/favicon.ico">
+    <link rel="apple-touch-icon" href="../assets/favicon.ico">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=104860635', 'ym');
+
+        ym(104860635, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/104860635" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-WSLS4F4G');
+    </script>
+    <!-- End Google Tag Manager -->
+    
+    <!-- BING -->
+    <meta name="msvalidate.01" content="2EF28BCEF4D8F18C669E8DB8C238B4C8" />
+    <!-- END BING -->
+    
+    <!-- Inline script to apply theme immediately before page render to avoid flash -->
+    <script>
+        // Apply theme synchronously before page renders to avoid flash
+        (function() {
+            try {
+                const savedTheme = localStorage.getItem('theme');
+                if (savedTheme) {
+                    document.documentElement.setAttribute('data-theme', savedTheme);
+                }
+            } catch (e) {
+                // Ignore errors if localStorage is not available
+            }
+        })();
+    </script>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WSLS4F4G"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="/de/">
+                    <img src="../assets/favicon.ico" alt="Angry Data Scanner" class="logo-icon">
+                    <span class="brand-text">Wütender Datenscanner</span>
+                </a>
+            </div>
+            <button class="burger-menu" id="burgerMenu" aria-label="Toggle menu" aria-expanded="false">
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+            </button>
+            <div class="nav-menu" id="navMenu">
+                <a href="/de/" class="nav-link" data-i18n="nav.home">Heim</a>
+                <a href="/de/discovery" class="nav-link" data-i18n="nav.dataDiscovery">Datenermittlung</a>
+                <a href="/de/features" class="nav-link" data-i18n="nav.features">Merkmale</a>
+                <a href="/de/use-cases" class="nav-link active" data-i18n="nav.useCases">Anwendungsfälle</a>
+                <a href="/de/download" class="nav-link" data-i18n="nav.download">Herunterladen</a>
+                <a href="https://github.com/angryscan/angrydata-app" class="nav-link" target="_blank" data-i18n="nav.github">GitHub</a>
+            </div>
+            <div class="nav-actions">
+                <div class="language-selector-wrapper">
+                    <button class="language-selector-button" id="languageSelectorButton" aria-label="Select language" aria-expanded="false">
+                        <span class="language-selector-text" id="languageSelectorText">🇺🇸 English</span>
+                        <svg class="language-selector-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <polyline points="6 9 12 15 18 9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <div class="language-dropdown" id="languageDropdown" role="listbox">
+                        <div class="language-option" data-value="en" role="option">
+                            <span class="language-flag">🇺🇸</span>
+                            <span class="language-name">English</span>
+                        </div>
+                        <div class="language-option" data-value="ru" role="option">
+                            <span class="language-flag">🇷🇺</span>
+                            <span class="language-name">Русский</span>
+                        </div>
+                        <div class="language-option" data-value="es" role="option">
+                            <span class="language-flag">🇪🇸</span>
+                            <span class="language-name">Español</span>
+                        </div>
+                        <div class="language-option" data-value="de" role="option">
+                            <span class="language-flag">🇩🇪</span>
+                            <span class="language-name">Deutsch</span>
+                        </div>
+                        <div class="language-option" data-value="fr" role="option">
+                            <span class="language-flag">🇫🇷</span>
+                            <span class="language-name">Français</span>
+                        </div>
+                    </div>
+                    <select class="language-selector-hidden" id="languageSelector" aria-label="Select language" style="display: none;">
+                        <option value="en">🇺🇸 English</option>
+                        <option value="ru">🇷🇺 Русский</option>
+                        <option value="es">🇪🇸 Español</option>
+                        <option value="de">🇩🇪 Deutsch</option>
+                        <option value="fr">🇫🇷 Français</option>
+                    </select>
+                </div>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <svg class="theme-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+                        <path d="M12 2V4M12 20V22M4.93 4.93L6.34 6.34M17.66 17.66L19.07 19.07M2 12H4M20 12H22M4.93 19.07L6.34 17.66M17.66 6.34L19.07 4.93" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <div class="container">
+            <ol class="breadcrumbs-list">
+                <li class="breadcrumbs-item"><a href="/de/"><span data-i18n="nav.home">Heim</span></a></li>
+                <li class="breadcrumbs-item" aria-current="page"><span data-i18n="nav.useCases">Anwendungsfälle</span></li>
+            </ol>
+        </div>
+    </nav>
+
+    <!-- Use Cases -->
+    <section class="section" data-section="use-cases">
+        <div class="container">
+            <div class="section-header">
+                <h1 class="section-title" data-i18n="sections.useCases.title">Anwendungsfälle aus dem wirklichen Leben</h1>
+                <p class="section-description" data-i18n="sections.useCases.description">Entdecken Sie, wie Unternehmen aus verschiedenen Branchen Angry Data Scanner nutzen, um sensible Daten zu schützen und Compliance sicherzustellen</p>
+            </div>
+            <div class="use-cases">
+                <!-- Data will be loaded from config.js -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Who Should Use Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-i18n="sections.useCases.whoShouldUse">Wer sollte Angry Data Scanner verwenden?</h2>
+            </div>
+            <div class="who-should-use-grid">
+                <div class="who-should-use-card">
+                    <h3 data-i18n="sections.useCases.securityTeams">Sicherheitsteams</h3>
+                    <p data-i18n="sections.useCases.securityTeamsDesc">Führen Sie Sicherheitsüberprüfungen durch, identifizieren Sie Datenlecks und stellen Sie sicher, dass vertrauliche Informationen in Ihrer gesamten Infrastruktur ordnungsgemäß geschützt sind.</p>
+                </div>
+                <div class="who-should-use-card">
+                    <h3 data-i18n="sections.useCases.complianceOfficers">Compliance-Beauftragte</h3>
+                    <p data-i18n="sections.useCases.complianceOfficersDesc">Stellen Sie die Einhaltung von Vorschriften wie DSGVO, PCI DSS, HIPAA und anderen Datenschutzstandards sicher.</p>
+                </div>
+                <div class="who-should-use-card">
+                    <h3 data-i18n="sections.useCases.developers">Entwickler und DevOps</h3>
+                    <p data-i18n="sections.useCases.developersDesc">Scannen Sie Repositorys und Infrastruktur, um zu verhindern, dass vertrauliche Daten in Code oder Konfigurationen versehentlich offengelegt werden.</p>
+                </div>
+                <div class="who-should-use-card">
+                    <h3 data-i18n="sections.useCases.forensics">Forensik und Strafverfolgung</h3>
+                    <p data-i18n="sections.useCases.forensicsDesc">Entdecken Sie bei digitalen Ermittlungen Spuren sensibler Daten, Kryptowährungen und anderer Beweise.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-top-row">
+                    <p data-i18n="footer.copyright">&Kopie; 2025, von admin@angryscan.org</p>
+                    <div class="footer-links">
+                        <a href="https://github.com/angryscan/angrydata-app" target="_blank" data-i18n="nav.github">GitHub</a>
+                        <a href="mailto:admin@angryscan.org" data-i18n="nav.contactUs">Kontaktieren Sie uns</a>
+                    </div>
+                </div>
+                <div class="footer-pages">
+                    <a href="/de/" data-i18n="nav.home">Heim</a>
+                    <a href="/de/discovery" data-i18n="nav.dataDiscovery">Datenermittlung</a>
+                    <a href="/de/features" data-i18n="nav.features">Merkmale</a>
+                    <a href="/de/use-cases" data-i18n="nav.useCases">Anwendungsfälle</a>
+                    <a href="/de/download" data-i18n="nav.download">Herunterladen</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Google Translate Container (hidden) -->
+    <div id="google_translate_element" style="display: none;"></div>
+
+    <!-- Inline script to apply translations immediately before page render -->
+    <script>
+        // Apply translations synchronously before page renders to avoid flicker
+        (function() {
+            // Detect language from URL or localStorage
+            const path = window.location.pathname;
+            const pathMatch = path.match(/^\/(ru|de|fr|es)\//);
+            let lang = pathMatch ? pathMatch[1] : null;
+            
+            if (!lang) {
+                const savedLang = localStorage.getItem('language');
+                if (savedLang && (savedLang === 'ru' || savedLang === 'es' || savedLang === 'de' || savedLang === 'fr')) {
+                    lang = savedLang;
+                } else {
+                    const browserLang = navigator.language || navigator.userLanguage;
+                    if (browserLang.startsWith('ru')) lang = 'ru';
+                    else if (browserLang.startsWith('es')) lang = 'es';
+                    else if (browserLang.startsWith('de')) lang = 'de';
+                    else if (browserLang.startsWith('fr')) lang = 'fr';
+                    else lang = 'en';
+                }
+            }
+            
+            // Hide body until translations are applied (for all languages to prevent flicker on mobile)
+            // This helps with mobile rendering and prevents content flash
+            document.documentElement.style.visibility = 'hidden';
+            document.documentElement.setAttribute('data-lang-loading', lang || 'en');
+        })();
+    </script>
+    
+    <!-- Scripts -->
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script src="../js/i18n.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/script.js"></script>
+</body>
+</html>
