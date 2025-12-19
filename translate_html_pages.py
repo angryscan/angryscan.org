@@ -475,6 +475,12 @@ def main():
                 continue
             
             target_file = lang_dir / html_file
+            
+            # Skip if file already exists and is translated
+            if target_file.exists():
+                print(f"  Skipping {lang_code}/{html_file} (already translated)")
+                continue
+            
             translate_html_file(source_file, target_file, lang_code)
     
     print("\n✓ HTML page translation completed!")

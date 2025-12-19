@@ -31,26 +31,52 @@ def on_post_build(config):
         print(f"Warning: src directory not found at {src_dir}")
         return
     
-    # Generate language-specific pages before copying
-    if generate_script.exists():
-        print("Generating language-specific pages...")
-        try:
-            subprocess.run(['python3', str(generate_script)], check=True, cwd=generate_script.parent)
-        except subprocess.CalledProcessError as e:
-            print(f"Warning: Failed to generate language pages: {e}")
-        except FileNotFoundError:
-            print("Warning: python3 not found, skipping language page generation")
+    # Get current language being built (from i18n plugin)
+    # The i18n plugin sets site_dir to include language subdirectory for non-default languages
+    # For default language (en), site_dir is just 'site', for others it's 'site/ru', 'site/de', etc.
+    current_lang = None
+    site_dir_str = str(site_dir)
+    if '/site/' in site_dir_str or '\\site\\' in site_dir_str:
+        # Extract language from path like 'site/ru' or 'site/de'
+        parts = site_dir_str.replace('\\', '/').split('/')
+        if 'site' in parts:
+            site_idx = parts.index('site')
+            if site_idx + 1 < len(parts):
+                potential_lang = parts[site_idx + 1]
+                if potential_lang in ['ru', 'de', 'fr', 'es']:
+                    current_lang = potential_lang
     
-    # Translate HTML pages using Python API (for de, fr, es)
-    translate_script = Path(__file__).parent / 'translate_html_pages.py'
-    if translate_script.exists():
-        print("Translating HTML pages using Google Translate API...")
-        try:
-            subprocess.run(['python3', str(translate_script)], check=True, cwd=translate_script.parent)
-        except subprocess.CalledProcessError as e:
-            print(f"Warning: Failed to translate HTML pages: {e}")
-        except FileNotFoundError:
-            print("Warning: python3 not found, skipping HTML page translation")
+    # Only run generation and translation scripts once (for the first language build, typically 'en')
+    # Use a marker file to track if scripts have already run
+    marker_file = Path(__file__).parent / '.scripts_run_marker'
+    
+    if not marker_file.exists():
+        # First build - run scripts
+        marker_file.touch()
+        
+        # Generate language-specific pages before copying
+        if generate_script.exists():
+            print("Generating language-specific pages...")
+            try:
+                subprocess.run(['python3', str(generate_script)], check=True, cwd=generate_script.parent)
+            except subprocess.CalledProcessError as e:
+                print(f"Warning: Failed to generate language pages: {e}")
+            except FileNotFoundError:
+                print("Warning: python3 not found, skipping language page generation")
+        
+        # Translate HTML pages using Python API (for de, fr, es)
+        translate_script = Path(__file__).parent / 'translate_html_pages.py'
+        if translate_script.exists():
+            print("Translating HTML pages using Google Translate API...")
+            try:
+                subprocess.run(['python3', str(translate_script)], check=True, cwd=translate_script.parent)
+            except subprocess.CalledProcessError as e:
+                print(f"Warning: Failed to translate HTML pages: {e}")
+            except FileNotFoundError:
+                print("Warning: python3 not found, skipping HTML page translation")
+    else:
+        # Scripts already run for this build - skip
+        print("Skipping generation/translation (already done for this build)")
     
     # Remove all existing files in site_dir (except .git if exists)
     print(f"Cleaning site directory: {site_dir}")
@@ -155,5 +181,8 @@ def on_post_build(config):
                 dest_file = site_dir / static_file.name
                 shutil.copy2(static_file, dest_file)
                 print(f"Copied {static_file.name} to site root")
+    
+    # Note: Marker file persists during the build process to prevent multiple script runs
+    # It will be automatically removed when mkdocs build starts fresh next time
     
     print(f"Successfully replaced site with src content")

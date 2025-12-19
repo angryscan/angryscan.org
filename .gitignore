@@ -27,4 +27,7 @@ Thumbs.db
 # Logs
 *.log
 
+# Build markers
+.scripts_run_marker
+
 # Note: docs/ folder is required for MkDocs build, do not ignore it
