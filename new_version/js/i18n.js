@@ -13,8 +13,10 @@ const I18N = {
         },
         // Navigation
         nav: {
+            home: 'Home',
             dataDiscovery: 'Data Discovery',
             features: 'Features',
+            useCases: 'Use Cases',
             download: 'Download',
             github: 'GitHub',
             contactUs: 'Contact us'
@@ -65,6 +67,7 @@ const I18N = {
             },
             useCases: {
                 title: 'Real life use cases',
+                description: 'Discover how organizations across different industries use Angry Data Scanner to protect sensitive data and ensure compliance',
                 cases: [
                     'A leak hunting team scans network folder and ensure that it does not contain source code',
                     'An employee finds and deletes files containing card numbers to comply with PCI DSS',
@@ -72,11 +75,44 @@ const I18N = {
                     'A boss scans a shared folder of the sales team so they don\'t have client contacts there',
                     'Law enforcements need to discover a traces of cryptocurrency on a laptop',
                     'A cybersecurity officer need to validate that the database does not contain a personal data'
-                ]
+                ],
+                whoShouldUse: 'Who Should Use Angry Data Scanner?',
+                securityTeams: 'Security Teams',
+                securityTeamsDesc: 'Conduct security audits, identify data leaks, and ensure sensitive information is properly protected across your infrastructure.',
+                complianceOfficers: 'Compliance Officers',
+                complianceOfficersDesc: 'Ensure compliance with regulations like GDPR, PCI DSS, HIPAA, and other data protection standards.',
+                developers: 'Developers & DevOps',
+                developersDesc: 'Scan repositories and infrastructure to prevent accidental exposure of sensitive data in code or configurations.',
+                forensics: 'Forensics & Law Enforcement',
+                forensicsDesc: 'Discover traces of sensitive data, cryptocurrency, and other evidence during digital investigations.'
             },
             download: {
                 title: 'Download',
-                systemRequirements: 'System Requirements: Windows, Linux, MacOS | 400MB HDD | 4GB RAM | 1.3Ghz CPU'
+                systemRequirements: 'System Requirements: Windows, Linux, MacOS | 400MB HDD | 4GB RAM | 1.3Ghz CPU',
+                ctaDescription: 'Download Angry Data Scanner for Windows, Linux, or macOS. No admin rights required.',
+                ctaButton: 'Download Now',
+                gettingStarted: 'Getting Started',
+                gettingStartedDesc: 'Quick start guide to help you begin using Angry Data Scanner',
+                step1: {
+                    title: 'Download',
+                    description: 'Download the appropriate version for your operating system from the links above.'
+                },
+                step2: {
+                    title: 'Install or Extract',
+                    description: 'Run the installer (Windows/macOS) or extract the portable version. No admin rights required.'
+                },
+                step3: {
+                    title: 'Start Scanning',
+                    description: 'Launch the application, select your data source, and start scanning. Results appear instantly.'
+                }
+            },
+            quickLinks: {
+                title: 'Explore More',
+                description: 'Discover all capabilities and features of Angry Data Scanner',
+                discovery: 'PII, PCI DSS, banking data, crypto wallets, and more',
+                features: 'Ranking, scheduling, export, and configurable matchers',
+                useCases: 'Compliance, security audits, and data protection',
+                download: 'Windows, Linux, macOS - Get started now'
             }
         },
         // Categories
@@ -145,8 +181,10 @@ const I18N = {
         },
         // Navigation
         nav: {
-            dataDiscovery: 'Обнаружение данных',
+            home: 'Главная',
+            dataDiscovery: 'Данные',
             features: 'Возможности',
+            useCases: 'Примеры',
             download: 'Скачать',
             github: 'GitHub',
             contactUs: 'Связаться с нами'
@@ -197,6 +235,7 @@ const I18N = {
             },
             useCases: {
                 title: 'Реальные случаи использования',
+                description: 'Узнайте, как организации из разных отраслей используют Angry Data Scanner для защиты конфиденциальных данных и обеспечения соответствия требованиям',
                 cases: [
                     'Команда по поиску утечек сканирует сетевую папку и убеждается, что она не содержит исходный код',
                     'Сотрудник находит и удаляет файлы, содержащие номера карт, для соответствия PCI DSS',
@@ -204,11 +243,44 @@ const I18N = {
                     'Руководитель сканирует общую папку отдела продаж, чтобы там не было контактов клиентов',
                     'Правоохранительным органам нужно обнаружить следы криптовалюты на ноутбуке',
                     'Специалист по кибербезопасности должен проверить, что база данных не содержит персональных данных'
-                ]
+                ],
+                whoShouldUse: 'Кому подходит Angry Data Scanner?',
+                securityTeams: 'Команды безопасности',
+                securityTeamsDesc: 'Проводите аудиты безопасности, выявляйте утечки данных и обеспечивайте надлежащую защиту конфиденциальной информации в вашей инфраструктуре.',
+                complianceOfficers: 'Специалисты по соответствию',
+                complianceOfficersDesc: 'Обеспечивайте соответствие требованиям GDPR, PCI DSS, HIPAA и другим стандартам защиты данных.',
+                developers: 'Разработчики и DevOps',
+                developersDesc: 'Сканируйте репозитории и инфраструктуру, чтобы предотвратить случайное раскрытие конфиденциальных данных в коде или конфигурациях.',
+                forensics: 'Криминалистика и правоохранительные органы',
+                forensicsDesc: 'Обнаруживайте следы конфиденциальных данных, криптовалюты и другие доказательства во время цифровых расследований.'
             },
             download: {
                 title: 'Скачать',
-                systemRequirements: 'Системные требования: Windows, Linux, MacOS | 400MB HDD | 4GB RAM | 1.3Ghz CPU'
+                systemRequirements: 'Системные требования: Windows, Linux, MacOS | 400MB HDD | 4GB RAM | 1.3Ghz CPU',
+                ctaDescription: 'Скачайте Angry Data Scanner для Windows, Linux или macOS. Права администратора не требуются.',
+                ctaButton: 'Скачать сейчас',
+                gettingStarted: 'Начало работы',
+                gettingStartedDesc: 'Краткое руководство, которое поможет вам начать использовать Angry Data Scanner',
+                step1: {
+                    title: 'Скачать',
+                    description: 'Скачайте подходящую версию для вашей операционной системы по ссылкам выше.'
+                },
+                step2: {
+                    title: 'Установить или распаковать',
+                    description: 'Запустите установщик (Windows/macOS) или распакуйте портативную версию. Права администратора не требуются.'
+                },
+                step3: {
+                    title: 'Начать сканирование',
+                    description: 'Запустите приложение, выберите источник данных и начните сканирование. Результаты появятся мгновенно.'
+                }
+            },
+            quickLinks: {
+                title: 'Узнать больше',
+                description: 'Откройте для себя все возможности и функции Angry Data Scanner',
+                discovery: 'PII, PCI DSS, банковские данные, криптокошельки и многое другое',
+                features: 'Ранжирование, планирование, экспорт и настраиваемые матчеры',
+                useCases: 'Соответствие требованиям, аудиты безопасности и защита данных',
+                download: 'Windows, Linux, macOS - Начните прямо сейчас'
             }
         },
         // Categories

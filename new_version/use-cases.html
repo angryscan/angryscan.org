@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Primary Meta Tags -->
+    <title>Use Cases - Real-World Data Discovery Scenarios | Angry Data Scanner</title>
+    <meta name="title" content="Use Cases - Real-World Data Discovery Scenarios">
+    <meta name="description" content="Learn how organizations use Angry Data Scanner for compliance, security audits, leak hunting, and data protection. Real-world examples and scenarios.">
+    <meta name="keywords" content="data scanner use cases, compliance, security audits, leak hunting, data protection, PCI DSS compliance">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://angryscan.org/use-cases.html">
+    <meta property="og:title" content="Use Cases - Real-World Data Discovery Scenarios">
+    <meta property="og:description" content="Learn how organizations use Angry Data Scanner for compliance, security audits, leak hunting, and data protection.">
+    <meta property="og:image" content="https://angryscan.org/assets/screenshot_light.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://angryscan.org/use-cases.html">
+    <meta property="twitter:title" content="Use Cases - Real-World Data Discovery Scenarios">
+    <meta property="twitter:description" content="Learn how organizations use Angry Data Scanner for compliance, security audits, leak hunting, and data protection.">
+    <meta property="twitter:image" content="https://angryscan.org/assets/screenshot_light.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://angryscan.org/use-cases.html">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/favicon.ico">
+    <link rel="apple-touch-icon" href="assets/favicon.ico">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="index.html">
+                    <img src="assets/favicon.ico" alt="Angry Data Scanner" class="logo-icon">
+                    <span class="brand-text">Angry Data Scanner</span>
+                </a>
+            </div>
+            <button class="burger-menu" id="burgerMenu" aria-label="Toggle menu" aria-expanded="false">
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+            </button>
+            <div class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link" data-i18n="nav.home">Home</a>
+                <a href="discovery.html" class="nav-link" data-i18n="nav.dataDiscovery">Data Discovery</a>
+                <a href="features.html" class="nav-link" data-i18n="nav.features">Features</a>
+                <a href="use-cases.html" class="nav-link active" data-i18n="nav.useCases">Use Cases</a>
+                <a href="download.html" class="nav-link" data-i18n="nav.download">Download</a>
+                <a href="https://github.com/angryscan/angrydata-app" class="nav-link" target="_blank" data-i18n="nav.github">GitHub</a>
+            </div>
+            <div class="nav-actions">
+                <div class="language-selector-wrapper">
+                    <button class="language-selector-button" id="languageSelectorButton" aria-label="Select language" aria-expanded="false">
+                        <span class="language-selector-text" id="languageSelectorText">🇺🇸 English</span>
+                        <svg class="language-selector-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <polyline points="6 9 12 15 18 9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <div class="language-dropdown" id="languageDropdown" role="listbox">
+                        <div class="language-option" data-value="en" role="option">
+                            <span class="language-flag">🇺🇸</span>
+                            <span class="language-name">English</span>
+                        </div>
+                        <div class="language-option" data-value="ru" role="option">
+                            <span class="language-flag">🇷🇺</span>
+                            <span class="language-name">Русский</span>
+                        </div>
+                        <div class="language-option" data-value="es" role="option">
+                            <span class="language-flag">🇪🇸</span>
+                            <span class="language-name">Español</span>
+                        </div>
+                        <div class="language-option" data-value="de" role="option">
+                            <span class="language-flag">🇩🇪</span>
+                            <span class="language-name">Deutsch</span>
+                        </div>
+                        <div class="language-option" data-value="fr" role="option">
+                            <span class="language-flag">🇫🇷</span>
+                            <span class="language-name">Français</span>
+                        </div>
+                    </div>
+                    <select class="language-selector-hidden" id="languageSelector" aria-label="Select language" style="display: none;">
+                        <option value="en">🇺🇸 English</option>
+                        <option value="ru">🇷🇺 Русский</option>
+                        <option value="es">🇪🇸 Español</option>
+                        <option value="de">🇩🇪 Deutsch</option>
+                        <option value="fr">🇫🇷 Français</option>
+                    </select>
+                </div>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <svg class="theme-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+                        <path d="M12 2V4M12 20V22M4.93 4.93L6.34 6.34M17.66 17.66L19.07 19.07M2 12H4M20 12H22M4.93 19.07L6.34 17.66M17.66 6.34L19.07 4.93" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <div class="container">
+            <ol class="breadcrumbs-list">
+                <li class="breadcrumbs-item"><a href="index.html"><span data-i18n="nav.home">Home</span></a></li>
+                <li class="breadcrumbs-item" aria-current="page"><span data-i18n="nav.useCases">Use Cases</span></li>
+            </ol>
+        </div>
+    </nav>
+
+    <!-- Use Cases -->
+    <section class="section" data-section="use-cases">
+        <div class="container">
+            <div class="section-header">
+                <h1 class="section-title" data-i18n="sections.useCases.title">Real life use cases</h1>
+                <p class="section-description" data-i18n="sections.useCases.description">Discover how organizations across different industries use Angry Data Scanner to protect sensitive data and ensure compliance</p>
+            </div>
+            <div class="use-cases">
+                <!-- Data will be loaded from config.js -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Who Should Use Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-i18n="sections.useCases.whoShouldUse">Who Should Use Angry Data Scanner?</h2>
+            </div>
+            <div class="who-should-use-grid">
+                <div class="who-should-use-card">
+                    <h3 data-i18n="sections.useCases.securityTeams">Security Teams</h3>
+                    <p data-i18n="sections.useCases.securityTeamsDesc">Conduct security audits, identify data leaks, and ensure sensitive information is properly protected across your infrastructure.</p>
+                </div>
+                <div class="who-should-use-card">
+                    <h3 data-i18n="sections.useCases.complianceOfficers">Compliance Officers</h3>
+                    <p data-i18n="sections.useCases.complianceOfficersDesc">Ensure compliance with regulations like GDPR, PCI DSS, HIPAA, and other data protection standards.</p>
+                </div>
+                <div class="who-should-use-card">
+                    <h3 data-i18n="sections.useCases.developers">Developers & DevOps</h3>
+                    <p data-i18n="sections.useCases.developersDesc">Scan repositories and infrastructure to prevent accidental exposure of sensitive data in code or configurations.</p>
+                </div>
+                <div class="who-should-use-card">
+                    <h3 data-i18n="sections.useCases.forensics">Forensics & Law Enforcement</h3>
+                    <p data-i18n="sections.useCases.forensicsDesc">Discover traces of sensitive data, cryptocurrency, and other evidence during digital investigations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p data-i18n="footer.copyright">&copy; 2025, by admin@angryscan.org</p>
+                <div class="footer-links">
+                    <a href="https://github.com/angryscan/angrydata-app" target="_blank" data-i18n="nav.github">GitHub</a>
+                    <a href="mailto:admin@angryscan.org" data-i18n="nav.contactUs">Contact us</a>
+                </div>
+                <div class="footer-pages">
+                    <a href="index.html" data-i18n="nav.home">Home</a>
+                    <a href="discovery.html" data-i18n="nav.dataDiscovery">Data Discovery</a>
+                    <a href="features.html" data-i18n="nav.features">Features</a>
+                    <a href="use-cases.html" data-i18n="nav.useCases">Use Cases</a>
+                    <a href="download.html" data-i18n="nav.download">Download</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Google Translate Container (hidden) -->
+    <div id="google_translate_element" style="display: none;"></div>
+
+    <!-- Scripts -->
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Primary Meta Tags -->
+    <title>Features - Advanced Data Scanning Capabilities | Angry Data Scanner</title>
+    <meta name="title" content="Features - Advanced Data Scanning Capabilities">
+    <meta name="description" content="Explore powerful features: ranking, scheduling, export, configurable matchers, and support for multiple file formats. Comprehensive data scanning solution.">
+    <meta name="keywords" content="data scanner features, ranking, scheduling, export, configurable matchers, file formats">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://angryscan.org/features.html">
+    <meta property="og:title" content="Features - Advanced Data Scanning Capabilities">
+    <meta property="og:description" content="Explore powerful features: ranking, scheduling, export, configurable matchers, and support for multiple file formats.">
+    <meta property="og:image" content="https://angryscan.org/assets/screenshot_light.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://angryscan.org/features.html">
+    <meta property="twitter:title" content="Features - Advanced Data Scanning Capabilities">
+    <meta property="twitter:description" content="Explore powerful features: ranking, scheduling, export, configurable matchers, and support for multiple file formats.">
+    <meta property="twitter:image" content="https://angryscan.org/assets/screenshot_light.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://angryscan.org/features.html">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/favicon.ico">
+    <link rel="apple-touch-icon" href="assets/favicon.ico">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="index.html">
+                    <img src="assets/favicon.ico" alt="Angry Data Scanner" class="logo-icon">
+                    <span class="brand-text">Angry Data Scanner</span>
+                </a>
+            </div>
+            <button class="burger-menu" id="burgerMenu" aria-label="Toggle menu" aria-expanded="false">
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+            </button>
+            <div class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link" data-i18n="nav.home">Home</a>
+                <a href="discovery.html" class="nav-link" data-i18n="nav.dataDiscovery">Data Discovery</a>
+                <a href="features.html" class="nav-link active" data-i18n="nav.features">Features</a>
+                <a href="use-cases.html" class="nav-link" data-i18n="nav.useCases">Use Cases</a>
+                <a href="download.html" class="nav-link" data-i18n="nav.download">Download</a>
+                <a href="https://github.com/angryscan/angrydata-app" class="nav-link" target="_blank" data-i18n="nav.github">GitHub</a>
+            </div>
+            <div class="nav-actions">
+                <div class="language-selector-wrapper">
+                    <button class="language-selector-button" id="languageSelectorButton" aria-label="Select language" aria-expanded="false">
+                        <span class="language-selector-text" id="languageSelectorText">🇺🇸 English</span>
+                        <svg class="language-selector-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <polyline points="6 9 12 15 18 9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <div class="language-dropdown" id="languageDropdown" role="listbox">
+                        <div class="language-option" data-value="en" role="option">
+                            <span class="language-flag">🇺🇸</span>
+                            <span class="language-name">English</span>
+                        </div>
+                        <div class="language-option" data-value="ru" role="option">
+                            <span class="language-flag">🇷🇺</span>
+                            <span class="language-name">Русский</span>
+                        </div>
+                        <div class="language-option" data-value="es" role="option">
+                            <span class="language-flag">🇪🇸</span>
+                            <span class="language-name">Español</span>
+                        </div>
+                        <div class="language-option" data-value="de" role="option">
+                            <span class="language-flag">🇩🇪</span>
+                            <span class="language-name">Deutsch</span>
+                        </div>
+                        <div class="language-option" data-value="fr" role="option">
+                            <span class="language-flag">🇫🇷</span>
+                            <span class="language-name">Français</span>
+                        </div>
+                    </div>
+                    <select class="language-selector-hidden" id="languageSelector" aria-label="Select language" style="display: none;">
+                        <option value="en">🇺🇸 English</option>
+                        <option value="ru">🇷🇺 Русский</option>
+                        <option value="es">🇪🇸 Español</option>
+                        <option value="de">🇩🇪 Deutsch</option>
+                        <option value="fr">🇫🇷 Français</option>
+                    </select>
+                </div>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <svg class="theme-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+                        <path d="M12 2V4M12 20V22M4.93 4.93L6.34 6.34M17.66 17.66L19.07 19.07M2 12H4M20 12H22M4.93 19.07L6.34 17.66M17.66 6.34L19.07 4.93" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <div class="container">
+            <ol class="breadcrumbs-list">
+                <li class="breadcrumbs-item"><a href="index.html"><span data-i18n="nav.home">Home</span></a></li>
+                <li class="breadcrumbs-item" aria-current="page"><span data-i18n="nav.features">Features</span></li>
+            </ol>
+        </div>
+    </nav>
+
+    <!-- Key Features -->
+    <section class="section features-section">
+        <div class="container">
+            <div class="section-header">
+                <h1 class="section-title" data-i18n="sections.features.title">Key features</h1>
+                <p class="section-description" data-i18n="sections.features.description">Discover the powerful capabilities that make Angry Data Scanner the ideal solution for sensitive data discovery</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 11L12 14L22 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M21 12V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h2 class="feature-title" data-i18n="features.ranking.title">Ranking</h2>
+                    <p class="feature-description" data-i18n="features.ranking.description">Scanner shows high-value files first, helping you prioritize the most critical findings. The intelligent ranking system analyzes data sensitivity and presents results in order of importance.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3 3H21V21H3V3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M9 9H15V15H9V9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h2 class="feature-title" data-i18n="features.history.title">View scanning history</h2>
+                    <p class="feature-description" data-i18n="features.history.description">Track all your previous scans with detailed history. Review past results, compare scans over time, and maintain a complete audit trail of your data discovery activities.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 3V15M12 15L8 11M12 15L16 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h2 class="feature-title" data-i18n="features.export.title">Export results</h2>
+                    <p class="feature-description" data-i18n="features.export.description">Download results in a CSV file for further analysis, reporting, or integration with other tools. Export includes all detected data types, locations, and metadata.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 8V12L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h2 class="feature-title" data-i18n="features.schedule.title">Schedule scans</h2>
+                    <p class="feature-description" data-i18n="features.schedule.description">Automate your scanning process with scheduled scans. Set up recurring scans to continuously monitor your data sources and ensure ongoing compliance.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 17L7 19L5 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M7 19V11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M15 7L17 5L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M17 5V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h2 class="feature-title" data-i18n="features.matchers.title">Configurable matchers</h2>
+                    <p class="feature-description" data-i18n="features.matchers.description">Configure PII, PCI DSS and other matchers to match your specific compliance requirements. Enable or disable detection patterns based on your needs.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M14 2V8H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h2 class="feature-title" data-i18n="features.formats.title">Multiple file formats</h2>
+                    <p class="feature-description" data-i18n="features.formats.description">Configure file formats (pdf, excel, etc.) to scan. Support for MS Office, Open Office, Adobe PDF, archives, and plain text files. Customize which formats to include in your scans.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p data-i18n="footer.copyright">&copy; 2025, by admin@angryscan.org</p>
+                <div class="footer-links">
+                    <a href="https://github.com/angryscan/angrydata-app" target="_blank" data-i18n="nav.github">GitHub</a>
+                    <a href="mailto:admin@angryscan.org" data-i18n="nav.contactUs">Contact us</a>
+                </div>
+                <div class="footer-pages">
+                    <a href="index.html" data-i18n="nav.home">Home</a>
+                    <a href="discovery.html" data-i18n="nav.dataDiscovery">Data Discovery</a>
+                    <a href="features.html" data-i18n="nav.features">Features</a>
+                    <a href="use-cases.html" data-i18n="nav.useCases">Use Cases</a>
+                    <a href="download.html" data-i18n="nav.download">Download</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Google Translate Container (hidden) -->
+    <div id="google_translate_element" style="display: none;"></div>
+
+    <!-- Scripts -->
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
+
