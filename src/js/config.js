@@ -180,27 +180,27 @@ const CONFIG = {
             },
             {
                 text: 'Portable x64',
-                href: 'https://github.com/angryscan/angrydata-app/releases/latest/download/angry-data-scanner-1.4.2-windows-amd64.zip'
+                href: 'https://github.com/angryscan/angrydata-app/releases/latest/download/angry-data-scanner-1.5.0-windows-amd64.zip'
             }
         ],
         linux: [
             {
                 text: 'DEB x64',
-                href: 'https://github.com/angryscan/angrydata-app/releases/latest/download/angry-data-scanner_1.4.2_amd64.deb'
+                href: 'https://github.com/angryscan/angrydata-app/releases/latest/download/angry-data-scanner_1.5.0_amd64.deb'
             },
             {
                 text: 'Portable x64',
-                href: 'https://github.com/angryscan/angrydata-app/releases/latest/download/angry-data-scanner-1.4.2-linux-amd64.tar.gz'
+                href: 'https://github.com/angryscan/angrydata-app/releases/latest/download/angry-data-scanner-1.5.0-linux-amd64.tar.gz'
             }
         ],
         macos: [
             {
                 text: 'macOS x64',
-                href: 'https://github.com/angryscan/angrydata-app/releases/latest/download/angry-data-scanner-1.4.2-mac-amd64.zip'
+                href: 'https://github.com/angryscan/angrydata-app/releases/latest/download/angry-data-scanner-1.5.0-mac-amd64.zip'
             },
             {
                 text: 'macOS ARM64',
-                href: 'https://github.com/angryscan/angrydata-app/releases/latest/download/angry-data-scanner-1.4.2-mac-aarch64.zip'
+                href: 'https://github.com/angryscan/angrydata-app/releases/latest/download/angry-data-scanner-1.5.0-mac-aarch64.zip'
             }
         ]
     },
