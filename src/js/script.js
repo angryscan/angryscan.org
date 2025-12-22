@@ -163,10 +163,8 @@ const ThemeManager = {
      * @param {string} theme - Current theme
      */
     updateFavicon(theme) {
-        // Determine assets path (../assets/ for subdirectories, assets/ for root)
-        const path = window.location.pathname;
-        const isSubdirectory = /^\/(ru|es|de|fr)\//.test(path);
-        const assetsPath = isSubdirectory ? '../assets/' : 'assets/';
+        // Use absolute paths from site root to avoid path resolution issues
+        const assetsPath = '/assets/';
         
         // For browser tab, always use favicon_light_tab.ico
         const tabFaviconPath = assetsPath + 'favicon_light_tab.ico';
@@ -1223,10 +1221,8 @@ const LanguageManager = {
         const currentValue = hiddenSelect.value;
         const currentOption = hiddenSelect.querySelector(`option[value="${currentValue}"]`);
         
-        // Determine assets path (../assets/ for subdirectories, assets/ for root)
-        const path = window.location.pathname;
-        const isSubdirectory = /^\/(ru|es|de|fr)\//.test(path);
-        const assetsPath = isSubdirectory ? '../assets/' : 'assets/';
+        // Use absolute paths from site root to avoid path resolution issues
+        const assetsPath = '/assets/';
         
         // Language to flag mapping
         const flagMap = {
@@ -1242,19 +1238,8 @@ const LanguageManager = {
             buttonText.innerHTML = `<img src="${assetsPath}${flagInfo.file}" alt="${flagInfo.alt}" class="language-flag-icon"> ${flagInfo.name}`;
         }
         
-        // Update flag icons in dropdown options
+        // Update selected state in dropdown (don't update flag paths - they're already correct in HTML)
         options.forEach(option => {
-            const value = option.getAttribute('data-value');
-            if (value && flagMap[value]) {
-                const flagInfo = flagMap[value];
-                const flagImg = option.querySelector('.language-flag-icon');
-                if (flagImg) {
-                    flagImg.src = `${assetsPath}${flagInfo.file}`;
-                    flagImg.alt = flagInfo.alt;
-                }
-            }
-            
-            // Update selected state in dropdown
             if (option.getAttribute('data-value') === currentValue) {
                 option.classList.add('selected');
             } else {

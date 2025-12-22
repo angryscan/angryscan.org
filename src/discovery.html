@@ -104,14 +104,11 @@
         (function() {
             try {
                 const savedTheme = localStorage.getItem('theme');
-                const path = window.location.pathname;
-                const isSubdirectory = /^\/(ru|es|de|fr)\//.test(path);
-                const assetsPath = isSubdirectory ? '../assets/' : 'assets/';
                 
                 // Update favicon based on theme
                 const updateFavicon = function(theme) {
-                    // For browser tab, always use favicon_light_tab.ico
-                    const tabFaviconPath = assetsPath + 'favicon_light_tab.ico';
+                    // For browser tab, always use favicon_light_tab.ico (use absolute path from site root)
+                    const tabFaviconPath = '/assets/favicon_light_tab.ico';
                     const tabFaviconLinks = document.querySelectorAll('link[rel="icon"], link[rel="shortcut icon"]');
                     tabFaviconLinks.forEach(link => {
                         link.href = tabFaviconPath;
