@@ -108,6 +108,54 @@
                 const savedTheme = localStorage.getItem('theme');
                 if (savedTheme) {
                     document.documentElement.setAttribute('data-theme', savedTheme);
+                    
+                    // Update screenshot src immediately if dark theme (before image loads)
+                    if (savedTheme === 'dark') {
+                        // Function to update screenshot src
+                        const updateScreenshotSrc = function() {
+                            const screenshot = document.getElementById('heroScreenshot');
+                            if (screenshot) {
+                                const darkSrc = screenshot.getAttribute('data-dark');
+                                if (darkSrc) {
+                                    screenshot.src = darkSrc;
+                                    // Show image after it loads
+                                    screenshot.onload = function() {
+                                        screenshot.style.opacity = '1';
+                                    };
+                                    // If already loaded, show immediately
+                                    if (screenshot.complete) {
+                                        screenshot.style.opacity = '1';
+                                    }
+                                }
+                            }
+                        };
+                        
+                        // Try immediately if DOM is ready, otherwise wait for DOMContentLoaded
+                        if (document.readyState === 'loading') {
+                            document.addEventListener('DOMContentLoaded', updateScreenshotSrc);
+                        } else {
+                            updateScreenshotSrc();
+                        }
+                    } else {
+                        // For light theme, show image immediately
+                        const showScreenshot = function() {
+                            const screenshot = document.getElementById('heroScreenshot');
+                            if (screenshot) {
+                                if (screenshot.complete) {
+                                    screenshot.style.opacity = '1';
+                                } else {
+                                    screenshot.onload = function() {
+                                        screenshot.style.opacity = '1';
+                                    };
+                                }
+                            }
+                        };
+                        if (document.readyState === 'loading') {
+                            document.addEventListener('DOMContentLoaded', showScreenshot);
+                        } else {
+                            showScreenshot();
+                        }
+                    }
                 }
             } catch (e) {
                 // Ignore errors if localStorage is not available
@@ -259,6 +307,7 @@
                             id="heroScreenshot"
                             data-light="../assets/screenshot_light.png"
                             data-dark="../assets/screenshot_dark.png"
+                            style="opacity: 0;"
                         >
                         <div class="screenshot-overlay">
                             <svg class="expand-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -331,7 +380,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-top-row">
-                    <p data-i18n="footer.copyright">&Copiar; 2025, por admin@angryscan.org</p>
+                    <p data-i18n="footer.copyright">&copy; 2025, por admin@angryscan.org</p>
                     <div class="footer-links">
                         <a href="https://github.com/angryscan/angrydata-app" target="_blank" data-i18n="nav.github">GitHub</a>
                         <a href="mailto:admin@angryscan.org" data-i18n="nav.contactUs">Contáctenos</a>
