@@ -256,7 +256,7 @@ const I18N = {
             },
             download: {
                 title: 'Скачать',
-                systemRequirements: 'Системные требования: Windows, Linux, MacOS | 400MB HDD | 4GB RAM | 1.3Ghz CPU',
+                systemRequirements: 'Системные требования: Windows, Linux, MacOS | 400 МБ на жестком диске | 4 ГБ ОЗУ | процессор 1.3 ГГц',
                 ctaDescription: 'Скачайте Angry Data Scanner для Windows, Linux или macOS. Права администратора не требуются.',
                 ctaButton: 'Скачать сейчас',
                 gettingStarted: 'Начало работы',
@@ -300,14 +300,14 @@ const I18N = {
         itAssets: [
             { type: 'IPv4', example: '192.168.1.1' },
             { type: 'IPv6', example: '2001:db8::1' },
-            { type: 'Файлы исходного кода', example: 'Находит файлы с исходным кодом. Исходный код должен быть размещен в git репозитории.' },
-            { type: 'TLS сертификаты', example: 'Находит папки с наибольшим количеством TLS сертификатов' },
-            { type: 'Хеш-данные', example: 'SHA-256, MD5, NTLM (NT hash), SHA-1, SHA-512' }
+            { type: 'Source code files', example: 'Находит файлы с исходным кодом. Исходный код должен быть размещен в git репозитории.' },
+            { type: 'TLS certificates', example: 'Находит папки с наибольшим количеством TLS сертификатов' },
+            { type: 'Hash data', example: 'SHA-256, MD5, NTLM (NT hash), SHA-1, SHA-512' }
         ],
         // Crypto data
         crypto: [
-            { type: 'Криптокошелек', example: '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa' },
-            { type: 'Seed-фраза криптокошелька', example: 'Последовательность из 12-24 слов из стандартного словаря BIP39, используемая для восстановления криптокошелька и вывода криптографических ключей' }
+            { type: 'Crypto wallet', example: '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa' },
+            { type: 'Crypto seed phrase', example: 'Последовательность из 12-24 слов из стандартного словаря BIP39, используемая для восстановления криптокошелька и вывода криптографических ключей' }
         ],
         // Table headers
         tableHeaders: {
