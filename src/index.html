@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,6 +15,11 @@
     <meta property="og:title" content="Angry Data Scanner - Free Sensitive Data Discovery Tool">
     <meta property="og:description" content="Discover PII, PCI DSS, and sensitive data across folders, S3, and databases. Free open-source tool.">
     <meta property="og:image" content="https://angryscan.org/assets/screenshot_light.png">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="ru_RU">
+    <meta property="og:locale:alternate" content="es_ES">
+    <meta property="og:locale:alternate" content="de_DE">
+    <meta property="og:locale:alternate" content="fr_FR">
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
@@ -25,6 +30,14 @@
     
     <!-- Canonical URL -->
     <link rel="canonical" href="https://angryscan.org/">
+    
+    <!-- Hreflang tags for multilingual SEO -->
+    <link rel="alternate" hreflang="en" href="https://angryscan.org/">
+    <link rel="alternate" hreflang="ru" href="https://angryscan.org/ru/">
+    <link rel="alternate" hreflang="es" href="https://angryscan.org/es/">
+    <link rel="alternate" hreflang="de" href="https://angryscan.org/de/">
+    <link rel="alternate" hreflang="fr" href="https://angryscan.org/fr/">
+    <link rel="alternate" hreflang="x-default" href="https://angryscan.org/">
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
@@ -61,6 +74,31 @@
     <!-- BING -->
     <meta name="msvalidate.01" content="2EF28BCEF4D8F18C669E8DB8C238B4C8" />
     <!-- END BING -->
+    
+    <!-- Structured Data (Schema.org) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Angry Data Scanner",
+      "applicationCategory": "SecurityApplication",
+      "operatingSystem": "Windows, Linux, macOS",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "Discover PII, PCI DSS, and sensitive data across folders, S3, and databases. Free open-source tool for Windows, Linux, macOS. No admin rights required.",
+      "url": "https://angryscan.org/",
+      "inLanguage": "en",
+      "downloadUrl": "https://github.com/angryscan/angrydata-app/releases",
+      "author": {
+        "@type": "Organization",
+        "name": "Angry Data Scanner",
+        "url": "https://angryscan.org"
+      }
+    }
+    </script>
     
     <!-- Inline script to apply theme immediately before page render to avoid flash -->
     <script>

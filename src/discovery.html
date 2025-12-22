@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,6 +15,11 @@
     <meta property="og:title" content="Data Types Discovery - PII, PCI DSS, Banking Data Detection">
     <meta property="og:description" content="Complete list of sensitive data types detected by Angry Data Scanner: PII, payment cards, banking data, crypto wallets, and more.">
     <meta property="og:image" content="https://angryscan.org/assets/screenshot_light.png">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="ru_RU">
+    <meta property="og:locale:alternate" content="es_ES">
+    <meta property="og:locale:alternate" content="de_DE">
+    <meta property="og:locale:alternate" content="fr_FR">
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
@@ -25,6 +30,14 @@
     
     <!-- Canonical URL -->
     <link rel="canonical" href="https://angryscan.org/discovery">
+    
+    <!-- Hreflang tags for multilingual SEO -->
+    <link rel="alternate" hreflang="en" href="https://angryscan.org/discovery">
+    <link rel="alternate" hreflang="ru" href="https://angryscan.org/ru/discovery">
+    <link rel="alternate" hreflang="es" href="https://angryscan.org/es/discovery">
+    <link rel="alternate" hreflang="de" href="https://angryscan.org/de/discovery">
+    <link rel="alternate" hreflang="fr" href="https://angryscan.org/fr/discovery">
+    <link rel="alternate" hreflang="x-default" href="https://angryscan.org/discovery">
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
@@ -61,6 +74,29 @@
     <!-- BING -->
     <meta name="msvalidate.01" content="2EF28BCEF4D8F18C669E8DB8C238B4C8" />
     <!-- END BING -->
+    
+    <!-- Structured Data (Schema.org) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Data Types Discovery - PII, PCI DSS, Banking Data Detection | Angry Data Scanner",
+      "description": "Complete list of sensitive data types detected by Angry Data Scanner: PII, payment cards, banking data, crypto wallets, and more. Filter by country.",
+      "url": "https://angryscan.org/discovery",
+      "inLanguage": "en",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Angry Data Scanner",
+        "url": "https://angryscan.org"
+      },
+      "about": {
+        "@type": "SoftwareApplication",
+        "name": "Angry Data Scanner",
+        "applicationCategory": "SecurityApplication",
+        "operatingSystem": "Windows, Linux, macOS"
+      }
+    }
+    </script>
     
     <!-- Inline script to apply theme immediately before page render to avoid flash -->
     <script>
