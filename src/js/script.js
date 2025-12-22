@@ -1237,12 +1237,10 @@ const LanguageManager = {
         // This ensures that when switching from /ru/ to English, we use English
         const savedLanguage = localStorage.getItem('language');
         if (savedLanguage && (savedLanguage === 'en' || savedLanguage === 'ru' || savedLanguage === 'es' || savedLanguage === 'de' || savedLanguage === 'fr')) {
-            // If saved language is English and we're on root, return English
-            if (savedLanguage === 'en' && !pathMatch) {
-                return 'en';
+            // If we're on root page (no language prefix in URL), return saved language
+            if (!pathMatch) {
+                return savedLanguage;
             }
-            // If saved language is not English but we're on root, still return saved language
-            // This handles the case when user manually navigates to root
         }
 
         // Check URL parameter
@@ -1261,7 +1259,7 @@ const LanguageManager = {
             if (browserLang.startsWith('fr')) return 'fr';
         }
         
-        return 'en'; // Default to English
+        return 'en'; // Default to English if browser language is not in our supported languages
     },
 
     /**
