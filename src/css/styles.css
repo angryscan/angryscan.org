@@ -161,8 +161,8 @@ body {
 }
 
 .logo-icon {
-    width: 32px;
-    height: 32px;
+    width: 80px;
+    height: 80px;
     object-fit: contain;
     display: block;
 }
@@ -1610,6 +1610,11 @@ code {
 
 /* Mobile */
 @media (max-width: 768px) {
+    .logo-icon {
+        width: 56px;
+        height: 56px;
+    }
+
     .hero {
         padding: var(--spacing-2xl) 0;
     }

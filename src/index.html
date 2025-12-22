@@ -40,9 +40,9 @@
     <link rel="alternate" hreflang="x-default" href="https://angryscan.org/">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
-    <link rel="shortcut icon" type="image/x-icon" href="assets/favicon.ico">
-    <link rel="apple-touch-icon" href="assets/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="assets/favicon_light_tab.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/favicon_light_tab.ico">
+    <link rel="apple-touch-icon" href="assets/favicon_light.ico">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -106,8 +106,23 @@
         (function() {
             try {
                 const savedTheme = localStorage.getItem('theme');
+                const path = window.location.pathname;
+                const isSubdirectory = /^\/(ru|es|de|fr)\//.test(path);
+                const assetsPath = isSubdirectory ? '../assets/' : 'assets/';
+                
+                // Update favicon based on theme
+                const updateFavicon = function(theme) {
+                    // For browser tab, always use favicon_light_tab.ico
+                    const tabFaviconPath = assetsPath + 'favicon_light_tab.ico';
+                    const tabFaviconLinks = document.querySelectorAll('link[rel="icon"], link[rel="shortcut icon"]');
+                    tabFaviconLinks.forEach(link => {
+                        link.href = tabFaviconPath;
+                    });
+                };
+                
                 if (savedTheme) {
                     document.documentElement.setAttribute('data-theme', savedTheme);
+                    updateFavicon(savedTheme);
                     
                     // Update screenshot src immediately if dark theme (before image loads)
                     if (savedTheme === 'dark') {
@@ -156,6 +171,9 @@
                             showScreenshot();
                         }
                     }
+                } else {
+                    // No saved theme, use light theme by default
+                    updateFavicon('light');
                 }
             } catch (e) {
                 // Ignore errors if localStorage is not available
@@ -185,7 +203,7 @@
         <div class="nav-container">
             <div class="nav-brand">
                 <a href="/">
-                <img src="assets/favicon.ico" alt="Angry Data Scanner" class="logo-icon">
+                <img src="assets/favicon_light.ico" alt="Angry Data Scanner" class="logo-icon">
                 <span class="brand-text">Angry Data Scanner</span>
                 </a>
             </div>

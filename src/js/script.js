@@ -55,6 +55,7 @@ const ThemeManager = {
         this.setTheme(initialTheme);
         this.updateIcon(initialTheme);
         this.updateScreenshot(initialTheme);
+        this.updateFavicon(initialTheme);
         
         themeToggle.addEventListener('click', () => this.toggle());
     },
@@ -79,6 +80,7 @@ const ThemeManager = {
         html.setAttribute('data-theme', theme);
         localStorage.setItem(CONSTANTS.THEME.STORAGE_KEY, theme);
         this.updateScreenshot(theme);
+        this.updateFavicon(theme);
     },
 
     /**
@@ -154,6 +156,34 @@ const ThemeManager = {
                       stroke-linecap="round"/>
             `;
         }
+    },
+
+    /**
+     * Update favicon and logo icon based on theme
+     * @param {string} theme - Current theme
+     */
+    updateFavicon(theme) {
+        // Determine assets path (../assets/ for subdirectories, assets/ for root)
+        const path = window.location.pathname;
+        const isSubdirectory = /^\/(ru|es|de|fr)\//.test(path);
+        const assetsPath = isSubdirectory ? '../assets/' : 'assets/';
+        
+        // For browser tab, always use favicon_light_tab.ico
+        const tabFaviconPath = assetsPath + 'favicon_light_tab.ico';
+        const tabFaviconLinks = document.querySelectorAll('link[rel="icon"], link[rel="shortcut icon"]');
+        tabFaviconLinks.forEach(link => {
+            link.href = tabFaviconPath;
+        });
+        
+        // Update logo icons in navigation based on theme
+        const logoFaviconFile = theme === CONSTANTS.THEME.DARK 
+            ? 'favicon_dark.ico' 
+            : 'favicon_light.ico';
+        const logoFaviconPath = assetsPath + logoFaviconFile;
+        const logoIcons = document.querySelectorAll('.logo-icon');
+        logoIcons.forEach(icon => {
+            icon.src = logoFaviconPath;
+        });
     }
 };
 
@@ -1212,8 +1242,19 @@ const LanguageManager = {
             buttonText.innerHTML = `<img src="${assetsPath}${flagInfo.file}" alt="${flagInfo.alt}" class="language-flag-icon"> ${flagInfo.name}`;
         }
         
-        // Update selected state in dropdown
+        // Update flag icons in dropdown options
         options.forEach(option => {
+            const value = option.getAttribute('data-value');
+            if (value && flagMap[value]) {
+                const flagInfo = flagMap[value];
+                const flagImg = option.querySelector('.language-flag-icon');
+                if (flagImg) {
+                    flagImg.src = `${assetsPath}${flagInfo.file}`;
+                    flagImg.alt = flagInfo.alt;
+                }
+            }
+            
+            // Update selected state in dropdown
             if (option.getAttribute('data-value') === currentValue) {
                 option.classList.add('selected');
             } else {
