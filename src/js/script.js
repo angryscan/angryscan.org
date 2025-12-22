@@ -159,19 +159,23 @@ const ThemeManager = {
     },
 
     /**
-     * Update favicon and logo icon based on theme
+     * Update logo icons in navigation based on theme
      * @param {string} theme - Current theme
      */
     updateFavicon(theme) {
-        // Use absolute paths from site root to avoid path resolution issues
-        const assetsPath = '/assets/';
+        // Get the base path from existing logo icon to maintain correct relative/absolute path
+        const existingLogoIcon = document.querySelector('.logo-icon');
+        let assetsPath = '/assets/';
         
-        // For browser tab, always use favicon_light_tab.ico
-        const tabFaviconPath = assetsPath + 'favicon_light_tab.ico';
-        const tabFaviconLinks = document.querySelectorAll('link[rel="icon"], link[rel="shortcut icon"]');
-        tabFaviconLinks.forEach(link => {
-            link.href = tabFaviconPath;
-        });
+        // If we have an existing logo icon, extract the base path from its src attribute
+        if (existingLogoIcon && existingLogoIcon.getAttribute('src')) {
+            const logoSrc = existingLogoIcon.getAttribute('src');
+            // Extract the directory path (everything before the filename)
+            const pathMatch = logoSrc.match(/^(.+\/)favicon[^\/]*\.ico$/);
+            if (pathMatch) {
+                assetsPath = pathMatch[1];
+            }
+        }
         
         // Update logo icons in navigation based on theme
         const logoFaviconFile = theme === CONSTANTS.THEME.DARK 
@@ -1221,8 +1225,19 @@ const LanguageManager = {
         const currentValue = hiddenSelect.value;
         const currentOption = hiddenSelect.querySelector(`option[value="${currentValue}"]`);
         
-        // Use absolute paths from site root to avoid path resolution issues
-        const assetsPath = '/assets/';
+        // Get the base path from existing logo icon to maintain correct relative/absolute path
+        const existingLogoIcon = document.querySelector('.logo-icon');
+        let assetsPath = '/assets/';
+        
+        // If we have an existing logo icon, extract the base path from its src attribute
+        if (existingLogoIcon && existingLogoIcon.getAttribute('src')) {
+            const logoSrc = existingLogoIcon.getAttribute('src');
+            // Extract the directory path (everything before the filename)
+            const pathMatch = logoSrc.match(/^(.+\/)favicon[^\/]*\.ico$/);
+            if (pathMatch) {
+                assetsPath = pathMatch[1];
+            }
+        }
         
         // Language to flag mapping
         const flagMap = {

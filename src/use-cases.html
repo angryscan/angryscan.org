@@ -99,19 +99,8 @@
             try {
                 const savedTheme = localStorage.getItem('theme');
                 
-                // Update favicon based on theme
-                const updateFavicon = function(theme) {
-                    // For browser tab, always use favicon_light_tab.ico (use absolute path from site root)
-                    const tabFaviconPath = '/assets/favicon_light_tab.ico';
-                    const tabFaviconLinks = document.querySelectorAll('link[rel="icon"], link[rel="shortcut icon"]');
-                    tabFaviconLinks.forEach(link => {
-                        link.href = tabFaviconPath;
-                    });
-                };
-                
                 if (savedTheme) {
                     document.documentElement.setAttribute('data-theme', savedTheme);
-                    updateFavicon(savedTheme);
                     
                     // Update screenshot src immediately if dark theme
                     if (savedTheme === 'dark') {
@@ -124,9 +113,6 @@
                             }
                         }
                     }
-                } else {
-                    // No saved theme, use light theme by default
-                    updateFavicon('light');
                 }
             } catch (e) {
                 // Ignore errors if localStorage is not available
