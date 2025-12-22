@@ -109,12 +109,12 @@
                 <span class="burger-line"></span>
             </button>
             <div class="nav-menu" id="navMenu">
-                <a href="/ru/" class="nav-link" data-i18n="nav.home"></a>
-                <a href="/ru/discovery" class="nav-link active" data-i18n="nav.dataDiscovery"></a>
-                <a href="/ru/features" class="nav-link" data-i18n="nav.features"></a>
-                <a href="/ru/use-cases" class="nav-link" data-i18n="nav.useCases"></a>
-                <a href="/ru/download" class="nav-link" data-i18n="nav.download"></a>
-                <a href="https://github.com/angryscan/angrydata-app" class="nav-link" target="_blank" data-i18n="nav.github"></a>
+                <a href="/ru/" class="nav-link">Главная</a>
+                <a href="/ru/discovery" class="nav-link active">Данные</a>
+                <a href="/ru/features" class="nav-link">Возможности</a>
+                <a href="/ru/use-cases" class="nav-link">Примеры</a>
+                <a href="/ru/download" class="nav-link">Скачать</a>
+                <a href="https://github.com/angryscan/angrydata-app" class="nav-link" target="_blank">GitHub</a>
             </div>
             <div class="nav-actions">
                 <div class="language-selector-wrapper">
@@ -168,8 +168,8 @@
     <nav class="breadcrumbs" aria-label="Breadcrumb">
         <div class="container">
             <ol class="breadcrumbs-list">
-                <li class="breadcrumbs-item"><a href="/ru/"><span data-i18n="nav.home"></span></a></li>
-                <li class="breadcrumbs-item" aria-current="page"><span data-i18n="nav.dataDiscovery"></span></li>
+                <li class="breadcrumbs-item"><a href="/ru/"><span>Главная</span></a></li>
+                <li class="breadcrumbs-item" aria-current="page"><span>Данные</span></li>
             </ol>
         </div>
     </nav>
@@ -178,8 +178,8 @@
     <section class="section">
         <div class="container">
             <div class="section-header">
-                <h1 class="section-title" data-i18n="sections.discovery.title"></h1>
-                <p class="section-description" data-i18n="sections.discovery.description"></p>
+                <h1 class="section-title">Обнаружение конфиденциальных данных</h1>
+                <p class="section-description">Angry Data Scanner может обнаруживать различные типы конфиденциальных данных в нескольких категориях</p>
             </div>
 
             <!-- Country Selector -->
@@ -189,35 +189,35 @@
                         <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
                         <path d="M2 12H22M12 2C15 6 15 18 12 22C9 18 9 6 12 2" stroke="currentColor" stroke-width="2"/>
                     </svg>
-                    <span class="country-selector-label" data-i18n="sections.discovery.filterByCountry"></span>
+                    <span class="country-selector-label">Фильтр по стране</span>
                 </div>
                 <div class="country-buttons-group">
                     <button class="country-button active" data-country="all" aria-label="All Countries">
                         <span class="country-flag-emoji">🌍</span>
-                        <span data-i18n="sections.discovery.all"></span>
+                        <span>Все</span>
                     </button>
                     <button class="country-button" data-country="international" aria-label="International">
                         <span class="country-flag-emoji">🌐</span>
-                        <span data-i18n="sections.discovery.international"></span>
+                        <span>Международные</span>
                     </button>
                     <button class="country-button" data-country="RU" aria-label="Russia">
                         <span class="country-flag-emoji">🇷🇺</span>
-                        <span data-i18n="sections.discovery.russia"></span>
+                        <span>Россия</span>
                     </button>
                     <button class="country-button" data-country="US" aria-label="United States">
                         <span class="country-flag-emoji">🇺🇸</span>
-                        <span data-i18n="sections.discovery.unitedStates"></span>
+                        <span>Соединенные Штаты</span>
                     </button>
                     <button class="country-button" data-country="CN" aria-label="China">
                         <span class="country-flag-emoji">🇨🇳</span>
-                        <span data-i18n="sections.discovery.china"></span>
+                        <span>Китай</span>
                     </button>
                 </div>
             </div>
 
             <!-- Personal Data (numbers) -->
             <div class="data-category">
-                <h2 class="category-title" data-i18n="categories.personalDataNumbers"></h2>
+                <h2 class="category-title">Персональные данные (числа)</h2>
                 <div class="table-container">
                     <table class="data-table" data-table="personal-data-numbers">
                         <colgroup>
@@ -228,10 +228,10 @@
                         </colgroup>
                         <thead>
                             <tr>
-                                <th data-i18n="tableHeaders.dataType"></th>
-                                <th data-i18n="tableHeaders.localName"></th>
-                                <th data-i18n="tableHeaders.country"></th>
-                                <th data-i18n="tableHeaders.example"></th>
+                                <th>Тип данных</th>
+                                <th>Локальное название</th>
+                                <th>Страна</th>
+                                <th>Пример</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -243,7 +243,7 @@
 
             <!-- Personal Data (text) -->
             <div class="data-category">
-                <h2 class="category-title" data-i18n="categories.personalDataText"></h2>
+                <h2 class="category-title">Персональные данные (текст)</h2>
                 <div class="table-container">
                     <table class="data-table" data-table="personal-data-text">
                         <colgroup>
@@ -254,10 +254,10 @@
                         </colgroup>
                         <thead>
                             <tr>
-                                <th data-i18n="tableHeaders.dataType"></th>
-                                <th data-i18n="tableHeaders.localName"></th>
-                                <th data-i18n="tableHeaders.country"></th>
-                                <th data-i18n="tableHeaders.example"></th>
+                                <th>Тип данных</th>
+                                <th>Локальное название</th>
+                                <th>Страна</th>
+                                <th>Пример</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -269,7 +269,7 @@
 
             <!-- PCI DSS -->
             <div class="data-category">
-                <h2 class="category-title" data-i18n="categories.pciDss"></h2>
+                <h2 class="category-title">PCI DSS</h2>
                 <div class="table-container">
                     <table class="data-table" data-table="pci-dss">
                         <colgroup>
@@ -278,8 +278,8 @@
                         </colgroup>
                         <thead>
                             <tr>
-                                <th data-i18n="tableHeaders.dataType"></th>
-                                <th data-i18n="tableHeaders.example"></th>
+                                <th>Тип данных</th>
+                                <th>Пример</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -291,7 +291,7 @@
 
             <!-- Banking Secrecy -->
             <div class="data-category">
-                <h2 class="category-title" data-i18n="categories.bankingSecrecy"></h2>
+                <h2 class="category-title">Банковская тайна</h2>
                 <div class="table-container">
                     <table class="data-table" data-table="banking-secrecy">
                         <colgroup>
@@ -301,9 +301,9 @@
                         </colgroup>
                         <thead>
                             <tr>
-                                <th data-i18n="tableHeaders.dataType"></th>
-                                <th data-i18n="tableHeaders.country"></th>
-                                <th data-i18n="tableHeaders.example"></th>
+                                <th>Тип данных</th>
+                                <th>Страна</th>
+                                <th>Пример</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -315,7 +315,7 @@
 
             <!-- Crypto -->
             <div class="data-category">
-                <h2 class="category-title" data-i18n="categories.crypto"></h2>
+                <h2 class="category-title">Криптовалюта</h2>
                 <div class="table-container">
                     <table class="data-table" data-table="crypto">
                         <colgroup>
@@ -324,8 +324,8 @@
                         </colgroup>
                         <thead>
                             <tr>
-                                <th data-i18n="tableHeaders.dataType"></th>
-                                <th data-i18n="tableHeaders.example"></th>
+                                <th>Тип данных</th>
+                                <th>Пример</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -337,7 +337,7 @@
 
             <!-- IT Assets -->
             <div class="data-category">
-                <h2 class="category-title" data-i18n="categories.itAssets"></h2>
+                <h2 class="category-title">IT-активы</h2>
                 <div class="table-container">
                     <table class="data-table" data-table="it-assets">
                         <colgroup>
@@ -346,8 +346,8 @@
                         </colgroup>
                         <thead>
                             <tr>
-                                <th data-i18n="tableHeaders.dataType"></th>
-                                <th data-i18n="tableHeaders.example"></th>
+                                <th>Тип данных</th>
+                                <th>Пример</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -359,13 +359,13 @@
 
             <!-- Custom Signatures -->
             <div class="data-category" data-section="custom-signatures">
-                <h2 class="category-title" data-i18n="categories.customSignatures"></h2>
-                <p class="category-description"><span data-i18n="categories.customSignaturesDesc"></span> <code>Secret</code>, <code>Password</code>, <code>Central bank</code> <span data-i18n="categories.customSignaturesOr"></span></p>
+                <h2 class="category-title">Пользовательские сигнатуры</h2>
+                <p class="category-description"><span>Можно добавить пользовательские сигнатуры поиска данных, используя обычный текст:</span> <code>Secret</code>, <code>Password</code>, <code>Central bank</code> <span>или любой другой.</span></p>
             </div>
 
             <!-- Supported File Types -->
             <div class="data-category">
-                <h2 class="category-title" data-i18n="sections.fileTypes.title"></h2>
+                <h2 class="category-title">Поддерживаемые типы файлов</h2>
                 <div class="table-container">
                     <table class="data-table" data-table="file-types">
                         <colgroup>
@@ -374,8 +374,8 @@
                         </colgroup>
                         <thead>
                             <tr>
-                                <th data-i18n="tableHeaders.fileType"></th>
-                                <th data-i18n="tableHeaders.fileFormat"></th>
+                                <th>Тип файла</th>
+                                <th>Формат файла</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -387,7 +387,7 @@
 
             <!-- Supported Data Sources -->
             <div class="data-category">
-                <h2 class="category-title" data-i18n="sections.dataSources.title"></h2>
+                <h2 class="category-title">Поддерживаемые источники данных</h2>
                 <div class="table-container">
                     <table class="data-table" data-table="data-sources">
                         <colgroup>
@@ -396,8 +396,8 @@
                         </colgroup>
                         <thead>
                             <tr>
-                                <th data-i18n="tableHeaders.connector"></th>
-                                <th data-i18n="tableHeaders.description"></th>
+                                <th>Коннектор</th>
+                                <th>Описание</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -414,18 +414,18 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-top-row">
-                    <p data-i18n="footer.copyright"></p>
+                    <p>© 2025, от admin@angryscan.org</p>
                     <div class="footer-links">
-                        <a href="https://github.com/angryscan/angrydata-app" target="_blank" data-i18n="nav.github"></a>
-                        <a href="mailto:admin@angryscan.org" data-i18n="nav.contactUs"></a>
+                        <a href="https://github.com/angryscan/angrydata-app" target="_blank">GitHub</a>
+                        <a href="mailto:admin@angryscan.org">Связаться с нами</a>
                     </div>
                 </div>
                 <div class="footer-pages">
-                    <a href="/ru/" data-i18n="nav.home"></a>
-                    <a href="/ru/discovery" data-i18n="nav.dataDiscovery"></a>
-                    <a href="/ru/features" data-i18n="nav.features"></a>
-                    <a href="/ru/use-cases" data-i18n="nav.useCases"></a>
-                    <a href="/ru/download" data-i18n="nav.download"></a>
+                    <a href="/ru/">Главная</a>
+                    <a href="/ru/discovery">Данные</a>
+                    <a href="/ru/features">Возможности</a>
+                    <a href="/ru/use-cases">Примеры</a>
+                    <a href="/ru/download">Скачать</a>
                 </div>
             </div>
         </div>
