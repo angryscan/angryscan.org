@@ -48,13 +48,26 @@ const ThemeManager = {
         if (!themeToggle) return;
 
         const html = document.documentElement;
-        const savedTheme = localStorage.getItem(CONSTANTS.THEME.STORAGE_KEY) || CONSTANTS.THEME.LIGHT;
+        // Check for saved theme first, then fall back to system preference
+        const savedTheme = localStorage.getItem(CONSTANTS.THEME.STORAGE_KEY);
+        const initialTheme = savedTheme || this.getSystemTheme();
         
-        this.setTheme(savedTheme);
-        this.updateIcon(savedTheme);
-        this.updateScreenshot(savedTheme);
+        this.setTheme(initialTheme);
+        this.updateIcon(initialTheme);
+        this.updateScreenshot(initialTheme);
         
         themeToggle.addEventListener('click', () => this.toggle());
+    },
+
+    /**
+     * Get system theme preference
+     * @returns {string} System theme ('light' or 'dark')
+     */
+    getSystemTheme() {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            return CONSTANTS.THEME.DARK;
+        }
+        return CONSTANTS.THEME.LIGHT;
     },
 
     /**
