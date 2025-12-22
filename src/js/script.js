@@ -981,7 +981,8 @@ const DataRenderer = {
         // Update system requirements
         const sysReq = document.querySelector('[data-info="system-requirements"]');
         if (sysReq) {
-            sysReq.textContent = `System Requirements: ${CONFIG.systemRequirements}`;
+            const systemRequirementsText = this.getTranslation('sections.download.systemRequirements');
+            sysReq.textContent = systemRequirementsText || `System Requirements: ${CONFIG.systemRequirements}`;
         }
     }
 };
@@ -1349,13 +1350,14 @@ const LanguageManager = {
             if (typeof I18N !== 'undefined' && I18N[lang]) {
                 document.title = I18N[lang].site.title;
             }
-            // Re-render use cases, data sources, custom signatures, IT assets and crypto with new translations
+            // Re-render use cases, data sources, custom signatures, IT assets, crypto and downloads with new translations
             if (typeof DataRenderer !== 'undefined') {
                 DataRenderer.renderUseCases();
                 DataRenderer.renderDataSources();
                 DataRenderer.renderCustomSignatures();
                 DataRenderer.renderItAssets();
                 DataRenderer.renderCrypto();
+                DataRenderer.renderDownloads();
             }
             // Show page after translations are applied (if it was hidden)
             if (document.documentElement.hasAttribute('data-lang-loading')) {
@@ -1838,13 +1840,14 @@ function init() {
             // Language should already be applied, but we ensure data is rendered correctly
             // Only re-render for en/ru - de/fr/es pages are pre-translated
             if (currentLang === 'en' || currentLang === 'ru') {
-                // Re-render use cases, data sources, custom signatures, IT assets and crypto with translations
+                // Re-render use cases, data sources, custom signatures, IT assets, crypto and downloads with translations
                 if (typeof DataRenderer !== 'undefined') {
                     DataRenderer.renderUseCases();
                     DataRenderer.renderDataSources();
                     DataRenderer.renderCustomSignatures();
                     DataRenderer.renderItAssets();
                     DataRenderer.renderCrypto();
+                    DataRenderer.renderDownloads();
                 }
             }
             // For de/fr/es, ensure page is visible (pages are pre-translated, no need to update)
