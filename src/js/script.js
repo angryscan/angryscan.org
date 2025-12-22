@@ -1180,14 +1180,23 @@ const LanguageManager = {
         const currentValue = hiddenSelect.value;
         const currentOption = hiddenSelect.querySelector(`option[value="${currentValue}"]`);
         
-        if (currentOption) {
-            buttonText.textContent = currentOption.textContent;
-            // Extract flag emoji for mobile display (text before first space)
-            const text = currentOption.textContent.trim();
-            const flagPart = text.split(' ')[0]; // Get part before first space (the flag)
-            if (flagPart) {
-                buttonText.setAttribute('data-flag', flagPart);
-            }
+        // Determine assets path (../assets/ for subdirectories, assets/ for root)
+        const path = window.location.pathname;
+        const isSubdirectory = /^\/(ru|es|de|fr)\//.test(path);
+        const assetsPath = isSubdirectory ? '../assets/' : 'assets/';
+        
+        // Language to flag mapping
+        const flagMap = {
+            'en': { file: 'flag-us.svg', alt: 'US', name: 'English' },
+            'ru': { file: 'flag-ru.svg', alt: 'RU', name: 'Русский' },
+            'es': { file: 'flag-es.svg', alt: 'ES', name: 'Español' },
+            'de': { file: 'flag-de.svg', alt: 'DE', name: 'Deutsch' },
+            'fr': { file: 'flag-fr.svg', alt: 'FR', name: 'Français' }
+        };
+        
+        if (currentOption && flagMap[currentValue]) {
+            const flagInfo = flagMap[currentValue];
+            buttonText.innerHTML = `<img src="${assetsPath}${flagInfo.file}" alt="${flagInfo.alt}" class="language-flag-icon"> ${flagInfo.name}`;
         }
         
         // Update selected state in dropdown

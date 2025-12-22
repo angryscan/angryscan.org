@@ -493,6 +493,14 @@ html[lang="fr"] .nav-menu {
     flex-shrink: 0;
 }
 
+.language-flag-icon {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    flex-shrink: 0;
+    vertical-align: middle;
+}
+
 .language-name {
     flex: 1;
     font-size: var(--font-size-sm);
@@ -1697,12 +1705,14 @@ code {
         align-items: center;
         justify-content: center;
     }
-
+    
     .language-selector-text::before {
-        content: attr(data-flag);
-        font-size: 22px;
-        line-height: 1;
-        display: block;
+        display: none; /* Use img tag instead of emoji */
+    }
+    
+    .language-selector-text .language-flag-icon {
+        width: 24px;
+        height: 24px;
     }
 
     .language-selector-arrow {
