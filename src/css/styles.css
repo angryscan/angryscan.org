@@ -182,14 +182,19 @@ body {
     max-width: 100%;
 }
 
-/* Smaller gap for French and Spanish (longer text) */
+/* Smaller gap for French, Spanish, and German (longer text) */
 html[lang="es"] .nav-menu {
     gap: var(--spacing-md);
 }
 
 /* Even smaller gap for French (longest text) */
 html[lang="fr"] .nav-menu {
-    gap: var(--spacing-sm);
+    gap: var(--spacing-xs);
+}
+
+/* Slightly larger gap for German */
+html[lang="de"] .nav-menu {
+    gap: 12px;
 }
 
 .nav-link {
