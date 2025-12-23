@@ -4,6 +4,9 @@
 User-agent: *
 Allow: /
 Disallow: /.well-known/
+Disallow: /assets/
+Disallow: /js/
+Disallow: /css/
 
 # Sitemap
 Sitemap: https://angryscan.org/sitemap.xml
