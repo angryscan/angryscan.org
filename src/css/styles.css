@@ -223,20 +223,13 @@ html[lang="de"] .nav-menu {
     content: '';
     position: absolute;
     bottom: 0;
-    left: var(--spacing-sm);
-    transform: scaleX(0);
-    transform-origin: left;
-    width: calc(100% - calc(var(--spacing-sm) * 2));
-    height: 3px;
-    background: linear-gradient(90deg, var(--color-accent) 0%, var(--color-accent-hover) 50%, transparent 100%);
-    border-radius: 3px;
-    transition: all var(--transition-base);
-    box-shadow: 0 2px 8px rgba(99, 32, 238, 0.3), 0 0 20px rgba(99, 32, 238, 0.1);
-    opacity: 0;
-}
-
-[data-theme="dark"] .nav-link::after {
-    box-shadow: 0 2px 8px rgba(139, 92, 246, 0.4), 0 0 20px rgba(139, 92, 246, 0.15);
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: 80%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-accent) 0%, var(--color-accent-hover) 100%);
+    border-radius: 2px;
+    transition: transform var(--transition-fast);
 }
 
 .nav-link:hover {
@@ -245,13 +238,7 @@ html[lang="de"] .nav-menu {
 }
 
 .nav-link:hover::after {
-    transform: scaleX(1);
-    opacity: 1;
-    box-shadow: 0 2px 12px rgba(99, 32, 238, 0.5), 0 0 24px rgba(99, 32, 238, 0.2);
-}
-
-[data-theme="dark"] .nav-link:hover::after {
-    box-shadow: 0 2px 12px rgba(139, 92, 246, 0.6), 0 0 24px rgba(139, 92, 246, 0.25);
+    transform: translateX(-50%) scaleX(1);
 }
 
 .nav-link.active {
@@ -259,13 +246,7 @@ html[lang="de"] .nav-menu {
 }
 
 .nav-link.active::after {
-    transform: scaleX(1);
-    opacity: 1;
-    box-shadow: 0 2px 12px rgba(99, 32, 238, 0.5), 0 0 24px rgba(99, 32, 238, 0.2);
-}
-
-[data-theme="dark"] .nav-link.active::after {
-    box-shadow: 0 2px 12px rgba(139, 92, 246, 0.6), 0 0 24px rgba(139, 92, 246, 0.25);
+    transform: translateX(-50%) scaleX(1);
 }
 
 .nav-actions {
@@ -2028,12 +2009,14 @@ code {
     .nav-link::after {
         left: var(--spacing-lg);
         transform: scaleX(0);
+        transform-origin: left;
         width: calc(100% - calc(var(--spacing-lg) * 2));
         height: 3px;
-        background: linear-gradient(90deg, transparent 0%, var(--color-accent) 20%, var(--color-accent-hover) 80%, transparent 100%);
+        background: linear-gradient(90deg, var(--color-accent) 0%, var(--color-accent-hover) 50%, transparent 100%);
         box-shadow: 0 2px 8px rgba(99, 32, 238, 0.3), 0 0 20px rgba(99, 32, 238, 0.1);
         border-radius: 3px;
         opacity: 0;
+        transition: all var(--transition-base);
     }
     
     [data-theme="dark"] .nav-link::after {
