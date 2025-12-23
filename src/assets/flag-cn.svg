@@ -1,11 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="900" height="600">
-  <rect x="0" y="0" width="900" height="600" fill="none" stroke="#000" stroke-width="4"/>
-  <path fill="#EE1C25" d="M0 0h900v600H0"/>
-  <g transform="matrix(3 0 0 3 150 150)">
-    <path id="a" d="m0-30 17.634 54.27-46.166-33.54h57.064l-46.166 33.54Z" fill="#FF0"/>
+<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+  <g id="color">
+    <rect x="5" y="17" width="62" height="38" fill="#DE2910"/>
+    <g transform="translate(5,17) scale(1.722, 1.727) translate(0, -7)">
+      <path fill="#FFDE02" d="M11.136 8.977l.736.356.589-.566-.111.81.72.386-.804.144-.144.804-.386-.72-.81.111.566-.589zm4.665 2.941l-.356.735.566.59-.809-.112-.386.721-.144-.805-.805-.144.721-.386-.112-.809.59.566zm-.957 3.779l.268.772.817.017-.651.493.237.783-.671-.467-.671.467.236-.783-.651-.493.817-.017zm-3.708 3.28l.736.356.589-.566-.111.81.72.386-.804.144-.144.804-.386-.72-.81.111.566-.589zM7 10.951l.929 2.671 2.826.058-2.253 1.708.819 2.706L7 16.479l-2.321 1.615.819-2.706-2.253-1.708 2.826-.058z"/>
+    </g>
   </g>
-  <use xlink:href="#a" transform="rotate(23.036 2.784 766.082)"/>
-  <use xlink:href="#a" transform="rotate(45.87 38.201 485.396)"/>
-  <use xlink:href="#a" transform="rotate(69.945 29.892 362.328)"/>
-  <use xlink:href="#a" transform="rotate(20.66 -590.66 957.955)"/>
+  <g id="line">
+    <rect x="5" y="17" width="62" height="38" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+  </g>
 </svg>
