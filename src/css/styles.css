@@ -1314,6 +1314,28 @@ body.translated-rtl {
     filter: drop-shadow(0 2px 6px rgba(139, 92, 246, 0.5));
 }
 
+.country-flag-icon {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    transition: all var(--transition-base);
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+    object-fit: contain;
+}
+
+.country-button:hover:not(.active) .country-flag-icon {
+    transform: rotate(5deg);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.country-button.active .country-flag-icon {
+    filter: drop-shadow(0 2px 6px rgba(99, 32, 238, 0.4));
+}
+
+[data-theme="dark"] .country-button.active .country-flag-icon {
+    filter: drop-shadow(0 2px 6px rgba(139, 92, 246, 0.5));
+}
+
 .country-button span {
     position: relative;
     z-index: 1;
