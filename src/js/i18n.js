@@ -31,7 +31,7 @@ const I18N = {
                 twoClicks: 'Detect sensitive data instantly with just 2 clicks.',
                 noAdmin: 'No admin rights or installation required.',
                 crossPlatform: 'Works seamlessly on Linux macOS and Windows.',
-                privacy: 'All scanning happens locally. Your data never leaves your PC'
+                privacy: 'All scanning happens locally. Your data never leaves your PC.'
             },
             cta: {
                 download: 'Download Now',
@@ -199,7 +199,7 @@ const I18N = {
                 twoClicks: 'Обнаружение конфиденциальных данных за 2 клика.',
                 noAdmin: 'Не требуются права администратора или установка.',
                 crossPlatform: 'Работает на Linux, macOS и Windows.',
-                privacy: 'Все сканирование происходит локально. Данные не покидают ваш компьютер'
+                privacy: 'Все сканирование происходит локально. Данные не покидают ваш компьютер.'
             },
             cta: {
                 download: 'Скачать сейчас',
