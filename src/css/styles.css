@@ -1687,12 +1687,12 @@ code {
 
     .burger-menu {
         display: flex;
-        order: 1;
-        margin-right: var(--spacing-md);
+        order: 3;
+        margin-left: var(--spacing-md);
     }
 
     .nav-actions {
-        order: 3;
+        order: 2;
         gap: var(--spacing-sm);
     }
 
