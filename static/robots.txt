@@ -2,23 +2,35 @@
 # Generated for Angry Data Scanner documentation site
 
 User-agent: *
-Allow: /
 Disallow: /.well-known/
 Disallow: /assets/
 Disallow: /js/
 Disallow: /css/
+Allow: /
 
 # Sitemap
 Sitemap: https://angryscan.org/sitemap.xml
 
 # Allow common bots explicitly
 User-agent: Googlebot
+Disallow: /.well-known/
+Disallow: /assets/
+Disallow: /js/
+Disallow: /css/
 Allow: /
 
 User-agent: Bingbot
+Disallow: /.well-known/
+Disallow: /assets/
+Disallow: /js/
+Disallow: /css/
 Allow: /
 
 User-agent: Yandex
+Disallow: /.well-known/
+Disallow: /assets/
+Disallow: /js/
+Disallow: /css/
 Allow: /
 
 # Crawl delay for polite crawling
