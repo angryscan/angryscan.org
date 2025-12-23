@@ -1694,6 +1694,17 @@ code {
     .nav-actions {
         order: 2;
         gap: var(--spacing-sm);
+        flex-shrink: 0;
+    }
+
+    /* French mobile - prevent brand text from overlapping theme button */
+    html[lang="fr"] .nav-brand {
+        padding-right: var(--spacing-sm);
+        max-width: calc(100% - 120px); /* Reserve space for nav-actions and burger */
+    }
+
+    html[lang="fr"] .brand-text {
+        font-size: 11px;
     }
 
     /* Language selector - only flags on mobile */
