@@ -1688,13 +1688,21 @@ code {
     .burger-menu {
         display: flex;
         order: 3;
-        margin-left: var(--spacing-md);
+        margin-left: var(--spacing-sm);
+        margin-right: var(--spacing-md);
     }
 
     .nav-actions {
         order: 2;
         gap: var(--spacing-sm);
         flex-shrink: 0;
+    }
+
+    /* Smaller gap for French, Spanish, and German versions on mobile */
+    html[lang="es"] .nav-actions,
+    html[lang="fr"] .nav-actions,
+    html[lang="de"] .nav-actions {
+        gap: 2px;
     }
 
     /* French mobile - prevent brand text from overlapping theme button */
