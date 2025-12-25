@@ -24,6 +24,31 @@ export class LanguageManager {
      * Initialize language system
      */
     init() {
+        // Check if we need to redirect to language-specific URL
+        const path = window.location.pathname;
+        const pathMatch = path.match(/^\/(ru|de|fr|es)\//);
+        
+        // If we're on root page (no language prefix) and have saved non-English language, redirect
+        if (!pathMatch) {
+            const savedLanguage = localStorage.getItem('language');
+            if (savedLanguage && savedLanguage !== 'en' && 
+                (savedLanguage === 'ru' || savedLanguage === 'es' || savedLanguage === 'de' || savedLanguage === 'fr')) {
+                // Determine current page name
+                let currentPage = path.split('/').filter(p => p).pop() || '';
+                if (currentPage.endsWith('.html')) {
+                    currentPage = currentPage.replace(/\.html$/, '');
+                }
+                if (!currentPage || currentPage === '' || currentPage === 'index') {
+                    currentPage = '';
+                }
+                
+                // Build redirect URL
+                const redirectUrl = currentPage ? `/${savedLanguage}/${currentPage}` : `/${savedLanguage}/`;
+                window.location.href = redirectUrl;
+                return; // Exit early, page will reload
+            }
+        }
+        
         // Detect language from URL first (has priority)
         const detectedLang = this.detectLanguage();
         
@@ -188,7 +213,7 @@ export class LanguageManager {
     }
 
     /**
-     * Detect language from browser or URL
+     * Detect language from URL, localStorage, or URL parameter
      */
     detectLanguage() {
         // Check URL path for language prefix (/ru/, /de/, /fr/, /es/)
@@ -214,17 +239,8 @@ export class LanguageManager {
         if (langParam && (langParam === 'en' || langParam === 'ru' || langParam === 'es' || langParam === 'de' || langParam === 'fr')) {
             return langParam;
         }
-
-        // Check browser language (only if no saved language preference)
-        if (!savedLanguage) {
-            const browserLang = navigator.language || navigator.userLanguage;
-            if (browserLang.startsWith('ru')) return 'ru';
-            if (browserLang.startsWith('es')) return 'es';
-            if (browserLang.startsWith('de')) return 'de';
-            if (browserLang.startsWith('fr')) return 'fr';
-        }
         
-        return 'en'; // Default to English if browser language is not in our supported languages
+        return 'en'; // Default to English
     }
 
     /**

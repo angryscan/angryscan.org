@@ -482,14 +482,19 @@
             if (!lang) {
                 const savedLang = localStorage.getItem('language');
                 if (savedLang && (savedLang === 'ru' || savedLang === 'es' || savedLang === 'de' || savedLang === 'fr')) {
-                    lang = savedLang;
+                    // Redirect to language-specific URL if saved language is not English
+                    let currentPage = path.split('/').filter(p => p).pop() || '';
+                    if (currentPage.endsWith('.html')) {
+                        currentPage = currentPage.replace(/\.html$/, '');
+                    }
+                    if (!currentPage || currentPage === '' || currentPage === 'index') {
+                        currentPage = '';
+                    }
+                    const redirectUrl = currentPage ? `/${savedLang}/${currentPage}` : `/${savedLang}/`;
+                    window.location.href = redirectUrl;
+                    return; // Exit early, page will reload
                 } else {
-                    const browserLang = navigator.language || navigator.userLanguage;
-                    if (browserLang.startsWith('ru')) lang = 'ru';
-                    else if (browserLang.startsWith('es')) lang = 'es';
-                    else if (browserLang.startsWith('de')) lang = 'de';
-                    else if (browserLang.startsWith('fr')) lang = 'fr';
-                    else lang = 'en';
+                    lang = 'en';
                 }
             }
             
