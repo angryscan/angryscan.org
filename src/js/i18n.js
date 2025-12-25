@@ -8,7 +8,7 @@ const I18N = {
     en: {
         // Site metadata
         site: {
-            title: 'Angry Data Scanner - Sensitive Data Scanner for Mac, Windows and Linux',
+            title: 'Angry Data Scanner - Free Sensitive Data Discovery Tool',
             description: 'Advanced sensitive data discovery tool combining personal data discovery, payment card discovery, and passwords finder in one solution. Comprehensive data detector for compliance and security.'
         },
         // Navigation
@@ -176,7 +176,7 @@ const I18N = {
     ru: {
         // Site metadata
         site: {
-            title: 'Angry Data Scanner - Программа поиска конфиденциальных данных для Mac, Windows и Linux',
+            title: 'Программа поиска данных (сканер данных)',
             description: 'Инструмент поиска данных. С его помощью можно найти персональные данные, данные банковских карт и другие конфиденциальные данные в папках, S3, базах данных, веб-страницах.'
         },
         // Navigation
