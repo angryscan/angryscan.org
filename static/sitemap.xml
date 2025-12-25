@@ -6,35 +6,35 @@
   <url>
     <loc>https://angryscan.org/</loc>
     <lastmod>2025-12-19</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   
   <url>
     <loc>https://angryscan.org/discovery</loc>
     <lastmod>2025-12-19</lastmod>
-    <changefreq>monthly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
     <loc>https://angryscan.org/features</loc>
     <lastmod>2025-12-19</lastmod>
-    <changefreq>monthly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
     <loc>https://angryscan.org/download</loc>
     <lastmod>2025-12-19</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   
   <url>
     <loc>https://angryscan.org/use-cases</loc>
     <lastmod>2025-12-19</lastmod>
-    <changefreq>monthly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   
@@ -42,7 +42,7 @@
   <url>
     <loc>https://angryscan.org/de/</loc>
     <lastmod>2025-12-19</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="de" href="https://angryscan.org/de/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://angryscan.org/"/>
@@ -51,7 +51,7 @@
   <url>
     <loc>https://angryscan.org/de/discovery</loc>
     <lastmod>2025-12-19</lastmod>
-    <changefreq>monthly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="de" href="https://angryscan.org/de/discovery"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://angryscan.org/discovery"/>
@@ -60,7 +60,7 @@
   <url>
     <loc>https://angryscan.org/de/features</loc>
     <lastmod>2025-12-19</lastmod>
-    <changefreq>monthly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="de" href="https://angryscan.org/de/features"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://angryscan.org/features"/>
@@ -69,7 +69,7 @@
   <url>
     <loc>https://angryscan.org/de/download</loc>
     <lastmod>2025-12-19</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="de" href="https://angryscan.org/de/download"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://angryscan.org/download"/>
@@ -78,7 +78,7 @@
   <url>
     <loc>https://angryscan.org/de/use-cases</loc>
     <lastmod>2025-12-19</lastmod>
-    <changefreq>monthly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="de" href="https://angryscan.org/de/use-cases"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://angryscan.org/use-cases"/>
@@ -88,7 +88,7 @@
   <url>
     <loc>https://angryscan.org/es/</loc>
     <lastmod>2025-12-19</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://angryscan.org/es/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://angryscan.org/"/>
@@ -97,7 +97,7 @@
   <url>
     <loc>https://angryscan.org/es/discovery</loc>
     <lastmod>2025-12-19</lastmod>
-    <changefreq>monthly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://angryscan.org/es/discovery"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://angryscan.org/discovery"/>
@@ -106,7 +106,7 @@
   <url>
     <loc>https://angryscan.org/es/features</loc>
     <lastmod>2025-12-19</lastmod>
-    <changefreq>monthly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://angryscan.org/es/features"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://angryscan.org/features"/>
@@ -115,7 +115,7 @@
   <url>
     <loc>https://angryscan.org/es/download</loc>
     <lastmod>2025-12-19</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://angryscan.org/es/download"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://angryscan.org/download"/>
@@ -124,7 +124,7 @@
   <url>
     <loc>https://angryscan.org/es/use-cases</loc>
     <lastmod>2025-12-19</lastmod>
-    <changefreq>monthly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://angryscan.org/es/use-cases"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://angryscan.org/use-cases"/>
@@ -134,7 +134,7 @@
   <url>
     <loc>https://angryscan.org/fr/</loc>
     <lastmod>2025-12-19</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://angryscan.org/fr/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://angryscan.org/"/>
@@ -143,7 +143,7 @@
   <url>
     <loc>https://angryscan.org/fr/discovery</loc>
     <lastmod>2025-12-19</lastmod>
-    <changefreq>monthly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://angryscan.org/fr/discovery"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://angryscan.org/discovery"/>
@@ -152,7 +152,7 @@
   <url>
     <loc>https://angryscan.org/fr/features</loc>
     <lastmod>2025-12-19</lastmod>
-    <changefreq>monthly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://angryscan.org/fr/features"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://angryscan.org/features"/>
@@ -161,7 +161,7 @@
   <url>
     <loc>https://angryscan.org/fr/download</loc>
     <lastmod>2025-12-19</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://angryscan.org/fr/download"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://angryscan.org/download"/>
@@ -170,7 +170,7 @@
   <url>
     <loc>https://angryscan.org/fr/use-cases</loc>
     <lastmod>2025-12-19</lastmod>
-    <changefreq>monthly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://angryscan.org/fr/use-cases"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://angryscan.org/use-cases"/>
@@ -180,7 +180,7 @@
   <url>
     <loc>https://angryscan.org/ru/</loc>
     <lastmod>2025-12-19</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://angryscan.org/ru/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://angryscan.org/"/>
@@ -189,7 +189,7 @@
   <url>
     <loc>https://angryscan.org/ru/discovery</loc>
     <lastmod>2025-12-19</lastmod>
-    <changefreq>monthly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://angryscan.org/ru/discovery"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://angryscan.org/discovery"/>
@@ -198,7 +198,7 @@
   <url>
     <loc>https://angryscan.org/ru/features</loc>
     <lastmod>2025-12-19</lastmod>
-    <changefreq>monthly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://angryscan.org/ru/features"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://angryscan.org/features"/>
@@ -207,7 +207,7 @@
   <url>
     <loc>https://angryscan.org/ru/download</loc>
     <lastmod>2025-12-19</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://angryscan.org/ru/download"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://angryscan.org/download"/>
@@ -216,7 +216,7 @@
   <url>
     <loc>https://angryscan.org/ru/use-cases</loc>
     <lastmod>2025-12-19</lastmod>
-    <changefreq>monthly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://angryscan.org/ru/use-cases"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://angryscan.org/use-cases"/>
