@@ -209,7 +209,12 @@ const CONFIG = {
     systemRequirements: 'Windows, Linux, MacOS | 400MB HDD | 4GB RAM | 1.3Ghz CPU'
 };
 
-// Export for use in other modules
+// Make available globally (loaded as regular script, not module)
+if (typeof window !== 'undefined') {
+    window.CONFIG = CONFIG;
+}
+
+// Export for CommonJS compatibility
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = CONFIG;
 }

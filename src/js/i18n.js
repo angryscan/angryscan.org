@@ -363,7 +363,13 @@ const GOOGLE_TRANSLATE_LANGUAGES = {
     fr: 'fr'  // French
 };
 
-// Export
+// Make available globally (loaded as regular script, not module)
+if (typeof window !== 'undefined') {
+    window.I18N = I18N;
+    window.GOOGLE_TRANSLATE_LANGUAGES = GOOGLE_TRANSLATE_LANGUAGES;
+}
+
+// Export for CommonJS compatibility
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = { I18N, GOOGLE_TRANSLATE_LANGUAGES };
 }
