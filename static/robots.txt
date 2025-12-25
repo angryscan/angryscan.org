@@ -33,6 +33,63 @@ Disallow: /js/
 Disallow: /css/
 Allow: /
 
+# Allow AI bots explicitly
+User-agent: anthropic-ai
+Disallow: /.well-known/
+Disallow: /assets/
+Disallow: /js/
+Disallow: /css/
+Allow: /
+
+User-agent: Claude-Web
+Disallow: /.well-known/
+Disallow: /assets/
+Disallow: /js/
+Disallow: /css/
+Allow: /
+
+User-agent: Google-Extended
+Disallow: /.well-known/
+Disallow: /assets/
+Disallow: /js/
+Disallow: /css/
+Allow: /
+
+User-agent: OAI-SearchBot
+Disallow: /.well-known/
+Disallow: /assets/
+Disallow: /js/
+Disallow: /css/
+Allow: /
+
+User-agent: ChatGPT-User
+Disallow: /.well-known/
+Disallow: /assets/
+Disallow: /js/
+Disallow: /css/
+Allow: /
+
+User-agent: GPTBot
+Disallow: /.well-known/
+Disallow: /assets/
+Disallow: /js/
+Disallow: /css/
+Allow: /
+
+User-agent: PerplexityBot
+Disallow: /.well-known/
+Disallow: /assets/
+Disallow: /js/
+Disallow: /css/
+Allow: /
+
+User-agent: Perplexity‑User
+Disallow: /.well-known/
+Disallow: /assets/
+Disallow: /js/
+Disallow: /css/
+Allow: /
+
 # Crawl delay for polite crawling
 Crawl-delay: 1
 
