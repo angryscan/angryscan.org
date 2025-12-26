@@ -1,47 +1,133 @@
-# Angry Data Scanner Docs
+# Angry Data Scanner Website
 
-This repository powers the public documentation site for the Angry Data Scanner project. The site
-is built with [MkDocs](https://www.mkdocs.org/) and aggregates documentation from two
-companion repositories:
+This repository contains the source code for the [Angry Data Scanner](https://angryscan.org) website.
 
-- [`angrydata-app`](https://github.com/angryscan/angrydata-app)
-- [`angrydata-core`](https://github.com/angryscan/angrydata-core)
+## Project Structure
 
-The aggregation happens automatically in CI and whenever you run the helper script locally.
+```
+.
+├── src/              # Source files for the static website
+│   ├── assets/       # Images, icons, screenshots
+│   ├── css/          # Stylesheets
+│   ├── js/           # JavaScript files (i18n, config, components, script)
+│   └── *.html        # HTML pages
+├── static/           # Static files (robots.txt, BingSiteAuth.xml, etc.)
+├── docs/             # Minimal MkDocs documentation (required for build)
+├── hooks.py          # MkDocs build hook (replaces site with src content)
+├── mkdocs.yml        # MkDocs configuration
+└── requirements.txt  # Python dependencies
+```
 
-## Local development
+## Local Development
 
-1. Clone this repository alongside the other documentation sources:
+1. Clone this repository:
 
    ```bash
    git clone https://github.com/angryscan/angryscan.org.git
+   cd angryscan.org
    ```
 
-2. Install the documentation dependencies:
+2. Install dependencies:
 
    ```bash
    pip install -r requirements.txt
    ```
 
-3. Sync the external documentation and start the local development server:
+3. Generate HTML pages from templates (optional, done automatically during build):
 
    ```bash
-   python scripts/sync_docs.py --clone-repos 
-   python scripts/translate_docs.py
+   # Generate pages for all languages from templates and config.json
+   python3 generate_html.py
+   ```
+
+   This creates pages in `/src/` for all languages (`/ru/`, `/de/`, `/fr/`, `/es/`) using translations from `config.json`.
+
+4. Build the site:
+
+   ```bash
+   mkdocs build
+   ```
+
+   This will copy files from `src/` and `static/` to `site/` directory, including language-specific pages.
+
+4. Start local development server:
+
+   ```bash
    mkdocs serve
    ```
 
-The documentation from each project is copied verbatim into the built site. No pages authored in this
-repository are published—when the site loads, visitors are automatically redirected into the AngryData
-App documentation (as the default entry point), and the navigation exposes each upstream project.
-Language switching happens through the Material UI selector (Russian, Spanish, and German are generated 
-from the English originals); the translated markdown files themselves are hidden from the navigation. 
-To add another language, simply append it to the `i18n.languages` list in `mkdocs.yml`—the helper 
-scripts discover the configuration automatically.
+   Or use a simple HTTP server with URL rewrite support:
 
-## Continuous deployment
+   ```bash
+   python3 dev_server.py
+   ```
 
-GitHub Actions builds and deploys the site to GitHub Pages on every push to the default
-branch. The workflow fetches the latest documentation from the two upstream repositories,
-runs `scripts/sync_docs.py` and `scripts/translate_docs.py`, builds the MkDocs site,
-and publishes the resulting static files.
+   This server supports clean URLs (without .html extension):
+   - `/discovery` → `discovery.html`
+   - `/features` → `features.html`
+   - `/ru/discovery` → `ru/discovery.html`
+   - etc.
+
+   Or use a basic HTTP server (without rewrite support):
+
+   ```bash
+   cd src && python3 -m http.server 8000
+   ```
+
+## Features
+
+- **Multi-language support**: 
+  - English (root pages: `/`, `/index.html`, etc.)
+  - Russian with custom translations (`/ru/`)
+  - German with Google Translate (`/de/`)
+  - French with Google Translate (`/fr/`)
+  - Spanish with Google Translate (`/es/`)
+- **Analytics**: Yandex Metrika, Google Tag Manager, and Bing verification
+- **Modern design**: Responsive, dark/light theme support
+- **Static site**: Fast, SEO-friendly static HTML
+
+## Deployment
+
+### Автоматический деплой (GitHub Pages)
+
+Сайт автоматически деплоится на GitHub Pages при каждом push в ветку `main`:
+
+1. **Настройка GitHub Pages** (один раз):
+   - Перейдите в Settings → Pages
+   - Source: выберите "GitHub Actions"
+   - Сохраните настройки
+
+2. **Процесс деплоя**:
+   - При push в `main` запускается GitHub Actions workflow
+   - Устанавливаются зависимости (`pip install -r requirements.txt`)
+   - Запускается сборка (`mkdocs build`)
+   - `hooks.py` копирует файлы из `src/` и `static/` в `site/`
+   - Содержимое `site/` деплоится на GitHub Pages
+   - Сайт доступен по адресу: `https://<username>.github.io/<repository>/` или `https://angryscan.org/`
+
+3. **Ручной запуск деплоя**:
+   - Перейдите в Actions → Deploy documentation
+   - Нажмите "Run workflow" → "Run workflow"
+
+### Ручной деплой на сервер
+
+Если нужно задеплоить на другой сервер:
+
+```bash
+# 1. Собрать сайт
+mkdocs build
+
+# 2. Скопировать содержимое папки site/ на сервер
+# Например, через rsync:
+rsync -avz --delete site/ user@server:/var/www/html/
+
+# Или через scp:
+scp -r site/* user@server:/var/www/html/
+```
+
+### Альтернативные варианты хостинга
+
+- **Netlify**: подключите репозиторий, укажите build command: `mkdocs build`, publish directory: `site`
+- **Vercel**: аналогично Netlify
+- **Cloudflare Pages**: подключите репозиторий, укажите build command и output directory
+- **Любой статический хостинг**: просто загрузите содержимое папки `site/` после сборки

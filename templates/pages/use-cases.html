@@ -1,0 +1,93 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<!-- Breadcrumbs -->
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+    <div class="container">
+        <ol class="breadcrumbs-list">
+            <li class="breadcrumbs-item"><a href="{{ get_page_url('index', lang) }}"><span data-i18n="nav.home">{{ t('nav.home') }}</span></a></li>
+            <li class="breadcrumbs-item" aria-current="page"><span data-i18n="nav.use_cases">{{ t('nav.use_cases') }}</span></a></li>
+        </ol>
+    </div>
+</nav>
+
+<!-- Use Cases Section -->
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <h1 class="section-title" data-i18n="sections.use_cases.title">{{ t('sections.use_cases.title') }}</h1>
+            <p class="section-description" data-i18n="sections.use_cases.description">{{ t('sections.use_cases.description') }}</p>
+        </div>
+        
+        <div class="use-cases" data-section="use-cases">
+            {% set use_cases_list = translations.get('sections', {}).get('use_cases', {}).get('cases', []) or data.get('use_cases', []) %}
+            {% for use_case in use_cases_list %}
+            <div class="use-case-item">
+                {% set icon_index = loop.index0 %}
+                {% if icon_index == 0 %}
+                <svg class="use-case-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 7V19C3 19.5304 3.21071 20.0391 3.58579 20.4142C3.96086 20.7893 4.46957 21 5 21H19C19.5304 21 20.0391 20.7893 20.4142 20.4142C20.7893 20.0391 21 19.5304 21 19V9C21 8.46957 20.7893 7.96086 20.4142 7.58579C20.0391 7.21071 19.5304 7 19 7H12L10 5H5C4.46957 5 3.96086 5.21071 3.58579 5.58579C3.21071 5.96086 3 6.46957 3 7Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="15" cy="13" r="3" stroke="currentColor" stroke-width="2"/>
+                    <path d="M17 15L19 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                {% elif icon_index == 1 %}
+                <svg class="use-case-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="2" y="6" width="20" height="12" rx="2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 10H22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                {% elif icon_index == 2 %}
+                <svg class="use-case-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L4 5V11C4 16.55 7.16 21.74 12 23C16.84 21.74 20 16.55 20 11V5L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                {% elif icon_index == 3 %}
+                <svg class="use-case-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 7V19C3 19.5304 3.21071 20.0391 3.58579 20.4142C3.96086 20.7893 4.46957 21 5 21H19C19.5304 21 20.0391 20.7893 20.4142 20.4142C20.7893 20.0391 21 19.5304 21 19V9C21 8.46957 20.7893 7.96086 20.4142 7.58579C20.0391 7.21071 19.5304 7 19 7H12L10 5H5C4.46957 5 3.96086 5.21071 3.58579 5.58579C3.21071 5.96086 3 6.46957 3 7Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                {% elif icon_index == 4 %}
+                <svg class="use-case-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="2" y="4" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 18H22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M6 22H18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                {% else %}
+                <svg class="use-case-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <ellipse cx="12" cy="5" rx="9" ry="3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M3 5V19C3 19.5304 6.13401 22 12 22C17.866 22 21 19.5304 21 19V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M3 12C3 12.5304 6.13401 15 12 15C17.866 15 21 12.5304 21 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                {% endif %}
+                <p>{{ use_case }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Who Should Use Section -->
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title" data-i18n="sections.use_cases.who_should_use">{{ t('sections.use_cases.who_should_use') }}</h2>
+        </div>
+        
+        <div class="who-should-use-grid">
+            <div class="who-should-use-card">
+                <h3 data-i18n="sections.use_cases.security_teams">{{ t('sections.use_cases.security_teams') }}</h3>
+                <p data-i18n="sections.use_cases.security_teams_desc">{{ t('sections.use_cases.security_teams_desc') }}</p>
+            </div>
+            <div class="who-should-use-card">
+                <h3 data-i18n="sections.use_cases.compliance_officers">{{ t('sections.use_cases.compliance_officers') }}</h3>
+                <p data-i18n="sections.use_cases.compliance_officers_desc">{{ t('sections.use_cases.compliance_officers_desc') }}</p>
+            </div>
+            <div class="who-should-use-card">
+                <h3 data-i18n="sections.use_cases.developers">{{ t('sections.use_cases.developers') }}</h3>
+                <p data-i18n="sections.use_cases.developers_desc">{{ t('sections.use_cases.developers_desc') }}</p>
+            </div>
+            <div class="who-should-use-card">
+                <h3 data-i18n="sections.use_cases.forensics">{{ t('sections.use_cases.forensics') }}</h3>
+                <p data-i18n="sections.use_cases.forensics_desc">{{ t('sections.use_cases.forensics_desc') }}</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,122 @@
+/* ============================================================================
+   Download Section
+   ============================================================================ */
+
+.download-section {
+    background: var(--color-bg-secondary);
+}
+
+.download-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.download-card {
+    background: var(--color-bg-primary);
+    padding: var(--spacing-xl) var(--spacing-lg);
+    border-radius: var(--border-radius-xl);
+    border: 1px solid var(--color-border);
+    transition: all var(--transition-base);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="dark"] .download-card {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.download-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--transition-base);
+}
+
+.download-card:hover::before {
+    transform: scaleX(1);
+}
+
+.download-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 32px rgba(99, 32, 238, 0.15), 0 4px 12px rgba(0, 0, 0, 0.08);
+    border-color: var(--color-accent);
+}
+
+[data-theme="dark"] .download-card:hover {
+    box-shadow: 0 12px 32px rgba(139, 92, 246, 0.2), 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.download-platform {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+}
+
+.platform-icon {
+    width: 40px;
+    height: 40px;
+    color: var(--color-accent);
+    transition: all var(--transition-base);
+}
+
+.download-card:hover .platform-icon {
+    transform: scale(1.1);
+    filter: drop-shadow(0 4px 8px rgba(99, 32, 238, 0.3));
+}
+
+[data-theme="dark"] .download-card:hover .platform-icon {
+    filter: drop-shadow(0 4px 8px rgba(139, 92, 246, 0.4));
+}
+
+.platform-name {
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    transition: color var(--transition-fast);
+}
+
+.download-card:hover .platform-name {
+    color: var(--color-accent);
+}
+
+.download-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.download-link {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md) var(--spacing-md);
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-lg);
+    color: var(--color-text-primary);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: var(--font-size-base);
+    transition: all var(--transition-fast);
+}
+
+.download-link:hover {
+    background: var(--color-bg-tertiary);
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+}
+
+.download-link svg {
+    width: 18px;
+    height: 18px;
+}
+

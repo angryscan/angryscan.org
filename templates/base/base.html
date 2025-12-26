@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}" translate="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google" content="notranslate">
+    <!-- Primary Meta Tags -->
+    <title>{{ page_meta.title if page_meta else t('site.title') }}</title>
+    <meta name="description" content="{{ page_meta.description if page_meta else t('site.description') }}">
+    <meta name="keywords" content="{% block keywords %}{{ page_meta.keywords if page_meta else 'data scanner, PII discovery, sensitive data, PCI DSS, data protection, free data scanner' }}{% endblock %}">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ site_config.base_url }}{{ page_path }}">
+    <meta property="og:title" content="{{ page_meta.title if page_meta else t('site.title') }}">
+    <meta property="og:description" content="{{ page_meta.description if page_meta else t('site.description') }}">
+    <meta property="og:image" content="{{ site_config.base_url }}/assets/screenshot_light.png">
+    <meta property="og:locale" content="{{ languages[lang].locale }}">
+    {% for lcode, linfo in languages.items() %}
+        {% if lcode != lang %}
+    <meta property="og:locale:alternate" content="{{ linfo.locale }}">
+        {% endif %}
+    {% endfor %}
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ site_config.base_url }}{{ page_path }}">
+    <meta property="twitter:title" content="{{ page_meta.title if page_meta else t('site.title') }}">
+    <meta property="twitter:description" content="{{ page_meta.description if page_meta else t('site.description') }}">
+    <meta property="twitter:image" content="{{ site_config.base_url }}/assets/screenshot_light.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ site_config.base_url }}{{ page_path }}">
+    
+    <!-- Hreflang tags for multilingual SEO -->
+    {% for lcode, linfo in languages.items() %}
+    <link rel="alternate" hreflang="{{ lcode }}" href="{{ site_config.base_url }}{{ get_page_url(page_name, lcode) }}">
+    {% endfor %}
+    <link rel="alternate" hreflang="x-default" href="{{ site_config.base_url }}/">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ asset_path }}favicon_light_tab.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset_path }}favicon_light_tab.ico">
+    <link rel="apple-touch-icon" href="{{ asset_path }}favicon_light.ico">
+    <link rel="stylesheet" href="{% if lang == 'en' %}css/styles.css{% else %}../css/styles.css{% endif %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id={{ site_config.analytics.yandex_metrika_id }}', 'ym');
+
+        ym({{ site_config.analytics.yandex_metrika_id }}, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/{{ site_config.analytics.yandex_metrika_id }}" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','{{ site_config.analytics.google_tag_manager_id }}');
+    </script>
+    <!-- End Google Tag Manager -->
+    
+    <!-- BING -->
+    <meta name="msvalidate.01" content="{{ site_config.analytics.bing_verify }}" />
+    <!-- END BING -->
+    
+    <!-- Structured Data (Schema.org) -->
+    {% block structured_data %}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Angry Data Scanner",
+      "applicationCategory": "SecurityApplication",
+      "operatingSystem": "Windows, Linux, macOS",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "{{ t('site.description') }}",
+      "url": "{{ site_config.base_url }}{{ page_path }}",
+      "inLanguage": "{{ lang }}",
+      "downloadUrl": "{{ site_config.github_url }}/releases",
+      "author": {
+        "@type": "Organization",
+        "name": "Angry Data Scanner",
+        "url": "{{ site_config.base_url }}"
+      }
+    }
+    </script>
+    {% endblock %}
+    
+    <!-- Inline script to apply theme immediately before page render to avoid flash -->
+    <script>
+        // Apply theme synchronously before page renders to avoid flash
+        (function() {
+            try {
+                const savedTheme = localStorage.getItem('theme');
+                
+                if (savedTheme) {
+                    document.documentElement.setAttribute('data-theme', savedTheme);
+                    
+                    // Update screenshot src immediately if dark theme (before image loads)
+                    if (savedTheme === 'dark') {
+                        // Function to update screenshot src
+                        const updateScreenshotSrc = function() {
+                            const screenshot = document.getElementById('heroScreenshot');
+                            if (screenshot) {
+                                const darkSrc = screenshot.getAttribute('data-dark');
+                                if (darkSrc) {
+                                    screenshot.src = darkSrc;
+                                    // Show image after it loads
+                                    screenshot.onload = function() {
+                                        screenshot.style.opacity = '1';
+                                    };
+                                    // If already loaded, show immediately
+                                    if (screenshot.complete) {
+                                        screenshot.style.opacity = '1';
+                                    }
+                                }
+                            }
+                        };
+                        
+                        // Try immediately if DOM is ready, otherwise wait for DOMContentLoaded
+                        if (document.readyState === 'loading') {
+                            document.addEventListener('DOMContentLoaded', updateScreenshotSrc);
+                        } else {
+                            updateScreenshotSrc();
+                        }
+                    } else {
+                        // For light theme, show image immediately
+                        const showScreenshot = function() {
+                            const screenshot = document.getElementById('heroScreenshot');
+                            if (screenshot) {
+                                if (screenshot.complete) {
+                                    screenshot.style.opacity = '1';
+                                } else {
+                                    screenshot.onload = function() {
+                                        screenshot.style.opacity = '1';
+                                    };
+                                }
+                            }
+                        };
+                        if (document.readyState === 'loading') {
+                            document.addEventListener('DOMContentLoaded', showScreenshot);
+                        } else {
+                            showScreenshot();
+                        }
+                    }
+                }
+            } catch (e) {
+                // Ignore errors if localStorage is not available
+            }
+        })();
+    </script>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ site_config.analytics.google_tag_manager_id }}"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    
+    {% include 'components/navigation.html' %}
+    
+    {% block content %}{% endblock %}
+    
+    {% include 'components/footer.html' %}
+    
+    <!-- Lightbox Modal -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose" aria-label="Close lightbox">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+        <div class="lightbox-content">
+            <img 
+                src="{{ asset_path }}screenshot_light.png" 
+                alt="Angry Data Scanner Interface" 
+                class="lightbox-image"
+                id="lightboxScreenshot"
+                data-light="{{ asset_path }}screenshot_light.png"
+                data-dark="{{ asset_path }}screenshot_dark.png"
+            >
+        </div>
+    </div>
+
+    <!-- Inline script to apply translations immediately before page render -->
+    <script>
+        // Apply translations synchronously before page renders to avoid flicker
+        (function() {
+            // Detect language from URL or localStorage
+            const path = window.location.pathname;
+            const pathMatch = path.match(/^\/(ru|de|fr|es)\//);
+            let lang = pathMatch ? pathMatch[1] : null;
+            
+            if (!lang) {
+                const savedLang = localStorage.getItem('language');
+                if (savedLang && (savedLang === 'ru' || savedLang === 'es' || savedLang === 'de' || savedLang === 'fr')) {
+                    // Redirect to language-specific URL if saved language is not English
+                    let currentPage = path.split('/').filter(p => p).pop() || '';
+                    if (currentPage.endsWith('.html')) {
+                        currentPage = currentPage.replace(/\.html$/, '');
+                    }
+                    if (!currentPage || currentPage === '' || currentPage === 'index') {
+                        currentPage = '';
+                    }
+                    const redirectUrl = currentPage ? `/${savedLang}/${currentPage}` : `/${savedLang}/`;
+                    window.location.href = redirectUrl;
+                    return; // Exit early, page will reload
+                } else {
+                    lang = 'en';
+                }
+            }
+            
+            // Hide body until translations are applied (only for ru, en)
+            if (lang === 'ru' || lang === 'en') {
+                document.documentElement.style.visibility = 'hidden';
+                document.documentElement.setAttribute('data-lang-loading', lang);
+            }
+        })();
+    </script>
+    
+    <!-- Scripts -->
+    <!-- Inline translations and config from config.json -->
+    <script>
+        // Embed translations from config.json into window.I18N
+        (function() {
+            const translations = {{ i18n_json | safe }};
+            window.I18N = translations;
+        })();
+        
+        // Embed config from config.json into window.CONFIG
+        (function() {
+            const config = {{ config_json | safe }};
+            window.CONFIG = config;
+        })();
+    </script>
+    <script type="module" src="{% if lang == 'en' %}js/script.js{% else %}../js/script.js{% endif %}"></script>
+</body>
+</html>
+
