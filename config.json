@@ -1,0 +1,1488 @@
+{
+  "site_config": {
+    "github_url": "https://github.com/angryscan/angrydata-app",
+    "email": "admin@angryscan.org",
+    "base_url": "https://angryscan.org",
+    "analytics": {
+      "yandex_metrika_id": "104860635",
+      "google_tag_manager_id": "GTM-WSLS4F4G",
+      "bing_verify": "2EF28BCEF4D8F18C669E8DB8C238B4C8"
+    }
+  },
+  "data": {
+    "personal_data_numbers": [
+      {
+        "type": "Phone number",
+        "local_name": "-",
+        "country": "RU",
+        "example": "+7 926 3847291"
+      },
+      {
+        "type": "Phone number",
+        "local_name": "-",
+        "country": "US",
+        "example": "+1 212 5550198"
+      },
+      {
+        "type": "Taxpayer number",
+        "local_name": "ИНН",
+        "country": "RU",
+        "example": "7707083893"
+      },
+      {
+        "type": "Taxpayer number",
+        "local_name": "SSN",
+        "country": "US",
+        "example": "536-90-4399"
+      },
+      {
+        "type": "Taxpayer number",
+        "local_name": "RIN",
+        "country": "CN",
+        "example": "110101199003078912"
+      },
+      {
+        "type": "Passport",
+        "local_name": "-",
+        "country": "RU",
+        "example": "4505 857555"
+      },
+      {
+        "type": "Passport",
+        "local_name": "-",
+        "country": "US",
+        "example": "847293641"
+      },
+      {
+        "type": "Pension insurance number",
+        "local_name": "СНИЛС",
+        "country": "RU",
+        "example": "234-567-890 12"
+      },
+      {
+        "type": "Medical insurance number",
+        "local_name": "ОМС",
+        "country": "RU",
+        "example": "9876543210987654"
+      },
+      {
+        "type": "Medical insurance number",
+        "local_name": "Medicare",
+        "country": "US",
+        "example": "1A2B3C4D5E"
+      },
+      {
+        "type": "Car insurance number",
+        "local_name": "полис ОСАГО",
+        "country": "RU",
+        "example": "ААА3847291847"
+      },
+      {
+        "type": "Driver license",
+        "local_name": "Водительские права",
+        "country": "RU",
+        "example": "77АВ987654"
+      },
+      {
+        "type": "Military ID",
+        "local_name": "Удостоверение личности военнослужащего",
+        "country": "RU",
+        "example": "3847291847"
+      },
+      {
+        "type": "Birthday",
+        "local_name": "-",
+        "country": "-",
+        "example": "15.03.1985"
+      },
+      {
+        "type": "VIN",
+        "local_name": "-",
+        "country": "-",
+        "example": "1HGBH41JXMN109186"
+      }
+    ],
+    "personal_data_text": [
+      {
+        "type": "Full name",
+        "local_name": "ФИО",
+        "country": "RU",
+        "example": "Иван Иванович Иванов"
+      },
+      {
+        "type": "Full name",
+        "local_name": "Full name",
+        "country": "US",
+        "example": "John Smith"
+      },
+      {
+        "type": "E-mail",
+        "local_name": "-",
+        "country": "-",
+        "example": "captainbull@gmail.com"
+      },
+      {
+        "type": "Address",
+        "local_name": "Адрес",
+        "country": "RU",
+        "example": "Москва, ул. Ленина, д. 1"
+      },
+      {
+        "type": "Login",
+        "local_name": "-",
+        "country": "-",
+        "example": "username"
+      },
+      {
+        "type": "Password",
+        "local_name": "-",
+        "country": "-",
+        "example": "password123"
+      }
+    ],
+    "pci_dss": [
+      {
+        "type": "Payment card number",
+        "example": "4400 5678 9012 3456"
+      },
+      {
+        "type": "CVV",
+        "example": "456"
+      }
+    ],
+    "banking_secrecy": [
+      {
+        "type": "Bank account (Individual)",
+        "country": "RU",
+        "example": "408 028 103 3 5300 5405 83"
+      },
+      {
+        "type": "Bank account (Legal entity)",
+        "country": "RU",
+        "example": "407 028 103 3 5300 5405 83"
+      }
+    ],
+    "it_assets": [
+      {
+        "type": "IPv4",
+        "example": "192.168.1.1"
+      },
+      {
+        "type": "IPv6",
+        "example": "2001:db8::1"
+      },
+      {
+        "type": "Source code files",
+        "example": "Finds files with source-code. Source code should be placed in git repository."
+      },
+      {
+        "type": "TLS certificates",
+        "example": "Finds folders with the most amount of TLS certificates"
+      },
+      {
+        "type": "Hash data",
+        "example": "SHA-256, MD5, NTLM (NT hash), SHA-1, SHA-512"
+      }
+    ],
+    "crypto": [
+      {
+        "type": "Crypto wallet",
+        "example": "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"
+      },
+      {
+        "type": "Crypto seed phrase",
+        "example": "A sequence of 12 to 24 words from the BIP39 standard wordlist, used for cryptographic wallet recovery and key derivation"
+      }
+    ],
+    "custom_signatures": {
+      "description": "It is possible to add custom data search signatures using plain text:",
+      "examples": [
+        "Secret",
+        "Password",
+        "Central bank"
+      ]
+    },
+    "file_types": [
+      {
+        "category": "MS Office (tables)",
+        "formats": ".xlsx .xls"
+      },
+      {
+        "category": "MS Office (text)",
+        "formats": ".docx .doc"
+      },
+      {
+        "category": "MS Office (presentation)",
+        "formats": ".pptx .potx .ppsx .pptm .ppt .pps .pot"
+      },
+      {
+        "category": "Open Office (tables)",
+        "formats": ".ods"
+      },
+      {
+        "category": "Open Office (text)",
+        "formats": ".odt"
+      },
+      {
+        "category": "Open Office (presentation)",
+        "formats": ".odp .otp"
+      },
+      {
+        "category": "Adobe",
+        "formats": ".pdf"
+      },
+      {
+        "category": "Archives",
+        "formats": ".zip .rar"
+      },
+      {
+        "category": "Plain text",
+        "formats": ".txt .csv .xml .json .log"
+      }
+    ],
+    "data_sources": [
+      {
+        "connector": "Network Folder",
+        "description": "Scans files on remote directory like Windows environment"
+      },
+      {
+        "connector": "HDD/SDD",
+        "description": "Scan local hard drive"
+      },
+      {
+        "connector": "S3",
+        "description": "Scan files in S3"
+      },
+      {
+        "connector": "HTTP/HTTPS",
+        "description": "Scans web site content"
+      }
+    ],
+    "features": [
+      {
+        "title_key": "features.ranking.title",
+        "description_key": "features.ranking.description",
+        "icon": "check"
+      },
+      {
+        "title_key": "features.history.title",
+        "description_key": "features.history.description",
+        "icon": "history"
+      },
+      {
+        "title_key": "features.export.title",
+        "description_key": "features.export.description",
+        "icon": "download"
+      },
+      {
+        "title_key": "features.schedule.title",
+        "description_key": "features.schedule.description",
+        "icon": "clock"
+      },
+      {
+        "title_key": "features.matchers.title",
+        "description_key": "features.matchers.description",
+        "icon": "settings"
+      },
+      {
+        "title_key": "features.formats.title",
+        "description_key": "features.formats.description",
+        "icon": "file"
+      }
+    ],
+    "downloads": {
+      "windows": [
+        {
+          "text": "Setup x64",
+          "href": "https://github.com/angryscan/angrydata-app/releases/latest/download/angry-data-scanner.exe"
+        },
+        {
+          "text": "Portable x64",
+          "href": "https://github.com/angryscan/angrydata-app/releases/latest/download/angry-data-scanner-1.5.0-windows-amd64.zip"
+        }
+      ],
+      "linux": [
+        {
+          "text": "DEB x64",
+          "href": "https://github.com/angryscan/angrydata-app/releases/latest/download/angry-data-scanner_1.5.0_amd64.deb"
+        },
+        {
+          "text": "Portable x64",
+          "href": "https://github.com/angryscan/angrydata-app/releases/latest/download/angry-data-scanner-1.5.0-linux-amd64.tar.gz"
+        }
+      ],
+      "macos": [
+        {
+          "text": "macOS x64",
+          "href": "https://github.com/angryscan/angrydata-app/releases/latest/download/angry-data-scanner-1.5.0-mac-amd64.zip"
+        },
+        {
+          "text": "macOS ARM64",
+          "href": "https://github.com/angryscan/angrydata-app/releases/latest/download/angry-data-scanner-1.5.0-mac-aarch64.zip"
+        }
+      ]
+    },
+    "system_requirements": "Windows, Linux, MacOS | 400MB HDD | 4GB RAM | 1.3Ghz CPU",
+    "use_cases": [
+      "A leak hunting team scans network folder and ensure that it does not contain source code",
+      "An employee finds and deletes files containing card numbers to comply with PCI DSS",
+      "A banking employee scans network folder to ensure that it does not contain PII of VIP clients",
+      "A boss scans a shared folder of the sales team so they don't have client contacts there",
+      "Law enforcements need to discover a traces of cryptocurrency on a laptop",
+      "A cybersecurity officer need to validate that the database does not contain a personal data"
+    ]
+  },
+  "translations": {
+    "en": {
+      "site": {
+        "title": "Angry Data Scanner - Free Sensitive Data Discovery Tool",
+        "description": "Advanced sensitive data discovery tool combining personal data discovery, payment card discovery, and passwords finder in one solution. Comprehensive data detector for compliance and security."
+      },
+      "nav": {
+        "home": "Home",
+        "data_discovery": "Data Discovery",
+        "features": "Features",
+        "use_cases": "Use Cases",
+        "download": "Download",
+        "github": "GitHub",
+        "contact_us": "Contact us"
+      },
+      "hero": {
+        "badge": "Free Open Source",
+        "title": "Sensitive Data Discovery Tool",
+        "description": "Angry Data Scanner is a free sensitive data discovery tool designed to automatically find PII (Personally Identifiable Information), PHI (Protected Health Information) and intellectual property using advanced pattern matching. Perform unified data searches across local folders, web pages, AWS S3 buckets, and databases.",
+        "features": {
+          "simple": "Intuitive design meant for speed and ease of use.",
+          "two_clicks": "Detect sensitive data instantly with just 2 clicks.",
+          "no_admin": "No admin rights or installation required.",
+          "cross_platform": "Works seamlessly on Linux macOS and Windows.",
+          "privacy": "All scanning happens locally. Your data never leaves your PC."
+        },
+        "cta": {
+          "download": "Download Now",
+          "github": "View on GitHub"
+        }
+      },
+      "sections": {
+        "discovery": {
+          "title": "Sensitive data discovery",
+          "description": "Angry Data Scanner can detect various types of sensitive data across multiple categories",
+          "filter_by_country": "Filter by country",
+          "all": "All",
+          "international": "International",
+          "russia": "Russia",
+          "united_states": "United States",
+          "china": "China"
+        },
+        "file_types": {
+          "title": "Supported file types"
+        },
+        "data_sources": {
+          "title": "Supported data sources",
+          "sources": [
+            {
+              "connector": "Network Folder",
+              "description": "Scans files on remote directory like Windows environment"
+            },
+            {
+              "connector": "HDD/SDD",
+              "description": "Scan local hard drive"
+            },
+            {
+              "connector": "S3",
+              "description": "Scan files in S3"
+            },
+            {
+              "connector": "HTTP/HTTPS",
+              "description": "Scans web site content"
+            }
+          ]
+        },
+        "features": {
+          "title": "Key features",
+          "description": "Discover the powerful capabilities that make Angry Data Scanner the ideal solution for sensitive data discovery"
+        },
+        "use_cases": {
+          "title": "Real life use cases",
+          "description": "Discover how organizations across different industries use Angry Data Scanner to protect sensitive data and ensure compliance",
+          "cases": [
+            "A leak hunting team scans network folder and ensure that it does not contain source code",
+            "An employee finds and deletes files containing card numbers to comply with PCI DSS",
+            "A banking employee scans network folder to ensure that it does not contain PII of VIP clients",
+            "A boss scans a shared folder of the sales team so they don't have client contacts there",
+            "Law enforcements need to discover a traces of cryptocurrency on a laptop",
+            "A cybersecurity officer need to validate that the database does not contain a personal data"
+          ],
+          "who_should_use": "Who Should Use Angry Data Scanner?",
+          "security_teams": "Security Teams",
+          "security_teams_desc": "Conduct security audits, identify data leaks, and ensure sensitive information is properly protected across your infrastructure.",
+          "compliance_officers": "Compliance Officers",
+          "compliance_officers_desc": "Ensure compliance with regulations like GDPR, PCI DSS, HIPAA, and other data protection standards.",
+          "developers": "Developers & DevOps",
+          "developers_desc": "Scan repositories and infrastructure to prevent accidental exposure of sensitive data in code or configurations.",
+          "forensics": "Forensics & Law Enforcement",
+          "forensics_desc": "Discover traces of sensitive data, cryptocurrency, and other evidence during digital investigations."
+        },
+        "download": {
+          "title": "Download",
+          "system_requirements": "System Requirements: Windows, Linux, macOS | 400MB HDD | 4GB RAM | 1.3Ghz CPU",
+          "cta_description": "Download Angry Data Scanner for Windows, Linux, or macOS. No admin rights required.",
+          "cta_button": "Download Now",
+          "getting_started": "Getting Started",
+          "getting_started_desc": "Quick start guide to help you begin using Angry Data Scanner",
+          "step1": {
+            "title": "Download",
+            "description": "Download the appropriate version for your operating system from the links above."
+          },
+          "step2": {
+            "title": "Install or Extract",
+            "description": "Run the installer (Windows/macOS) or extract the portable version. No admin rights required."
+          },
+          "step3": {
+            "title": "Start Scanning",
+            "description": "Launch the application, select your data source, and start scanning. Results appear instantly."
+          }
+        },
+        "quick_links": {
+          "title": "Explore More",
+          "description": "Discover all capabilities and features of Angry Data Scanner",
+          "discovery": "PII, PCI DSS, banking data, crypto wallets, and more",
+          "features": "Ranking, scheduling, export, and configurable matchers",
+          "use_cases": "Compliance, security audits, and data protection",
+          "download": "Windows, Linux, macOS - Get started now"
+        }
+      },
+      "common": {
+        "search": "Search"
+      },
+      "categories": {
+        "personal_data_numbers": "personal data (numbers)",
+        "personal_data_text": "personal data (text)",
+        "pci_dss": "PCI DSS data",
+        "banking_secrecy": "banking secrecy",
+        "crypto": "cryptocurrency",
+        "it_assets": "IT assets",
+        "custom_signatures": "custom signatures",
+        "custom_signatures_desc": "It is possible to add custom data search signatures using plain text:",
+        "custom_signatures_or": "or any other.",
+        "personal_data_numbers_title": "Search personal data (numbers)",
+        "personal_data_text_title": "Search personal data (text)",
+        "pci_dss_title": "Search PCI DSS data",
+        "banking_secrecy_title": "Search banking secrecy",
+        "crypto_title": "Search cryptocurrency",
+        "it_assets_title": "Search IT assets",
+        "custom_signatures_title": "Search custom signatures"
+      },
+      "table_headers": {
+        "data_type": "Data type",
+        "local_name": "Local name",
+        "country": "Country",
+        "example": "Example",
+        "file_type": "File Type",
+        "file_format": "File Format",
+        "connector": "Connector",
+        "description": "Description"
+      },
+      "features": {
+        "ranking": {
+          "title": "Ranking",
+          "description": "Scanner shows high-value files first"
+        },
+        "history": {
+          "title": "View scanning history",
+          "description": "Track all your previous scans"
+        },
+        "export": {
+          "title": "Export results",
+          "description": "Download results in a CSV file"
+        },
+        "schedule": {
+          "title": "Schedule scans",
+          "description": "Automate your scanning process"
+        },
+        "matchers": {
+          "title": "Configurable matchers",
+          "description": "Configure PII, PCI DSS and other matchers"
+        },
+        "formats": {
+          "title": "Multiple file formats",
+          "description": "Configure file formats (pdf, excel, etc.)"
+        }
+      },
+      "downloads": {
+        "windows": {
+          "setup": "Setup x64",
+          "portable": "Portable x64"
+        },
+        "linux": {
+          "deb": "DEB x64",
+          "portable": "Portable x64"
+        },
+        "macos": {
+          "x64": "macOS x64",
+          "arm64": "macOS ARM64"
+        }
+      },
+      "footer": {
+        "copyright": "© 2025, by admin@angryscan.org"
+      },
+      "empty_message": "No data available for selected country",
+      "it_assets": [
+        {
+          "type": "IPv4",
+          "example": "192.168.1.1"
+        },
+        {
+          "type": "IPv6",
+          "example": "2001:db8::1"
+        },
+        {
+          "type": "Source code files",
+          "example": "Finds files with source-code. Source code should be placed in git repository."
+        },
+        {
+          "type": "TLS certificates",
+          "example": "Finds folders with the most amount of TLS certificates"
+        },
+        {
+          "type": "Hash data",
+          "example": "SHA-256, MD5, NTLM (NT hash), SHA-1, SHA-512"
+        }
+      ],
+      "crypto": [
+        {
+          "type": "Crypto wallet",
+          "example": "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"
+        },
+        {
+          "type": "Crypto seed phrase",
+          "example": "A sequence of 12 to 24 words from the BIP39 standard wordlist, used for cryptographic wallet recovery and key derivation"
+        }
+      ]
+    },
+    "ru": {
+      "site": {
+        "title": "Angry Data Scanner - Программа поиска конфиденциальных данных для Mac, Windows и Linux",
+        "description": "Инструмент поиска данных. С его помощью можно найти персональные данные, данные банковских карт и другие конфиденциальные данные в папках, S3, базах данных, веб-страницах."
+      },
+      "nav": {
+        "home": "Главная",
+        "data_discovery": "Данные",
+        "features": "Возможности",
+        "use_cases": "Примеры",
+        "download": "Скачать",
+        "github": "GitHub",
+        "contact_us": "Связаться с нами"
+      },
+      "hero": {
+        "badge": "Free Open Source",
+        "title": "Бесплатная программа для быстрого поиска конфиденциальных данных",
+        "description": "Бесплатный инструмент для автоматического поиска PII, PHI и интеллектуальной собственности с помощью расширенного сопоставления шаблонов. Выполняйте поиск данных в локальных папках, веб-страницах, AWS S3 и базах данных.",
+        "features": {
+          "simple": "Интуитивный дизайн для скорости и удобства.",
+          "two_clicks": "Обнаружение конфиденциальных данных за 2 клика.",
+          "no_admin": "Не требуются права администратора или установка.",
+          "cross_platform": "Работает на Linux, macOS и Windows.",
+          "privacy": "Все сканирование происходит локально. Данные не покидают ваш компьютер."
+        },
+        "cta": {
+          "download": "Скачать сейчас",
+          "github": "Посмотреть на GitHub"
+        }
+      },
+      "sections": {
+        "discovery": {
+          "title": "Поиск чувствительных данных",
+          "description": "Angry Data Scanner может обнаруживать различные типы конфиденциальных данных в нескольких категориях",
+          "filter_by_country": "Фильтр по стране",
+          "all": "Все",
+          "international": "Международные",
+          "russia": "Россия",
+          "united_states": "Соединенные Штаты",
+          "china": "Китай"
+        },
+        "file_types": {
+          "title": "Поддерживаемые типы файлов"
+        },
+        "data_sources": {
+          "title": "Поддерживаемые источники данных",
+          "sources": [
+            {
+              "connector": "Сетевая папка",
+              "description": "Сканирует файлы в удаленной директории, например в среде Windows"
+            },
+            {
+              "connector": "HDD/SSD",
+              "description": "Сканирование локального жесткого диска"
+            },
+            {
+              "connector": "S3",
+              "description": "Сканирование файлов в S3"
+            },
+            {
+              "connector": "HTTP/HTTPS",
+              "description": "Сканирование содержимого веб-сайта"
+            }
+          ]
+        },
+        "features": {
+          "title": "Ключевые возможности",
+          "description": "Откройте для себя мощные возможности, которые делают Angry Data Scanner идеальным решением для обнаружения конфиденциальных данных"
+        },
+        "use_cases": {
+          "title": "Реальные случаи использования",
+          "description": "Узнайте, как организации из разных отраслей используют Angry Data Scanner для защиты конфиденциальных данных и обеспечения соответствия требованиям",
+          "cases": [
+            "Команда по поиску утечек сканирует сетевую папку и убеждается, что она не содержит исходный код",
+            "Сотрудник находит и удаляет файлы, содержащие номера карт, для соответствия PCI DSS",
+            "Банковский сотрудник сканирует сетевую папку, чтобы убедиться, что она не содержит PII VIP-клиентов",
+            "Руководитель сканирует общую папку отдела продаж, чтобы там не было контактов клиентов",
+            "Правоохранительным органам нужно обнаружить следы криптовалюты на ноутбуке",
+            "Специалист по кибербезопасности должен проверить, что база данных не содержит персональных данных"
+          ],
+          "who_should_use": "Кому подходит Angry Data Scanner?",
+          "security_teams": "Команды безопасности",
+          "security_teams_desc": "Проводите аудиты безопасности, выявляйте утечки данных и обеспечивайте надлежащую защиту конфиденциальной информации в вашей инфраструктуре.",
+          "compliance_officers": "Специалисты по соответствию",
+          "compliance_officers_desc": "Обеспечивайте соответствие требованиям GDPR, PCI DSS, HIPAA и другим стандартам защиты данных.",
+          "developers": "Разработчики и DevOps",
+          "developers_desc": "Сканируйте репозитории и инфраструктуру, чтобы предотвратить случайное раскрытие конфиденциальных данных в коде или конфигурациях.",
+          "forensics": "Криминалистика и правоохранительные органы",
+          "forensics_desc": "Обнаруживайте следы конфиденциальных данных, криптовалюты и другие доказательства во время цифровых расследований."
+        },
+        "download": {
+          "title": "Скачать",
+          "system_requirements": "Системные требования: Windows, Linux, macOS | 400 МБ на жестком диске | 4 ГБ ОЗУ | процессор 1.3 ГГц",
+          "cta_description": "Скачайте Angry Data Scanner для Windows, Linux или macOS. Права администратора не требуются.",
+          "cta_button": "Скачать сейчас",
+          "getting_started": "Начало работы",
+          "getting_started_desc": "Краткое руководство, которое поможет вам начать использовать Angry Data Scanner",
+          "step1": {
+            "title": "Скачать",
+            "description": "Скачайте подходящую версию для вашей операционной системы по ссылкам выше."
+          },
+          "step2": {
+            "title": "Установить или распаковать",
+            "description": "Запустите установщик (Windows/macOS) или распакуйте портативную версию. Права администратора не требуются."
+          },
+          "step3": {
+            "title": "Начать сканирование",
+            "description": "Запустите приложение, выберите источник данных и начните сканирование. Результаты появятся мгновенно."
+          }
+        },
+        "quick_links": {
+          "title": "Узнать больше",
+          "description": "Откройте для себя все возможности и функции Angry Data Scanner",
+          "discovery": "PII, PCI DSS, банковские данные, криптокошельки и многое другое",
+          "features": "Ранжирование, планирование, экспорт и настраиваемые матчеры",
+          "use_cases": "Соответствие требованиям, аудиты безопасности и защита данных",
+          "download": "Windows, Linux, macOS - Начните прямо сейчас"
+        }
+      },
+      "categories": {
+        "personal_data_numbers": "персональных данных (числа)",
+        "personal_data_text": "персональных данных (текст)",
+        "pci_dss": "данных PCI DSS",
+        "banking_secrecy": "банковской тайны",
+        "crypto": "криптовалюты",
+        "it_assets": "IT-активов",
+        "custom_signatures": "пользовательских сигнатур",
+        "custom_signatures_desc": "Можно добавить пользовательские сигнатуры поиска данных, используя обычный текст:",
+        "custom_signatures_or": "или любой другой.",
+        "personal_data_numbers_title": "Поиск персональных данных (числа)",
+        "personal_data_text_title": "Поиск персональных данных (текст)",
+        "pci_dss_title": "Поиск данных PCI DSS",
+        "banking_secrecy_title": "Поиск банковской тайны",
+        "crypto_title": "Поиск криптовалюты",
+        "it_assets_title": "Поиск IT-активов",
+        "custom_signatures_title": "Поиск пользовательских сигнатур"
+      },
+      "table_headers": {
+        "data_type": "Тип данных",
+        "local_name": "Локальное название",
+        "country": "Страна",
+        "example": "Пример",
+        "file_type": "Тип файла",
+        "file_format": "Формат файла",
+        "connector": "Коннектор",
+        "description": "Описание"
+      },
+      "features": {
+        "ranking": {
+          "title": "Ранжирование",
+          "description": "Сканер показывает файлы с высокой ценностью первыми"
+        },
+        "history": {
+          "title": "Просмотр истории сканирования",
+          "description": "Отслеживайте все ваши предыдущие сканирования"
+        },
+        "export": {
+          "title": "Экспорт результатов",
+          "description": "Скачайте результаты в CSV файл"
+        },
+        "schedule": {
+          "title": "Планирование сканирований",
+          "description": "Автоматизируйте процесс сканирования"
+        },
+        "matchers": {
+          "title": "Настраиваемые матчеры",
+          "description": "Настройте PII, PCI DSS и другие матчеры"
+        },
+        "formats": {
+          "title": "Множество форматов файлов",
+          "description": "Настройте форматы файлов (pdf, excel и т.д.)"
+        }
+      },
+      "downloads": {
+        "windows": {
+          "setup": "Setup x64",
+          "portable": "Portable x64"
+        },
+        "linux": {
+          "deb": "DEB x64",
+          "portable": "Portable x64"
+        },
+        "macos": {
+          "x64": "macOS x64",
+          "arm64": "macOS ARM64"
+        }
+      },
+      "footer": {
+        "copyright": "© 2025, от admin@angryscan.org"
+      },
+      "empty_message": "Нет данных для выбранной страны",
+      "it_assets": [
+        {
+          "type": "IPv4",
+          "example": "192.168.1.1"
+        },
+        {
+          "type": "IPv6",
+          "example": "2001:db8::1"
+        },
+        {
+          "type": "Source code files",
+          "example": "Находит файлы с исходным кодом. Исходный код должен быть размещен в git репозитории."
+        },
+        {
+          "type": "TLS certificates",
+          "example": "Находит папки с наибольшим количеством TLS сертификатов"
+        },
+        {
+          "type": "Hash data",
+          "example": "SHA-256, MD5, NTLM (NT hash), SHA-1, SHA-512"
+        }
+      ],
+      "crypto": [
+        {
+          "type": "Crypto wallet",
+          "example": "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"
+        },
+        {
+          "type": "Crypto seed phrase",
+          "example": "Последовательность из 12-24 слов из стандартного словаря BIP39, используемая для восстановления криптокошелька и вывода криптографических ключей"
+        }
+      ],
+      "common": {
+        "search": "Поиск"
+      }
+    },
+    "es": {
+      "site": {
+        "title": "Angry Data Scanner: herramienta gratuita de descubrimiento de datos confidenciales",
+        "description": "Descubra PII, PCI DSS y datos confidenciales en carpetas, S3 y bases de datos. Herramienta gratuita de código abierto para Windows, Linux, macOS. No se requieren derechos de administrador."
+      },
+      "nav": {
+        "home": "Hogar",
+        "dataDiscovery": "Descubrimiento de datos",
+        "features": "Características",
+        "useCases": "Casos de uso",
+        "download": "Descargar",
+        "github": "GitHub",
+        "contactUs": "Contáctenos"
+      },
+      "hero": {
+        "badge": "Código abierto gratuito",
+        "title": "Herramienta de descubrimiento de datos confidenciales",
+        "description": "Angry Data Scanner utiliza la coincidencia de patrones para descubrir automáticamente datos confidenciales almacenados en carpetas, páginas web, S3 y bases de datos. Ayuda a las organizaciones a identificar dónde se almacenan datos confidenciales, como información de identificación personal (PII) y propiedad intelectual.",
+        "features": {
+          "simple": "Interfaz de usuario sencilla: diseño intuitivo pensado para la velocidad y la facilidad de uso.",
+          "twoClicks": "Descubrimiento con un clic: detecte datos confidenciales al instante con solo 2 clics.",
+          "noAdmin": "Configuración sin complicaciones: no se requieren derechos de administrador ni instalación.",
+          "crossPlatform": "Multiplataforma: funciona perfectamente en Linux, macOS y Windows.",
+          "privacy": "Privacidad total: todo el escaneo se realiza localmente. Tus datos nunca salen de tu PC."
+        },
+        "cta": {
+          "download": "Descargar ahora",
+          "github": "Ver en GitHub"
+        }
+      },
+      "sections": {
+        "quickLinks": {
+          "title": "Explora más",
+          "description": "Descubra todas las capacidades y características de Angry Data Scanner",
+          "discovery": "PII, PCI DSS, datos bancarios, billeteras criptográficas y más",
+          "features": "Clasificación, programación, exportación y comparadores configurables",
+          "useCases": "Cumplimiento, auditorías de seguridad y protección de datos",
+          "download": "Windows, Linux, macOS: comience ahora"
+        },
+        "discovery": {
+          "title": "Descubrimiento de datos confidenciales",
+          "description": "Angry Data Scanner puede detectar varios tipos de datos confidenciales en múltiples categorías",
+          "filterByCountry": "Filtrar por país",
+          "all": "Todo",
+          "international": "Internacional",
+          "russia": "Rusia",
+          "unitedStates": "Estados Unidos",
+          "china": "Porcelana"
+        },
+        "fileTypes": {
+          "title": "Tipos de archivos admitidos"
+        },
+        "dataSources": {
+          "title": "Fuentes de datos admitidas"
+        },
+        "features": {
+          "title": "Características clave",
+          "description": "Descubra las poderosas capacidades que hacen de Angry Data Scanner la solución ideal para el descubrimiento de datos confidenciales"
+        },
+        "use_cases": {
+          "title": "Casos de uso de la vida real",
+          "description": "Descubra cómo organizaciones de diferentes industrias utilizan Angry Data Scanner para proteger datos confidenciales y garantizar el cumplimiento.",
+          "cases": [
+            "Un equipo de caza de fugas escanea una carpeta de red y se asegura de que no contenga código fuente",
+            "Un empleado encuentra y elimina archivos que contienen números de tarjeta para cumplir con PCI DSS",
+            "Un empleado bancario escanea una carpeta de red para asegurarse de que no contenga PII de clientes VIP",
+            "Un jefe escanea una carpeta compartida del equipo de ventas para que no tengan contactos de clientes allí",
+            "Las fuerzas del orden necesitan descubrir rastros de criptomoneda en una laptop",
+            "Un oficial de ciberseguridad necesita validar que la base de datos no contenga datos personales"
+          ],
+          "who_should_use": "¿Quién debería utilizar Angry Data Scanner?",
+          "security_teams": "Equipos de seguridad",
+          "security_teams_desc": "Realice auditorías de seguridad, identifique fugas de datos y asegúrese de que la información confidencial esté protegida adecuadamente en toda su infraestructura.",
+          "compliance_officers": "Oficiales de cumplimiento",
+          "compliance_officers_desc": "Garantice el cumplimiento de normativas como GDPR, PCI DSS, HIPAA y otros estándares de protección de datos.",
+          "developers": "Desarrolladores y DevOps",
+          "developers_desc": "Escanee repositorios e infraestructura para evitar la exposición accidental de datos confidenciales en el código o las configuraciones.",
+          "forensics": "Forense y aplicación de la ley",
+          "forensics_desc": "Descubra rastros de datos confidenciales, criptomonedas y otras pruebas durante las investigaciones digitales."
+        },
+        "download": {
+          "title": "Descargar",
+          "systemRequirements": "Requisitos del sistema: Windows, Linux, macOS | Disco duro de 400 MB | 4 GB de RAM | Procesador de 1,3 GHz",
+          "gettingStarted": "Empezando",
+          "gettingStartedDesc": "Guía de inicio rápido para ayudarle a comenzar a utilizar Angry Data Scanner",
+          "step1": {
+            "title": "Descargar",
+            "description": "Descargue la versión adecuada para su sistema operativo desde los enlaces anteriores."
+          },
+          "step2": {
+            "title": "Instalar o extraer",
+            "description": "Ejecute el instalador (Windows/macOS) o extraiga la versión portátil. No se requieren derechos de administrador."
+          },
+          "step3": {
+            "title": "Iniciar escaneo",
+            "description": "Inicie la aplicación, seleccione su fuente de datos y comience a escanear. Los resultados aparecen al instante."
+          }
+        }
+      },
+      "footer": {
+        "copyright": "© 2025, por admin@angryscan.org"
+      },
+      "categories": {
+        "personalDataNumbers": "Datos personales (números)",
+        "personalDataText": "Datos personales (texto)",
+        "pciDss": "PCI DSS",
+        "bankingSecrecy": "Secreto bancario",
+        "crypto": "criptomonedas",
+        "itAssets": "Activos de TI",
+        "customSignatures": "Firmas personalizadas",
+        "customSignaturesDesc": "Es posible agregar firmas de búsqueda de datos personalizadas utilizando texto sin formato:",
+        "customSignaturesOr": "o cualquier otro.",
+        "personal_data_numbers": "datos personales (números)",
+        "personal_data_text": "datos personales (texto)",
+        "pci_dss": "datos PCI DSS",
+        "banking_secrecy": "secreto bancario",
+        "it_assets": "activos de TI",
+        "custom_signatures": "firmas personalizadas",
+        "personal_data_numbers_title": "Búsqueda de datos personales (números)",
+        "personal_data_text_title": "Búsqueda de datos personales (texto)",
+        "pci_dss_title": "Búsqueda de datos PCI DSS",
+        "banking_secrecy_title": "Búsqueda de secreto bancario",
+        "crypto_title": "Búsqueda de criptomonedas",
+        "it_assets_title": "Búsqueda de activos de TI",
+        "custom_signatures_title": "Búsqueda de firmas personalizadas"
+      },
+      "tableHeaders": {
+        "dataType": "tipo de datos",
+        "localName": "Nombre local",
+        "country": "País",
+        "example": "Ejemplo",
+        "fileType": "Tipo de archivo",
+        "fileFormat": "Formato de archivo",
+        "connector": "Conector",
+        "description": "Descripción"
+      },
+      "features": {
+        "ranking": {
+          "title": "Categoría",
+          "description": "El escáner muestra primero los archivos de alto valor, lo que le ayuda a priorizar los hallazgos más críticos. El sistema de clasificación inteligente analiza la sensibilidad de los datos y presenta los resultados en orden de importancia."
+        },
+        "history": {
+          "title": "Ver historial de escaneo",
+          "description": "Realice un seguimiento de todos sus escaneos anteriores con un historial detallado. Revise resultados anteriores, compare escaneos a lo largo del tiempo y mantenga un seguimiento de auditoría completo de sus actividades de descubrimiento de datos."
+        },
+        "export": {
+          "title": "Exportar resultados",
+          "description": "Descargue los resultados en un archivo CSV para realizar más análisis, generar informes o integrarlos con otras herramientas. La exportación incluye todos los tipos de datos, ubicaciones y metadatos detectados."
+        },
+        "schedule": {
+          "title": "Programar escaneos",
+          "description": "Automatice su proceso de escaneo con escaneos programados. Configure análisis recurrentes para monitorear continuamente sus fuentes de datos y garantizar el cumplimiento continuo."
+        },
+        "matchers": {
+          "title": "Comparadores configurables",
+          "description": "Configure PII, PCI DSS y otros comparadores para que coincidan con sus requisitos de cumplimiento específicos. Habilite o deshabilite los patrones de detección según sus necesidades."
+        },
+        "formats": {
+          "title": "Múltiples formatos de archivos",
+          "description": "Configure los formatos de archivos (pdf, excel, etc.) para escanear. Soporte para MS Office, Open Office, Adobe PDF, archivos y archivos de texto sin formato. Personalice qué formatos incluir en sus escaneos."
+        }
+      },
+      "common": {
+        "search": "Búsqueda"
+      }
+    },
+    "de": {
+      "site": {
+        "title": "Angry Data Scanner – kostenloses Tool zur Erkennung sensibler Daten",
+        "description": "Entdecken Sie PII, PCI DSS und vertrauliche Daten in Ordnern, S3 und Datenbanken. Kostenloses Open-Source-Tool für Windows, Linux, macOS. Keine Administratorrechte erforderlich."
+      },
+      "nav": {
+        "home": "Heim",
+        "dataDiscovery": "Datenermittlung",
+        "features": "Merkmale",
+        "useCases": "Anwendungsfälle",
+        "download": "Herunterladen",
+        "github": "GitHub",
+        "contactUs": "Kontaktieren Sie uns"
+      },
+      "hero": {
+        "badge": "Kostenlose Open Source",
+        "title": "Tool zur Erkennung sensibler Daten",
+        "description": "Angry Data Scanner nutzt Mustervergleich, um vertrauliche Daten, die in Ordnern, Webseiten, S3 und Datenbanken gespeichert sind, automatisch zu erkennen. Es hilft Unternehmen dabei, herauszufinden, wo sensible Daten wie personenbezogene Daten (PII) und geistiges Eigentum gespeichert sind.",
+        "features": {
+          "simple": "Einfache Benutzeroberfläche: Intuitives Design für Geschwindigkeit und Benutzerfreundlichkeit.",
+          "twoClicks": "One-Click Discovery: Erkennen Sie sensible Daten sofort mit nur 2 Klicks.",
+          "noAdmin": "Problemlose Einrichtung: Keine Administratorrechte oder Installation erforderlich.",
+          "crossPlatform": "Plattformübergreifend: Funktioniert nahtlos unter Linux, macOS und Windows.",
+          "privacy": "Absolute Privatsphäre: Alle Scanvorgänge erfolgen lokal. Ihre Daten verlassen nie Ihren PC."
+        },
+        "cta": {
+          "download": "Jetzt herunterladen",
+          "github": "Auf GitHub ansehen"
+        }
+      },
+      "sections": {
+        "quickLinks": {
+          "title": "Entdecken Sie mehr",
+          "description": "Entdecken Sie alle Möglichkeiten und Features von Angry Data Scanner",
+          "discovery": "PII, PCI DSS, Bankdaten, Krypto-Wallets und mehr",
+          "features": "Ranking, Planung, Export und konfigurierbare Matcher",
+          "useCases": "Compliance, Sicherheitsaudits und Datenschutz",
+          "download": "Windows, Linux, macOS – Jetzt starten"
+        },
+        "discovery": {
+          "title": "Sensible Datenerkennung",
+          "description": "Angry Data Scanner kann verschiedene Arten sensibler Daten in mehreren Kategorien erkennen",
+          "filterByCountry": "Nach Land filtern",
+          "all": "Alle",
+          "international": "International",
+          "russia": "Russland",
+          "unitedStates": "Vereinigte Staaten",
+          "china": "China"
+        },
+        "fileTypes": {
+          "title": "Unterstützte Dateitypen"
+        },
+        "dataSources": {
+          "title": "Unterstützte Datenquellen"
+        },
+        "features": {
+          "title": "Hauptmerkmale",
+          "description": "Entdecken Sie die leistungsstarken Funktionen, die Angry Data Scanner zur idealen Lösung für die Erkennung sensibler Daten machen"
+        },
+        "use_cases": {
+          "title": "Anwendungsfälle aus dem wirklichen Leben",
+          "description": "Entdecken Sie, wie Unternehmen aus verschiedenen Branchen Angry Data Scanner nutzen, um sensible Daten zu schützen und Compliance sicherzustellen",
+          "cases": [
+            "Ein Leck-Jagd-Team scannt einen Netzwerkordner und stellt sicher, dass er keinen Quellcode enthält",
+            "Ein Mitarbeiter findet und löscht Dateien mit Kartennummern, um PCI DSS zu entsprechen",
+            "Ein Bankmitarbeiter scannt einen Netzwerkordner, um sicherzustellen, dass er keine PII von VIP-Kunden enthält",
+            "Ein Chef scannt einen freigegebenen Ordner des Vertriebsteams, damit dort keine Kundenkontakte vorhanden sind",
+            "Strafverfolgungsbehörden müssen Spuren von Kryptowährung auf einem Laptop entdecken",
+            "Ein Cybersicherheitsbeauftragter muss überprüfen, dass die Datenbank keine persönlichen Daten enthält"
+          ],
+          "who_should_use": "Wer sollte Angry Data Scanner verwenden?",
+          "security_teams": "Sicherheitsteams",
+          "security_teams_desc": "Führen Sie Sicherheitsüberprüfungen durch, identifizieren Sie Datenlecks und stellen Sie sicher, dass vertrauliche Informationen in Ihrer gesamten Infrastruktur ordnungsgemäß geschützt sind.",
+          "compliance_officers": "Compliance-Beauftragte",
+          "compliance_officers_desc": "Stellen Sie die Einhaltung von Vorschriften wie DSGVO, PCI DSS, HIPAA und anderen Datenschutzstandards sicher.",
+          "developers": "Entwickler und DevOps",
+          "developers_desc": "Scannen Sie Repositorys und Infrastruktur, um zu verhindern, dass vertrauliche Daten in Code oder Konfigurationen versehentlich offengelegt werden.",
+          "forensics": "Forensik und Strafverfolgung",
+          "forensics_desc": "Entdecken Sie bei digitalen Ermittlungen Spuren sensibler Daten, Kryptowährungen und anderer Beweise."
+        },
+        "download": {
+          "title": "Herunterladen",
+          "systemRequirements": "Systemanforderungen: Windows, Linux, macOS | 400 MB Festplatte | 4GB RAM | 1,3-GHz-CPU",
+          "gettingStarted": "Erste Schritte",
+          "gettingStartedDesc": "Kurzanleitung, die Ihnen den Einstieg in die Verwendung von Angry Data Scanner erleichtert",
+          "step1": {
+            "title": "Herunterladen",
+            "description": "Laden Sie über die obigen Links die entsprechende Version für Ihr Betriebssystem herunter."
+          },
+          "step2": {
+            "title": "Installieren oder extrahieren",
+            "description": "Führen Sie das Installationsprogramm aus (Windows/macOS) oder extrahieren Sie die portable Version. Keine Administratorrechte erforderlich."
+          },
+          "step3": {
+            "title": "Starten Sie den Scanvorgang",
+            "description": "Starten Sie die Anwendung, wählen Sie Ihre Datenquelle aus und beginnen Sie mit dem Scannen. Die Ergebnisse werden sofort angezeigt."
+          }
+        }
+      },
+      "footer": {
+        "copyright": "© 2025, von admin@angryscan.org"
+      },
+      "categories": {
+        "personalDataNumbers": "Persönliche Daten (Zahlen)",
+        "personalDataText": "Persönliche Daten (Text)",
+        "pciDss": "PCI DSS",
+        "bankingSecrecy": "Bankgeheimnis",
+        "crypto": "Kryptowährung",
+        "itAssets": "IT-Assets",
+        "customSignatures": "Benutzerdefinierte Signaturen",
+        "customSignaturesDesc": "Es ist möglich, benutzerdefinierte Datensuchsignaturen mithilfe von Klartext hinzuzufügen:",
+        "customSignaturesOr": "oder irgendein anderes.",
+        "personal_data_numbers": "personenbezogener Daten (Zahlen)",
+        "personal_data_text": "personenbezogener Daten (Text)",
+        "pci_dss": "PCI DSS-Daten",
+        "banking_secrecy": "Bankgeheimnis",
+        "it_assets": "IT-Assets",
+        "custom_signatures": "benutzerdefinierter Signaturen",
+        "personal_data_numbers_title": "Suche personenbezogener Daten (Zahlen)",
+        "personal_data_text_title": "Suche personenbezogener Daten (Text)",
+        "pci_dss_title": "Suche PCI DSS-Daten",
+        "banking_secrecy_title": "Suche Bankgeheimnis",
+        "crypto_title": "Suche Kryptowährung",
+        "it_assets_title": "Suche IT-Assets",
+        "custom_signatures_title": "Suche benutzerdefinierter Signaturen"
+      },
+      "tableHeaders": {
+        "dataType": "Datentyp",
+        "localName": "Lokaler Name",
+        "country": "Land",
+        "example": "Beispiel",
+        "fileType": "Dateityp",
+        "fileFormat": "Dateiformat",
+        "connector": "Stecker",
+        "description": "Beschreibung"
+      },
+      "features": {
+        "ranking": {
+          "title": "Rang",
+          "description": "Der Scanner zeigt hochwertige Dateien zuerst an und hilft Ihnen, die kritischsten Ergebnisse zu priorisieren. Das intelligente Ranking-System analysiert die Datensensitivität und präsentiert die Ergebnisse in der Reihenfolge ihrer Wichtigkeit."
+        },
+        "history": {
+          "title": "Scanverlauf anzeigen",
+          "description": "Verfolgen Sie alle Ihre vorherigen Scans mit detailliertem Verlauf. Überprüfen Sie frühere Ergebnisse, vergleichen Sie Scans im Laufe der Zeit und führen Sie einen vollständigen Prüfpfad Ihrer Datenerkennungsaktivitäten."
+        },
+        "export": {
+          "title": "Ergebnisse exportieren",
+          "description": "Laden Sie die Ergebnisse zur weiteren Analyse, Berichterstellung oder Integration mit anderen Tools in eine CSV-Datei herunter. Der Export umfasst alle erkannten Datentypen, Speicherorte und Metadaten."
+        },
+        "schedule": {
+          "title": "Planen Sie Scans",
+          "description": "Automatisieren Sie Ihren Scanvorgang mit geplanten Scans. Richten Sie wiederkehrende Scans ein, um Ihre Datenquellen kontinuierlich zu überwachen und die fortlaufende Compliance sicherzustellen."
+        },
+        "matchers": {
+          "title": "Konfigurierbare Matcher",
+          "description": "Konfigurieren Sie PII, PCI DSS und andere Matcher entsprechend Ihren spezifischen Compliance-Anforderungen. Aktivieren oder deaktivieren Sie Erkennungsmuster entsprechend Ihren Anforderungen."
+        },
+        "formats": {
+          "title": "Mehrere Dateiformate",
+          "description": "Konfigurieren Sie die zu scannenden Dateiformate (PDF, Excel usw.). Unterstützung für MS Office, Open Office, Adobe PDF, Archive und Nur-Text-Dateien. Passen Sie an, welche Formate in Ihre Scans einbezogen werden sollen."
+        }
+      },
+      "common": {
+        "search": "Suche"
+      }
+    },
+    "fr": {
+      "site": {
+        "title": "Angry Data Scanner - Outil gratuit de découverte de données sensibles",
+        "description": "Découvrez les informations PII, PCI DSS et les données sensibles dans les dossiers, S3 et bases de données. Outil open source gratuit pour Windows, Linux, macOS. Aucun droit d'administrateur requis."
+      },
+      "nav": {
+        "home": "Maison",
+        "dataDiscovery": "Découverte de données",
+        "features": "Caractéristiques",
+        "useCases": "Cas d'utilisation",
+        "download": "Télécharger",
+        "github": "GitHub",
+        "contactUs": "Contactez-nous"
+      },
+      "hero": {
+        "badge": "Source ouverte gratuite",
+        "title": "Outil de découverte de données sensibles",
+        "description": "Angry Data Scanner utilise la correspondance de modèles pour découvrir automatiquement les données sensibles stockées dans des dossiers, des pages Web, S3 et des bases de données. Il aide les organisations à identifier où sont stockées les données sensibles telles que les informations personnelles identifiables (PII) et la propriété intellectuelle.",
+        "features": {
+          "simple": "Interface utilisateur simple : conception intuitive conçue pour la rapidité et la facilité d'utilisation.",
+          "twoClicks": "Découverte en un clic : détectez instantanément les données sensibles en seulement 2 clics.",
+          "noAdmin": "Installation sans tracas : aucun droit d'administrateur ni installation requis.",
+          "crossPlatform": "Multiplateforme : fonctionne de manière transparente sur Linux macOS et Windows.",
+          "privacy": "Confidentialité totale : toutes les analyses s'effectuent localement. Vos données ne quittent jamais votre PC."
+        },
+        "cta": {
+          "download": "Télécharger maintenant",
+          "github": "Voir sur GitHub"
+        }
+      },
+      "sections": {
+        "quickLinks": {
+          "title": "Explorer davantage",
+          "description": "Découvrez toutes les capacités et fonctionnalités d'Angry Data Scanner",
+          "discovery": "PII, PCI DSS, données bancaires, portefeuilles cryptographiques, etc.",
+          "features": "Classement, planification, exportation et correspondances configurables",
+          "useCases": "Conformité, audits de sécurité et protection des données",
+          "download": "Windows, Linux, macOS – Commencez dès maintenant"
+        },
+        "discovery": {
+          "title": "Découverte de données sensibles",
+          "description": "Angry Data Scanner peut détecter différents types de données sensibles dans plusieurs catégories",
+          "filterByCountry": "Filtrer par pays",
+          "all": "Tous",
+          "international": "International",
+          "russia": "Russie",
+          "unitedStates": "États-Unis",
+          "china": "Chine"
+        },
+        "fileTypes": {
+          "title": "Types de fichiers pris en charge"
+        },
+        "dataSources": {
+          "title": "Sources de données prises en charge"
+        },
+        "features": {
+          "title": "Principales caractéristiques",
+          "description": "Découvrez les puissantes capacités qui font d'Angry Data Scanner la solution idéale pour la découverte de données sensibles"
+        },
+        "use_cases": {
+          "title": "Cas d'utilisation réels",
+          "description": "Découvrez comment des organisations de différents secteurs utilisent Angry Data Scanner pour protéger les données sensibles et garantir la conformité.",
+          "cases": [
+            "Une équipe de chasse aux fuites scanne un dossier réseau et s'assure qu'il ne contient pas de code source",
+            "Un employé trouve et supprime les fichiers contenant des numéros de carte pour se conformer à PCI DSS",
+            "Un employé bancaire scanne un dossier réseau pour s'assurer qu'il ne contient pas de PII de clients VIP",
+            "Un patron scanne un dossier partagé de l'équipe commerciale pour qu'ils n'aient pas de contacts clients là-bas",
+            "Les forces de l'ordre doivent découvrir des traces de cryptomonnaie sur un ordinateur portable",
+            "Un responsable de la cybersécurité doit valider que la base de données ne contient pas de données personnelles"
+          ],
+          "who_should_use": "Qui devrait utiliser Angry Data Scanner ?",
+          "security_teams": "Équipes de sécurité",
+          "security_teams_desc": "Réalisez des audits de sécurité, identifiez les fuites de données et assurez-vous que les informations sensibles sont correctement protégées dans votre infrastructure.",
+          "compliance_officers": "Agents de conformité",
+          "compliance_officers_desc": "Assurez le respect des réglementations telles que le RGPD, PCI DSS, HIPAA et d'autres normes de protection des données.",
+          "developers": "Développeurs et DevOps",
+          "developers_desc": "Analysez les référentiels et l'infrastructure pour éviter l'exposition accidentelle de données sensibles dans le code ou les configurations.",
+          "forensics": "Médecine légale et application de la loi",
+          "forensics_desc": "Découvrez des traces de données sensibles, de cryptomonnaies et d'autres preuves lors d'enquêtes numériques."
+        },
+        "download": {
+          "title": "Télécharger",
+          "systemRequirements": "Configuration système requise : Windows, Linux, macOS | Disque dur de 400 Mo | 4 Go de RAM | Processeur 1,3 GHz",
+          "gettingStarted": "Commencer",
+          "gettingStartedDesc": "Guide de démarrage rapide pour vous aider à commencer à utiliser Angry Data Scanner",
+          "step1": {
+            "title": "Télécharger",
+            "description": "Téléchargez la version appropriée pour votre système d'exploitation à partir des liens ci-dessus."
+          },
+          "step2": {
+            "title": "Installer ou extraire",
+            "description": "Exécutez le programme d'installation (Windows/macOS) ou extrayez la version portable. Aucun droit d'administrateur requis."
+          },
+          "step3": {
+            "title": "Démarrer la numérisation",
+            "description": "Lancez l'application, sélectionnez votre source de données et lancez la numérisation. Les résultats apparaissent instantanément."
+          }
+        }
+      },
+      "footer": {
+        "copyright": "© 2025, par admin@angryscan.org"
+      },
+      "categories": {
+        "personalDataNumbers": "Données personnelles (chiffres)",
+        "personalDataText": "Données personnelles (texte)",
+        "pciDss": "PCI DSS",
+        "bankingSecrecy": "Secret bancaire",
+        "crypto": "cryptomonnaie",
+        "itAssets": "Actifs informatiques",
+        "customSignatures": "Signatures personnalisées",
+        "customSignaturesDesc": "Il est possible d'ajouter des signatures de recherche de données personnalisées en utilisant du texte brut :",
+        "customSignaturesOr": "ou tout autre.",
+        "personal_data_numbers": "données personnelles (chiffres)",
+        "personal_data_text": "données personnelles (texte)",
+        "pci_dss": "données PCI DSS",
+        "banking_secrecy": "secret bancaire",
+        "it_assets": "actifs informatiques",
+        "custom_signatures": "signatures personnalisées",
+        "personal_data_numbers_title": "Recherche de données personnelles (chiffres)",
+        "personal_data_text_title": "Recherche de données personnelles (texte)",
+        "pci_dss_title": "Recherche de données PCI DSS",
+        "banking_secrecy_title": "Recherche de secret bancaire",
+        "crypto_title": "Recherche de cryptomonnaie",
+        "it_assets_title": "Recherche d'actifs informatiques",
+        "custom_signatures_title": "Recherche de signatures personnalisées"
+      },
+      "tableHeaders": {
+        "dataType": "Type de données",
+        "localName": "Nom local",
+        "country": "Pays",
+        "example": "Exemple",
+        "fileType": "Type de fichier",
+        "fileFormat": "Format de fichier",
+        "connector": "Connecteur",
+        "description": "Description"
+      },
+      "features": {
+        "ranking": {
+          "title": "Classement",
+          "description": "Le scanner affiche en premier les fichiers de grande valeur, vous aidant ainsi à prioriser les résultats les plus critiques. Le système de classement intelligent analyse la sensibilité des données et présente les résultats par ordre d'importance."
+        },
+        "history": {
+          "title": "Afficher l'historique des analyses",
+          "description": "Suivez toutes vos analyses précédentes avec un historique détaillé. Examinez les résultats antérieurs, comparez les analyses au fil du temps et conservez une piste d'audit complète de vos activités de découverte de données."
+        },
+        "export": {
+          "title": "Exporter les résultats",
+          "description": "Téléchargez les résultats dans un fichier CSV pour une analyse plus approfondie, des rapports ou une intégration avec d'autres outils. L'exportation inclut tous les types de données, emplacements et métadonnées détectés."
+        },
+        "schedule": {
+          "title": "Planifier des analyses",
+          "description": "Automatisez votre processus d'analyse avec des analyses planifiées. Configurez des analyses récurrentes pour surveiller en permanence vos sources de données et garantir une conformité continue."
+        },
+        "matchers": {
+          "title": "Matcheurs configurables",
+          "description": "Configurez les PII, PCI DSS et autres comparateurs pour répondre à vos exigences de conformité spécifiques. Activez ou désactivez les modèles de détection en fonction de vos besoins."
+        },
+        "formats": {
+          "title": "Plusieurs formats de fichiers",
+          "description": "Configurez les formats de fichiers (pdf, excel, etc.) à numériser. Prise en charge de MS Office, Open Office, Adobe PDF, des archives et des fichiers texte brut. Personnalisez les formats à inclure dans vos numérisations."
+        }
+      },
+      "common": {
+        "search": "Recherche"
+      }
+    }
+  },
+  "languages": {
+    "en": {
+      "name": "English",
+      "flag": "flag-us.svg",
+      "locale": "en_US"
+    },
+    "ru": {
+      "name": "Русский",
+      "flag": "flag-ru.svg",
+      "locale": "ru_RU"
+    },
+    "es": {
+      "name": "Español",
+      "flag": "flag-es.svg",
+      "locale": "es_ES"
+    },
+    "de": {
+      "name": "Deutsch",
+      "flag": "flag-de.svg",
+      "locale": "de_DE"
+    },
+    "fr": {
+      "name": "Français",
+      "flag": "flag-fr.svg",
+      "locale": "fr_FR"
+    }
+  },
+  "pages": {
+    "index": {
+      "en": {
+        "path": "/",
+        "title_key": "site.title"
+      },
+      "ru": {
+        "path": "/ru/",
+        "title_key": "site.title"
+      },
+      "es": {
+        "path": "/es/",
+        "title_key": "site.title"
+      },
+      "de": {
+        "path": "/de/",
+        "title_key": "site.title"
+      },
+      "fr": {
+        "path": "/fr/",
+        "title_key": "site.title"
+      }
+    },
+    "discovery": {
+      "en": {
+        "path": "/discovery",
+        "title_key": "sections.discovery.title",
+        "title": "Free PII & PCI DSS Data Discovery Tool | Angry Data Scanner",
+        "description": "Discover PII, credit cards, banking data, and crypto wallets. Free open-source scanner for GDPR, PCI DSS, and HIPAA compliance. No admin rights required.",
+        "keywords": "PII discovery, PCI DSS scanner, sensitive data discovery, credit card scanner, banking data finder, cryptocurrency wallet detection, GDPR compliance tool, HIPAA data scanner, free data discovery, open source data scanner, personal information finder"
+      },
+      "ru": {
+        "path": "/ru/discovery",
+        "title_key": "sections.discovery.title",
+        "title": "Бесплатный поиск PII и PCI DSS данных | Angry Data Scanner",
+        "description": "Обнаружение персональных данных, номеров карт и банковской информации. Бесплатный сканер для GDPR, PCI DSS и HIPAA. Работает без прав администратора.",
+        "keywords": "поиск PII, сканер PCI DSS, обнаружение конфиденциальных данных, поиск номеров карт, поиск банковских данных, обнаружение криптокошельков, инструмент соответствия GDPR, сканер данных HIPAA, бесплатный поиск данных, поиск персональных данных"
+      },
+      "es": {
+        "path": "/es/discovery",
+        "title_key": "sections.discovery.title",
+        "title": "Escáner Gratis de Datos PII y PCI DSS | Angry Data Scanner",
+        "description": "Descubra PII, tarjetas de crédito, datos bancarios y billeteras cripto. Escáner gratuito open source para cumplimiento GDPR, PCI DSS e HIPAA. Sin derechos de admin.",
+        "keywords": "descubrimiento PII, escáner PCI DSS, descubrimiento de datos sensibles, escáner de tarjetas de crédito, buscador de datos bancarios, detección de billeteras criptográficas, herramienta cumplimiento GDPR, escáner datos HIPAA, descubrimiento datos gratuito"
+      },
+      "de": {
+        "path": "/de/discovery",
+        "title_key": "sections.discovery.title",
+        "title": "Kostenloses PII & PCI DSS Datenerkennungs-Tool | Angry Data Scanner",
+        "description": "Erkennen Sie PII, Kreditkarten, Bankdaten und Krypto-Wallets. Kostenloses Open-Source-Tool für GDPR-, PCI DSS- und HIPAA-Compliance. Keine Admin-Rechte nötig.",
+        "keywords": "PII-Erkennung, PCI DSS-Scanner, Erkennung sensibler Daten, Kreditkarten-Scanner, Bankdaten-Finder, Kryptowährungs-Wallet-Erkennung, GDPR-Compliance-Tool, HIPAA-Daten-Scanner, kostenlose Datenerkennung"
+      },
+      "fr": {
+        "path": "/fr/discovery",
+        "title_key": "sections.discovery.title",
+        "title": "Scanner Gratuit de Données PII & PCI DSS | Angry Data Scanner",
+        "description": "Découvrez PII, cartes de crédit, données bancaires et portefeuilles crypto. Scanner gratuit open source pour conformité RGPD, PCI DSS et HIPAA. Sans droits admin.",
+        "keywords": "découverte PII, scanner PCI DSS, découverte données sensibles, scanner cartes de crédit, détecteur données bancaires, détection portefeuilles cryptographiques, outil conformité RGPD, scanner données HIPAA, découverte données gratuite"
+      }
+    },
+    "features": {
+      "en": {
+        "path": "/features",
+        "title_key": "sections.features.title",
+        "title": "Data Scanner Features: Ranking & CSV Export | Angry Data Scanner",
+        "description": "Features: intelligent file ranking, scan history, CSV export, scheduled scans, customizable matchers, and 15+ file formats. Perfect for compliance audits.",
+        "keywords": "data scanner features, file ranking system, scan history tracking, CSV export data, scheduled data scans, configurable matchers, file format support, PDF scanner, Excel data scanner, automated scanning, data discovery tools"
+      },
+      "ru": {
+        "path": "/ru/features",
+        "title_key": "sections.features.title",
+        "title": "Возможности сканера: ранжирование и экспорт CSV | Angry Data Scanner",
+        "description": "Функции: интеллектуальное ранжирование, история сканирований, экспорт CSV, запланированные сканирования, настраиваемые матчеры и 15+ форматов. Идеально для аудитов.",
+        "keywords": "возможности сканера данных, система ранжирования файлов, история сканирований, экспорт CSV, запланированные сканирования, настраиваемые матчеры, поддержка форматов, сканер PDF, сканер Excel, автоматизированное сканирование"
+      },
+      "es": {
+        "path": "/es/features",
+        "title_key": "sections.features.title",
+        "title": "Características del Escáner: Clasificación y Exportación CSV | Angry Data Scanner",
+        "description": "Funciones potentes: clasificación inteligente, historial de escaneos, exportación CSV, escaneos programados, comparadores configurables y 15+ formatos. Ideal para auditorías.",
+        "keywords": "características escáner datos, sistema clasificación archivos, historial escaneos, exportación CSV, escaneos programados, comparadores configurables, soporte formatos, escáner PDF, escáner Excel, escaneo automatizado"
+      },
+      "de": {
+        "path": "/de/features",
+        "title_key": "sections.features.title",
+        "title": "Daten-Scanner Funktionen: Ranking & CSV-Export | Angry Data Scanner",
+        "description": "Leistungsstarke Funktionen: intelligentes Datei-Ranking, Scanverlauf, CSV-Export, geplante Scans, konfigurierbare Matcher und 15+ Dateiformate. Perfekt für Compliance-Prüfungen.",
+        "keywords": "Daten-Scanner-Funktionen, Datei-Ranking-System, Scanverlauf-Verfolgung, CSV-Export, geplante Scans, konfigurierbare Matcher, Dateiformat-Unterstützung, PDF-Scanner, Excel-Daten-Scanner, automatisierte Scans"
+      },
+      "fr": {
+        "path": "/fr/features",
+        "title_key": "sections.features.title",
+        "title": "Fonctionnalités Scanner: Classement & Export CSV | Angry Data Scanner",
+        "description": "Fonctions puissantes: classement intelligent, historique des analyses, export CSV, analyses planifiées, matcheurs configurables et 15+ formats. Parfait pour audits de conformité.",
+        "keywords": "fonctionnalités scanner données, système classement fichiers, historique analyses, export CSV, analyses planifiées, matcheurs configurables, prise en charge formats, scanner PDF, scanner Excel, analyse automatisée"
+      }
+    },
+    "use-cases": {
+      "en": {
+        "path": "/use-cases",
+        "title_key": "sections.use_cases.title",
+        "title": "Data Scanner Use Cases: Security & Compliance | Angry Data Scanner",
+        "description": "How security teams, compliance officers, developers, and forensics experts use our free scanner for GDPR, PCI DSS compliance, data leak prevention, and investigations.",
+        "keywords": "data scanner use cases, security team tools, GDPR compliance scanner, PCI DSS compliance tool, data leak prevention, source code scanner, digital forensics tools, HIPAA compliance scanner, data protection tools, security audit software"
+      },
+      "ru": {
+        "path": "/ru/use-cases",
+        "title_key": "sections.use_cases.title",
+        "title": "Применение сканера: безопасность и соответствие | Angry Data Scanner",
+        "description": "Как команды безопасности, специалисты по соответствию, разработчики и эксперты используют наш бесплатный сканер для GDPR, PCI DSS, предотвращения утечек и расследований.",
+        "keywords": "применение сканера данных, инструменты команды безопасности, сканер соответствия GDPR, инструмент соответствия PCI DSS, предотвращение утечек данных, сканер исходного кода, инструменты цифровой криминалистики"
+      },
+      "es": {
+        "path": "/es/use-cases",
+        "title_key": "sections.use_cases.title",
+        "title": "Casos de Uso: Seguridad y Cumplimiento | Angry Data Scanner",
+        "description": "Descubra cómo equipos de seguridad, oficiales de cumplimiento, desarrolladores y expertos usan nuestro escáner gratuito para GDPR, PCI DSS, prevención de fugas e investigaciones.",
+        "keywords": "casos uso escáner datos, herramientas equipos seguridad, escáner cumplimiento GDPR, herramienta cumplimiento PCI DSS, prevención fugas datos, escáner código fuente, herramientas forense digital"
+      },
+      "de": {
+        "path": "/de/use-cases",
+        "title_key": "sections.use_cases.title",
+        "title": "Anwendungsfälle: Sicherheit & Compliance | Angry Data Scanner",
+        "description": "Erfahren Sie, wie Sicherheitsteams, Compliance-Beauftragte, Entwickler und Forensik-Experten unseren kostenlosen Scanner für GDPR, PCI DSS, Datenleck-Prävention und Ermittlungen nutzen.",
+        "keywords": "Daten-Scanner-Anwendungsfälle, Sicherheitsteam-Tools, GDPR-Compliance-Scanner, PCI DSS-Compliance-Tool, Datenleck-Prävention, Quellcode-Scanner, digitale Forensik-Tools"
+      },
+      "fr": {
+        "path": "/fr/use-cases",
+        "title_key": "sections.use_cases.title",
+        "title": "Cas d'Utilisation: Sécurité & Conformité | Angry Data Scanner",
+        "description": "Découvrez comment les équipes de sécurité, agents de conformité, développeurs et experts utilisent notre scanner gratuit pour RGPD, PCI DSS, prévention des fuites et enquêtes.",
+        "keywords": "cas utilisation scanner données, outils équipes sécurité, scanner conformité RGPD, outil conformité PCI DSS, prévention fuites données, scanner code source, outils forensique numérique"
+      }
+    },
+    "download": {
+      "en": {
+        "path": "/download",
+        "title_key": "sections.download.title",
+        "title": "Download Free Data Scanner: Windows, Linux & macOS | Angry Data Scanner",
+        "description": "Download free Angry Data Scanner for Windows, Linux, and macOS. No admin rights required. Portable version available. Start scanning sensitive data instantly.",
+        "keywords": "download data scanner free, Windows data scanner download, Linux data scanner, macOS data scanner download, portable data scanner, free PII scanner download, no admin required scanner, open source data scanner download"
+      },
+      "ru": {
+        "path": "/ru/download",
+        "title_key": "sections.download.title",
+        "title": "Скачать бесплатный сканер данных: Windows, Linux, macOS | Angry Data Scanner",
+        "description": "Скачайте бесплатный Angry Data Scanner для Windows, Linux и macOS. Без прав администратора. Портативная версия доступна. Начните сканирование конфиденциальных данных мгновенно.",
+        "keywords": "скачать сканер данных бесплатно, скачать сканер данных Windows, сканер данных Linux, скачать сканер данных macOS, портативный сканер данных, скачать бесплатный сканер PII, сканер без прав администратора"
+      },
+      "es": {
+        "path": "/es/download",
+        "title_key": "sections.download.title",
+        "title": "Descargar Escáner Gratis: Windows, Linux y macOS | Angry Data Scanner",
+        "description": "Descargue Angry Data Scanner gratis para Windows, Linux y macOS. Sin derechos de admin. Versión portátil disponible. 400 MB disco, 4 GB RAM. Comience a escanear datos sensibles ya.",
+        "keywords": "descargar escáner datos gratis, descargar escáner datos Windows, escáner datos Linux, descargar escáner datos macOS, escáner datos portátil, descargar escáner PII gratis, escáner sin derechos admin"
+      },
+      "de": {
+        "path": "/de/download",
+        "title_key": "sections.download.title",
+        "title": "Kostenlosen Daten-Scanner Download: Windows, Linux & macOS | Angry Data Scanner",
+        "description": "Laden Sie Angry Data Scanner kostenlos für Windows, Linux und macOS herunter. Keine Admin-Rechte nötig. Portable Version verfügbar. 400 MB Speicher, 4 GB RAM. Scannen Sie sofort.",
+        "keywords": "Daten-Scanner kostenlos downloaden, Windows Daten-Scanner Download, Linux Daten-Scanner, macOS Daten-Scanner Download, portable Daten-Scanner, kostenloser PII-Scanner Download"
+      },
+      "fr": {
+        "path": "/fr/download",
+        "title_key": "sections.download.title",
+        "title": "Télécharger Scanner Gratuit: Windows, Linux et macOS | Angry Data Scanner",
+        "description": "Téléchargez Angry Data Scanner gratuit pour Windows, Linux et macOS. Sans droits d'admin. Version portable disponible. 400 Mo disque, 4 Go RAM. Scannez des données sensibles instantanément.",
+        "keywords": "télécharger scanner données gratuit, télécharger scanner données Windows, scanner données Linux, télécharger scanner données macOS, scanner données portable, télécharger scanner PII gratuit"
+      }
+    }
+  }
+}

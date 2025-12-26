@@ -24,7 +24,6 @@ def on_post_build(config):
     site_dir = Path(config['site_dir'])
     src_dir = Path(__file__).parent / 'src'
     static_dir = Path(__file__).parent / 'static'
-    generate_script = Path(__file__).parent / 'generate_lang_pages.py'
     
     # Check if src directory exists
     if not src_dir.exists():
@@ -54,26 +53,16 @@ def on_post_build(config):
         # First build - run scripts
         marker_file.touch()
         
-        # Generate language-specific pages before copying
-        if generate_script.exists():
-            print("Generating language-specific pages...")
+        # Generate HTML pages from templates (includes all languages from config.json)
+        generate_html_script = Path(__file__).parent / 'generate_html.py'
+        if generate_html_script.exists():
+            print("Generating HTML pages from templates...")
             try:
-                subprocess.run(['python3', str(generate_script)], check=True, cwd=generate_script.parent)
+                subprocess.run(['python3', str(generate_html_script)], check=True, cwd=generate_html_script.parent)
             except subprocess.CalledProcessError as e:
-                print(f"Warning: Failed to generate language pages: {e}")
+                print(f"Warning: Failed to generate HTML pages: {e}")
             except FileNotFoundError:
-                print("Warning: python3 not found, skipping language page generation")
-        
-        # Translate HTML pages using Python API (for de, fr, es)
-        translate_script = Path(__file__).parent / 'translate_html_pages.py'
-        if translate_script.exists():
-            print("Translating HTML pages using Google Translate API...")
-            try:
-                subprocess.run(['python3', str(translate_script)], check=True, cwd=translate_script.parent)
-            except subprocess.CalledProcessError as e:
-                print(f"Warning: Failed to translate HTML pages: {e}")
-            except FileNotFoundError:
-                print("Warning: python3 not found, skipping HTML page translation")
+                print("Warning: python3 not found, skipping HTML generation")
     else:
         # Scripts already run for this build - skip
         print("Skipping generation/translation (already done for this build)")

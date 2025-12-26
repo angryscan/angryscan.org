@@ -8,7 +8,6 @@
 export class LanguageManager {
     constructor() {
         this.currentLanguage = 'en';
-        this.googleTranslateWidget = null;
         this.dataRenderer = null;
     }
 
@@ -80,8 +79,6 @@ export class LanguageManager {
             if (document.documentElement.hasAttribute('data-lang-loading')) {
                 document.documentElement.removeAttribute('data-lang-loading');
             }
-            // Remove Google Translate widgets
-            this.removeGoogleTranslate();
         } else {
             // For en/ru: apply translations
             this.applyLanguage(languageToUse, false);
@@ -343,16 +340,9 @@ export class LanguageManager {
         // Handle different languages
         if (lang === 'en' || lang === 'ru') {
             // Use custom translations
-            // First ensure Google Translate is completely removed
-            this.removeGoogleTranslate();
             // Apply translations immediately without delay to avoid showing English first
             this.updateTranslations(lang);
-            // Update page title
-            // I18N is loaded as regular script, available via window
-            const I18N = window.I18N || {};
-            if (I18N[lang]) {
-                document.title = I18N[lang].site.title;
-            }
+            // Note: Page title is already set correctly in HTML template, so we don't override it here
             // Re-render use cases, data sources, custom signatures, IT assets, crypto and downloads with new translations
             if (this.dataRenderer) {
                 this.dataRenderer.renderUseCases();
@@ -370,8 +360,6 @@ export class LanguageManager {
         } else {
             // For es, de, fr: pages are pre-translated via Python API
             // No need to update translations - pages are already translated
-            // Just remove any Google Translate widgets
-            this.removeGoogleTranslate();
             // Don't update title - it's already translated in HTML
             // Show page immediately (it was never hidden for pre-translated pages)
             // But ensure it's visible in case something went wrong
@@ -492,83 +480,53 @@ export class LanguageManager {
     }
 
     /**
+     * Convert snake_case to camelCase
+     * @param {string} str - String to convert
+     * @returns {string} Converted string
+     */
+    _snakeToCamel(str) {
+        return str.replace(/_([a-z])/g, (match, letter) => letter.toUpperCase());
+    }
+
+    /**
+     * Convert camelCase to snake_case
+     * @param {string} str - String to convert
+     * @returns {string} Converted string
+     */
+    _camelToSnake(str) {
+        return str.replace(/[A-Z]/g, (letter) => `_${letter.toLowerCase()}`);
+    }
+
+    /**
      * Get nested value from object using dot notation
+     * Supports both snake_case and camelCase keys for compatibility
      * @param {Object} obj - Object to search
-     * @param {string} path - Dot notation path
+     * @param {string} path - Dot notation path (can be snake_case or camelCase)
      * @returns {*} Value or undefined
      */
     getNestedValue(obj, path) {
         return path.split('.').reduce((current, key) => {
-            return current && current[key] !== undefined ? current[key] : undefined;
+            if (!current) return undefined;
+            
+            // First try exact key match
+            if (current[key] !== undefined) {
+                return current[key];
+            }
+            
+            // Try converting snake_case to camelCase
+            const camelKey = this._snakeToCamel(key);
+            if (current[camelKey] !== undefined) {
+                return current[camelKey];
+            }
+            
+            // Try converting camelCase to snake_case
+            const snakeKey = this._camelToSnake(key);
+            if (current[snakeKey] !== undefined) {
+                return current[snakeKey];
+            }
+            
+            return undefined;
         }, obj);
-    }
-
-    /**
-     * Remove Google Translate widget
-     */
-    removeGoogleTranslate() {
-        const widget = document.getElementById('google_translate_element');
-        if (widget) {
-            widget.innerHTML = '';
-        }
-        
-        // Remove Google Translate iframe and styles
-        const iframes = document.querySelectorAll('iframe[src*="translate.google"], iframe[src*="translate.googleapis"]');
-        iframes.forEach(iframe => {
-            try {
-                iframe.remove();
-            } catch (e) {
-                console.warn('Error removing iframe:', e);
-            }
-        });
-        
-        // Remove Google Translate elements
-        const translateElements = document.querySelectorAll('.goog-te-banner-frame, .goog-te-menu-frame, .goog-te-combo, .skiptranslate, .goog-te-banner, .goog-te-menu-value');
-        translateElements.forEach(el => {
-            try {
-                el.remove();
-            } catch (e) {
-                console.warn('Error removing translate element:', e);
-            }
-        });
-        
-        // Remove Google Translate classes and restore original content
-        document.body.classList.remove('translated-ltr', 'translated-rtl', 'notranslate');
-        document.documentElement.classList.remove('translated-ltr', 'translated-rtl', 'notranslate');
-        
-        // Remove notranslate class from all elements
-        const notranslateElements = document.querySelectorAll('.notranslate');
-        notranslateElements.forEach(el => {
-            el.classList.remove('notranslate');
-        });
-        
-        // Remove Google Translate script injected styles (be more careful)
-        const allStyles = document.querySelectorAll('style');
-        allStyles.forEach(style => {
-            const content = style.textContent || '';
-            if ((content.includes('goog-te') || content.includes('.skiptranslate')) && 
-                !style.hasAttribute('data-custom') &&
-                !style.id) {
-                try {
-                    style.remove();
-                } catch (e) {
-                    console.warn('Error removing style:', e);
-                }
-            }
-        });
-        
-        // Clear any Google Translate state
-        if (typeof google !== 'undefined' && google.translate) {
-            try {
-                // Reset translate element if it exists
-                const container = document.getElementById('google_translate_element');
-                if (container) {
-                    container.innerHTML = '';
-                }
-            } catch (e) {
-                console.warn('Error clearing Google Translate state:', e);
-            }
-        }
     }
 
     /**
@@ -578,12 +536,5 @@ export class LanguageManager {
     getCurrentLanguage() {
         return this.currentLanguage;
     }
-}
-
-// Google Translate callback (not used for pre-translated pages, but kept for compatibility)
-export function googleTranslateElementInit() {
-    // Pages for de, fr, es are pre-translated via Python API during build
-    // This callback is kept for compatibility but does nothing
-    // The Google Translate script is still loaded in HTML for potential future use
 }
 

@@ -34,7 +34,6 @@ import { DataRenderer } from './modules/data-renderer.js';
 import { LanguageManager } from './modules/language.js';
 import { Utils } from './modules/utils.js';
 import { CONSTANTS } from './core/constants.js';
-import { googleTranslateElementInit } from './modules/language.js';
 import { eventBus } from './core/event-bus.js';
 import { container } from './core/dependency-container.js';
 
@@ -51,7 +50,6 @@ if (typeof window !== 'undefined') {
     window.LanguageManager = LanguageManager;
     window.Utils = Utils;
     window.CONSTANTS = CONSTANTS;
-    window.googleTranslateElementInit = googleTranslateElementInit;
     
     // Export app instance and utilities
     window.app = app;

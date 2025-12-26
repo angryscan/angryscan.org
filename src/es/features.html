@@ -1,42 +1,64 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" translate="no">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google" content="notranslate">
     <!-- Primary Meta Tags -->
-    <title>Funciones: capacidades avanzadas de escaneo de datos</title>
-    <meta name="description" content="Explore potentes funciones: clasificación, programación, exportación, comparadores configurables y compatibilidad con múltiples formatos de archivos. Solución integral de escaneo de datos.">
-    <meta name="keywords" content="características del escáner de datos, clasificación, programación, exportación, comparadores configurables, formatos de archivo">
+    <title>Características del Escáner: Clasificación y Exportación CSV | Angry Data Scanner</title>
+    <meta name="description" content="Funciones potentes: clasificación inteligente, historial de escaneos, exportación CSV, escaneos programados, comparadores configurables y 15+ formatos. Ideal para auditorías.">
+    <meta name="keywords" content="características escáner datos, sistema clasificación archivos, historial escaneos, exportación CSV, escaneos programados, comparadores configurables, soporte formatos, escáner PDF, escáner Excel, escaneo automatizado">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://angryscan.org/es/features.html">
-    <meta property="og:title" content="Funciones: capacidades avanzadas de escaneo de datos">
-    <meta property="og:description" content="Explore potentes funciones: clasificación, programación, exportación, comparadores configurables y compatibilidad con múltiples formatos de archivos.">
+    <meta property="og:url" content="https://angryscan.org/es/features">
+    <meta property="og:title" content="Características del Escáner: Clasificación y Exportación CSV | Angry Data Scanner">
+    <meta property="og:description" content="Funciones potentes: clasificación inteligente, historial de escaneos, exportación CSV, escaneos programados, comparadores configurables y 15+ formatos. Ideal para auditorías.">
     <meta property="og:image" content="https://angryscan.org/assets/screenshot_light.png">
     <meta property="og:locale" content="es_ES">
+    
+        
     <meta property="og:locale:alternate" content="en_US">
+        
+    
+        
     <meta property="og:locale:alternate" content="ru_RU">
+        
+    
+        
+    
+        
     <meta property="og:locale:alternate" content="de_DE">
+        
+    
+        
     <meta property="og:locale:alternate" content="fr_FR">
+        
+    
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://angryscan.org/es/features.html">
-    <meta property="twitter:title" content="Funciones: capacidades avanzadas de escaneo de datos">
-    <meta property="twitter:description" content="Explore potentes funciones: clasificación, programación, exportación, comparadores configurables y compatibilidad con múltiples formatos de archivos.">
+    <meta property="twitter:url" content="https://angryscan.org/es/features">
+    <meta property="twitter:title" content="Características del Escáner: Clasificación y Exportación CSV | Angry Data Scanner">
+    <meta property="twitter:description" content="Funciones potentes: clasificación inteligente, historial de escaneos, exportación CSV, escaneos programados, comparadores configurables y 15+ formatos. Ideal para auditorías.">
     <meta property="twitter:image" content="https://angryscan.org/assets/screenshot_light.png">
     
     <!-- Canonical URL -->
     <link rel="canonical" href="https://angryscan.org/es/features">
     
     <!-- Hreflang tags for multilingual SEO -->
-    <link rel="alternate" hreflang="es" href="https://angryscan.org/es/features">
+    
     <link rel="alternate" hreflang="en" href="https://angryscan.org/features">
+    
     <link rel="alternate" hreflang="ru" href="https://angryscan.org/ru/features">
+    
+    <link rel="alternate" hreflang="es" href="https://angryscan.org/es/features">
+    
     <link rel="alternate" hreflang="de" href="https://angryscan.org/de/features">
+    
     <link rel="alternate" hreflang="fr" href="https://angryscan.org/fr/features">
-    <link rel="alternate" hreflang="x-default" href="https://angryscan.org/features">
+    
+    <link rel="alternate" hreflang="x-default" href="https://angryscan.org/">
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../assets/favicon_light_tab.ico">
@@ -75,21 +97,31 @@
     <!-- END BING -->
     
     <!-- Structured Data (Schema.org) -->
+    
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "WebPage",
-      "name": "Funciones - Capacidades avanzadas de escaneo de datos | Angry Data Scanner",
-      "description": "Explore potentes funciones: clasificación, programación, exportación, comparadores configurables y compatibilidad con múltiples formatos de archivos. Solución integral de escaneo de datos.",
+      "@type": "SoftwareApplication",
+      "name": "Angry Data Scanner",
+      "applicationCategory": "SecurityApplication",
+      "operatingSystem": "Windows, Linux, macOS",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "Descubra PII, PCI DSS y datos confidenciales en carpetas, S3 y bases de datos. Herramienta gratuita de código abierto para Windows, Linux, macOS. No se requieren derechos de administrador.",
       "url": "https://angryscan.org/es/features",
       "inLanguage": "es",
-      "isPartOf": {
-        "@type": "WebSite",
+      "downloadUrl": "https://github.com/angryscan/angrydata-app/releases",
+      "author": {
+        "@type": "Organization",
         "name": "Angry Data Scanner",
         "url": "https://angryscan.org"
       }
     }
     </script>
+    
     
     <!-- Inline script to apply theme immediately before page render to avoid flash -->
     <script>
@@ -97,8 +129,57 @@
         (function() {
             try {
                 const savedTheme = localStorage.getItem('theme');
+                
                 if (savedTheme) {
                     document.documentElement.setAttribute('data-theme', savedTheme);
+                    
+                    // Update screenshot src immediately if dark theme (before image loads)
+                    if (savedTheme === 'dark') {
+                        // Function to update screenshot src
+                        const updateScreenshotSrc = function() {
+                            const screenshot = document.getElementById('heroScreenshot');
+                            if (screenshot) {
+                                const darkSrc = screenshot.getAttribute('data-dark');
+                                if (darkSrc) {
+                                    screenshot.src = darkSrc;
+                                    // Show image after it loads
+                                    screenshot.onload = function() {
+                                        screenshot.style.opacity = '1';
+                                    };
+                                    // If already loaded, show immediately
+                                    if (screenshot.complete) {
+                                        screenshot.style.opacity = '1';
+                                    }
+                                }
+                            }
+                        };
+                        
+                        // Try immediately if DOM is ready, otherwise wait for DOMContentLoaded
+                        if (document.readyState === 'loading') {
+                            document.addEventListener('DOMContentLoaded', updateScreenshotSrc);
+                        } else {
+                            updateScreenshotSrc();
+                        }
+                    } else {
+                        // For light theme, show image immediately
+                        const showScreenshot = function() {
+                            const screenshot = document.getElementById('heroScreenshot');
+                            if (screenshot) {
+                                if (screenshot.complete) {
+                                    screenshot.style.opacity = '1';
+                                } else {
+                                    screenshot.onload = function() {
+                                        screenshot.style.opacity = '1';
+                                    };
+                                }
+                            }
+                        };
+                        if (document.readyState === 'loading') {
+                            document.addEventListener('DOMContentLoaded', showScreenshot);
+                        } else {
+                            showScreenshot();
+                        }
+                    }
                 }
             } catch (e) {
                 // Ignore errors if localStorage is not available
@@ -111,184 +192,236 @@
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WSLS4F4G"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
+    
     <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-brand">
-                <a href="/es/">
-                    <img src="../assets/favicon_light.ico" alt="Angry Data Scanner" class="logo-icon">
-                    <span class="brand-text">Escáner de datos enojado</span>
-                </a>
-            </div>
-            <button class="burger-menu" id="burgerMenu" aria-label="Toggle menu" aria-expanded="false">
-                <span class="burger-line"></span>
-                <span class="burger-line"></span>
-                <span class="burger-line"></span>
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-brand">
+            <a href="/es/">
+                <img src="../assets/favicon_light.ico" alt="Angry Data Scanner" class="logo-icon">
+                <span class="brand-text">Angry Data Scanner</span>
+            </a>
+        </div>
+        <button class="burger-menu" id="burgerMenu" aria-label="Toggle menu" aria-expanded="false">
+            <span class="burger-line"></span>
+            <span class="burger-line"></span>
+            <span class="burger-line"></span>
+        </button>
+        <div class="nav-menu" id="navMenu">
+            <a href="/es/" class="nav-link" data-i18n="nav.home">Hogar</a>
+            <a href="/es/discovery" class="nav-link" data-i18n="nav.data_discovery">Descubrimiento de datos</a>
+            <a href="/es/features" class="nav-link active" data-i18n="nav.features">Características</a>
+            <a href="/es/use-cases" class="nav-link" data-i18n="nav.use_cases">Casos de uso</a>
+            <a href="/es/download" class="nav-link" data-i18n="nav.download">Descargar</a>
+            <a href="https://github.com/angryscan/angrydata-app" class="nav-link" target="_blank" data-i18n="nav.github">GitHub</a>
+        </div>
+        <div class="nav-actions">
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg class="theme-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+                    <path d="M12 2V4M12 20V22M4.93 4.93L6.34 6.34M17.66 17.66L19.07 19.07M2 12H4M20 12H22M4.93 19.07L6.34 17.66M17.66 6.34L19.07 4.93" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
             </button>
-            <div class="nav-menu" id="navMenu">
-                <a href="/es/" class="nav-link" data-i18n="nav.home">Hogar</a>
-                <a href="/es/discovery" class="nav-link" data-i18n="nav.dataDiscovery">Descubrimiento de datos</a>
-                <a href="/es/features" class="nav-link active" data-i18n="nav.features">Características</a>
-                <a href="/es/use-cases" class="nav-link" data-i18n="nav.useCases">Casos de uso</a>
-                <a href="/es/download" class="nav-link" data-i18n="nav.download">Descargar</a>
-                <a href="https://github.com/angryscan/angrydata-app" class="nav-link" target="_blank" data-i18n="nav.github">GitHub</a>
-            </div>
-            <div class="nav-actions">
-                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-                    <svg class="theme-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
-                        <path d="M12 2V4M12 20V22M4.93 4.93L6.34 6.34M17.66 17.66L19.07 19.07M2 12H4M20 12H22M4.93 19.07L6.34 17.66M17.66 6.34L19.07 4.93" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <div class="language-selector-wrapper">
+                <button class="language-selector-button" id="languageSelectorButton" aria-label="Select language" aria-expanded="false">
+                    <span class="language-selector-text" id="languageSelectorText">
+                        <img src="../assets/flag-es.svg" alt="ES" class="language-flag-icon"> Español
+                    </span>
+                    <svg class="language-selector-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <polyline points="6 9 12 15 18 9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </button>
-                <div class="language-selector-wrapper">
-                    <button class="language-selector-button" id="languageSelectorButton" aria-label="Select language" aria-expanded="false">
-                        <span class="language-selector-text" id="languageSelectorText"><img src="../assets/flag-us.svg" alt="US" class="language-flag-icon"> English</span>
-                        <svg class="language-selector-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <polyline points="6 9 12 15 18 9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </button>
-                    <div class="language-dropdown" id="languageDropdown" role="listbox">
-                        <div class="language-option" data-value="en" role="option">
-                            <img src="../assets/flag-us.svg" alt="US" class="language-flag-icon">
-                            <span class="language-name">English</span>
-                        </div>
-                        <div class="language-option" data-value="ru" role="option">
-                            <img src="../assets/flag-ru.svg" alt="RU" class="language-flag-icon">
-                            <span class="language-name">Русский</span>
-                        </div>
-                        <div class="language-option" data-value="es" role="option">
-                            <img src="../assets/flag-es.svg" alt="ES" class="language-flag-icon">
-                            <span class="language-name">Español</span>
-                        </div>
-                        <div class="language-option" data-value="de" role="option">
-                            <img src="../assets/flag-de.svg" alt="DE" class="language-flag-icon">
-                            <span class="language-name">Deutsch</span>
-                        </div>
-                        <div class="language-option" data-value="fr" role="option">
-                            <img src="../assets/flag-fr.svg" alt="FR" class="language-flag-icon">
-                            <span class="language-name">Français</span>
-                        </div>
+                <div class="language-dropdown" id="languageDropdown" role="listbox">
+                    
+                    <div class="language-option" data-value="en" role="option">
+                        <img src="../assets/flag-us.svg" alt="EN" class="language-flag-icon">
+                        <span class="language-name">English</span>
                     </div>
-                    <select class="language-selector-hidden" id="languageSelector" aria-label="Select language" style="display: none;">
-                        <option value="en">🇺🇸 English</option>
-                        <option value="ru">🇷🇺 Русский</option>
-                        <option value="es">🇪🇸 Español</option>
-                        <option value="de">🇩🇪 Deutsch</option>
-                        <option value="fr">🇫🇷 Français</option>
-                    </select>
+                    
+                    <div class="language-option" data-value="ru" role="option">
+                        <img src="../assets/flag-ru.svg" alt="RU" class="language-flag-icon">
+                        <span class="language-name">Русский</span>
+                    </div>
+                    
+                    <div class="language-option selected" data-value="es" role="option">
+                        <img src="../assets/flag-es.svg" alt="ES" class="language-flag-icon">
+                        <span class="language-name">Español</span>
+                    </div>
+                    
+                    <div class="language-option" data-value="de" role="option">
+                        <img src="../assets/flag-de.svg" alt="DE" class="language-flag-icon">
+                        <span class="language-name">Deutsch</span>
+                    </div>
+                    
+                    <div class="language-option" data-value="fr" role="option">
+                        <img src="../assets/flag-fr.svg" alt="FR" class="language-flag-icon">
+                        <span class="language-name">Français</span>
+                    </div>
+                    
                 </div>
+                <select class="language-selector-hidden" id="languageSelector" aria-label="Select language" style="display: none;">
+                    
+                    <option value="en">English</option>
+                    
+                    <option value="ru">Русский</option>
+                    
+                    <option value="es" selected>Español</option>
+                    
+                    <option value="de">Deutsch</option>
+                    
+                    <option value="fr">Français</option>
+                    
+                </select>
             </div>
         </div>
-    </nav>
+    </div>
+</nav>
 
-    <!-- Breadcrumbs -->
-    <nav class="breadcrumbs" aria-label="Breadcrumb">
-        <div class="container">
-            <ol class="breadcrumbs-list">
-                <li class="breadcrumbs-item"><a href="/es/"><span data-i18n="nav.home">Hogar</span></a></li>
-                <li class="breadcrumbs-item" aria-current="page"><span data-i18n="nav.features">Características</span></li>
-            </ol>
+    
+    
+<!-- Breadcrumbs -->
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+    <div class="container">
+        <ol class="breadcrumbs-list">
+            <li class="breadcrumbs-item"><a href="/es/"><span data-i18n="nav.home">Hogar</span></a></li>
+            <li class="breadcrumbs-item" aria-current="page"><span data-i18n="nav.features">Características</span></li>
+        </ol>
+    </div>
+</nav>
+
+<!-- Features Section -->
+<section class="section features-section">
+    <div class="container">
+        <div class="section-header">
+            <h1 class="section-title" data-i18n="sections.features.title">Características clave</h1>
+            <p class="section-description" data-i18n="sections.features.description">Descubra las poderosas capacidades que hacen de Angry Data Scanner la solución ideal para el descubrimiento de datos confidenciales</p>
         </div>
-    </nav>
-
-    <!-- Key Features -->
-    <section class="section features-section">
-        <div class="container">
-            <div class="section-header">
-                <h1 class="section-title" data-i18n="sections.features.title">Características clave</h1>
-                <p class="section-description" data-i18n="sections.features.description">Descubra las poderosas capacidades que hacen de Angry Data Scanner la solución ideal para el descubrimiento de datos confidenciales</p>
+        
+        <div class="features-grid" id="featuresGrid">
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    
+                </div>
+                <h3 class="feature-title">Categoría</h3>
+                <p class="feature-description">El escáner muestra primero los archivos de alto valor, lo que le ayuda a priorizar los hallazgos más críticos. El sistema de clasificación inteligente analiza la sensibilidad de los datos y presenta los resultados en orden de importancia.</p>
             </div>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M9 11L12 14L22 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M21 12V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <h2 class="feature-title" data-i18n="features.ranking.title">Categoría</h2>
-                    <p class="feature-description" data-i18n="features.ranking.description">El escáner muestra primero los archivos de alto valor, lo que le ayuda a priorizar los hallazgos más críticos. El sistema de clasificación inteligente analiza la sensibilidad de los datos y presenta los resultados en orden de importancia.</p>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                        <path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M3 3H21V21H3V3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M9 9H15V15H9V9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <h2 class="feature-title" data-i18n="features.history.title">Ver historial de escaneo</h2>
-                    <p class="feature-description" data-i18n="features.history.description">Realice un seguimiento de todos sus escaneos anteriores con un historial detallado. Revise resultados anteriores, compare escaneos a lo largo del tiempo y mantenga un seguimiento de auditoría completo de sus actividades de descubrimiento de datos.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M12 3V15M12 15L8 11M12 15L16 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <h2 class="feature-title" data-i18n="features.export.title">Exportar resultados</h2>
-                    <p class="feature-description" data-i18n="features.export.description">Descargue los resultados en un archivo CSV para realizar más análisis, generar informes o integrarlos con otras herramientas. La exportación incluye todos los tipos de datos, ubicaciones y metadatos detectados.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M12 8V12L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <h2 class="feature-title" data-i18n="features.schedule.title">Programar escaneos</h2>
-                    <p class="feature-description" data-i18n="features.schedule.description">Automatice su proceso de escaneo con escaneos programados. Configure análisis recurrentes para monitorear continuamente sus fuentes de datos y garantizar el cumplimiento continuo.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M9 17L7 19L5 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M7 19V11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M15 7L17 5L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M17 5V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <h2 class="feature-title" data-i18n="features.matchers.title">Comparadores configurables</h2>
-                    <p class="feature-description" data-i18n="features.matchers.description">Configure PII, PCI DSS y otros comparadores para que coincidan con sus requisitos de cumplimiento específicos. Habilite o deshabilite los patrones de detección según sus necesidades.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M14 2V8H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <h2 class="feature-title" data-i18n="features.formats.title">Múltiples formatos de archivos</h2>
-                    <p class="feature-description" data-i18n="features.formats.description">Configure los formatos de archivos (pdf, excel, etc.) para escanear. Soporte para MS Office, Open Office, Adobe PDF, archivos y archivos de texto sin formato. Personalice qué formatos incluir en sus escaneos.</p>
-                </div>
+                <h3 class="feature-title">Ver historial de escaneo</h3>
+                <p class="feature-description">Realice un seguimiento de todos sus escaneos anteriores con un historial detallado. Revise resultados anteriores, compare escaneos a lo largo del tiempo y mantenga un seguimiento de auditoría completo de sus actividades de descubrimiento de datos.</p>
             </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 3V15M12 15L8 11M12 15L16 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    
+                </div>
+                <h3 class="feature-title">Exportar resultados</h3>
+                <p class="feature-description">Descargue los resultados en un archivo CSV para realizar más análisis, generar informes o integrarlos con otras herramientas. La exportación incluye todos los tipos de datos, ubicaciones y metadatos detectados.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                        <path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    
+                </div>
+                <h3 class="feature-title">Programar escaneos</h3>
+                <p class="feature-description">Automatice su proceso de escaneo con escaneos programados. Configure análisis recurrentes para monitorear continuamente sus fuentes de datos y garantizar el cumplimiento continuo.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+                        <path d="M12 1V3M12 21V23M4.22 4.22L5.64 5.64M18.36 18.36L19.78 19.78M1 12H3M21 12H23M4.22 19.78L5.64 18.36M18.36 5.64L19.78 4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    
+                </div>
+                <h3 class="feature-title">Comparadores configurables</h3>
+                <p class="feature-description">Configure PII, PCI DSS y otros comparadores para que coincidan con sus requisitos de cumplimiento específicos. Habilite o deshabilite los patrones de detección según sus necesidades.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M14 2V8H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    
+                </div>
+                <h3 class="feature-title">Múltiples formatos de archivos</h3>
+                <p class="feature-description">Configure los formatos de archivos (pdf, excel, etc.) para escanear. Soporte para MS Office, Open Office, Adobe PDF, archivos y archivos de texto sin formato. Personalice qué formatos incluir en sus escaneos.</p>
+            </div>
+            
         </div>
-    </section>
+    </div>
+</section>
 
+    
     <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-top-row">
-                    <p data-i18n="footer.copyright">&copy; 2025, por admin@angryscan.org</p>
-                    <div class="footer-links">
-                        <a href="https://github.com/angryscan/angrydata-app" target="_blank" data-i18n="nav.github">GitHub</a>
-                        <a href="mailto:admin@angryscan.org" data-i18n="nav.contactUs">Contáctenos</a>
-                    </div>
-                </div>
-                <div class="footer-pages">
-                    <a href="/es/" data-i18n="nav.home">Hogar</a>
-                    <a href="/es/discovery" data-i18n="nav.dataDiscovery">Descubrimiento de datos</a>
-                    <a href="/es/features" data-i18n="nav.features">Características</a>
-                    <a href="/es/use-cases" data-i18n="nav.useCases">Casos de uso</a>
-                    <a href="/es/download" data-i18n="nav.download">Descargar</a>
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-top-row">
+                <p data-i18n="footer.copyright">© 2025, por admin@angryscan.org</p>
+                <div class="footer-links">
+                    <a href="https://github.com/angryscan/angrydata-app" target="_blank" data-i18n="nav.github">GitHub</a>
+                    <a href="mailto:admin@angryscan.org" data-i18n="nav.contact_us">Contáctenos</a>
                 </div>
             </div>
+            <div class="footer-pages">
+                <a href="/es/" data-i18n="nav.home">Hogar</a>
+                <a href="/es/discovery" data-i18n="nav.data_discovery">Descubrimiento de datos</a>
+                <a href="/es/features" data-i18n="nav.features">Características</a>
+                <a href="/es/use-cases" data-i18n="nav.use_cases">Casos de uso</a>
+                <a href="/es/download" data-i18n="nav.download">Descargar</a>
+            </div>
         </div>
-    </footer>
+    </div>
+</footer>
 
-    <!-- Google Translate Container (hidden) -->
-    <div id="google_translate_element" style="display: none;"></div>
+    
+    <!-- Lightbox Modal -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose" aria-label="Close lightbox">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+        <div class="lightbox-content">
+            <img 
+                src="../assets/screenshot_light.png" 
+                alt="Angry Data Scanner Interface" 
+                class="lightbox-image"
+                id="lightboxScreenshot"
+                data-light="../assets/screenshot_light.png"
+                data-dark="../assets/screenshot_dark.png"
+            >
+        </div>
+    </div>
 
     <!-- Inline script to apply translations immediately before page render -->
     <script>
@@ -318,17 +451,29 @@
                 }
             }
             
-            // Hide body until translations are applied (for all languages to prevent flicker on mobile)
-            // This helps with mobile rendering and prevents content flash
-            document.documentElement.style.visibility = 'hidden';
-            document.documentElement.setAttribute('data-lang-loading', lang || 'en');
+            // Hide body until translations are applied (only for ru, en)
+            if (lang === 'ru' || lang === 'en') {
+                document.documentElement.style.visibility = 'hidden';
+                document.documentElement.setAttribute('data-lang-loading', lang);
+            }
         })();
     </script>
     
     <!-- Scripts -->
-    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-    <script src="../js/i18n.js"></script>
-    <script src="../js/config.js"></script>
+    <!-- Inline translations and config from config.json -->
+    <script>
+        // Embed translations from config.json into window.I18N
+        (function() {
+            const translations = {"en": {"site": {"title": "Angry Data Scanner - Free Sensitive Data Discovery Tool", "description": "Advanced sensitive data discovery tool combining personal data discovery, payment card discovery, and passwords finder in one solution. Comprehensive data detector for compliance and security."}, "nav": {"home": "Home", "dataDiscovery": "Data Discovery", "features": "Features", "useCases": "Use Cases", "download": "Download", "github": "GitHub", "contactUs": "Contact us"}, "hero": {"badge": "Free Open Source", "title": "Sensitive Data Discovery Tool", "description": "Angry Data Scanner is a free sensitive data discovery tool designed to automatically find PII (Personally Identifiable Information), PHI (Protected Health Information) and intellectual property using advanced pattern matching. Perform unified data searches across local folders, web pages, AWS S3 buckets, and databases.", "features": {"simple": "Intuitive design meant for speed and ease of use.", "twoClicks": "Detect sensitive data instantly with just 2 clicks.", "noAdmin": "No admin rights or installation required.", "crossPlatform": "Works seamlessly on Linux macOS and Windows.", "privacy": "All scanning happens locally. Your data never leaves your PC."}, "cta": {"download": "Download Now", "github": "View on GitHub"}}, "sections": {"discovery": {"title": "Sensitive data discovery", "description": "Angry Data Scanner can detect various types of sensitive data across multiple categories", "filterByCountry": "Filter by country", "all": "All", "international": "International", "russia": "Russia", "unitedStates": "United States", "china": "China"}, "fileTypes": {"title": "Supported file types"}, "dataSources": {"title": "Supported data sources", "sources": [{"connector": "Network Folder", "description": "Scans files on remote directory like Windows environment"}, {"connector": "HDD/SDD", "description": "Scan local hard drive"}, {"connector": "S3", "description": "Scan files in S3"}, {"connector": "HTTP/HTTPS", "description": "Scans web site content"}]}, "features": {"title": "Key features", "description": "Discover the powerful capabilities that make Angry Data Scanner the ideal solution for sensitive data discovery"}, "useCases": {"title": "Real life use cases", "description": "Discover how organizations across different industries use Angry Data Scanner to protect sensitive data and ensure compliance", "cases": ["A leak hunting team scans network folder and ensure that it does not contain source code", "An employee finds and deletes files containing card numbers to comply with PCI DSS", "A banking employee scans network folder to ensure that it does not contain PII of VIP clients", "A boss scans a shared folder of the sales team so they don't have client contacts there", "Law enforcements need to discover a traces of cryptocurrency on a laptop", "A cybersecurity officer need to validate that the database does not contain a personal data"], "whoShouldUse": "Who Should Use Angry Data Scanner?", "securityTeams": "Security Teams", "securityTeamsDesc": "Conduct security audits, identify data leaks, and ensure sensitive information is properly protected across your infrastructure.", "complianceOfficers": "Compliance Officers", "complianceOfficersDesc": "Ensure compliance with regulations like GDPR, PCI DSS, HIPAA, and other data protection standards.", "developers": "Developers & DevOps", "developersDesc": "Scan repositories and infrastructure to prevent accidental exposure of sensitive data in code or configurations.", "forensics": "Forensics & Law Enforcement", "forensicsDesc": "Discover traces of sensitive data, cryptocurrency, and other evidence during digital investigations."}, "download": {"title": "Download", "systemRequirements": "System Requirements: Windows, Linux, macOS | 400MB HDD | 4GB RAM | 1.3Ghz CPU", "ctaDescription": "Download Angry Data Scanner for Windows, Linux, or macOS. No admin rights required.", "ctaButton": "Download Now", "gettingStarted": "Getting Started", "gettingStartedDesc": "Quick start guide to help you begin using Angry Data Scanner", "step1": {"title": "Download", "description": "Download the appropriate version for your operating system from the links above."}, "step2": {"title": "Install or Extract", "description": "Run the installer (Windows/macOS) or extract the portable version. No admin rights required."}, "step3": {"title": "Start Scanning", "description": "Launch the application, select your data source, and start scanning. Results appear instantly."}}, "quickLinks": {"title": "Explore More", "description": "Discover all capabilities and features of Angry Data Scanner", "discovery": "PII, PCI DSS, banking data, crypto wallets, and more", "features": "Ranking, scheduling, export, and configurable matchers", "useCases": "Compliance, security audits, and data protection", "download": "Windows, Linux, macOS - Get started now"}}, "common": {"search": "Search"}, "categories": {"personalDataNumbers": "personal data (numbers)", "personalDataText": "personal data (text)", "pciDss": "PCI DSS data", "bankingSecrecy": "banking secrecy", "crypto": "cryptocurrency", "itAssets": "IT assets", "customSignatures": "custom signatures", "customSignaturesDesc": "It is possible to add custom data search signatures using plain text:", "customSignaturesOr": "or any other.", "personalDataNumbersTitle": "Search personal data (numbers)", "personalDataTextTitle": "Search personal data (text)", "pciDssTitle": "Search PCI DSS data", "bankingSecrecyTitle": "Search banking secrecy", "cryptoTitle": "Search cryptocurrency", "itAssetsTitle": "Search IT assets", "customSignaturesTitle": "Search custom signatures"}, "tableHeaders": {"dataType": "Data type", "localName": "Local name", "country": "Country", "example": "Example", "fileType": "File Type", "fileFormat": "File Format", "connector": "Connector", "description": "Description"}, "features": {"ranking": {"title": "Ranking", "description": "Scanner shows high-value files first"}, "history": {"title": "View scanning history", "description": "Track all your previous scans"}, "export": {"title": "Export results", "description": "Download results in a CSV file"}, "schedule": {"title": "Schedule scans", "description": "Automate your scanning process"}, "matchers": {"title": "Configurable matchers", "description": "Configure PII, PCI DSS and other matchers"}, "formats": {"title": "Multiple file formats", "description": "Configure file formats (pdf, excel, etc.)"}}, "downloads": {"windows": {"setup": "Setup x64", "portable": "Portable x64"}, "linux": {"deb": "DEB x64", "portable": "Portable x64"}, "macos": {"x64": "macOS x64", "arm64": "macOS ARM64"}}, "footer": {"copyright": "© 2025, by admin@angryscan.org"}, "emptyMessage": "No data available for selected country", "itAssets": [{"type": "IPv4", "example": "192.168.1.1"}, {"type": "IPv6", "example": "2001:db8::1"}, {"type": "Source code files", "example": "Finds files with source-code. Source code should be placed in git repository."}, {"type": "TLS certificates", "example": "Finds folders with the most amount of TLS certificates"}, {"type": "Hash data", "example": "SHA-256, MD5, NTLM (NT hash), SHA-1, SHA-512"}], "crypto": [{"type": "Crypto wallet", "example": "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"}, {"type": "Crypto seed phrase", "example": "A sequence of 12 to 24 words from the BIP39 standard wordlist, used for cryptographic wallet recovery and key derivation"}]}, "ru": {"site": {"title": "Angry Data Scanner - Программа поиска конфиденциальных данных для Mac, Windows и Linux", "description": "Инструмент поиска данных. С его помощью можно найти персональные данные, данные банковских карт и другие конфиденциальные данные в папках, S3, базах данных, веб-страницах."}, "nav": {"home": "Главная", "dataDiscovery": "Данные", "features": "Возможности", "useCases": "Примеры", "download": "Скачать", "github": "GitHub", "contactUs": "Связаться с нами"}, "hero": {"badge": "Free Open Source", "title": "Бесплатная программа для быстрого поиска конфиденциальных данных", "description": "Бесплатный инструмент для автоматического поиска PII, PHI и интеллектуальной собственности с помощью расширенного сопоставления шаблонов. Выполняйте поиск данных в локальных папках, веб-страницах, AWS S3 и базах данных.", "features": {"simple": "Интуитивный дизайн для скорости и удобства.", "twoClicks": "Обнаружение конфиденциальных данных за 2 клика.", "noAdmin": "Не требуются права администратора или установка.", "crossPlatform": "Работает на Linux, macOS и Windows.", "privacy": "Все сканирование происходит локально. Данные не покидают ваш компьютер."}, "cta": {"download": "Скачать сейчас", "github": "Посмотреть на GitHub"}}, "sections": {"discovery": {"title": "Поиск чувствительных данных", "description": "Angry Data Scanner может обнаруживать различные типы конфиденциальных данных в нескольких категориях", "filterByCountry": "Фильтр по стране", "all": "Все", "international": "Международные", "russia": "Россия", "unitedStates": "Соединенные Штаты", "china": "Китай"}, "fileTypes": {"title": "Поддерживаемые типы файлов"}, "dataSources": {"title": "Поддерживаемые источники данных", "sources": [{"connector": "Сетевая папка", "description": "Сканирует файлы в удаленной директории, например в среде Windows"}, {"connector": "HDD/SSD", "description": "Сканирование локального жесткого диска"}, {"connector": "S3", "description": "Сканирование файлов в S3"}, {"connector": "HTTP/HTTPS", "description": "Сканирование содержимого веб-сайта"}]}, "features": {"title": "Ключевые возможности", "description": "Откройте для себя мощные возможности, которые делают Angry Data Scanner идеальным решением для обнаружения конфиденциальных данных"}, "useCases": {"title": "Реальные случаи использования", "description": "Узнайте, как организации из разных отраслей используют Angry Data Scanner для защиты конфиденциальных данных и обеспечения соответствия требованиям", "cases": ["Команда по поиску утечек сканирует сетевую папку и убеждается, что она не содержит исходный код", "Сотрудник находит и удаляет файлы, содержащие номера карт, для соответствия PCI DSS", "Банковский сотрудник сканирует сетевую папку, чтобы убедиться, что она не содержит PII VIP-клиентов", "Руководитель сканирует общую папку отдела продаж, чтобы там не было контактов клиентов", "Правоохранительным органам нужно обнаружить следы криптовалюты на ноутбуке", "Специалист по кибербезопасности должен проверить, что база данных не содержит персональных данных"], "whoShouldUse": "Кому подходит Angry Data Scanner?", "securityTeams": "Команды безопасности", "securityTeamsDesc": "Проводите аудиты безопасности, выявляйте утечки данных и обеспечивайте надлежащую защиту конфиденциальной информации в вашей инфраструктуре.", "complianceOfficers": "Специалисты по соответствию", "complianceOfficersDesc": "Обеспечивайте соответствие требованиям GDPR, PCI DSS, HIPAA и другим стандартам защиты данных.", "developers": "Разработчики и DevOps", "developersDesc": "Сканируйте репозитории и инфраструктуру, чтобы предотвратить случайное раскрытие конфиденциальных данных в коде или конфигурациях.", "forensics": "Криминалистика и правоохранительные органы", "forensicsDesc": "Обнаруживайте следы конфиденциальных данных, криптовалюты и другие доказательства во время цифровых расследований."}, "download": {"title": "Скачать", "systemRequirements": "Системные требования: Windows, Linux, macOS | 400 МБ на жестком диске | 4 ГБ ОЗУ | процессор 1.3 ГГц", "ctaDescription": "Скачайте Angry Data Scanner для Windows, Linux или macOS. Права администратора не требуются.", "ctaButton": "Скачать сейчас", "gettingStarted": "Начало работы", "gettingStartedDesc": "Краткое руководство, которое поможет вам начать использовать Angry Data Scanner", "step1": {"title": "Скачать", "description": "Скачайте подходящую версию для вашей операционной системы по ссылкам выше."}, "step2": {"title": "Установить или распаковать", "description": "Запустите установщик (Windows/macOS) или распакуйте портативную версию. Права администратора не требуются."}, "step3": {"title": "Начать сканирование", "description": "Запустите приложение, выберите источник данных и начните сканирование. Результаты появятся мгновенно."}}, "quickLinks": {"title": "Узнать больше", "description": "Откройте для себя все возможности и функции Angry Data Scanner", "discovery": "PII, PCI DSS, банковские данные, криптокошельки и многое другое", "features": "Ранжирование, планирование, экспорт и настраиваемые матчеры", "useCases": "Соответствие требованиям, аудиты безопасности и защита данных", "download": "Windows, Linux, macOS - Начните прямо сейчас"}}, "categories": {"personalDataNumbers": "персональных данных (числа)", "personalDataText": "персональных данных (текст)", "pciDss": "данных PCI DSS", "bankingSecrecy": "банковской тайны", "crypto": "криптовалюты", "itAssets": "IT-активов", "customSignatures": "пользовательских сигнатур", "customSignaturesDesc": "Можно добавить пользовательские сигнатуры поиска данных, используя обычный текст:", "customSignaturesOr": "или любой другой.", "personalDataNumbersTitle": "Поиск персональных данных (числа)", "personalDataTextTitle": "Поиск персональных данных (текст)", "pciDssTitle": "Поиск данных PCI DSS", "bankingSecrecyTitle": "Поиск банковской тайны", "cryptoTitle": "Поиск криптовалюты", "itAssetsTitle": "Поиск IT-активов", "customSignaturesTitle": "Поиск пользовательских сигнатур"}, "tableHeaders": {"dataType": "Тип данных", "localName": "Локальное название", "country": "Страна", "example": "Пример", "fileType": "Тип файла", "fileFormat": "Формат файла", "connector": "Коннектор", "description": "Описание"}, "features": {"ranking": {"title": "Ранжирование", "description": "Сканер показывает файлы с высокой ценностью первыми"}, "history": {"title": "Просмотр истории сканирования", "description": "Отслеживайте все ваши предыдущие сканирования"}, "export": {"title": "Экспорт результатов", "description": "Скачайте результаты в CSV файл"}, "schedule": {"title": "Планирование сканирований", "description": "Автоматизируйте процесс сканирования"}, "matchers": {"title": "Настраиваемые матчеры", "description": "Настройте PII, PCI DSS и другие матчеры"}, "formats": {"title": "Множество форматов файлов", "description": "Настройте форматы файлов (pdf, excel и т.д.)"}}, "downloads": {"windows": {"setup": "Setup x64", "portable": "Portable x64"}, "linux": {"deb": "DEB x64", "portable": "Portable x64"}, "macos": {"x64": "macOS x64", "arm64": "macOS ARM64"}}, "footer": {"copyright": "© 2025, от admin@angryscan.org"}, "emptyMessage": "Нет данных для выбранной страны", "itAssets": [{"type": "IPv4", "example": "192.168.1.1"}, {"type": "IPv6", "example": "2001:db8::1"}, {"type": "Source code files", "example": "Находит файлы с исходным кодом. Исходный код должен быть размещен в git репозитории."}, {"type": "TLS certificates", "example": "Находит папки с наибольшим количеством TLS сертификатов"}, {"type": "Hash data", "example": "SHA-256, MD5, NTLM (NT hash), SHA-1, SHA-512"}], "crypto": [{"type": "Crypto wallet", "example": "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"}, {"type": "Crypto seed phrase", "example": "Последовательность из 12-24 слов из стандартного словаря BIP39, используемая для восстановления криптокошелька и вывода криптографических ключей"}], "common": {"search": "Поиск"}}, "es": {"site": {"title": "Angry Data Scanner: herramienta gratuita de descubrimiento de datos confidenciales", "description": "Descubra PII, PCI DSS y datos confidenciales en carpetas, S3 y bases de datos. Herramienta gratuita de código abierto para Windows, Linux, macOS. No se requieren derechos de administrador."}, "nav": {"home": "Hogar", "dataDiscovery": "Descubrimiento de datos", "features": "Características", "useCases": "Casos de uso", "download": "Descargar", "github": "GitHub", "contactUs": "Contáctenos"}, "hero": {"badge": "Código abierto gratuito", "title": "Herramienta de descubrimiento de datos confidenciales", "description": "Angry Data Scanner utiliza la coincidencia de patrones para descubrir automáticamente datos confidenciales almacenados en carpetas, páginas web, S3 y bases de datos. Ayuda a las organizaciones a identificar dónde se almacenan datos confidenciales, como información de identificación personal (PII) y propiedad intelectual.", "features": {"simple": "Interfaz de usuario sencilla: diseño intuitivo pensado para la velocidad y la facilidad de uso.", "twoClicks": "Descubrimiento con un clic: detecte datos confidenciales al instante con solo 2 clics.", "noAdmin": "Configuración sin complicaciones: no se requieren derechos de administrador ni instalación.", "crossPlatform": "Multiplataforma: funciona perfectamente en Linux, macOS y Windows.", "privacy": "Privacidad total: todo el escaneo se realiza localmente. Tus datos nunca salen de tu PC."}, "cta": {"download": "Descargar ahora", "github": "Ver en GitHub"}}, "sections": {"quickLinks": {"title": "Explora más", "description": "Descubra todas las capacidades y características de Angry Data Scanner", "discovery": "PII, PCI DSS, datos bancarios, billeteras criptográficas y más", "features": "Clasificación, programación, exportación y comparadores configurables", "useCases": "Cumplimiento, auditorías de seguridad y protección de datos", "download": "Windows, Linux, macOS: comience ahora"}, "discovery": {"title": "Descubrimiento de datos confidenciales", "description": "Angry Data Scanner puede detectar varios tipos de datos confidenciales en múltiples categorías", "filterByCountry": "Filtrar por país", "all": "Todo", "international": "Internacional", "russia": "Rusia", "unitedStates": "Estados Unidos", "china": "Porcelana"}, "fileTypes": {"title": "Tipos de archivos admitidos"}, "dataSources": {"title": "Fuentes de datos admitidas"}, "features": {"title": "Características clave", "description": "Descubra las poderosas capacidades que hacen de Angry Data Scanner la solución ideal para el descubrimiento de datos confidenciales"}, "useCases": {"title": "Casos de uso de la vida real", "description": "Descubra cómo organizaciones de diferentes industrias utilizan Angry Data Scanner para proteger datos confidenciales y garantizar el cumplimiento.", "cases": ["Un equipo de caza de fugas escanea una carpeta de red y se asegura de que no contenga código fuente", "Un empleado encuentra y elimina archivos que contienen números de tarjeta para cumplir con PCI DSS", "Un empleado bancario escanea una carpeta de red para asegurarse de que no contenga PII de clientes VIP", "Un jefe escanea una carpeta compartida del equipo de ventas para que no tengan contactos de clientes allí", "Las fuerzas del orden necesitan descubrir rastros de criptomoneda en una laptop", "Un oficial de ciberseguridad necesita validar que la base de datos no contenga datos personales"], "whoShouldUse": "¿Quién debería utilizar Angry Data Scanner?", "securityTeams": "Equipos de seguridad", "securityTeamsDesc": "Realice auditorías de seguridad, identifique fugas de datos y asegúrese de que la información confidencial esté protegida adecuadamente en toda su infraestructura.", "complianceOfficers": "Oficiales de cumplimiento", "complianceOfficersDesc": "Garantice el cumplimiento de normativas como GDPR, PCI DSS, HIPAA y otros estándares de protección de datos.", "developers": "Desarrolladores y DevOps", "developersDesc": "Escanee repositorios e infraestructura para evitar la exposición accidental de datos confidenciales en el código o las configuraciones.", "forensics": "Forense y aplicación de la ley", "forensicsDesc": "Descubra rastros de datos confidenciales, criptomonedas y otras pruebas durante las investigaciones digitales."}, "download": {"title": "Descargar", "systemRequirements": "Requisitos del sistema: Windows, Linux, macOS | Disco duro de 400 MB | 4 GB de RAM | Procesador de 1,3 GHz", "gettingStarted": "Empezando", "gettingStartedDesc": "Guía de inicio rápido para ayudarle a comenzar a utilizar Angry Data Scanner", "step1": {"title": "Descargar", "description": "Descargue la versión adecuada para su sistema operativo desde los enlaces anteriores."}, "step2": {"title": "Instalar o extraer", "description": "Ejecute el instalador (Windows/macOS) o extraiga la versión portátil. No se requieren derechos de administrador."}, "step3": {"title": "Iniciar escaneo", "description": "Inicie la aplicación, seleccione su fuente de datos y comience a escanear. Los resultados aparecen al instante."}}}, "footer": {"copyright": "© 2025, por admin@angryscan.org"}, "categories": {"personalDataNumbers": "datos personales (números)", "personalDataText": "datos personales (texto)", "pciDss": "datos PCI DSS", "bankingSecrecy": "secreto bancario", "crypto": "criptomonedas", "itAssets": "activos de TI", "customSignatures": "firmas personalizadas", "customSignaturesDesc": "Es posible agregar firmas de búsqueda de datos personalizadas utilizando texto sin formato:", "customSignaturesOr": "o cualquier otro.", "personalDataNumbersTitle": "Búsqueda de datos personales (números)", "personalDataTextTitle": "Búsqueda de datos personales (texto)", "pciDssTitle": "Búsqueda de datos PCI DSS", "bankingSecrecyTitle": "Búsqueda de secreto bancario", "cryptoTitle": "Búsqueda de criptomonedas", "itAssetsTitle": "Búsqueda de activos de TI", "customSignaturesTitle": "Búsqueda de firmas personalizadas"}, "tableHeaders": {"dataType": "tipo de datos", "localName": "Nombre local", "country": "País", "example": "Ejemplo", "fileType": "Tipo de archivo", "fileFormat": "Formato de archivo", "connector": "Conector", "description": "Descripción"}, "features": {"ranking": {"title": "Categoría", "description": "El escáner muestra primero los archivos de alto valor, lo que le ayuda a priorizar los hallazgos más críticos. El sistema de clasificación inteligente analiza la sensibilidad de los datos y presenta los resultados en orden de importancia."}, "history": {"title": "Ver historial de escaneo", "description": "Realice un seguimiento de todos sus escaneos anteriores con un historial detallado. Revise resultados anteriores, compare escaneos a lo largo del tiempo y mantenga un seguimiento de auditoría completo de sus actividades de descubrimiento de datos."}, "export": {"title": "Exportar resultados", "description": "Descargue los resultados en un archivo CSV para realizar más análisis, generar informes o integrarlos con otras herramientas. La exportación incluye todos los tipos de datos, ubicaciones y metadatos detectados."}, "schedule": {"title": "Programar escaneos", "description": "Automatice su proceso de escaneo con escaneos programados. Configure análisis recurrentes para monitorear continuamente sus fuentes de datos y garantizar el cumplimiento continuo."}, "matchers": {"title": "Comparadores configurables", "description": "Configure PII, PCI DSS y otros comparadores para que coincidan con sus requisitos de cumplimiento específicos. Habilite o deshabilite los patrones de detección según sus necesidades."}, "formats": {"title": "Múltiples formatos de archivos", "description": "Configure los formatos de archivos (pdf, excel, etc.) para escanear. Soporte para MS Office, Open Office, Adobe PDF, archivos y archivos de texto sin formato. Personalice qué formatos incluir en sus escaneos."}}, "common": {"search": "Búsqueda"}}, "de": {"site": {"title": "Angry Data Scanner – kostenloses Tool zur Erkennung sensibler Daten", "description": "Entdecken Sie PII, PCI DSS und vertrauliche Daten in Ordnern, S3 und Datenbanken. Kostenloses Open-Source-Tool für Windows, Linux, macOS. Keine Administratorrechte erforderlich."}, "nav": {"home": "Heim", "dataDiscovery": "Datenermittlung", "features": "Merkmale", "useCases": "Anwendungsfälle", "download": "Herunterladen", "github": "GitHub", "contactUs": "Kontaktieren Sie uns"}, "hero": {"badge": "Kostenlose Open Source", "title": "Tool zur Erkennung sensibler Daten", "description": "Angry Data Scanner nutzt Mustervergleich, um vertrauliche Daten, die in Ordnern, Webseiten, S3 und Datenbanken gespeichert sind, automatisch zu erkennen. Es hilft Unternehmen dabei, herauszufinden, wo sensible Daten wie personenbezogene Daten (PII) und geistiges Eigentum gespeichert sind.", "features": {"simple": "Einfache Benutzeroberfläche: Intuitives Design für Geschwindigkeit und Benutzerfreundlichkeit.", "twoClicks": "One-Click Discovery: Erkennen Sie sensible Daten sofort mit nur 2 Klicks.", "noAdmin": "Problemlose Einrichtung: Keine Administratorrechte oder Installation erforderlich.", "crossPlatform": "Plattformübergreifend: Funktioniert nahtlos unter Linux, macOS und Windows.", "privacy": "Absolute Privatsphäre: Alle Scanvorgänge erfolgen lokal. Ihre Daten verlassen nie Ihren PC."}, "cta": {"download": "Jetzt herunterladen", "github": "Auf GitHub ansehen"}}, "sections": {"quickLinks": {"title": "Entdecken Sie mehr", "description": "Entdecken Sie alle Möglichkeiten und Features von Angry Data Scanner", "discovery": "PII, PCI DSS, Bankdaten, Krypto-Wallets und mehr", "features": "Ranking, Planung, Export und konfigurierbare Matcher", "useCases": "Compliance, Sicherheitsaudits und Datenschutz", "download": "Windows, Linux, macOS – Jetzt starten"}, "discovery": {"title": "Sensible Datenerkennung", "description": "Angry Data Scanner kann verschiedene Arten sensibler Daten in mehreren Kategorien erkennen", "filterByCountry": "Nach Land filtern", "all": "Alle", "international": "International", "russia": "Russland", "unitedStates": "Vereinigte Staaten", "china": "China"}, "fileTypes": {"title": "Unterstützte Dateitypen"}, "dataSources": {"title": "Unterstützte Datenquellen"}, "features": {"title": "Hauptmerkmale", "description": "Entdecken Sie die leistungsstarken Funktionen, die Angry Data Scanner zur idealen Lösung für die Erkennung sensibler Daten machen"}, "useCases": {"title": "Anwendungsfälle aus dem wirklichen Leben", "description": "Entdecken Sie, wie Unternehmen aus verschiedenen Branchen Angry Data Scanner nutzen, um sensible Daten zu schützen und Compliance sicherzustellen", "cases": ["Ein Leck-Jagd-Team scannt einen Netzwerkordner und stellt sicher, dass er keinen Quellcode enthält", "Ein Mitarbeiter findet und löscht Dateien mit Kartennummern, um PCI DSS zu entsprechen", "Ein Bankmitarbeiter scannt einen Netzwerkordner, um sicherzustellen, dass er keine PII von VIP-Kunden enthält", "Ein Chef scannt einen freigegebenen Ordner des Vertriebsteams, damit dort keine Kundenkontakte vorhanden sind", "Strafverfolgungsbehörden müssen Spuren von Kryptowährung auf einem Laptop entdecken", "Ein Cybersicherheitsbeauftragter muss überprüfen, dass die Datenbank keine persönlichen Daten enthält"], "whoShouldUse": "Wer sollte Angry Data Scanner verwenden?", "securityTeams": "Sicherheitsteams", "securityTeamsDesc": "Führen Sie Sicherheitsüberprüfungen durch, identifizieren Sie Datenlecks und stellen Sie sicher, dass vertrauliche Informationen in Ihrer gesamten Infrastruktur ordnungsgemäß geschützt sind.", "complianceOfficers": "Compliance-Beauftragte", "complianceOfficersDesc": "Stellen Sie die Einhaltung von Vorschriften wie DSGVO, PCI DSS, HIPAA und anderen Datenschutzstandards sicher.", "developers": "Entwickler und DevOps", "developersDesc": "Scannen Sie Repositorys und Infrastruktur, um zu verhindern, dass vertrauliche Daten in Code oder Konfigurationen versehentlich offengelegt werden.", "forensics": "Forensik und Strafverfolgung", "forensicsDesc": "Entdecken Sie bei digitalen Ermittlungen Spuren sensibler Daten, Kryptowährungen und anderer Beweise."}, "download": {"title": "Herunterladen", "systemRequirements": "Systemanforderungen: Windows, Linux, macOS | 400 MB Festplatte | 4GB RAM | 1,3-GHz-CPU", "gettingStarted": "Erste Schritte", "gettingStartedDesc": "Kurzanleitung, die Ihnen den Einstieg in die Verwendung von Angry Data Scanner erleichtert", "step1": {"title": "Herunterladen", "description": "Laden Sie über die obigen Links die entsprechende Version für Ihr Betriebssystem herunter."}, "step2": {"title": "Installieren oder extrahieren", "description": "Führen Sie das Installationsprogramm aus (Windows/macOS) oder extrahieren Sie die portable Version. Keine Administratorrechte erforderlich."}, "step3": {"title": "Starten Sie den Scanvorgang", "description": "Starten Sie die Anwendung, wählen Sie Ihre Datenquelle aus und beginnen Sie mit dem Scannen. Die Ergebnisse werden sofort angezeigt."}}}, "footer": {"copyright": "© 2025, von admin@angryscan.org"}, "categories": {"personalDataNumbers": "personenbezogener Daten (Zahlen)", "personalDataText": "personenbezogener Daten (Text)", "pciDss": "PCI DSS-Daten", "bankingSecrecy": "Bankgeheimnis", "crypto": "Kryptowährung", "itAssets": "IT-Assets", "customSignatures": "benutzerdefinierter Signaturen", "customSignaturesDesc": "Es ist möglich, benutzerdefinierte Datensuchsignaturen mithilfe von Klartext hinzuzufügen:", "customSignaturesOr": "oder irgendein anderes.", "personalDataNumbersTitle": "Suche personenbezogener Daten (Zahlen)", "personalDataTextTitle": "Suche personenbezogener Daten (Text)", "pciDssTitle": "Suche PCI DSS-Daten", "bankingSecrecyTitle": "Suche Bankgeheimnis", "cryptoTitle": "Suche Kryptowährung", "itAssetsTitle": "Suche IT-Assets", "customSignaturesTitle": "Suche benutzerdefinierter Signaturen"}, "tableHeaders": {"dataType": "Datentyp", "localName": "Lokaler Name", "country": "Land", "example": "Beispiel", "fileType": "Dateityp", "fileFormat": "Dateiformat", "connector": "Stecker", "description": "Beschreibung"}, "features": {"ranking": {"title": "Rang", "description": "Der Scanner zeigt hochwertige Dateien zuerst an und hilft Ihnen, die kritischsten Ergebnisse zu priorisieren. Das intelligente Ranking-System analysiert die Datensensitivität und präsentiert die Ergebnisse in der Reihenfolge ihrer Wichtigkeit."}, "history": {"title": "Scanverlauf anzeigen", "description": "Verfolgen Sie alle Ihre vorherigen Scans mit detailliertem Verlauf. Überprüfen Sie frühere Ergebnisse, vergleichen Sie Scans im Laufe der Zeit und führen Sie einen vollständigen Prüfpfad Ihrer Datenerkennungsaktivitäten."}, "export": {"title": "Ergebnisse exportieren", "description": "Laden Sie die Ergebnisse zur weiteren Analyse, Berichterstellung oder Integration mit anderen Tools in eine CSV-Datei herunter. Der Export umfasst alle erkannten Datentypen, Speicherorte und Metadaten."}, "schedule": {"title": "Planen Sie Scans", "description": "Automatisieren Sie Ihren Scanvorgang mit geplanten Scans. Richten Sie wiederkehrende Scans ein, um Ihre Datenquellen kontinuierlich zu überwachen und die fortlaufende Compliance sicherzustellen."}, "matchers": {"title": "Konfigurierbare Matcher", "description": "Konfigurieren Sie PII, PCI DSS und andere Matcher entsprechend Ihren spezifischen Compliance-Anforderungen. Aktivieren oder deaktivieren Sie Erkennungsmuster entsprechend Ihren Anforderungen."}, "formats": {"title": "Mehrere Dateiformate", "description": "Konfigurieren Sie die zu scannenden Dateiformate (PDF, Excel usw.). Unterstützung für MS Office, Open Office, Adobe PDF, Archive und Nur-Text-Dateien. Passen Sie an, welche Formate in Ihre Scans einbezogen werden sollen."}}, "common": {"search": "Suche"}}, "fr": {"site": {"title": "Angry Data Scanner - Outil gratuit de découverte de données sensibles", "description": "Découvrez les informations PII, PCI DSS et les données sensibles dans les dossiers, S3 et bases de données. Outil open source gratuit pour Windows, Linux, macOS. Aucun droit d'administrateur requis."}, "nav": {"home": "Maison", "dataDiscovery": "Découverte de données", "features": "Caractéristiques", "useCases": "Cas d'utilisation", "download": "Télécharger", "github": "GitHub", "contactUs": "Contactez-nous"}, "hero": {"badge": "Source ouverte gratuite", "title": "Outil de découverte de données sensibles", "description": "Angry Data Scanner utilise la correspondance de modèles pour découvrir automatiquement les données sensibles stockées dans des dossiers, des pages Web, S3 et des bases de données. Il aide les organisations à identifier où sont stockées les données sensibles telles que les informations personnelles identifiables (PII) et la propriété intellectuelle.", "features": {"simple": "Interface utilisateur simple : conception intuitive conçue pour la rapidité et la facilité d'utilisation.", "twoClicks": "Découverte en un clic : détectez instantanément les données sensibles en seulement 2 clics.", "noAdmin": "Installation sans tracas : aucun droit d'administrateur ni installation requis.", "crossPlatform": "Multiplateforme : fonctionne de manière transparente sur Linux macOS et Windows.", "privacy": "Confidentialité totale : toutes les analyses s'effectuent localement. Vos données ne quittent jamais votre PC."}, "cta": {"download": "Télécharger maintenant", "github": "Voir sur GitHub"}}, "sections": {"quickLinks": {"title": "Explorer davantage", "description": "Découvrez toutes les capacités et fonctionnalités d'Angry Data Scanner", "discovery": "PII, PCI DSS, données bancaires, portefeuilles cryptographiques, etc.", "features": "Classement, planification, exportation et correspondances configurables", "useCases": "Conformité, audits de sécurité et protection des données", "download": "Windows, Linux, macOS – Commencez dès maintenant"}, "discovery": {"title": "Découverte de données sensibles", "description": "Angry Data Scanner peut détecter différents types de données sensibles dans plusieurs catégories", "filterByCountry": "Filtrer par pays", "all": "Tous", "international": "International", "russia": "Russie", "unitedStates": "États-Unis", "china": "Chine"}, "fileTypes": {"title": "Types de fichiers pris en charge"}, "dataSources": {"title": "Sources de données prises en charge"}, "features": {"title": "Principales caractéristiques", "description": "Découvrez les puissantes capacités qui font d'Angry Data Scanner la solution idéale pour la découverte de données sensibles"}, "useCases": {"title": "Cas d'utilisation réels", "description": "Découvrez comment des organisations de différents secteurs utilisent Angry Data Scanner pour protéger les données sensibles et garantir la conformité.", "cases": ["Une équipe de chasse aux fuites scanne un dossier réseau et s'assure qu'il ne contient pas de code source", "Un employé trouve et supprime les fichiers contenant des numéros de carte pour se conformer à PCI DSS", "Un employé bancaire scanne un dossier réseau pour s'assurer qu'il ne contient pas de PII de clients VIP", "Un patron scanne un dossier partagé de l'équipe commerciale pour qu'ils n'aient pas de contacts clients là-bas", "Les forces de l'ordre doivent découvrir des traces de cryptomonnaie sur un ordinateur portable", "Un responsable de la cybersécurité doit valider que la base de données ne contient pas de données personnelles"], "whoShouldUse": "Qui devrait utiliser Angry Data Scanner ?", "securityTeams": "Équipes de sécurité", "securityTeamsDesc": "Réalisez des audits de sécurité, identifiez les fuites de données et assurez-vous que les informations sensibles sont correctement protégées dans votre infrastructure.", "complianceOfficers": "Agents de conformité", "complianceOfficersDesc": "Assurez le respect des réglementations telles que le RGPD, PCI DSS, HIPAA et d'autres normes de protection des données.", "developers": "Développeurs et DevOps", "developersDesc": "Analysez les référentiels et l'infrastructure pour éviter l'exposition accidentelle de données sensibles dans le code ou les configurations.", "forensics": "Médecine légale et application de la loi", "forensicsDesc": "Découvrez des traces de données sensibles, de cryptomonnaies et d'autres preuves lors d'enquêtes numériques."}, "download": {"title": "Télécharger", "systemRequirements": "Configuration système requise : Windows, Linux, macOS | Disque dur de 400 Mo | 4 Go de RAM | Processeur 1,3 GHz", "gettingStarted": "Commencer", "gettingStartedDesc": "Guide de démarrage rapide pour vous aider à commencer à utiliser Angry Data Scanner", "step1": {"title": "Télécharger", "description": "Téléchargez la version appropriée pour votre système d'exploitation à partir des liens ci-dessus."}, "step2": {"title": "Installer ou extraire", "description": "Exécutez le programme d'installation (Windows/macOS) ou extrayez la version portable. Aucun droit d'administrateur requis."}, "step3": {"title": "Démarrer la numérisation", "description": "Lancez l'application, sélectionnez votre source de données et lancez la numérisation. Les résultats apparaissent instantanément."}}}, "footer": {"copyright": "© 2025, par admin@angryscan.org"}, "categories": {"personalDataNumbers": "données personnelles (chiffres)", "personalDataText": "données personnelles (texte)", "pciDss": "données PCI DSS", "bankingSecrecy": "secret bancaire", "crypto": "cryptomonnaie", "itAssets": "actifs informatiques", "customSignatures": "signatures personnalisées", "customSignaturesDesc": "Il est possible d'ajouter des signatures de recherche de données personnalisées en utilisant du texte brut :", "customSignaturesOr": "ou tout autre.", "personalDataNumbersTitle": "Recherche de données personnelles (chiffres)", "personalDataTextTitle": "Recherche de données personnelles (texte)", "pciDssTitle": "Recherche de données PCI DSS", "bankingSecrecyTitle": "Recherche de secret bancaire", "cryptoTitle": "Recherche de cryptomonnaie", "itAssetsTitle": "Recherche d'actifs informatiques", "customSignaturesTitle": "Recherche de signatures personnalisées"}, "tableHeaders": {"dataType": "Type de données", "localName": "Nom local", "country": "Pays", "example": "Exemple", "fileType": "Type de fichier", "fileFormat": "Format de fichier", "connector": "Connecteur", "description": "Description"}, "features": {"ranking": {"title": "Classement", "description": "Le scanner affiche en premier les fichiers de grande valeur, vous aidant ainsi à prioriser les résultats les plus critiques. Le système de classement intelligent analyse la sensibilité des données et présente les résultats par ordre d'importance."}, "history": {"title": "Afficher l'historique des analyses", "description": "Suivez toutes vos analyses précédentes avec un historique détaillé. Examinez les résultats antérieurs, comparez les analyses au fil du temps et conservez une piste d'audit complète de vos activités de découverte de données."}, "export": {"title": "Exporter les résultats", "description": "Téléchargez les résultats dans un fichier CSV pour une analyse plus approfondie, des rapports ou une intégration avec d'autres outils. L'exportation inclut tous les types de données, emplacements et métadonnées détectés."}, "schedule": {"title": "Planifier des analyses", "description": "Automatisez votre processus d'analyse avec des analyses planifiées. Configurez des analyses récurrentes pour surveiller en permanence vos sources de données et garantir une conformité continue."}, "matchers": {"title": "Matcheurs configurables", "description": "Configurez les PII, PCI DSS et autres comparateurs pour répondre à vos exigences de conformité spécifiques. Activez ou désactivez les modèles de détection en fonction de vos besoins."}, "formats": {"title": "Plusieurs formats de fichiers", "description": "Configurez les formats de fichiers (pdf, excel, etc.) à numériser. Prise en charge de MS Office, Open Office, Adobe PDF, des archives et des fichiers texte brut. Personnalisez les formats à inclure dans vos numérisations."}}, "common": {"search": "Recherche"}}};
+            window.I18N = translations;
+        })();
+        
+        // Embed config from config.json into window.CONFIG
+        (function() {
+            const config = {"personalDataNumbers": [{"type": "Phone number", "localName": "-", "country": "RU", "example": "+7 926 3847291"}, {"type": "Phone number", "localName": "-", "country": "US", "example": "+1 212 5550198"}, {"type": "Taxpayer number", "localName": "ИНН", "country": "RU", "example": "7707083893"}, {"type": "Taxpayer number", "localName": "SSN", "country": "US", "example": "536-90-4399"}, {"type": "Taxpayer number", "localName": "RIN", "country": "CN", "example": "110101199003078912"}, {"type": "Passport", "localName": "-", "country": "RU", "example": "4505 857555"}, {"type": "Passport", "localName": "-", "country": "US", "example": "847293641"}, {"type": "Pension insurance number", "localName": "СНИЛС", "country": "RU", "example": "234-567-890 12"}, {"type": "Medical insurance number", "localName": "ОМС", "country": "RU", "example": "9876543210987654"}, {"type": "Medical insurance number", "localName": "Medicare", "country": "US", "example": "1A2B3C4D5E"}, {"type": "Car insurance number", "localName": "полис ОСАГО", "country": "RU", "example": "ААА3847291847"}, {"type": "Driver license", "localName": "Водительские права", "country": "RU", "example": "77АВ987654"}, {"type": "Military ID", "localName": "Удостоверение личности военнослужащего", "country": "RU", "example": "3847291847"}, {"type": "Birthday", "localName": "-", "country": "-", "example": "15.03.1985"}, {"type": "VIN", "localName": "-", "country": "-", "example": "1HGBH41JXMN109186"}], "personalDataText": [{"type": "Full name", "localName": "ФИО", "country": "RU", "example": "Иван Иванович Иванов"}, {"type": "Full name", "localName": "Full name", "country": "US", "example": "John Smith"}, {"type": "E-mail", "localName": "-", "country": "-", "example": "captainbull@gmail.com"}, {"type": "Address", "localName": "Адрес", "country": "RU", "example": "Москва, ул. Ленина, д. 1"}, {"type": "Login", "localName": "-", "country": "-", "example": "username"}, {"type": "Password", "localName": "-", "country": "-", "example": "password123"}], "pciDss": [{"type": "Payment card number", "example": "4400 5678 9012 3456"}, {"type": "CVV", "example": "456"}], "bankingSecrecy": [{"type": "Bank account (Individual)", "country": "RU", "example": "408 028 103 3 5300 5405 83"}, {"type": "Bank account (Legal entity)", "country": "RU", "example": "407 028 103 3 5300 5405 83"}], "itAssets": [{"type": "IPv4", "example": "192.168.1.1"}, {"type": "IPv6", "example": "2001:db8::1"}, {"type": "Source code files", "example": "Finds files with source-code. Source code should be placed in git repository."}, {"type": "TLS certificates", "example": "Finds folders with the most amount of TLS certificates"}, {"type": "Hash data", "example": "SHA-256, MD5, NTLM (NT hash), SHA-1, SHA-512"}], "customSignatures": {"description": "It is possible to add custom data search signatures using plain text:", "examples": ["Secret", "Password", "Central bank"]}, "fileTypes": [{"category": "MS Office (tables)", "formats": ".xlsx .xls"}, {"category": "MS Office (text)", "formats": ".docx .doc"}, {"category": "MS Office (presentation)", "formats": ".pptx .potx .ppsx .pptm .ppt .pps .pot"}, {"category": "Open Office (tables)", "formats": ".ods"}, {"category": "Open Office (text)", "formats": ".odt"}, {"category": "Open Office (presentation)", "formats": ".odp .otp"}, {"category": "Adobe", "formats": ".pdf"}, {"category": "Archives", "formats": ".zip .rar"}, {"category": "Plain text", "formats": ".txt .csv .xml .json .log"}], "dataSources": [{"connector": "Network Folder", "description": "Scans files on remote directory like Windows environment"}, {"connector": "HDD/SDD", "description": "Scan local hard drive"}, {"connector": "S3", "description": "Scan files in S3"}, {"connector": "HTTP/HTTPS", "description": "Scans web site content"}], "useCases": ["A leak hunting team scans network folder and ensure that it does not contain source code", "An employee finds and deletes files containing card numbers to comply with PCI DSS", "A banking employee scans network folder to ensure that it does not contain PII of VIP clients", "A boss scans a shared folder of the sales team so they don't have client contacts there", "Law enforcements need to discover a traces of cryptocurrency on a laptop", "A cybersecurity officer need to validate that the database does not contain a personal data"], "downloads": {"windows": [{"text": "Setup x64", "href": "https://github.com/angryscan/angrydata-app/releases/latest/download/angry-data-scanner.exe"}, {"text": "Portable x64", "href": "https://github.com/angryscan/angrydata-app/releases/latest/download/angry-data-scanner-1.5.0-windows-amd64.zip"}], "linux": [{"text": "DEB x64", "href": "https://github.com/angryscan/angrydata-app/releases/latest/download/angry-data-scanner_1.5.0_amd64.deb"}, {"text": "Portable x64", "href": "https://github.com/angryscan/angrydata-app/releases/latest/download/angry-data-scanner-1.5.0-linux-amd64.tar.gz"}], "macos": [{"text": "macOS x64", "href": "https://github.com/angryscan/angrydata-app/releases/latest/download/angry-data-scanner-1.5.0-mac-amd64.zip"}, {"text": "macOS ARM64", "href": "https://github.com/angryscan/angrydata-app/releases/latest/download/angry-data-scanner-1.5.0-mac-aarch64.zip"}]}, "features": [{"titleKey": "features.ranking.title", "descriptionKey": "features.ranking.description", "icon": "check"}, {"titleKey": "features.history.title", "descriptionKey": "features.history.description", "icon": "history"}, {"titleKey": "features.export.title", "descriptionKey": "features.export.description", "icon": "download"}, {"titleKey": "features.schedule.title", "descriptionKey": "features.schedule.description", "icon": "clock"}, {"titleKey": "features.matchers.title", "descriptionKey": "features.matchers.description", "icon": "settings"}, {"titleKey": "features.formats.title", "descriptionKey": "features.formats.description", "icon": "file"}], "systemRequirements": "Windows, Linux, MacOS | 400MB HDD | 4GB RAM | 1.3Ghz CPU", "crypto": [{"type": "Crypto wallet", "example": "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"}, {"type": "Crypto seed phrase", "example": "A sequence of 12 to 24 words from the BIP39 standard wordlist, used for cryptographic wallet recovery and key derivation"}], "site": {"title": "Angry Data Scanner - Sensitive Data Discovery Tool", "description": "Free open source sensitive data discovery tool", "githubUrl": "https://github.com/angryscan/angrydata-app", "email": "admin@angryscan.org"}};
+            window.CONFIG = config;
+        })();
+    </script>
     <script type="module" src="../js/script.js"></script>
 </body>
 </html>

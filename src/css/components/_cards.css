@@ -1,0 +1,95 @@
+/* ============================================================================
+   Card Base Component
+   ============================================================================ */
+
+/**
+ * Base card class with common styles
+ * Use this as a foundation for all card variants
+ */
+.card-base {
+    background: var(--color-bg-primary);
+    padding: var(--card-padding);
+    border-radius: var(--card-border-radius);
+    border: 1px solid var(--color-border);
+    transition: all var(--transition-base);
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+}
+
+[data-theme="dark"] .card-base {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Accent top border animation */
+.card-base[data-variant="accent-top"]::before,
+.card-base.card-accent-top::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--transition-base);
+}
+
+.card-base[data-variant="accent-top"]:hover::before,
+.card-base.card-accent-top:hover::before {
+    transform: scaleX(1);
+}
+
+/* Hover lift effect */
+.card-base[data-variant="hover-lift"]:hover,
+.card-base.card-hover-lift:hover {
+    transform: var(--card-hover-transform);
+    box-shadow: var(--card-hover-shadow);
+    border-color: var(--color-accent);
+}
+
+[data-theme="dark"] .card-base[data-variant="hover-lift"]:hover,
+[data-theme="dark"] .card-base.card-hover-lift:hover {
+    box-shadow: 0 12px 32px rgba(139, 92, 246, 0.2), 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Background change on hover */
+.card-base[data-variant="hover-bg"]:hover,
+.card-base.card-hover-bg:hover {
+    background: var(--color-bg-secondary);
+}
+
+/* Combined variants (most common) */
+.card-base.card-interactive {
+    cursor: pointer;
+}
+
+.card-base.card-interactive::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--transition-base);
+}
+
+.card-base.card-interactive:hover {
+    transform: var(--card-hover-transform);
+    box-shadow: var(--card-hover-shadow);
+    border-color: var(--color-accent);
+    background: var(--color-bg-secondary);
+}
+
+.card-base.card-interactive:hover::before {
+    transform: scaleX(1);
+}
+
+[data-theme="dark"] .card-base.card-interactive:hover {
+    box-shadow: 0 12px 32px rgba(139, 92, 246, 0.2), 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+

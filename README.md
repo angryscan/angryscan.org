@@ -33,19 +33,14 @@ This repository contains the source code for the [Angry Data Scanner](https://an
    pip install -r requirements.txt
    ```
 
-3. Generate and translate language-specific pages (optional, done automatically during build):
+3. Generate HTML pages from templates (optional, done automatically during build):
 
    ```bash
-   # Generate base pages for all languages
-   python3 generate_lang_pages.py
-   
-   # Translate pages for de, fr, es using Google Translate API
-   python3 translate_html_pages.py
+   # Generate pages for all languages from templates and config.json
+   python3 generate_html.py
    ```
 
-   This creates `/ru/`, `/de/`, `/fr/`, and `/es/` directories:
-   - `/ru/` - Russian pages with custom translations
-   - `/de/`, `/fr/`, `/es/` - Translated pages using Google Translate API
+   This creates pages in `/src/` for all languages (`/ru/`, `/de/`, `/fr/`, `/es/`) using translations from `config.json`.
 
 4. Build the site:
 

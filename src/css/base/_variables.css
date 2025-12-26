@@ -1,0 +1,85 @@
+/* ============================================================================
+   CSS Variables & Design Tokens
+   ============================================================================ */
+
+:root {
+    /* Color Palette - Light Theme */
+    --color-bg-primary: #ffffff;
+    --color-bg-secondary: #f6f8fa;
+    --color-bg-tertiary: #f0f3f6;
+    --color-text-primary: #1e293b;
+    --color-text-secondary: #64748b;
+    --color-text-tertiary: #94a3b8;
+    --color-border: #e2e8f0;
+    --color-accent: #6320ee;
+    --color-accent-hover: #4c1a9e;
+    --color-success: #10b981;
+    --color-warning: #f59e0b;
+    --color-error: #ef4444;
+    --color-code-bg: #f1f5f9;
+    --color-code-text: #0f172a;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+    /* Spacing */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+    --spacing-2xl: 48px;
+    --spacing-3xl: 64px;
+    --spacing-4xl: 80px;
+
+    /* Typography */
+    --font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-family-mono: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    --font-size-xs: 12px;
+    --font-size-sm: 13px;
+    --font-size-base: 14px;
+    --font-size-md: 15px;
+    --font-size-lg: 18px;
+    --font-size-xl: 20px;
+    --font-size-2xl: 24px;
+    --font-size-3xl: 36px;
+    --font-size-4xl: 48px;
+
+    /* Layout */
+    --container-max-width: 1200px;
+    --navbar-height: 64px;
+    --border-radius-sm: 4px;
+    --border-radius-md: 6px;
+    --border-radius-lg: 8px;
+    --border-radius-xl: 12px;
+
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-base: 0.3s ease;
+    --transition-slow: 0.6s ease;
+
+    /* Component-specific variables */
+    --card-padding: var(--spacing-xl) var(--spacing-lg);
+    --card-border-radius: var(--border-radius-xl);
+    --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    --card-hover-shadow: 0 12px 32px rgba(99, 32, 238, 0.15), 0 4px 12px rgba(0, 0, 0, 0.08);
+    --card-hover-transform: translateY(-6px);
+
+    /* Button variables */
+    --button-padding: var(--spacing-md) var(--spacing-xl);
+    --button-border-radius: var(--border-radius-lg);
+    --button-font-weight: 600;
+
+    /* Breakpoints */
+    --breakpoint-mobile: 480px;
+    --breakpoint-tablet: 768px;
+    --breakpoint-desktop: 1024px;
+    --breakpoint-large: 1200px;
+
+    /* Gradients */
+    --gradient-accent: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-hover) 100%);
+    --gradient-card-hover: linear-gradient(135deg, var(--color-bg-tertiary) 0%, var(--color-bg-secondary) 100%);
+}
+

@@ -11,10 +11,10 @@
 import { eventBus } from './event-bus.js';
 import { container } from './dependency-container.js';
 
-// CONFIG and I18N are loaded as regular scripts in HTML, available via window
+// CONFIG and I18N are embedded as inline scripts in HTML from config.json
 // They should be loaded before this script runs
 if (typeof window === 'undefined' || !window.CONFIG || !window.I18N) {
-    console.error('CONFIG or I18N not found. Make sure config.js and i18n.js are loaded before script.js');
+    console.error('CONFIG or I18N not found. Make sure translations and config are embedded in HTML before script.js');
 }
 
 const CONFIG = window.CONFIG;

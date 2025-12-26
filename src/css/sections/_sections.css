@@ -1,0 +1,93 @@
+/* ============================================================================
+   Section Components (Common Styles)
+   ============================================================================ */
+
+.section {
+    padding: calc(var(--spacing-4xl) + var(--spacing-lg)) 0;
+}
+
+/* Reduced padding for compact sections */
+.section-compact {
+    padding: var(--spacing-md) 0;
+}
+
+/* Reduce bottom padding for discovery section when followed by compact section */
+#discovery:has(+ .section-compact) {
+    padding-bottom: var(--spacing-md);
+}
+
+/* Reduce margin-bottom for last data-category in discovery section when followed by compact section */
+#discovery .data-category:last-child {
+    margin-bottom: var(--spacing-lg);
+}
+
+/* Ensure consistent spacing between all sections - override padding-top for following sections */
+.section + .section,
+.section-compact + .section {
+    padding-top: var(--spacing-4xl) !important;
+}
+
+/* Reduced spacing when compact section follows regular section */
+.section + .section-compact {
+    padding-top: var(--spacing-md) !important;
+}
+
+/* Reduced spacing between compact sections */
+.section-compact + .section-compact {
+    padding-top: var(--spacing-lg) !important;
+}
+
+.section-header {
+    margin-bottom: var(--spacing-3xl);
+    text-align: center;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 var(--spacing-lg);
+}
+
+/* Reduced margins for compact sections */
+.section-compact .section-header {
+    margin-bottom: var(--spacing-sm);
+}
+
+.section-title {
+    font-size: var(--font-size-3xl);
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-md);
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+}
+
+.section-description {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.7;
+}
+
+.section-footer {
+    text-align: center;
+    margin-top: var(--spacing-2xl);
+}
+
+/* Data Category Components */
+.data-category {
+    margin-bottom: var(--spacing-3xl);
+}
+
+.category-title {
+    font-size: var(--font-size-2xl);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-lg);
+}
+
+.category-description {
+    color: var(--color-text-secondary);
+    font-size: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+}
+

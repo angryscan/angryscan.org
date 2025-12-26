@@ -1,0 +1,131 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <div class="badge" data-i18n="hero.badge">{{ t('hero.badge') }}</div>
+            <h1 class="hero-title" data-i18n="hero.title">{{ t('hero.title') }}</h1>
+            <p class="hero-description" data-i18n="hero.description">
+                {{ t('hero.description') }}
+            </p>
+            <div class="hero-features">
+                <div class="feature-item">
+                    <svg class="check-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span data-i18n="hero.features.simple">{{ t('hero.features.simple') }}</span>
+                </div>
+                <div class="feature-item">
+                    <svg class="check-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span data-i18n="hero.features.two_clicks">{{ t('hero.features.two_clicks') }}</span>
+                </div>
+                <div class="feature-item">
+                    <svg class="check-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span data-i18n="hero.features.no_admin">{{ t('hero.features.no_admin') }}</span>
+                </div>
+                <div class="feature-item">
+                    <svg class="check-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span data-i18n="hero.features.cross_platform">{{ t('hero.features.cross_platform') }}</span>
+                </div>
+                <div class="feature-item">
+                    <svg class="check-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span data-i18n="hero.features.privacy">{{ t('hero.features.privacy') }}</span>
+                </div>
+            </div>
+            <div class="hero-actions">
+                <a href="{{ get_page_url('download', lang) }}" class="btn btn-primary" data-i18n="hero.cta.download">{{ t('hero.cta.download') }}</a>
+                <a href="{{ site_config.github_url }}" class="btn btn-secondary" target="_blank" data-i18n="hero.cta.github">{{ t('hero.cta.github') }}</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <div class="screenshot-wrapper">
+                <div class="screenshot-decoration screenshot-decoration-1"></div>
+                <div class="screenshot-decoration screenshot-decoration-2"></div>
+                <div class="screenshot-decoration screenshot-decoration-3"></div>
+                <div class="screenshot-container" id="screenshotContainer">
+                    <img 
+                        src="{{ asset_path }}screenshot_light.png" 
+                        alt="Angry Data Scanner Interface" 
+                        class="screenshot-image"
+                        id="heroScreenshot"
+                        data-light="{{ asset_path }}screenshot_light.png"
+                        data-dark="{{ asset_path }}screenshot_dark.png"
+                        style="opacity: 0;"
+                    >
+                    <div class="screenshot-overlay">
+                        <svg class="expand-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 3H5C4.46957 3 3.96086 3.21071 3.58579 3.58579C3.21071 3.96086 3 4.46957 3 5V8M21 8V5C21 4.46957 20.7893 3.96086 20.4142 3.58579C20.0391 3.21071 19.5304 3 19 3H16M16 21H19C19.5304 21 20.0391 20.7893 20.4142 20.4142C20.7893 20.0391 21 19.5304 21 19V16M3 16V19C3 19.5304 3.21071 20.0391 3.58579 20.4142C3.96086 20.7893 4.46957 21 5 21H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Quick Links Section -->
+<section class="section quick-links-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title" data-i18n="sections.quick_links.title">{{ t('sections.quick_links.title') }}</h2>
+            <p class="section-description" data-i18n="sections.quick_links.description">{{ t('sections.quick_links.description') }}</p>
+        </div>
+        <div class="quick-links-grid">
+            <a href="{{ get_page_url('discovery', lang) }}" class="quick-link-card">
+                <div class="quick-link-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h3 data-i18n="nav.data_discovery">{{ t('nav.data_discovery') }}</h3>
+                <p data-i18n="sections.quick_links.discovery">{{ t('sections.quick_links.discovery') }}</p>
+            </a>
+            <a href="{{ get_page_url('features', lang) }}" class="quick-link-card">
+                <div class="quick-link-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h3 data-i18n="nav.features">{{ t('nav.features') }}</h3>
+                <p data-i18n="sections.quick_links.features">{{ t('sections.quick_links.features') }}</p>
+            </a>
+            <a href="{{ get_page_url('use-cases', lang) }}" class="quick-link-card">
+                <div class="quick-link-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17 21V19C17 17.9391 16.5786 16.9217 15.8284 16.1716C15.0783 15.4214 14.0609 15 13 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M9 11C11.2091 11 13 9.20914 13 7C13 4.79086 11.2091 3 9 3C6.79086 3 5 4.79086 5 7C5 9.20914 6.79086 11 9 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M23 21V19C22.9993 18.1137 22.7044 17.2528 22.1614 16.5523C21.6184 15.8519 20.8581 15.3516 20 15.13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M16 3.13C16.8604 3.35031 17.623 3.85071 18.1676 4.55232C18.7122 5.25392 19.0078 6.11683 19.0078 7.005C19.0078 7.89318 18.7122 8.75608 18.1676 9.45769C17.623 10.1593 16.8604 10.6597 16 10.88" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h3 data-i18n="nav.use_cases">{{ t('nav.use_cases') }}</h3>
+                <p data-i18n="sections.quick_links.use_cases">{{ t('sections.quick_links.use_cases') }}</p>
+            </a>
+            <a href="{{ get_page_url('download', lang) }}" class="quick-link-card">
+                <div class="quick-link-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 3V15M12 15L8 11M12 15L16 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h3 data-i18n="nav.download">{{ t('nav.download') }}</h3>
+                <p data-i18n="sections.quick_links.download">{{ t('sections.quick_links.download') }}</p>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
