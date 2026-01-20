@@ -52,7 +52,6 @@
             </div>
         </div>
 
-        <!-- Note: Data tables will be rendered by JavaScript from embedded CONFIG -->
         <!-- Personal Data (numbers) -->
         <div class="data-table-wrapper">
             <h2 class="category-title" data-i18n="categories.personal_data_numbers_title_h2">{{ t('categories.personal_data_numbers_title_h2') }}</h2>
@@ -66,7 +65,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Rendered by JavaScript -->
+                    {% for item in data.personal_data_numbers %}
+                    <tr data-country="{{ 'international' if item.country == '-' else item.country }}">
+                        <td>{{ item.type }}</td>
+                        <td>{{ item.local_name }}</td>
+                        <td>{{ '-' if item.country == '-' else item.country }}</td>
+                        <td><code>{{ item.example }}</code></td>
+                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
@@ -84,7 +90,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Rendered by JavaScript -->
+                    {% for item in data.personal_data_text %}
+                    <tr data-country="{{ 'international' if item.country == '-' else item.country }}">
+                        <td>{{ item.type }}</td>
+                        <td>{{ item.local_name }}</td>
+                        <td>{{ '-' if item.country == '-' else item.country }}</td>
+                        <td><code>{{ item.example }}</code></td>
+                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
@@ -100,7 +113,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Rendered by JavaScript -->
+                    {% for item in data.pci_dss %}
+                    <tr>
+                        <td>{{ item.type }}</td>
+                        <td><code>{{ item.example }}</code></td>
+                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
@@ -117,7 +135,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Rendered by JavaScript -->
+                    {% for item in data.banking_secrecy %}
+                    <tr data-country="{{ item.country }}">
+                        <td>{{ item.type }}</td>
+                        <td>{{ item.country }}</td>
+                        <td><code>{{ item.example }}</code></td>
+                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
@@ -133,7 +157,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Rendered by JavaScript -->
+                    {% for item in data.it_assets %}
+                    <tr>
+                        <td>{{ item.type }}</td>
+                        <td>{% if item.example.startswith('Finds') or item.example.startswith('Находит') or 'SHA-256' in item.example %}{{ item.example }}{% else %}<code>{{ item.example }}</code>{% endif %}</td>
+                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
@@ -149,7 +178,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Rendered by JavaScript -->
+                    {% for item in data.crypto %}
+                    <tr>
+                        <td>{{ item.type }}</td>
+                        <td><code>{{ item.example }}</code></td>
+                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
@@ -181,7 +215,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Rendered by JavaScript -->
+                    {% for item in data.file_types %}
+                    <tr>
+                        <td>{{ item.category }}</td>
+                        <td><code>{{ item.formats }}</code></td>
+                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
@@ -197,7 +236,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Rendered by JavaScript -->
+                    {% for item in data.data_sources %}
+                    <tr>
+                        <td>{{ item.connector }}</td>
+                        <td>{{ item.description }}</td>
+                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>

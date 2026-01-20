@@ -18,6 +18,7 @@ def on_post_build(config):
     """Replace MkDocs build with static site from src directory."""
     import shutil
     import subprocess
+    import re
     from pathlib import Path
     
     # Get the site directory
@@ -124,7 +125,8 @@ def on_post_build(config):
             shutil.copytree(lang_src, lang_dest)
             print(f"  Copied {lang_dir}/ to site root")
     
-    # Create clean URL structure for language-specific pages (after copying)
+    # Create clean URL structure for language-specific pages (required for GitHub Pages)
+    # Both /ru/discovery and /ru/discovery/ will work, but canonical points to /ru/discovery
     print("Creating clean URL structure for language-specific pages...")
     for lang_dir in ['ru', 'de', 'fr', 'es']:
         lang_path = site_dir / lang_dir
@@ -159,9 +161,22 @@ def on_post_build(config):
                     content = content.replace('href="/features"', f'href="/{lang_dir}/features"')
                     content = content.replace('href="/use-cases"', f'href="/{lang_dir}/use-cases"')
                     content = content.replace('href="/download"', f'href="/{lang_dir}/download"')
+                    # Ensure canonical URL points to version without trailing slash (important for SEO)
+                    # Replace both with and without base_url
+                    content = content.replace(f'href="https://angryscan.org/{lang_dir}/{page}/"', f'href="https://angryscan.org/{lang_dir}/{page}"')
+                    content = content.replace(f'href="/{lang_dir}/{page}/"', f'href="/{lang_dir}/{page}"')
+                    # Also fix in canonical tag if it has trailing slash (regex to catch any canonical URL)
+                    content = re.sub(
+                        r'(<link\s+rel="canonical"\s+href="[^"]*' + re.escape(f'/{lang_dir}/{page}') + r')/"',
+                        r'\1"',
+                        content
+                    )
                     with open(dest_file, 'w', encoding='utf-8') as f:
                         f.write(content)
                     print(f"  Created {lang_dir}/{page}/index.html")
+                    # Remove the .html file to avoid duplicate URLs (GitHub Pages will use the folder structure)
+                    source_file.unlink()
+                    print(f"  Removed {lang_dir}/{page}.html (using folder structure instead)")
     
     # Copy static files from static directory
     if static_dir.exists():

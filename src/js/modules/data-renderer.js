@@ -122,6 +122,20 @@ export class DataRenderer {
         const tbody = document.querySelector('[data-table="personal-data-numbers"] tbody');
         if (!tbody) return;
 
+        // If table already has content (server-rendered), only ensure data-country attributes are set
+        if (tbody.children.length > 0) {
+            // Content already exists, just ensure data-country attributes are set for filtering
+            Array.from(tbody.children).forEach((row, index) => {
+                if (!row.hasAttribute('data-country') && this.config.personalDataNumbers[index]) {
+                    const item = this.config.personalDataNumbers[index];
+                    const normalizedCountry = item.country === '-' ? 'international' : item.country;
+                    row.setAttribute('data-country', normalizedCountry);
+                }
+            });
+            return;
+        }
+
+        // Table is empty, render from scratch
         tbody.innerHTML = '';
         this.config.personalDataNumbers.forEach(item => {
             const countryDisplay = item.country === '-' ? '-' : item.country;
@@ -141,6 +155,20 @@ export class DataRenderer {
         const tbody = document.querySelector('[data-table="personal-data-text"] tbody');
         if (!tbody) return;
 
+        // If table already has content (server-rendered), only ensure data-country attributes are set
+        if (tbody.children.length > 0) {
+            // Content already exists, just ensure data-country attributes are set for filtering
+            Array.from(tbody.children).forEach((row, index) => {
+                if (!row.hasAttribute('data-country') && this.config.personalDataText[index]) {
+                    const item = this.config.personalDataText[index];
+                    const normalizedCountry = item.country === '-' ? 'international' : item.country;
+                    row.setAttribute('data-country', normalizedCountry);
+                }
+            });
+            return;
+        }
+
+        // Table is empty, render from scratch
         tbody.innerHTML = '';
         this.config.personalDataText.forEach(item => {
             const countryDisplay = item.country === '-' ? '-' : item.country;
@@ -160,6 +188,12 @@ export class DataRenderer {
         const tbody = document.querySelector('[data-table="pci-dss"] tbody');
         if (!tbody) return;
 
+        // If table already has content (server-rendered), skip rendering
+        if (tbody.children.length > 0) {
+            return;
+        }
+
+        // Table is empty, render from scratch
         tbody.innerHTML = '';
         this.config.pciDss.forEach(item => {
             this.renderTableRow(tbody, [
@@ -176,6 +210,19 @@ export class DataRenderer {
         const tbody = document.querySelector('[data-table="banking-secrecy"] tbody');
         if (!tbody) return;
 
+        // If table already has content (server-rendered), only ensure data-country attributes are set
+        if (tbody.children.length > 0) {
+            // Content already exists, just ensure data-country attributes are set for filtering
+            Array.from(tbody.children).forEach((row, index) => {
+                if (!row.hasAttribute('data-country') && this.config.bankingSecrecy[index]) {
+                    const item = this.config.bankingSecrecy[index];
+                    row.setAttribute('data-country', item.country);
+                }
+            });
+            return;
+        }
+
+        // Table is empty, render from scratch
         tbody.innerHTML = '';
         this.config.bankingSecrecy.forEach(item => {
             const countryDisplay = item.country === '-' ? '-' : item.country;
@@ -194,6 +241,11 @@ export class DataRenderer {
         const tbody = document.querySelector('[data-table="crypto"] tbody');
         if (!tbody) return;
 
+        // If table already has content (server-rendered), skip rendering
+        if (tbody.children.length > 0) {
+            return;
+        }
+
         const translations = this.getTranslations();
         
         // Use translated crypto data if available, otherwise fall back to CONFIG
@@ -201,6 +253,7 @@ export class DataRenderer {
             ? translations.crypto
             : this.config.crypto;
 
+        // Table is empty, render from scratch
         tbody.innerHTML = '';
         crypto.forEach(item => {
             this.renderTableRow(tbody, [
@@ -217,6 +270,11 @@ export class DataRenderer {
         const tbody = document.querySelector('[data-table="it-assets"] tbody');
         if (!tbody) return;
 
+        // If table already has content (server-rendered), skip rendering
+        if (tbody.children.length > 0) {
+            return;
+        }
+
         const translations = this.getTranslations();
         
         // Use translated IT assets if available, otherwise fall back to CONFIG
@@ -224,6 +282,7 @@ export class DataRenderer {
             ? translations.itAssets
             : this.config.itAssets;
 
+        // Table is empty, render from scratch
         tbody.innerHTML = '';
         itAssets.forEach(item => {
             // Check if example should be wrapped in code tags
@@ -278,6 +337,12 @@ export class DataRenderer {
         const tbody = document.querySelector('[data-table="file-types"] tbody');
         if (!tbody) return;
 
+        // If table already has content (server-rendered), skip rendering
+        if (tbody.children.length > 0) {
+            return;
+        }
+
+        // Table is empty, render from scratch
         tbody.innerHTML = '';
         this.config.fileTypes.forEach(item => {
             this.renderTableRow(tbody, [
@@ -294,6 +359,11 @@ export class DataRenderer {
         const tbody = document.querySelector('[data-table="data-sources"] tbody');
         if (!tbody) return;
 
+        // If table already has content (server-rendered), skip rendering
+        if (tbody.children.length > 0) {
+            return;
+        }
+
         const translations = this.getTranslations();
         
         // Use translated data sources if available, otherwise fall back to CONFIG
@@ -301,6 +371,7 @@ export class DataRenderer {
             ? translations.sections.dataSources.sources
             : this.config.dataSources;
 
+        // Table is empty, render from scratch
         tbody.innerHTML = '';
         dataSources.forEach(item => {
             this.renderTableRow(tbody, [
