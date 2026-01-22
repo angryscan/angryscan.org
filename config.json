@@ -100,6 +100,78 @@
         "local_name": "-",
         "country": "-",
         "example": "1HGBH41JXMN109186"
+      },
+      {
+        "type": "Employer Identification Number",
+        "local_name": "EIN",
+        "country": "US",
+        "example": "12-3456789"
+      },
+      {
+        "type": "Individual Taxpayer Identification Number",
+        "local_name": "ITIN",
+        "country": "US",
+        "example": "987-65-4321"
+      },
+      {
+        "type": "Driver license",
+        "local_name": "-",
+        "country": "US",
+        "example": "D1234567"
+      },
+      {
+        "type": "Visa number",
+        "local_name": "-",
+        "country": "US",
+        "example": "B12345678"
+      },
+      {
+        "type": "Alien Registration Number",
+        "local_name": "A-Number",
+        "country": "US",
+        "example": "A123456789"
+      },
+      {
+        "type": "USCIS receipt number",
+        "local_name": "USCIS",
+        "country": "US",
+        "example": "EAC2190012345"
+      },
+      {
+        "type": "SEVIS ID",
+        "local_name": "SEVIS",
+        "country": "US",
+        "example": "N0001234567"
+      },
+      {
+        "type": "Department of Defense ID",
+        "local_name": "DOD ID",
+        "country": "US",
+        "example": "1234567890"
+      },
+      {
+        "type": "Military Mail Address",
+        "local_name": "APO/FPO/DPO",
+        "country": "US",
+        "example": "FPO AP 96677-1234"
+      },
+      {
+        "type": "National Stock Number",
+        "local_name": "NSN",
+        "country": "US",
+        "example": "5330-00-123-4567"
+      },
+      {
+        "type": "Transportation Control Number",
+        "local_name": "TCN",
+        "country": "US",
+        "example": "TCN12345678901234567"
+      },
+      {
+        "type": "National Provider Identifier",
+        "local_name": "NPI",
+        "country": "US",
+        "example": "1234567890"
       }
     ],
     "personal_data_text": [
@@ -126,6 +198,12 @@
         "local_name": "Адрес",
         "country": "RU",
         "example": "Москва, ул. Ленина, д. 1"
+      },
+      {
+        "type": "Address",
+        "local_name": "Address",
+        "country": "US",
+        "example": "123 Main St CA 90210"
       },
       {
         "type": "Login",
@@ -160,6 +238,11 @@
         "type": "Bank account (Legal entity)",
         "country": "RU",
         "example": "407 028 103 3 5300 5405 83"
+      },
+      {
+        "type": "Routing Transit Number",
+        "country": "US",
+        "example": "123456789"
       }
     ],
     "it_assets": [
