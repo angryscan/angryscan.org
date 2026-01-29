@@ -78,9 +78,12 @@ def get_translation(lang: str, key_path: str, default: Optional[str] = None) -> 
 
 
 def get_page_url(page_name: str, lang: str) -> str:
-    """Получить URL страницы для языка"""
+    """Получить URL страницы для языка (всегда со слэшем в конце, кроме корня /)"""
     if page_name in PAGES and lang in PAGES[page_name]:
-        return PAGES[page_name][lang]['path']
+        path = PAGES[page_name][lang]['path']
+        if path != '/' and not path.endswith('/'):
+            return path + '/'
+        return path
     return '/'
 
 

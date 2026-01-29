@@ -225,7 +225,7 @@
                     if (!currentPage || currentPage === '' || currentPage === 'index') {
                         currentPage = '';
                     }
-                    const redirectUrl = currentPage ? `/${savedLang}/${currentPage}` : `/${savedLang}/`;
+                    const redirectUrl = currentPage ? `/${savedLang}/${currentPage}/` : `/${savedLang}/`;
                     window.location.href = redirectUrl;
                     return; // Exit early, page will reload
                 } else {

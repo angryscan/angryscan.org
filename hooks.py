@@ -18,7 +18,6 @@ def on_post_build(config):
     """Replace MkDocs build with static site from src directory."""
     import shutil
     import subprocess
-    import re
     from pathlib import Path
     
     # Get the site directory
@@ -107,9 +106,9 @@ def on_post_build(config):
             content = content.replace('href="assets/', 'href="../assets/')
             content = content.replace('data-light="assets/', 'data-light="../assets/')
             content = content.replace('data-dark="assets/', 'data-dark="../assets/')
-            # Update navigation links to use clean URLs
-            content = content.replace(f'href="{page}.html"', f'href="/{page}"')
-            content = content.replace(f'href="/{page}.html"', f'href="/{page}"')
+            # Update navigation links to use clean URLs (trailing slash)
+            content = content.replace(f'href="{page}.html"', f'href="/{page}/"')
+            content = content.replace(f'href="/{page}.html"', f'href="/{page}/"')
             with open(dest_file, 'w', encoding='utf-8') as f:
                 f.write(content)
             print(f"  Created {page}/index.html")
@@ -147,30 +146,20 @@ def on_post_build(config):
                     content = content.replace('href="../assets/', 'href="../../assets/')
                     content = content.replace('data-light="../assets/', 'data-light="../../assets/')
                     content = content.replace('data-dark="../assets/', 'data-dark="../../assets/')
-                    # Update navigation links to use clean URLs with language prefix
+                    # Update navigation links to use clean URLs with language prefix (trailing slash)
                     for nav_page in clean_url_pages:
                         if nav_page == 'index':
                             content = content.replace(f'href="index.html"', f'href="/{lang_dir}/"')
                             content = content.replace(f'href="/{lang_dir}/index.html"', f'href="/{lang_dir}/"')
                         else:
-                            content = content.replace(f'href="{nav_page}.html"', f'href="/{lang_dir}/{nav_page}"')
-                            content = content.replace(f'href="/{lang_dir}/{nav_page}.html"', f'href="/{lang_dir}/{nav_page}"')
+                            content = content.replace(f'href="{nav_page}.html"', f'href="/{lang_dir}/{nav_page}/"')
+                            content = content.replace(f'href="/{lang_dir}/{nav_page}.html"', f'href="/{lang_dir}/{nav_page}/"')
                     # Also update root links
                     content = content.replace('href="/"', f'href="/{lang_dir}/"')
-                    content = content.replace('href="/discovery"', f'href="/{lang_dir}/discovery"')
-                    content = content.replace('href="/features"', f'href="/{lang_dir}/features"')
-                    content = content.replace('href="/use-cases"', f'href="/{lang_dir}/use-cases"')
-                    content = content.replace('href="/download"', f'href="/{lang_dir}/download"')
-                    # Ensure canonical URL points to version without trailing slash (important for SEO)
-                    # Replace both with and without base_url
-                    content = content.replace(f'href="https://angryscan.org/{lang_dir}/{page}/"', f'href="https://angryscan.org/{lang_dir}/{page}"')
-                    content = content.replace(f'href="/{lang_dir}/{page}/"', f'href="/{lang_dir}/{page}"')
-                    # Also fix in canonical tag if it has trailing slash (regex to catch any canonical URL)
-                    content = re.sub(
-                        r'(<link\s+rel="canonical"\s+href="[^"]*' + re.escape(f'/{lang_dir}/{page}') + r')/"',
-                        r'\1"',
-                        content
-                    )
+                    content = content.replace('href="/discovery"', f'href="/{lang_dir}/discovery/"')
+                    content = content.replace('href="/features"', f'href="/{lang_dir}/features/"')
+                    content = content.replace('href="/use-cases"', f'href="/{lang_dir}/use-cases/"')
+                    content = content.replace('href="/download"', f'href="/{lang_dir}/download/"')
                     with open(dest_file, 'w', encoding='utf-8') as f:
                         f.write(content)
                     print(f"  Created {lang_dir}/{page}/index.html")

@@ -41,8 +41,8 @@ export class LanguageManager {
                     currentPage = '';
                 }
                 
-                // Build redirect URL
-                const redirectUrl = currentPage ? `/${savedLanguage}/${currentPage}` : `/${savedLanguage}/`;
+                // Build redirect URL (trailing slash for canonical URLs)
+                const redirectUrl = currentPage ? `/${savedLanguage}/${currentPage}/` : `/${savedLanguage}/`;
                 window.location.href = redirectUrl;
                 return; // Exit early, page will reload
             }
@@ -289,13 +289,11 @@ export class LanguageManager {
                     }
                 }
                 
-                // Update href based on language
+                // Update href based on language (trailing slash for canonical URLs)
                 if (lang === 'ru' || lang === 'de' || lang === 'fr' || lang === 'es') {
-                    // Add language prefix
-                    link.setAttribute('href', `/${lang}/${pageName}`);
+                    link.setAttribute('href', pageName ? `/${lang}/${pageName}/` : `/${lang}/`);
                 } else {
-                    // For English, use root path
-                    link.setAttribute('href', pageName);
+                    link.setAttribute('href', pageName ? `/${pageName}/` : '/');
                 }
             }
         });
@@ -408,8 +406,8 @@ export class LanguageManager {
             if (!currentLangMatch || currentLangMatch[1] !== lang) {
                 // Save language to localStorage before redirect
                 localStorage.setItem('language', lang);
-                // Build clean URL (without .html)
-                const newUrl = currentPage ? `/${lang}/${currentPage}` : `/${lang}/`;
+                // Build clean URL with trailing slash
+                const newUrl = currentPage ? `/${lang}/${currentPage}/` : `/${lang}/`;
                 window.location.href = newUrl;
                 return; // Exit early, page will reload
             }
@@ -418,8 +416,8 @@ export class LanguageManager {
             if (currentLangMatch) {
                 // Save language to localStorage before redirect
                 localStorage.setItem('language', lang);
-                // Build clean URL (without .html)
-                const rootPage = currentPage ? `/${currentPage}` : '/';
+                // Build clean URL with trailing slash
+                const rootPage = currentPage ? `/${currentPage}/` : '/';
                 window.location.href = rootPage;
                 return; // Exit early, page will reload
             }
@@ -529,7 +527,7 @@ export class LanguageManager {
         }, obj);
     }
 
-    /**
+М    /**
      * Get current language
      * @returns {string} Current language code
      */
