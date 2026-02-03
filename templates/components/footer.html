@@ -1,0 +1,22 @@
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-top-row">
+                <p data-i18n="footer.copyright">{{ t('footer.copyright') }}</p>
+                <div class="footer-links">
+                    <a href="{{ site_config.github_url }}" target="_blank" data-i18n="nav.github">{{ t('nav.github') }}</a>
+                    <a href="mailto:{{ site_config.email }}" data-i18n="nav.contact_us">{{ t('nav.contact_us') }}</a>
+                </div>
+            </div>
+            <div class="footer-pages">
+                <a href="{{ get_page_url('index', lang) }}" data-i18n="nav.home">{{ t('nav.home') }}</a>
+                <a href="{{ get_page_url('discovery', lang) }}" data-i18n="nav.data_discovery">{{ t('nav.data_discovery') }}</a>
+                <a href="{{ get_page_url('features', lang) }}" data-i18n="nav.features">{{ t('nav.features') }}</a>
+                <a href="{{ get_page_url('use-cases', lang) }}" data-i18n="nav.use_cases">{{ t('nav.use_cases') }}</a>
+                <a href="{{ get_page_url('download', lang) }}" data-i18n="nav.download">{{ t('nav.download') }}</a>
+            </div>
+        </div>
+    </div>
+</footer>
+

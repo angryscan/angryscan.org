@@ -1,19 +1,33 @@
 # Build artifacts
 site/
 
-# Temporary sources pulled during builds
-sources/
-
-# Aggregated documentation from upstream repositories
-.docs-cache/
-docs/angrydata-app/
-docs/angrydata-core/
-docs/index.md
-
 # Python
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+.Python
 
-# MacOS
-.DS_Store
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE
 .idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Build markers
+.scripts_run_marker
+
+# Note: docs/ folder is required for MkDocs build, do not ignore it

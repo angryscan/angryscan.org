@@ -1,0 +1,37 @@
+/* ============================================================================
+   Main Stylesheet - Modular CSS Architecture
+   ============================================================================
+   
+   This file imports all CSS modules in the correct order.
+   The structure follows:
+   1. Base (variables, themes, reset, utilities)
+   2. Components (reusable UI components)
+   3. Sections (page-specific sections)
+   4. Layout (responsive design)
+   ============================================================================ */
+
+/* Base Layer */
+@import url('base/_variables.css');
+@import url('base/_themes.css');
+@import url('base/_reset.css');
+@import url('base/_utilities.css');
+
+/* Components Layer */
+@import url('components/_cards.css');
+@import url('components/_buttons.css');
+@import url('components/_navigation.css');
+@import url('components/_country-selector.css');
+@import url('components/_tables.css');
+@import url('components/_modals.css');
+
+/* Sections Layer */
+@import url('sections/_sections.css');
+@import url('sections/_hero.css');
+@import url('sections/_features.css');
+@import url('sections/_use-cases.css');
+@import url('sections/_download.css');
+@import url('sections/_footer.css');
+@import url('sections/_other.css');
+
+/* Layout Layer (Responsive) */
+@import url('layout/_responsive.css');

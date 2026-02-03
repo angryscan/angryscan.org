@@ -1,0 +1,56 @@
+<!-- Navigation -->
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-brand">
+            <a href="{{ get_page_url('index', lang) }}">
+                <img src="{{ asset_path }}favicon_light.ico" alt="Angry Data Scanner" class="logo-icon">
+                <span class="brand-text">Angry Data Scanner</span>
+            </a>
+        </div>
+        <button class="burger-menu" id="burgerMenu" aria-label="Toggle menu" aria-expanded="false">
+            <span class="burger-line"></span>
+            <span class="burger-line"></span>
+            <span class="burger-line"></span>
+        </button>
+        <div class="nav-menu" id="navMenu">
+            <a href="{{ get_page_url('index', lang) }}" class="nav-link{% if page_name == 'index' %} active{% endif %}" data-i18n="nav.home">{{ t('nav.home') }}</a>
+            <a href="{{ get_page_url('discovery', lang) }}" class="nav-link{% if page_name == 'discovery' %} active{% endif %}" data-i18n="nav.data_discovery">{{ t('nav.data_discovery') }}</a>
+            <a href="{{ get_page_url('features', lang) }}" class="nav-link{% if page_name == 'features' %} active{% endif %}" data-i18n="nav.features">{{ t('nav.features') }}</a>
+            <a href="{{ get_page_url('use-cases', lang) }}" class="nav-link{% if page_name == 'use-cases' %} active{% endif %}" data-i18n="nav.use_cases">{{ t('nav.use_cases') }}</a>
+            <a href="{{ get_page_url('download', lang) }}" class="nav-link{% if page_name == 'download' %} active{% endif %}" data-i18n="nav.download">{{ t('nav.download') }}</a>
+            <a href="{{ site_config.github_url }}" class="nav-link" target="_blank" data-i18n="nav.github">{{ t('nav.github') }}</a>
+        </div>
+        <div class="nav-actions">
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg class="theme-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+                    <path d="M12 2V4M12 20V22M4.93 4.93L6.34 6.34M17.66 17.66L19.07 19.07M2 12H4M20 12H22M4.93 19.07L6.34 17.66M17.66 6.34L19.07 4.93" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+            <div class="language-selector-wrapper">
+                <button class="language-selector-button" id="languageSelectorButton" aria-label="Select language" aria-expanded="false">
+                    <span class="language-selector-text" id="languageSelectorText">
+                        <img src="{{ asset_path }}{{ languages[lang].flag }}" alt="{{ lang.upper() }}" class="language-flag-icon"> {{ languages[lang].name }}
+                    </span>
+                    <svg class="language-selector-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <polyline points="6 9 12 15 18 9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <div class="language-dropdown" id="languageDropdown" role="listbox">
+                    {% for lcode, linfo in languages.items() %}
+                    <div class="language-option{% if lcode == lang %} selected{% endif %}" data-value="{{ lcode }}" role="option">
+                        <img src="{{ asset_path }}{{ linfo.flag }}" alt="{{ lcode.upper() }}" class="language-flag-icon">
+                        <span class="language-name">{{ linfo.name }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+                <select class="language-selector-hidden" id="languageSelector" aria-label="Select language" style="display: none;">
+                    {% for lcode, linfo in languages.items() %}
+                    <option value="{{ lcode }}"{% if lcode == lang %} selected{% endif %}>{{ linfo.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+</nav>
+
