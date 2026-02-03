@@ -36,7 +36,7 @@
     {% for lcode, linfo in languages.items() %}
     <link rel="alternate" hreflang="{{ lcode }}" href="{{ site_config.base_url }}{{ get_page_url(page_name, lcode) }}">
     {% endfor %}
-    <link rel="alternate" hreflang="x-default" href="{{ site_config.base_url }}/">
+    <link rel="alternate" hreflang="x-default" href="{{ site_config.base_url }}{{ get_page_url(page_name, 'en') }}">
     
     <!-- Favicon -->
     <!-- Use root-absolute paths so crawlers (incl. Search Console) resolve consistently across clean URLs and locales -->
