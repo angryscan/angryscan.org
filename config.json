@@ -381,27 +381,27 @@
         },
         {
           "text": "Portable x64",
-          "href": "https://github.com/angryscan/angrydata-app/releases/latest/download/angry-data-scanner-1.5.1-windows-amd64.zip"
+          "href": "https://github.com/angryscan/angrydata-app/releases/latest/download/angry-data-scanner-1.5.3-windows-amd64.zip"
         }
       ],
       "linux": [
         {
           "text": "DEB x64",
-          "href": "https://github.com/angryscan/angrydata-app/releases/latest/download/angry-data-scanner_1.5.1_amd64.deb"
+          "href": "https://github.com/angryscan/angrydata-app/releases/latest/download/angry-data-scanner_1.5.3_amd64.deb"
         },
         {
           "text": "Portable x64",
-          "href": "https://github.com/angryscan/angrydata-app/releases/latest/download/angry-data-scanner-1.5.1-linux-amd64.tar.gz"
+          "href": "https://github.com/angryscan/angrydata-app/releases/latest/download/angry-data-scanner-1.5.3-linux-amd64.tar.gz"
         }
       ],
       "macos": [
         {
           "text": "macOS x64",
-          "href": "https://github.com/angryscan/angrydata-app/releases/latest/download/angry-data-scanner-1.5.1-mac-amd64.zip"
+          "href": "https://github.com/angryscan/angrydata-app/releases/latest/download/angry-data-scanner-1.5.3-mac-amd64.zip"
         },
         {
           "text": "macOS ARM64",
-          "href": "https://github.com/angryscan/angrydata-app/releases/latest/download/angry-data-scanner-1.5.1-mac-aarch64.zip"
+          "href": "https://github.com/angryscan/angrydata-app/releases/latest/download/angry-data-scanner-1.5.3-mac-aarch64.zip"
         }
       ]
     },
