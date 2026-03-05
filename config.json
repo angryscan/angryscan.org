@@ -277,6 +277,16 @@
         "example": "A sequence of 12 to 24 words from the BIP39 standard wordlist, used for cryptographic wallet recovery and key derivation"
       }
     ],
+    "passwords": [
+      {
+        "type": "Gitleaks",
+        "example": "Compatible with Gitleaks format. Detect secrets and credentials — e.g. API keys, passwords, tokens."
+      },
+      {
+        "type": "Custom signatures",
+        "example": "Custom text patterns: Secret, Password, or any other phrase."
+      }
+    ],
     "custom_signatures": {
       "description": "It is possible to add custom data search signatures using plain text:",
       "examples": [
@@ -557,6 +567,7 @@
         "pci_dss_title_h2": "Search PCI DSS data",
         "banking_secrecy_title_h2": "Search banking secrecy",
         "crypto_title_h2": "Search cryptocurrency",
+        "passwords_title_h2": "Search passwords",
         "it_assets_title_h2": "Search IT assets",
         "custom_signatures_title_h2": "Search custom signatures"
       },
@@ -645,12 +656,22 @@
           "type": "Crypto seed phrase",
           "example": "A sequence of 12 to 24 words from the BIP39 standard wordlist, used for cryptographic wallet recovery and key derivation"
         }
+      ],
+      "passwords": [
+        {
+          "type": "Gitleaks",
+          "example": "Compatible with Gitleaks format. Detect secrets and credentials — e.g. API keys, passwords, tokens."
+        },
+        {
+          "type": "Custom signatures",
+          "example": "Custom text patterns: Secret, Password, or any other phrase."
+        }
       ]
     },
     "ru": {
       "site": {
         "title": "Angry Data Scanner - Программа поиска конфиденциальных данных для Mac, Windows и Linux",
-        "description": "Инструмент поиска данных. С его помощью можно найти персональные данные, данные банковских карт и другие конфиденциальные данные в папках, S3, базах данных, веб-страницах."
+        "description": "Инструмент поиска данных. С его помощью можно найти персональные данные, данные банковских карт, пароли и другие конфиденциальные данные в папках, S3, базах данных, веб-страницах."
       },
       "nav": {
         "home": "Главная",
@@ -785,6 +806,7 @@
         "pci_dss_title_h2": "Поиск данных PCI DSS",
         "banking_secrecy_title_h2": "Поиск банковской тайны",
         "crypto_title_h2": "Поиск криптовалюты",
+        "passwords_title_h2": "Поиск паролей",
         "it_assets_title_h2": "Поиск IT-активов",
         "custom_signatures_title_h2": "Поиск пользовательских сигнатур"
       },
@@ -872,6 +894,16 @@
         {
           "type": "Crypto seed phrase",
           "example": "Последовательность из 12-24 слов из стандартного словаря BIP39, используемая для восстановления криптокошелька и вывода криптографических ключей"
+        }
+      ],
+      "passwords": [
+        {
+          "type": "Gitleaks",
+          "example": "Совместимость с форматом Gitleaks. Обнаружение секретов и учётных данных — например: API-ключи, пароли, токены."
+        },
+        {
+          "type": "Пользовательские сигнатуры",
+          "example": "Произвольные текстовые шаблоны: Secret, Password или любая другая фраза."
         }
       ],
       "common": {
@@ -1015,6 +1047,7 @@
         "pci_dss_title_h2": "Búsqueda de datos PCI DSS",
         "banking_secrecy_title_h2": "Búsqueda de secreto bancario",
         "crypto_title_h2": "Búsqueda de criptomonedas",
+        "passwords_title_h2": "Búsqueda de contraseñas",
         "it_assets_title_h2": "Búsqueda de activos de TI",
         "custom_signatures_title_h2": "Búsqueda de firmas personalizadas"
       },
@@ -1054,6 +1087,16 @@
           "description": "Configure los formatos de archivos (pdf, excel, etc.) para escanear. Soporte para MS Office, Open Office, Adobe PDF, archivos y archivos de texto sin formato. Personalice qué formatos incluir en sus escaneos."
         }
       },
+      "passwords": [
+        {
+          "type": "Gitleaks",
+          "example": "Compatible con formato Gitleaks. Detecte secretos y credenciales — p. ej. claves API, contraseñas, tokens."
+        },
+        {
+          "type": "Firmas personalizadas",
+          "example": "Patrones de texto personalizados: Secret, Password o cualquier otra frase."
+        }
+      ],
       "common": {
         "search": "Búsqueda"
       }
@@ -1195,6 +1238,7 @@
         "pci_dss_title_h2": "Suche PCI DSS-Daten",
         "banking_secrecy_title_h2": "Suche Bankgeheimnis",
         "crypto_title_h2": "Suche Kryptowährung",
+        "passwords_title_h2": "Suche Passwörter",
         "it_assets_title_h2": "Suche IT-Assets",
         "custom_signatures_title_h2": "Suche benutzerdefinierter Signaturen"
       },
@@ -1234,6 +1278,16 @@
           "description": "Konfigurieren Sie die zu scannenden Dateiformate (PDF, Excel usw.). Unterstützung für MS Office, Open Office, Adobe PDF, Archive und Nur-Text-Dateien. Passen Sie an, welche Formate in Ihre Scans einbezogen werden sollen."
         }
       },
+      "passwords": [
+        {
+          "type": "Gitleaks",
+          "example": "Kompatibel mit Gitleaks-Format. Erkennt Geheimnisse und Anmeldedaten — z. B. API-Schlüssel, Passwörter, Tokens."
+        },
+        {
+          "type": "Benutzerdefinierte Signaturen",
+          "example": "Benutzerdefinierte Textmuster: Secret, Password oder beliebige andere Phrase."
+        }
+      ],
       "common": {
         "search": "Suche"
       }
@@ -1375,6 +1429,7 @@
         "pci_dss_title_h2": "Recherche de données PCI DSS",
         "banking_secrecy_title_h2": "Recherche de secret bancaire",
         "crypto_title_h2": "Recherche de cryptomonnaie",
+        "passwords_title_h2": "Recherche de mots de passe",
         "it_assets_title_h2": "Recherche d'actifs informatiques",
         "custom_signatures_title_h2": "Recherche de signatures personnalisées"
       },
@@ -1414,6 +1469,16 @@
           "description": "Configurez les formats de fichiers (pdf, excel, etc.) à numériser. Prise en charge de MS Office, Open Office, Adobe PDF, des archives et des fichiers texte brut. Personnalisez les formats à inclure dans vos numérisations."
         }
       },
+      "passwords": [
+        {
+          "type": "Gitleaks",
+          "example": "Compatible avec le format Gitleaks. Détecte les secrets et identifiants — p. ex. clés API, mots de passe, jetons."
+        },
+        {
+          "type": "Signatures personnalisées",
+          "example": "Modèles de texte personnalisés : Secret, Password ou toute autre phrase."
+        }
+      ],
       "common": {
         "search": "Recherche"
       }
@@ -1459,7 +1524,7 @@
         "path": "/ru/",
         "title_key": "site.title",
         "title": "Angry Data Scanner - Программа поиска конфиденциальных данных для Mac, Windows и Linux",
-        "description": "Инструмент поиска данных. С его помощью можно найти персональные данные, данные банковских карт и другие конфиденциальные данные в папках, S3, базах данных, веб-страницах.",
+        "description": "Инструмент поиска данных. С его помощью можно найти персональные данные, данные банковских карт, пароли и другие конфиденциальные данные в папках, S3, базах данных, веб-страницах.",
         "keywords": "сканер данных, поиск PII, конфиденциальные данные, PCI DSS, защита данных, бесплатный сканер данных"
       },
       "es": {

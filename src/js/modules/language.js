@@ -348,6 +348,7 @@ export class LanguageManager {
                 this.dataRenderer.renderCustomSignatures();
                 this.dataRenderer.renderItAssets();
                 this.dataRenderer.renderCrypto();
+                this.dataRenderer.renderPasswords();
                 this.dataRenderer.renderDownloads();
             }
             // Show page after translations are applied (if it was hidden)

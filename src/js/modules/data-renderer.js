@@ -15,6 +15,29 @@ export class DataRenderer {
         this.languageManager = null;
         // CONFIG is loaded as regular script, available via window
         this.config = window.CONFIG;
+        // Track which language was used to render each section
+        this._renderedLangByKey = {};
+    }
+
+    /**
+     * Returns true if a section is already rendered for current language
+     * @param {string} key
+     * @returns {boolean}
+     */
+    isRenderedForCurrentLanguage(key) {
+        if (!this.languageManager) return false;
+        const lang = this.languageManager.getCurrentLanguage();
+        return this._renderedLangByKey[key] === lang;
+    }
+
+    /**
+     * Mark a section as rendered for current language
+     * @param {string} key
+     */
+    markRenderedForCurrentLanguage(key) {
+        if (!this.languageManager) return;
+        const lang = this.languageManager.getCurrentLanguage();
+        this._renderedLangByKey[key] = lang;
     }
 
     /**
@@ -38,6 +61,7 @@ export class DataRenderer {
         this.renderPciDss();
         this.renderBankingSecrecy();
         this.renderCrypto();
+        this.renderPasswords();
         this.renderItAssets();
         this.renderCustomSignatures();
         this.renderFileTypes();
@@ -241,11 +265,6 @@ export class DataRenderer {
         const tbody = document.querySelector('[data-table="crypto"] tbody');
         if (!tbody) return;
 
-        // If table already has content (server-rendered), skip rendering
-        if (tbody.children.length > 0) {
-            return;
-        }
-
         const translations = this.getTranslations();
         
         // Use translated crypto data if available, otherwise fall back to CONFIG
@@ -253,7 +272,12 @@ export class DataRenderer {
             ? translations.crypto
             : this.config.crypto;
 
-        // Table is empty, render from scratch
+        // If already rendered for current language and table has content, do nothing
+        if (tbody.children.length > 0 && this.isRenderedForCurrentLanguage('crypto')) {
+            return;
+        }
+
+        // Render from scratch
         tbody.innerHTML = '';
         crypto.forEach(item => {
             this.renderTableRow(tbody, [
@@ -261,6 +285,38 @@ export class DataRenderer {
                 `<code>${item.example}</code>`
             ]);
         });
+        this.markRenderedForCurrentLanguage('crypto');
+    }
+
+    /**
+     * Render Passwords table
+     */
+    renderPasswords() {
+        const tbody = document.querySelector('[data-table="passwords"] tbody');
+        if (!tbody) return;
+
+        const translations = this.getTranslations();
+
+        // Use translated passwords data if available, otherwise fall back to CONFIG
+        const passwords = translations.passwords && Array.isArray(translations.passwords)
+            ? translations.passwords
+            : this.config.passwords;
+
+        if (!passwords || !passwords.length) return;
+
+        // If already rendered for current language and table has content, do nothing
+        if (tbody.children.length > 0 && this.isRenderedForCurrentLanguage('passwords')) {
+            return;
+        }
+
+        tbody.innerHTML = '';
+        passwords.forEach(item => {
+            this.renderTableRow(tbody, [
+                item.type,
+                item.example
+            ]);
+        });
+        this.markRenderedForCurrentLanguage('passwords');
     }
 
     /**
@@ -270,11 +326,6 @@ export class DataRenderer {
         const tbody = document.querySelector('[data-table="it-assets"] tbody');
         if (!tbody) return;
 
-        // If table already has content (server-rendered), skip rendering
-        if (tbody.children.length > 0) {
-            return;
-        }
-
         const translations = this.getTranslations();
         
         // Use translated IT assets if available, otherwise fall back to CONFIG
@@ -282,7 +333,12 @@ export class DataRenderer {
             ? translations.itAssets
             : this.config.itAssets;
 
-        // Table is empty, render from scratch
+        // If already rendered for current language and table has content, do nothing
+        if (tbody.children.length > 0 && this.isRenderedForCurrentLanguage('itAssets')) {
+            return;
+        }
+
+        // Render from scratch
         tbody.innerHTML = '';
         itAssets.forEach(item => {
             // Check if example should be wrapped in code tags
@@ -298,6 +354,7 @@ export class DataRenderer {
                 exampleCell
             ]);
         });
+        this.markRenderedForCurrentLanguage('itAssets');
     }
 
     /**
@@ -359,11 +416,6 @@ export class DataRenderer {
         const tbody = document.querySelector('[data-table="data-sources"] tbody');
         if (!tbody) return;
 
-        // If table already has content (server-rendered), skip rendering
-        if (tbody.children.length > 0) {
-            return;
-        }
-
         const translations = this.getTranslations();
         
         // Use translated data sources if available, otherwise fall back to CONFIG
@@ -371,7 +423,12 @@ export class DataRenderer {
             ? translations.sections.dataSources.sources
             : this.config.dataSources;
 
-        // Table is empty, render from scratch
+        // If already rendered for current language and table has content, do nothing
+        if (tbody.children.length > 0 && this.isRenderedForCurrentLanguage('dataSources')) {
+            return;
+        }
+
+        // Render from scratch
         tbody.innerHTML = '';
         dataSources.forEach(item => {
             this.renderTableRow(tbody, [
@@ -379,6 +436,7 @@ export class DataRenderer {
                 item.description
             ]);
         });
+        this.markRenderedForCurrentLanguage('dataSources');
     }
 
     /**

@@ -142,6 +142,7 @@ class App {
             dataRenderer.renderCustomSignatures();
             dataRenderer.renderItAssets();
             dataRenderer.renderCrypto();
+            dataRenderer.renderPasswords();
             dataRenderer.renderDownloads();
         } else if (currentLang === 'de' || currentLang === 'fr' || currentLang === 'es') {
             // Ensure page is visible for pre-translated pages

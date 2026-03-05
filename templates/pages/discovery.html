@@ -188,6 +188,27 @@
             </table>
         </div>
 
+        <!-- Passwords -->
+        <div class="data-table-wrapper">
+            <h2 class="category-title" data-i18n="categories.passwords_title_h2">{{ t('categories.passwords_title_h2') }}</h2>
+            <table class="data-table" data-table="passwords">
+                <thead>
+                    <tr>
+                        <th data-i18n="table_headers.data_type">{{ t('table_headers.data_type') }}</th>
+                        <th data-i18n="table_headers.example">{{ t('table_headers.example') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in data.passwords %}
+                    <tr>
+                        <td>{{ item.type }}</td>
+                        <td>{{ item.example }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
         <!-- Custom Signatures -->
         <div class="data-table-wrapper" data-section="custom-signatures">
             <h2 class="category-title" data-i18n="categories.custom_signatures_title_h2">{{ t('categories.custom_signatures_title_h2') }}</h2>
